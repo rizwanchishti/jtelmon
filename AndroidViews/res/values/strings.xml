@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Pangram 2011-11.08</string>
-    <string name="app_name">WCF RESTful WebService</string>
+    <string name="app_name">WCF2SQLite</string>
     <string name="weekday">M-F</string>
     <string name="weekend">S</string>
     <string name="northbound">Northbound</string>
