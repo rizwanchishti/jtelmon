@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent"
+	android:layout_height="fill_parent" 
+	xmlns:android="http://schemas.android.com/apk/res/android" >
+	
+	<TextView android:id="@+id/text" android:layout_height="wrap_content"
+		android:layout_width="wrap_content" android:text="WebService 2 DataBase"
+		android:textSize="24.5sp" android:layout_gravity="center"
+		/>
+	<Button android:layout_height="wrap_content" android:text="Get Clients from WebService" android:layout_width="wrap_content" android:id="@+id/button4" android:layout_alignBottom="@+id/button1" android:layout_alignLeft="@+id/button1" android:layout_marginBottom="56dp" android:layout_alignRight="@+id/button1"></Button>
+	<Button android:layout_height="wrap_content" android:text="Check Clients from Database" android:layout_width="wrap_content" android:id="@+id/button5" android:layout_above="@+id/button4" android:layout_alignLeft="@+id/button4" android:layout_alignRight="@+id/button4"></Button>
+	<Button android:layout_height="wrap_content" android:text="Empty SQLite Database" android:layout_width="wrap_content" android:id="@+id/button3" android:layout_below="@+id/button2" android:layout_alignLeft="@+id/button2" android:layout_alignRight="@+id/button1"></Button>
+	<Button android:layout_height="wrap_content" android:text="Get Products from WebService" android:layout_width="wrap_content" android:id="@+id/button1" android:layout_centerVertical="true" android:layout_centerHorizontal="true"></Button>
+	<Button android:layout_height="wrap_content" android:text="Check Products from Database" android:layout_width="wrap_content" android:id="@+id/button2" android:layout_below="@+id/button4" android:layout_alignLeft="@+id/button1"></Button>
+</RelativeLayout>
