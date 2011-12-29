@@ -86,6 +86,7 @@ public class DataManipulator {
 	public void deleteAllClients() {
 		try{
 			db.delete(TABLE_CLIENTS, null, null);
+			db.close();
 	    }catch(Exception e){
 			// Toast.makeText(getApplicationContext(), "Error encountered while deleting.", Toast.LENGTH_LONG);
 		}
