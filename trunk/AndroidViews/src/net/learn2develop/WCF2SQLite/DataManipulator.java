@@ -80,15 +80,19 @@ public class DataManipulator {
 	    	// db.close();
 	    }catch(Exception e){
 			// Toast.makeText(getApplicationContext(), "Error encountered while deleting.", Toast.LENGTH_LONG);
+	    	Log.i("_DataManipulator_Exception_ ","<DELETE FROM>" + TABLE_PRODUCTS + ">\n");
 		}
 	}
 
 	public void deleteAllClients() {
 		try{
-			db.delete(TABLE_CLIENTS, null, null);
+			// db.delete(TABLE_CLIENTS, null, null);
+			db.execSQL("DELETE FROM " + TABLE_CLIENTS );
+			Log.i("_DataManipulator_","<DELETE FROM>" + TABLE_CLIENTS + ">\n");
 			// db.close();
 	    }catch(Exception e){
 			// Toast.makeText(getApplicationContext(), "Error encountered while deleting.", Toast.LENGTH_LONG);
+	    	Log.i("_DataManipulator_Exception_ ","<DELETE FROM>" + TABLE_CLIENTS + ">\n");
 		}
 	}
 	
@@ -105,9 +109,7 @@ public class DataManipulator {
 		if (cursor.moveToFirst()) {
 			do {
 				String[] b1=new String[]{cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4)};
-
 				list.add(b1);
-
 				x=x+1;
 			} while (cursor.moveToNext());
 		}
