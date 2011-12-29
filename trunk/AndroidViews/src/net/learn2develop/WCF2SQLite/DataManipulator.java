@@ -77,7 +77,7 @@ public class DataManipulator {
 	    	// db = openOrCreateDatabase(DBNAME, Context.MODE_PRIVATE,null);
 	    	db.execSQL("DELETE FROM " + TABLE_PRODUCTS );
 			Log.i("_DataManipulator_","<DELETE FROM>" + TABLE_PRODUCTS + ">\n");
-	    	db.close();
+	    	// db.close();
 	    }catch(Exception e){
 			// Toast.makeText(getApplicationContext(), "Error encountered while deleting.", Toast.LENGTH_LONG);
 		}
@@ -86,7 +86,7 @@ public class DataManipulator {
 	public void deleteAllClients() {
 		try{
 			db.delete(TABLE_CLIENTS, null, null);
-			db.close();
+			// db.close();
 	    }catch(Exception e){
 			// Toast.makeText(getApplicationContext(), "Error encountered while deleting.", Toast.LENGTH_LONG);
 		}
