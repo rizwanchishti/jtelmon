@@ -8,9 +8,6 @@ package net.learn2develop.WCF2SQLite;
 
 // import android.R;
 import net.learn2develop.R;
-import net.learn2develop.AndroidViews.DataCheck;
-import net.learn2develop.AndroidViews.DataManipulator;
-import net.learn2develop.AndroidViews.GetProducts02;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,7 +48,7 @@ public class WCF2SQLite extends Activity implements OnClickListener {
 			startActivity(i);
 			break;
 		case R.id.button2:
-			Intent i1 = new Intent(this, DataCheck.class);  
+			Intent i1 = new Intent(this, ProductsCheck.class);  
 			startActivity(i1);
 			break;
 		case R.id.button3:

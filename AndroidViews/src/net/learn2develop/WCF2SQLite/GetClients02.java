@@ -23,7 +23,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import net.learn2develop.R;
-import net.learn2develop.AndroidViews.DataManipulator;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpEntity;

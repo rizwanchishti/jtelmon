@@ -9,21 +9,16 @@ package net.learn2develop.WCF2SQLite;
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.ListActivity; 
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
 import java.util.Vector;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Xml; 
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
-import net.learn2develop.R;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -36,9 +31,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.InputStream;
 import org.json.JSONArray;
 import java.io.BufferedReader;
-
 import android.util.Log;
 
+import net.learn2develop.R;
 
 public class GetProducts02 extends ListActivity {
 	
