@@ -10,9 +10,14 @@
       android:versionName="1.0.0">
     <application android:icon="@drawable/icon" android:label="@string/app_name">
 
-
-<!-- .AndroidViews.WCF2SQLite     -->        
-        <activity android:name=".AndroidViews.WCF2SQLite" 
+<!-- .AndroidViews.WCF2SQLite     -->
+<!-- WebService 2 SQLite DataBase  -->
+<!-- Get Products From WebService  -->
+<!-- Get Clients From WebService  -->
+<!-- Check Products From DataBase  -->
+<!-- Check Clients From DataBase  -->
+<!-- Empty SQLite DataBase         -->        
+        <activity android:name=".WCF2SQLite.WCF2SQLite" 
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,13 +26,21 @@
         </activity>        
 <!-- .AndroidViews.WCF2SQLite     -->
 
-        <activity android:name=".AndroidViews.GetClients02"
+        <activity android:name=".WCF2SQLite.GetClients02"
                   android:label="@string/app_name" />
 
-        <activity android:name=".AndroidViews.ClientsCheck"
+        <activity android:name=".WCF2SQLite.GetProducts02"
                   android:label="@string/app_name" />
 
+        <activity android:name=".WCF2SQLite.ClientsCheck"
+                  android:label="@string/app_name" />
 
+        <activity android:name=".WCF2SQLite.ProductsCheck"
+                  android:label="@string/app_name" />
+
+        <activity android:name=".WCF2SQLite.DataManipulator"
+                  android:label="@string/app_name" />
+                  
 <!-- .AndroidViews.GetClients01     -->        
         <activity android:name=".AndroidViews.GetClients01" 
                   android:label="@string/app_name">
@@ -89,15 +102,10 @@
         <activity android:name=".AndroidViews.DataSave"
                   android:label="@string/app_name" />
 
-
         <activity android:name=".AndroidViews.DataCheck"
                   android:label="@string/app_name" />
 
-        <activity android:name=".AndroidViews.DataManipulator"
-                  android:label="@string/app_name" />
- 
-
-        <activity android:name=".AndroidViews.BasicViewsExample"
+         <activity android:name=".AndroidViews.BasicViewsExample"
                   android:label="@string/app_name" />
  
          <activity android:name=".AndroidViews.AutoCompleteExample"
