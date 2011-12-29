@@ -10,6 +10,33 @@
       android:versionName="1.0.0">
     <application android:icon="@drawable/icon" android:label="@string/app_name">
 
+
+<!-- .AndroidViews.WCF2SQLite     -->        
+        <activity android:name=".AndroidViews.WCF2SQLite" 
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+<!-- .AndroidViews.WCF2SQLite     -->
+
+        <activity android:name=".AndroidViews.GetClients02"
+                  android:label="@string/app_name" />
+
+        <activity android:name=".AndroidViews.ClientsCheck"
+                  android:label="@string/app_name" />
+
+
+<!-- .AndroidViews.GetClients01     -->        
+        <activity android:name=".AndroidViews.GetClients01" 
+                  android:label="@string/app_name">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+<!-- .AndroidViews.GetClients01     -->
+
 <!-- .AndroidViews.DbContactConsole     -->        
 <!-- http://www.youtube.com/watch?v=4WynsycSuL0  -->
 <!-- Menu -> Add, Modify, Remove : Contact Data  -->
@@ -17,7 +44,6 @@
         <activity android:name=".AndroidViews.DbContactConsole" 
                   android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>        
