@@ -40,7 +40,7 @@ import java.io.BufferedReader;
 import android.util.Log;
 
 
-public class GetClients01 extends ListActivity {
+public class GetClients02 extends ListActivity {
 	
 	private final static String SERVICE_URI = "http://192.168.61.3/SalesService/SalesService.svc";
 	private DataManipulator dm;
@@ -84,7 +84,7 @@ public class GetClients01 extends ListActivity {
         	
         	// www.jondev.net/articles/Android_JSON_Parser_Example
         	JSONObject json=new JSONObject(theString);
-        	Log.i("_GetClient_","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
+        	Log.i("_GetClient_","<jsonobject> \n "+json.toString()+" \n </jsonobject>");
         	
             this.dm = new DataManipulator(this);
         	
@@ -101,15 +101,13 @@ public class GetClients01 extends ListActivity {
                 Log.i("_GetClient_","<Route"+i+">"  + tempStringRoute  +"</Route"   +i+">\n");
                 Log.i("_GetClient_","<Zone"+i+">"   + tempStringZone   +"</Zone"+i+">\n");
     			
-    		// this.dm.insertIntoProducts(tempStringAgent,tempStringName,tempStringPrice,tempStringSymbol);
-        	// this.dm.insertIntoClients(tempStringAgent,tempStringClient,tempStringRoute,tempStringZone);
+        	    this.dm.insertIntoClients(tempStringAgent,tempStringClient,tempStringRoute,tempStringZone);
     			
                 tempString=nameArray.getJSONObject(i).getString("Client")+"\n"+
                 		nameArray.getJSONObject(i).getString("Route")+"\n"+nameArray.getJSONObject(i).getString("Zone");
                 vectorOfStrings.add(new String(tempString));
             }
 
-    		
             int orderCount = vectorOfStrings.size();
             String[] orderTimeStamps = new String[orderCount];
             vectorOfStrings.copyInto(orderTimeStamps); 
