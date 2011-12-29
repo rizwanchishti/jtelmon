@@ -55,7 +55,6 @@ public class WCF2SQLite extends Activity implements OnClickListener {
 			startActivity(i1);
 			break;
 		case R.id.button3:
-			// this.dm.db.close();
         	this.dm = new DataManipulator(this);
         	this.dm.deleteAllProducts();
         	this.dm.deleteAllClients();
