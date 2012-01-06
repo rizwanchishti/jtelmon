@@ -11,6 +11,8 @@ import net.learn2develop.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -77,5 +79,11 @@ public class WCF2SQLite extends Activity implements OnClickListener {
 		}
 	}
 
+	public boolean onCreateOptionsMenu(Menu menu){
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu, menu);
+		return true;
+	}
+	
 }
 
