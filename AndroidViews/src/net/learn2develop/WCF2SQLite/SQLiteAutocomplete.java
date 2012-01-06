@@ -18,9 +18,9 @@ import android.widget.AutoCompleteTextView;
  
 public class SQLiteAutocomplete extends Activity
 {
-    DataManipulator dm;
-    List<String[]> names2 =null ;
-	String[] stg1;
+    DataManipulator dataMan;
+    List<String[]> listOfRoutes =null ;
+	String[] stringOfClients;
  
     static final String[] COUNTRIES = new String[] {
     	  "Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra",
@@ -74,28 +74,28 @@ public class SQLiteAutocomplete extends Activity
  
         final AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.autocompleteCountry);
  
-        dm = new DataManipulator(this);
-        names2 = dm.selectAllClients();
-		stg1=new String[names2.size()]; 
+        dataMan = new DataManipulator(this);
+        listOfRoutes = dataMan.selectAllClients();
+		stringOfClients=new String[listOfRoutes.size()]; 
 		
 		int x=0;
-		String stg;
+		String stringTemporar;
 
-		for (String[] name : names2) {
-			// stg = name[0]+" - "+name[1]+ " - "+name[2]+" - "+name[3];
-			stg = name[1];
-			stg1[x]=stg;
+		for (String[] name : listOfRoutes) {
+			// Route = name[0]+" - "+name[1]+ " - "+name[2]+" - "+name[3];
+			stringTemporar = name[1];
+			stringOfClients[x]=stringTemporar;
 			x++;
 		}
 
         // Print out the values to the log
-        for(int i = 0; i < stg1.length; i++)
+        for(int i = 0; i < stringOfClients.length; i++)
         {
-            Log.i(this.toString(), stg1[i]);
+            Log.i(this.toString(), stringOfClients[i]);
         }
  
         // ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, COUNTRIES);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, stg1);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, stringOfClients);
         textView.setAdapter(adapter);
     }
  
