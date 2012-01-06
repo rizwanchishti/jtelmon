@@ -26,4 +26,5 @@
     <string name="piecesDefault">Pieces</string>
     <string name="discountDefault">Discount</string>
     <string name="COUNTRY_LABEL">Country</string>
+    <string name="CLIENT_LABEL">Client</string>
 </resources>
