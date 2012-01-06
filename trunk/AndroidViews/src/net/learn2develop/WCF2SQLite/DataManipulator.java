@@ -43,7 +43,7 @@ public class DataManipulator {
 		this.insertClientsStmt = DataManipulator.db.compileStatement(INSERT_CLIENTS);
 	}
 	
-	public long insert(String clientName,String productName,String piecesNumber,String discountNumber) {
+	public long insertIntoOrders(String clientName,String productName,String piecesNumber,String discountNumber) {
 		this.insertOrderStmt.bindString(1, clientName);
 		this.insertOrderStmt.bindString(2, productName);
 		this.insertOrderStmt.bindString(3, piecesNumber);
