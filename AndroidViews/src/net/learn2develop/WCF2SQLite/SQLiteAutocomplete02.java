@@ -71,10 +71,10 @@ public class SQLiteAutocomplete02 extends Activity implements OnClickListener
             // http://stackoverflow.com/questions/3434978/android-autocompletetextview-click-event
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 // Intent intent = new Intent(Main.this, Campus.class);
-                Bundle bundle = new Bundle();
+                //Bundle bundle = new Bundle();
                 theClient = arg0.getItemAtPosition(arg2).toString();
-                bundle.putString("university_name", arg0.getItemAtPosition(arg2).toString());
-                bundle.putLong("_id", arg3);
+                //bundle.putString("university_name", arg0.getItemAtPosition(arg2).toString());
+                //bundle.putLong("_id", arg3);
                 // intent.putExtras(bundle);
                 // startActivity(intent); 
             }
