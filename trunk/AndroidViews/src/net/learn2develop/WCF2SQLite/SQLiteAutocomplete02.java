@@ -29,7 +29,7 @@ public class SQLiteAutocomplete02 extends Activity implements OnClickListener
 {
     DataManipulator dataMan;
     List<String[]> listOfRoutes =null ;
-	String[] shirOfClients;
+	String[] stringOfClients;
 	String theClient;
  
   
@@ -46,7 +46,7 @@ public class SQLiteAutocomplete02 extends Activity implements OnClickListener
  
         dataMan = new DataManipulator(this);
         listOfRoutes = dataMan.selectAllClients();
-		shirOfClients=new String[listOfRoutes.size()]; 
+		stringOfClients=new String[listOfRoutes.size()]; 
 		
 		int x=0;
 		String stringTemporar;
@@ -54,17 +54,17 @@ public class SQLiteAutocomplete02 extends Activity implements OnClickListener
 		for (String[] name : listOfRoutes) {
 			// Route = name[0]+" - "+name[1]+ " - "+name[2]+" - "+name[3];
 			stringTemporar = name[1];
-			shirOfClients[x]=stringTemporar;
+			stringOfClients[x]=stringTemporar;
 			x++;
 		}
 
         // Print out the values to the log
-        for(int i = 0; i < shirOfClients.length; i++)
+        for(int i = 0; i < stringOfClients.length; i++)
         {
-            Log.i(this.toString(), shirOfClients[i]);
+            Log.i(this.toString(), stringOfClients[i]);
         }
  
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, shirOfClients);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, stringOfClients);
         acTextView.setAdapter(adapter);
         
         acTextView.setOnItemClickListener(new OnItemClickListener() {
