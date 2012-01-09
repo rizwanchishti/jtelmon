@@ -20,7 +20,7 @@ public class SQLiteAutocomplete01 extends Activity
 {
     DataManipulator dataMan;
     List<String[]> listOfRoutes =null ;
-	String[] stringOfClients;
+	String[] shirOfClients;
  
     static final String[] COUNTRIES = new String[] {
     	  "Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra",
@@ -76,7 +76,7 @@ public class SQLiteAutocomplete01 extends Activity
  
         dataMan = new DataManipulator(this);
         listOfRoutes = dataMan.selectAllClients();
-		stringOfClients=new String[listOfRoutes.size()]; 
+		shirOfClients=new String[listOfRoutes.size()]; 
 		
 		int x=0;
 		String stringTemporar;
@@ -84,18 +84,18 @@ public class SQLiteAutocomplete01 extends Activity
 		for (String[] name : listOfRoutes) {
 			// Route = name[0]+" - "+name[1]+ " - "+name[2]+" - "+name[3];
 			stringTemporar = name[1];
-			stringOfClients[x]=stringTemporar;
+			shirOfClients[x]=stringTemporar;
 			x++;
 		}
 
         // Print out the values to the log
-        for(int i = 0; i < stringOfClients.length; i++)
+        for(int i = 0; i < shirOfClients.length; i++)
         {
-            Log.i(this.toString(), stringOfClients[i]);
+            Log.i(this.toString(), shirOfClients[i]);
         }
  
         // ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, COUNTRIES);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, stringOfClients);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, shirOfClients);
         textView.setAdapter(adapter);
     }
  
