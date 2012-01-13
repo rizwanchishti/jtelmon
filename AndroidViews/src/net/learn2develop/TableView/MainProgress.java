@@ -13,7 +13,8 @@ import android.widget.Button;
  *
  * Class for showing how to work with progress dialog
  *  http://thedevelopersinfo.wordpress.com/2009/10/16/showing-progressdialog-in-android-activity/
- * 
+ *  http://developer.android.com/guide/topics/ui/dialogs.html
+ *  
  */
 
 public class MainProgress extends Activity implements OnClickListener {
