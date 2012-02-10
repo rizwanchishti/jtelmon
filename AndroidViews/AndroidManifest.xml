@@ -14,7 +14,7 @@
         <activity android:name=".TableView.MainProgress" 
                   android:label="@string/app_name">
             <intent-filter>
-               	<action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>        
@@ -31,14 +31,28 @@
         <activity android:name=".bundle2activity.MainActivity" 
                   android:label="@string/app_name">
             <intent-filter>
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>        
 
+        <activity android:name=".bundle2activity.MainActivity2" 
+                  android:label="@string/app_name">
+            <intent-filter>
+                	<action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+
+
+        <activity android:name=".bundle2activity.SecondaryActivity2" 
+                  android:label="@string/app_name">
+        </activity>        
+
+
         <activity android:name=".bundle2activity.SecondaryActivity" 
                   android:label="@string/app_name">
         </activity>        
+
 
         <activity android:name=".WCF2SQLite.SQLiteAutocomplete02" 
                   android:label="@string/app_name">
@@ -112,7 +126,7 @@
         <activity android:name=".sqlitetutorial.ActivityMain" 
                   android:label="@string/app_name">
             <intent-filter>
- 
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>        
