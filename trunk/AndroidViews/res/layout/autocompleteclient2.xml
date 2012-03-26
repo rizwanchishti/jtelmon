@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" android:orientation="vertical">
+
+<LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent" android:layout_weight="1">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Denumire :"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+   
+    <AutoCompleteTextView android:id="@+id/autocompleteClient"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"/>
+</LinearLayout>
+
+<TextView
+    android:id="@+id/TextView01"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:text="Numar Bucati:"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<EditText
+    android:id="@+id/numarbucati"
+    android:layout_width="186dp"
+    android:layout_height="wrap_content" >
+
+    <requestFocus />
+</EditText>
+
+<TextView
+    android:id="@+id/TextView02"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:text="Discount:"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<EditText
+    android:id="@+id/discount"
+    android:layout_width="131dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1" />
+
+<CheckBox
+    android:id="@+id/checkBox1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:text="CheckBox" />
+
+<LinearLayout
+    android:id="@+id/LinearLayout02"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="20sp" >
+
+    <Button
+        android:id="@+id/Adauga02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10sp"
+        android:layout_marginTop="20sp"
+        android:layout_weight="3.56"
+        android:text="Adauga" />
+
+    <Button
+        android:id="@+id/Button01home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="20sp"
+        android:layout_weight="3.56"
+        android:text="Renunta" />
+
+</LinearLayout>
+
+</LinearLayout>
