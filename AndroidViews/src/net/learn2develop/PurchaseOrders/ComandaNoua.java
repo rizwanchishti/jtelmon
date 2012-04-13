@@ -21,6 +21,7 @@ import android.widget.TextView;
 public class ComandaNoua extends ListActivity  {   
 	Bundle BundledClient;
 	Bundle BundleOrder;
+	String strClientName;
 
 	private final int SECONDARY_ACTIVITY_REQUEST_CODE=0;
 	private EditText autocompleteClient;
@@ -41,11 +42,11 @@ public class ComandaNoua extends ListActivity  {
       
         
         if(BundledClient != null) {
-            String theText = BundledClient.getString("client");
-            if(theText != null) {
+            strClientName = BundledClient.getString("client");
+            if(strClientName != null) {
                 TextView t = (TextView)findViewById(R.id.textView1);
                 if(t != null) {
-                    t.setText(theText);
+                    t.setText(strClientName);
                 }
                 
             }
@@ -77,7 +78,7 @@ public class ComandaNoua extends ListActivity  {
     			
     			//Intent o = new Intent("eu.itcsolutions.android.tutorial");
     			
-    			dm.insereazaLiniileComenzii();
+    			dm.insereazaLiniileComenzii(strClientName);
     			//startActivity(i);
     			//startActivityForResult(o,0 );
     		

@@ -67,8 +67,7 @@ public class Data {
     
    
     
-    
-        
+          
         public long insertIntoOrders(String clientName,String productName,String piecesNumber,String discountNumber) {
                 this.insertStmt.bindString(1, clientName);
                 this.insertStmt.bindString(2, productName);
@@ -109,7 +108,7 @@ public class Data {
         	
         }
         
-        public void insereazaLiniileComenzii(){
+        public void insereazaLiniileComenzii(String clientName){
         	String denProd;
             String nrBuc;
             String disc;
@@ -128,7 +127,7 @@ public class Data {
         		prez =value.getprezenta();
         		
         	//	this.db.insertIntoOrders(denProd ,nrBuc ,disc ,prez );
-        		this.insertIntoOrders(denProd, nrBuc, disc, prez);
+        		this.insertIntoOrders(clientName, denProd , nrBuc, disc);
         		
         		
         		 
