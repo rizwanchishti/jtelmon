@@ -8,8 +8,8 @@
         
 />
      <item 
-        android:title="Transferta pe server"
-        android:id ="@+id/TransferapeServer "
+        android:title="Transfera pe server"
+        android:id ="@+id/TransferToServer "
         
 />
     
