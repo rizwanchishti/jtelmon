@@ -181,7 +181,7 @@ public class Data {
                 db.delete(TABLE_ORDERS, null, null);
         }
 
-        public List<String[]> selectAll()
+        public List<String[]> selectAllOrders()
         {
 
                 List<String[]> list = new ArrayList<String[]>();

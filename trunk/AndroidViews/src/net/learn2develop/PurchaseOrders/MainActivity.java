@@ -37,20 +37,23 @@ public class MainActivity extends Activity implements OnClickListener {
     // @Override
         public void onClick(View arg0) {
 
-         if(arg0.getId() == R.id.Button02){
-         Intent intent = new Intent(this,SelectieClient.class);
+        	if(arg0.getId() == R.id.Button02){
+        		Intent intent = new Intent(this,SelectieClient.class);
                 //start the second Activity
                 this.startActivity(intent);
+        	}
+        	if(arg0.getId() == R.id.Button03){
+        		Intent intent = new Intent(this,CautaProdus.class);
+        		//start the second Activity
+        		this.startActivity(intent);
+        	}
+        	if(arg0.getId() == R.id.Button04){
+        		Intent intent = new Intent(this,ComenziNetrimise.class);
+        		//start the second Activity
+        		this.startActivity(intent);
+        	}
         }
-        if(arg0.getId() == R.id.Button03){
-            Intent intent = new Intent(this,CautaProdus.class);
- 
-            //start the second Activity
-            this.startActivity(intent);
-    }
         
-        
-        }
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
     	super.onCreateOptionsMenu(menu);
     	
