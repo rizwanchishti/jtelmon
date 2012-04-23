@@ -19,7 +19,7 @@ public class UnsentOrders extends ListActivity {
 	    String[] StringOfOrders;
 	    protected void onCreate(Bundle savedInstanceState){
 	        super.onCreate(savedInstanceState);
-	        setContentView(R.layout.check);
+	        setContentView(R.layout.unsent_orders);
 	        dm = new DataManipulator(this);
 	        allOrders = dm.selectAllOrders();
 	        StringOfOrders=new String[allOrders.size()];  
@@ -49,13 +49,11 @@ public class UnsentOrders extends ListActivity {
 	    }
 
 	    public boolean onOptionsItemSelected(MenuItem item) {
-	    	// TODO Auto-generated method stub
 	    	switch(item.getItemId()){
 	    		case R.id.Vizualizareinstrumenteplata:
 	    			finish();
 	    		break;
-			
-	    		case R.id.TransferapeServer:
+	    		case R.id.TransferToServer:
 	    			Intent p = new Intent(this,TransferToServer.class);
 	    			startActivity(p);
 	    		break;

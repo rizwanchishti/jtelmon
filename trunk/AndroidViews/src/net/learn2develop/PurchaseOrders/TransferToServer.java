@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.json.JSONStringer;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import android.util.Log;
 
 public class TransferToServer extends Activity {
 	
@@ -52,13 +53,13 @@ public class TransferToServer extends Activity {
                             .endObject()
                     .endObject();
             		StringEntity entity = new StringEntity(jsonOrderToSend.toString());
-            		// Toast.makeText(this, jsonOrderToSend.toString() + "\n", Toast.LENGTH_LONG).show() ;
+            		Log.d( " OrderLine  " , jsonOrderToSend.toString() + "\n" ) ;
             		request.setEntity(entity);
-            		// 	Send request to WCF service
+            		// 	Send request to REST Web Service -> 
             		DefaultHttpClient httpClient = new DefaultHttpClient();
             		HttpResponse response = httpClient.execute(request);
-            		// Log.d("WebInvoke", "Saving : " + response.getStatusLine().getStatusCode());
-            		// Toast.makeText(this, response.getStatusLine().getStatusCode() + "\n", Toast.LENGTH_LONG).show() ;
+            		// IF [200=response.getStatusLine().getStatusCode()] => HttpResponse=OK  
+            		Log.d("WebInvoke", " OK if 200 = " + response.getStatusLine().getStatusCode());
             	}catch (Exception e) {
             		not = "NOT ";
             	} 
