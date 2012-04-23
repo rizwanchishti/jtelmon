@@ -15,7 +15,7 @@ import android.view.View.OnClickListener;
 
 public class MainActivity extends Activity implements OnClickListener {
 	ProgressDialog progressDialog;
-	private Data dm;
+	private DataManipulator dm;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,7 +110,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				 }
 			}.start();
 			
-			this.dm = new Data(this);
+			this.dm = new DataManipulator(this);
 			this.dm.deleteAllProducts ();
 			this.dm.deleteAllClients();
 			if (this.dm != null) {

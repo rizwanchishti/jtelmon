@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import android.util.Log;
 
-public class Data {
+public class DataManipulator {
 	
         private static final  String DATABASE_NAME = "easysales2.db";
         private static final int DATABASE_VERSION = 1;
@@ -33,13 +33,13 @@ public class Data {
     	private static final String INSERT_PRODUCTS = "insert into " + TABLE_PRODUCTS + " (ID, Name, Price, Symbol) values (?,?,?,?)";
     	private static final String INSERT_CLIENTS = "insert into " + TABLE_CLIENTS + " (Agent, Client, Route, Zone) values (?,?,?,?)";
         
-   		public Data(Context context ) {
-                Data.context = context;
-                OpenHelper openHelper = new OpenHelper(Data.context);
-                Data.db = openHelper.getWritableDatabase();
-                this.insertOrderTemplate = Data.db.compileStatement(INSERT_ORDERS);
-                this.insertProductTemplate = Data.db.compileStatement(INSERT_PRODUCTS);
-                this.insertClientTemplate = Data.db.compileStatement(INSERT_CLIENTS);
+   		public DataManipulator(Context context ) {
+                DataManipulator.context = context;
+                OpenHelper openHelper = new OpenHelper(DataManipulator.context);
+                DataManipulator.db = openHelper.getWritableDatabase();
+                this.insertOrderTemplate = DataManipulator.db.compileStatement(INSERT_ORDERS);
+                this.insertProductTemplate = DataManipulator.db.compileStatement(INSERT_PRODUCTS);
+                this.insertClientTemplate = DataManipulator.db.compileStatement(INSERT_CLIENTS);
                 orderOfClient = new ArrayList<CommandLine>();
     	}
           

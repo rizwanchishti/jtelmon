@@ -16,7 +16,7 @@ import android.widget.TextView;
 public class SelectieClient extends ListActivity  {     
 	TextView selection;
 	public int idToModify; 
-	Data dm;
+	DataManipulator dm;
 
 	List<String[]> list = new ArrayList<String[]>();
 	List<String[]> names2 =null ;
@@ -24,7 +24,7 @@ public class SelectieClient extends ListActivity  {
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.check);
-		  dm = new Data(this);
+		  dm = new DataManipulator(this);
 	      // names2 = dm.selectAll();
 		  names2 = dm.selectAllClients();
 		  // dm.db.close();

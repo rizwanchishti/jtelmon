@@ -29,12 +29,12 @@ public class ComandaNoua extends ListActivity  {
 	private EditText discount;
 	List<String[]> names2 =null ;
 	Vector<String> vectorOfStrings = new Vector<String>();
-	Data dm;
+	DataManipulator dm;
 	static final int DIALOG_ID = 0;
  
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        dm = new Data(this);
+        dm = new DataManipulator(this);
         setContentView(R.layout.clickclient);
         BundledClient = getIntent().getExtras();
         

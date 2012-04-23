@@ -17,7 +17,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 public class Transfer2Server extends Activity {
 	
-	 Data dm;
+	 DataManipulator dm;
 	 List<String[]> comanda =null ;
 	 String[] StringOfOrders;
 
@@ -28,7 +28,7 @@ public class Transfer2Server extends Activity {
                 super.onCreate(savedInstanceState);
 
                 setContentView(R.layout.main);
-                dm = new Data(this);
+                dm = new DataManipulator(this);
                 comanda = dm.selectAllOrders();
 
             HttpPost request = new HttpPost(SERVICE_URI + "/json/addorder");
