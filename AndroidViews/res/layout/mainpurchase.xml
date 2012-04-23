@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:gravity="center_vertical|center_horizontal"
     android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
-    <TextView android:id="@+id/textView1" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_gravity="center_horizontal" android:layout_width="153dp" android:text="MONTE NABATO"></TextView>
+    <TextView android:id="@+id/textView1" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_gravity="center_horizontal" android:layout_width="153dp" android:text="MONTE BANATO"></TextView>
     <Button android:layout_height="wrap_content" android:id="@+id/Button01" android:layout_width="230dp" android:text="Selectie Ruta" android:textStyle="bold"></Button>
 <Button
     android:layout_height="wrap_content" android:textStyle="bold" android:text="Selectie Client" android:layout_width="230dp" android:id="@+id/Button02">
