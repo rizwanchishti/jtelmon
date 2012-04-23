@@ -64,7 +64,7 @@
         <activity android:name=".PurchaseOrders.ComandaNoua" 
                   android:label="@string/app_name">
         </activity>        
-        <activity android:name=".PurchaseOrders.ComenziNetrimise" 
+        <activity android:name=".PurchaseOrders.UnsentOrders" 
                   android:label="@string/app_name">
         </activity>        
 
