@@ -37,8 +37,6 @@ public class ComenziNetrimise extends ListActivity {
 	 
 	        for (String[] name : names2) {
 	            stg = name[0]+" - "+name[1]+ " - "+name[2]+ " - "+name[3];
-	        	//stg = name[1];
-	 
 	            StringOfOrders[x]=stg;
 	            x++;
 	        }
