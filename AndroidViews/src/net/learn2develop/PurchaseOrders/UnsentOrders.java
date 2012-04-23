@@ -75,7 +75,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 			break;
 			
 	 case R.id.TransferapeServer:
-			Intent p = new Intent(this,Transfer2Server.class);
+			Intent p = new Intent(this,TransferToServer.class);
 			startActivity(p);
 			
 			break;

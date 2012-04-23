@@ -1,4 +1,3 @@
-// test subversion RIS
 
 package net.learn2develop.PurchaseOrders;
 
@@ -147,6 +146,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		return false;
 	}
 
+	protected void onDestroy() {
+		super.onDestroy();
+		if (dm != null) {
+			dm.close();
+		}
+	}
 
 }
 
