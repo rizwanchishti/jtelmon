@@ -68,7 +68,7 @@
                   android:label="@string/app_name">
         </activity>        
 
-        <activity android:name=".PurchaseOrders.Transfer2Server" 
+        <activity android:name=".PurchaseOrders.TransferToServer" 
                   android:label="@string/app_name">
         </activity>        
         
