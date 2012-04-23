@@ -36,7 +36,7 @@ public class Prefs extends Activity  {
 	private Button Adauga02;
 	private String mIntentString;
 	static final int DIALOG_ID = 0;
-    Data dataMan;
+    DataManipulator dataMan;
     List<String[]> listOfRoutes =null ;
 	String[] stringOfProducts;
 	String theClient;
@@ -76,7 +76,7 @@ public class Prefs extends Activity  {
  
         final AutoCompleteTextView acTextView = (AutoCompleteTextView) findViewById(R.id.autocompleteClient);
  
-        dataMan = new Data(this);
+        dataMan = new DataManipulator(this);
         listOfRoutes = dataMan.selectAllProducts();
 		stringOfProducts=new String[listOfRoutes.size()]; 
 		

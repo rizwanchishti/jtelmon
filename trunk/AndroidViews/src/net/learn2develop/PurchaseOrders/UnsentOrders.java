@@ -18,7 +18,7 @@ public class UnsentOrders extends ListActivity {
    
 	 TextView selection;
 	    public int idToModify;  
-	    Data dm;
+	    DataManipulator dm;
 	 
 	    List<String[]> list = new ArrayList<String[]>();
 	    List<String[]> names2 =null ;
@@ -27,7 +27,7 @@ public class UnsentOrders extends ListActivity {
 
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.check);
-	          dm = new Data(this);
+	          dm = new DataManipulator(this);
 	          names2 = dm.selectAllOrders();
 	 
 	          StringOfOrders=new String[names2.size()];  

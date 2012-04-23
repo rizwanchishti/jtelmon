@@ -14,7 +14,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 public class TransferToServer extends Activity {
 	
-	 Data dm;
+	 DataManipulator dm;
 	 List<String[]> ordersToSend =null ;
 
         private final static String SERVICE_URI = "http://192.168.61.3/SalesService/SalesService.svc";
@@ -24,7 +24,7 @@ public class TransferToServer extends Activity {
                 super.onCreate(savedInstanceState);
 
                 setContentView(R.layout.main);
-                dm = new Data(this);
+                dm = new DataManipulator(this);
                 ordersToSend = dm.selectAllOrders();
 
             HttpPost request = new HttpPost(SERVICE_URI + "/json/addorder");

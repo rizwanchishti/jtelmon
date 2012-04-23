@@ -36,7 +36,7 @@ public class Sincronizare extends ListActivity {
 	private final static String SERVICE_URI = "http://192.168.61.3/SalesService/SalesService.svc";
 	// private final static String SERVICE_URI = "http://192.168.101.222/SalesService/SalesService.svc";		
 	
-	private Data dm;
+	private DataManipulator dm;
     
     /** Called when the activity is first created. */
     @Override
@@ -93,7 +93,7 @@ public class Sincronizare extends ListActivity {
         	JSONObject json=new JSONObject(theString);
         	Log.i("_GetPerson_","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
         	
-        	this.dm = new Data(this);
+        	this.dm = new DataManipulator(this);
         	
         	JSONArray nameArray;
         	nameArray=json.getJSONArray("getProductsResult");
@@ -154,7 +154,7 @@ public class Sincronizare extends ListActivity {
             	JSONObject json1=new JSONObject(theString);
             	Log.i("_GetPerson_","<jsonobject>\n"+json1.toString()+"\n</jsonobject>");
             	
-            	this.dm = new Data(this);
+            	this.dm = new DataManipulator(this);
             	
             	JSONArray nameArray1;
             	nameArray1=json1.getJSONArray("GetRoutesByAgentResult");
