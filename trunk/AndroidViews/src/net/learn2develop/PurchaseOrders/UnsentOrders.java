@@ -1,9 +1,7 @@
 package net.learn2develop.PurchaseOrders;
 
 import net.learn2develop.R;
-import java.util.ArrayList;
 import java.util.List;
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,12 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
  
 public class UnsentOrders extends ListActivity {
-   
-	 TextView selection;
-	    public int idToModify;  
+		TextView selection;
 	    DataManipulator dm;
-	 
-	    List<String[]> list = new ArrayList<String[]>();
 	    List<String[]> allOrders =null ;
 	    String[] StringOfOrders;
 	    protected void onCreate(Bundle savedInstanceState){
@@ -31,8 +25,8 @@ public class UnsentOrders extends ListActivity {
 	        StringOfOrders=new String[allOrders.size()];  
 	        int x=0;
 	        String stg;
-	        for (String[] name : allOrders) {
-	            stg = name[0]+" - "+name[1]+ " - "+name[2]+ " - "+name[3];
+	        for (String[] orderName : allOrders) {
+	            stg = orderName[0]+" - "+orderName[1]+ " - "+orderName[2]+ " - "+orderName[3];
 	            StringOfOrders[x]=stg;
 	            x++;
 	        }
@@ -57,14 +51,14 @@ public class UnsentOrders extends ListActivity {
 	    public boolean onOptionsItemSelected(MenuItem item) {
 	    	// TODO Auto-generated method stub
 	    	switch(item.getItemId()){
-	    	case R.id.Vizualizareinstrumenteplata:
-	    		finish();
-			break;
+	    		case R.id.Vizualizareinstrumenteplata:
+	    			finish();
+	    		break;
 			
-	    	case R.id.TransferapeServer:
-	    		Intent p = new Intent(this,TransferToServer.class);
-	    		startActivity(p);
-			break;
+	    		case R.id.TransferapeServer:
+	    			Intent p = new Intent(this,TransferToServer.class);
+	    			startActivity(p);
+	    		break;
 	    	}
 	    	return false;
 	    }
@@ -76,5 +70,3 @@ public class UnsentOrders extends ListActivity {
 	    	}
 	    }
 }
-
-
