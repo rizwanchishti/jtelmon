@@ -14,7 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
  
-public class ComenziNetrimise extends ListActivity {
+public class UnsentOrders extends ListActivity {
    
 	 TextView selection;
 	    public int idToModify;  
