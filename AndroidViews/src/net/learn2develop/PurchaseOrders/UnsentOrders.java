@@ -21,70 +21,60 @@ public class UnsentOrders extends ListActivity {
 	    DataManipulator dm;
 	 
 	    List<String[]> list = new ArrayList<String[]>();
-	    List<String[]> names2 =null ;
+	    List<String[]> allOrders =null ;
 	    String[] StringOfOrders;
 	    protected void onCreate(Bundle savedInstanceState){
-
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.check);
-	          dm = new DataManipulator(this);
-	          names2 = dm.selectAllOrders();
-	 
-	          StringOfOrders=new String[names2.size()];  
-	 
+	        dm = new DataManipulator(this);
+	        allOrders = dm.selectAllOrders();
+	        StringOfOrders=new String[allOrders.size()];  
 	        int x=0;
 	        String stg;
-	 
-	        for (String[] name : names2) {
+	        for (String[] name : allOrders) {
 	            stg = name[0]+" - "+name[1]+ " - "+name[2]+ " - "+name[3];
 	            StringOfOrders[x]=stg;
 	            x++;
 	        }
-	 
-	 
 	        ArrayAdapter<String> adapter = new ArrayAdapter<String>(    
 	                this,android.R.layout.simple_list_item_1,    
 	                StringOfOrders);
 	        this.setListAdapter(adapter);
 	        selection=(TextView)findViewById(R.id.selection);
-	 
 	    }       
 	 
 	    public void onListItemClick(ListView parent, View v, int position, long id) {
 	        selection.setText(StringOfOrders[position]);
 	    }
-	 
-	 
 	
-public boolean onCreateOptionsMenu(android.view.Menu menu) {
-	super.onCreateOptionsMenu(menu);
-	
-	 super.onCreateOptionsMenu(menu);
-	 
-	MenuInflater blowUp = getMenuInflater();
-	blowUp.inflate(R.menu.second_menu, menu);
-	return true;
-	
-}
-public boolean onOptionsItemSelected(MenuItem item) {
-	// TODO Auto-generated method stub
-	switch(item.getItemId()){
-	 case R.id.Vizualizareinstrumenteplata:
-   	  finish();
-			
-			break;
-			
-	 case R.id.TransferapeServer:
-			Intent p = new Intent(this,TransferToServer.class);
-			startActivity(p);
-			
-			break;
-			
-	}
-	return false;
-	
-}
+	    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+	    	super.onCreateOptionsMenu(menu);
+	    	MenuInflater blowUp = getMenuInflater();
+	    	blowUp.inflate(R.menu.second_menu, menu);
+	    	return true;
+	    }
 
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	    	// TODO Auto-generated method stub
+	    	switch(item.getItemId()){
+	    	case R.id.Vizualizareinstrumenteplata:
+	    		finish();
+			break;
+			
+	    	case R.id.TransferapeServer:
+	    		Intent p = new Intent(this,TransferToServer.class);
+	    		startActivity(p);
+			break;
+	    	}
+	    	return false;
+	    }
+
+	    protected void onDestroy() {
+	    	super.onDestroy();
+	    	if (dm != null) {
+	    		dm.close();
+	    	}
+	    }
 }
 
 
