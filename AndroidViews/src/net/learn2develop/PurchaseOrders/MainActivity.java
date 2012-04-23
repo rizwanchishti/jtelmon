@@ -14,7 +14,6 @@ import android.view.View.OnClickListener;
 
 
 public class MainActivity extends Activity implements OnClickListener {
-    /** Called when the activity is first created. */
 	ProgressDialog progressDialog;
 	private Data dm;
     @Override
@@ -35,29 +34,22 @@ public class MainActivity extends Activity implements OnClickListener {
    
     // @Override
         public void onClick(View arg0) {
-
         	if(arg0.getId() == R.id.Button02){
         		Intent intent = new Intent(this,SelectieClient.class);
-                //start the second Activity
                 this.startActivity(intent);
         	}
         	if(arg0.getId() == R.id.Button03){
         		Intent intent = new Intent(this,CautaProdus.class);
-        		//start the second Activity
         		this.startActivity(intent);
         	}
         	if(arg0.getId() == R.id.Button04){
         		Intent intent = new Intent(this,UnsentOrders.class);
-        		//start the second Activity
         		this.startActivity(intent);
         	}
         }
         
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
     	super.onCreateOptionsMenu(menu);
-    	
-    	
-    	 super.onCreateOptionsMenu(menu);
     	MenuInflater blowUp = getMenuInflater();
     	blowUp.inflate(R.menu.first_menu, menu);
     	return true;
@@ -67,20 +59,17 @@ public class MainActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch(item.getItemId()){
 		case R.id.Monetar:
-			Intent i = new Intent("");
-			startActivity(i);
-			
+				Intent i = new Intent("");
+				startActivity(i);
 			break;
 		
       case R.id.Kilometraj:
-    	  finish();
-			
+    	  		finish();
 			break;
 			
 		case R.id.Observatie:
-			Intent p = new Intent("");
-			startActivity(p);
-			
+				Intent p = new Intent("");
+				startActivity(p);
 			break;
 			
 		case R.id.Sincronizeazadate:
@@ -92,14 +81,11 @@ public class MainActivity extends Activity implements OnClickListener {
 						 sleep(5000);
 					 } catch (Exception e) {
 						 Log.e("log", e.getMessage());
-					 
 					}
-					 progressDialog.dismiss();
+					progressDialog.dismiss();
 				 }
 			 }.start();
 			Intent r = new Intent(this,Sincronizare.class);
-			
-		
 			startActivity(r);
 			
 			break;
