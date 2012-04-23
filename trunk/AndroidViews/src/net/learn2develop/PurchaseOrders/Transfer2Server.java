@@ -1,27 +1,21 @@
 
-
 package net.learn2develop.PurchaseOrders;
 
-
+import net.learn2develop.R;
 import java.util.List;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
-
-
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
-// import org.json.JSONObject;
 import org.json.JSONStringer;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-public class TransferaServer extends Activity {
+public class Transfer2Server extends Activity {
 	
 	 Data dm;
 	 List<String[]> comanda =null ;
@@ -36,8 +30,7 @@ public class TransferaServer extends Activity {
                 setContentView(R.layout.main);
                 dm = new Data(this);
                 comanda = dm.selectAllOrders();
-                // String plate = new String("test");
-                // POST request to <service>
+
             HttpPost request = new HttpPost(SERVICE_URI + "/json/addorder");
             request.setHeader("Accept", "application/json");
             request.setHeader("Content-type", "application/json");

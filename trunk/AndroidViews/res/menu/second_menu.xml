@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    
+    <item 
+        android:title="Vizualizare  instrumente plata "
+        android:id ="@+id/Vizualizareinstrumenteplata"
+        
+/>
+     <item 
+        android:title="Transferta pe server"
+        android:id ="@+id/TransferapeServer "
+        
+/>
+    
+     </menu>
