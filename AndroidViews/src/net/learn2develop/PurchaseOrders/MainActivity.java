@@ -78,15 +78,17 @@ public class MainActivity extends Activity implements OnClickListener {
 			 new Thread() {
 				 public void run() {
 					 try{
-						 sleep(5000);
+						 // sleep(5000);
+						 Intent r = new Intent(getApplicationContext(),Sincronizare.class);
+						 startActivity(r);
 					 } catch (Exception e) {
 						 Log.e("log", e.getMessage());
 					}
 					progressDialog.dismiss();
 				 }
 			 }.start();
-			Intent r = new Intent(this,Sincronizare.class);
-			startActivity(r);
+			// Intent r = new Intent(this,Sincronizare.class);
+			// startActivity(r);
 			
 			break;
 			
