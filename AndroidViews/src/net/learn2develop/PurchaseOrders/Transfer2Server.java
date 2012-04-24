@@ -43,11 +43,6 @@ public class Transfer2Server extends Activity {
             String NumarBucati = ComandaDeTrimis[2];
             String Discount = ComandaDeTrimis[3];
             
-            
-            // EditText plateEdit = null;
-            // Editable plate ;
-            // plate =  plateEdit.getText();
-            
             try {
             // Build JSON string
             JSONStringer vehicle = new JSONStringer()
