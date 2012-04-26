@@ -15,11 +15,12 @@ public class ConnectionHelper
     	String driver = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("org.postgresql.Driver");
 			//url = "jdbc:mysql://localhost/directory?user=root";
             ResourceBundle bundle = ResourceBundle.getBundle("cellar");
-            driver = bundle.getString("jdbc.driver");
+            driver = bundle.getString("pg.jdbc.driver");
             Class.forName(driver);
-            url=bundle.getString("jdbc.url");
+            url=bundle.getString("pg.jdbc.url");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
