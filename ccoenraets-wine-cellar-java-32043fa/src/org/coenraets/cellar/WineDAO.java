@@ -89,7 +89,7 @@ public class WineDAO {
         try {
             c = ConnectionHelper.getConnection();
             ps = c.prepareStatement("INSERT INTO wine (name, grapes, country, region, year, picture, description) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                new String[] { "ID" });
+                new String[] { "id" });
             ps.setString(1, wine.getName());
             ps.setString(2, wine.getGrapes());
             ps.setString(3, wine.getCountry());
@@ -98,11 +98,11 @@ public class WineDAO {
             ps.setString(6, wine.getPicture());
             ps.setString(7, wine.getDescription());
             ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            rs.next();
+            // ResultSet rs = ps.getGeneratedKeys();
+            // rs.next();
             // Update the id in the returned object. This is important as this value must be returned to the client.
-            int id = rs.getInt(1);
-            wine.setId(id);
+            // int id = rs.getInt(1);
+            // wine.setId(id);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
