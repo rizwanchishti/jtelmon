@@ -26,11 +26,42 @@ public class SoftyDAO {
             e.printStackTrace();
             throw new RuntimeException(e);
 		} finally {
-			ConnectionHelper.close(c);
+			ConnectionHelperPg.close(c);
 		}
         return list;
     }
 
+    public List<OrderData> findAllOrders() {
+        List<OrderData> list = new ArrayList<OrderData>();
+        Connection c = null;
+    	String sql = "SELECT so.client as client , so.product as product , so.pieces as pieces FROM softyorders2 as so ";
+
+        try {
+            c = ConnectionHelperPg.getConnection();
+            Statement s = c.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            while (rs.next()) {
+                list.add(processOrderRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+		} finally {
+			ConnectionHelperPg.close(c);
+		}
+        return list;
+    }
+
+    protected OrderData processOrderRow(ResultSet rs) throws SQLException {
+    	OrderData oD = new OrderData();
+    	// oD.setProduct(rs.getInt("uid"));
+    	oD.setProduct(rs.getString("product"));
+    	oD.setClient(rs.getString("client"));
+    	oD.setPieces(rs.getString("pieces"));
+    	return oD;
+    }
+    
+    
 
     public OrderData insertOrder(OrderData theOrder) {
         Connection c = null;
