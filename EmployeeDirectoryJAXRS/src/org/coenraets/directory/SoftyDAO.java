@@ -34,7 +34,7 @@ public class SoftyDAO {
     public List<OrderData> findAllOrders() {
         List<OrderData> list = new ArrayList<OrderData>();
         Connection c = null;
-    	String sql = "SELECT so.client as client , so.product as product , so.pieces as pieces FROM softyorders2 as so ";
+    	String sql = "SELECT so.client as client , so.product as product , so.pieces as pieces , so.lineorder as line FROM softyorders2 as so ";
 
         try {
             c = ConnectionHelperPg.getConnection();
@@ -55,6 +55,7 @@ public class SoftyDAO {
     protected OrderData processOrderRow(ResultSet rs) throws SQLException {
     	OrderData oD = new OrderData();
     	// oD.setProduct(rs.getInt("uid"));
+    	oD.setLine(rs.getInt("line"));
     	oD.setProduct(rs.getString("product"));
     	oD.setClient(rs.getString("client"));
     	oD.setPieces(rs.getString("pieces"));
