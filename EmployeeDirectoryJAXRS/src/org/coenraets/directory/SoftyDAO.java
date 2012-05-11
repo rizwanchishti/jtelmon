@@ -31,6 +31,36 @@ public class SoftyDAO {
         return list;
     }
 
+
+    public OrderData insertOrder(OrderData theOrder) {
+        Connection c = null;
+        PreparedStatement ps = null;
+        try {
+            c = ConnectionHelperPg.getConnection();
+            ps = c.prepareStatement("INSERT INTO softyorders2 (lineorder, client, product, pieces, discount ) VALUES (?, ?, ?, ?, ?)");
+            ps.setInt(1, theOrder.getLine());
+            ps.setString(2, theOrder.getClient());
+            ps.setString(3, theOrder.getProduct());
+            ps.setString(4, theOrder.getPieces());
+            ps.setString(5, theOrder.getDiscount());
+            ps.executeUpdate();
+            // ConnectionHelper prepareStatement getGeneratedKeys :=>  
+            // http://docs.oracle.com/javase/1.4.2/docs/guide/jdbc/getstart/preparedstatement.html
+            // ResultSet rs = ps.getGeneratedKeys();
+            // rs.next();
+            // Update the id in the returned object. This is important as this value must be returned to the client.
+            // int id = rs.getInt(1);
+            // employee.setId(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+		} finally {
+			ConnectionHelperPg.close(c);
+		}
+        return theOrder;
+    }
+
+    
     
     public List<Employee> findByName(String name) {
         List<Employee> list = new ArrayList<Employee>();
