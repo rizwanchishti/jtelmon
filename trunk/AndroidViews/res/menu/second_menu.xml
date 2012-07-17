@@ -12,5 +12,10 @@
         android:id ="@+id/TransferToServer "
         
 />
-    
+
+     <item
+        android:title="Sterge toate comenzile"
+        android:id ="@+id/DeleteAllOrders"/>    
+     
+     
      </menu>

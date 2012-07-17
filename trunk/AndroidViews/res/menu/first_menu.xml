@@ -8,35 +8,22 @@
         android:alphabeticShortcut="a"/>
     <item 
         android:title="Kilometraj"
-        android:id ="@+id/Kilometraj"
-        
-/>
+        android:id ="@+id/Kilometraj"/>
      <item 
         android:title="Observatie"
-        android:id ="@+id/Observatie"
-        
-/>
+        android:id ="@+id/Observatie"/>
      <item 
         android:title="Sincronizeaza date"
-        android:id ="@+id/Sincronizeazadate"
-        
-/>
+        android:id ="@+id/Sincronizeazadate"/>
      <item 
         android:title="Actualizeaza solduri"
-        android:id ="@+id/Actualizeazasolduri"
-        
-/>
-     />
+        android:id ="@+id/Actualizeazasolduri"/>
      <item 
         android:title="Reinitializeaza baza de date"
-        android:id ="@+id/Reinitializeazabazadedate"
-        
-/>
-     />
+        android:id ="@+id/Reinitializeazabazadedate"/>
      <item 
         android:title="Reinitializeaza date agent"
-        android:id ="@+id/Reinitializeazadateagent"
-        
-/>
-
+        android:id ="@+id/Reinitializeazadateagent"/>    
+     
 </menu>
+
