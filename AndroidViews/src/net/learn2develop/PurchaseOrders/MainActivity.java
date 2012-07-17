@@ -21,15 +21,15 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainpurchase);
         View v = findViewById(R.id.Button01);
-         v.setOnClickListener(this);
-         View s = findViewById(R.id.Button02);
-         s.setOnClickListener(this);
-         View l = findViewById(R.id.Button03);
-         l.setOnClickListener(this);
-         View e = findViewById(R.id.Button04);
-         e.setOnClickListener(this);
-         View x = findViewById(R.id.Button05);
-         x.setOnClickListener(this);
+        v.setOnClickListener(this);
+        View s = findViewById(R.id.Button02);
+        s.setOnClickListener(this);
+        View l = findViewById(R.id.Button03);
+        l.setOnClickListener(this);
+        View e = findViewById(R.id.Button04);
+        e.setOnClickListener(this);
+        View x = findViewById(R.id.Button05);
+        x.setOnClickListener(this);
     }
    
     // @Override
