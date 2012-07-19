@@ -4,6 +4,7 @@ package net.learn2develop.PurchaseOrders;
 
 import net.learn2develop.R;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.app.ListActivity; 
 import java.io.ByteArrayInputStream;
@@ -37,7 +38,7 @@ public class Sincronizare extends ListActivity {
 	// private final static String SERVICE_URI = "http://192.168.61.3/SalesService/SalesService.svc";
 	// private final static String SERVICE_URI = "http://192.168.101.222/SalesService/SalesService.svc";		
 	
-	private DataManipulator dm;
+	
     
     /** Called when the activity is first created. */
     @Override
@@ -45,14 +46,17 @@ public class Sincronizare extends ListActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.listview);
-        
+
+        final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Sincronizeaza date...");
+        new Thread() {
+        public void run() {
+        	DataManipulator dm = null;    
         HttpGet request = new HttpGet(SERVICE_URI + "/json/getproducts"  );       
         request.setHeader("Accept", "application/json");
         request.setHeader("Content-type", "application/json");
  
-        DefaultHttpClient httpClient = new DefaultHttpClient();
+        final DefaultHttpClient httpClient = new DefaultHttpClient();
 
-      
         String theString = new String("");
         
         HttpGet request1 = new HttpGet(SERVICE_URI +   "/json/getroutes/3165");       
@@ -61,8 +65,6 @@ public class Sincronizare extends ListActivity {
  
         DefaultHttpClient httpClient1 = new DefaultHttpClient();
 
-       
-        
         try {
         	HttpResponse response = httpClient.execute(request);
         	HttpEntity responseEntity = response.getEntity();
@@ -76,9 +78,6 @@ public class Sincronizare extends ListActivity {
         	String tempStringName   = new String();
         	String tempStringPrice  = new String();
         	String tempStringSymbol = new String();
-        	
-        	
-        	
         	
         	StringBuilder builder = new StringBuilder();
         	String line;
@@ -94,7 +93,7 @@ public class Sincronizare extends ListActivity {
         	JSONObject json=new JSONObject(theString);
         	Log.i("_GetPerson_","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
         	
-        	this.dm = new DataManipulator(this);
+        	dm = new DataManipulator(getApplicationContext());
         	
         	JSONArray nameArray;
         	nameArray=json.getJSONArray("getProductsResult");
@@ -108,7 +107,7 @@ public class Sincronizare extends ListActivity {
              	
              
      			
-     			this.dm.insertIntoProducts(tempStringID,tempStringName,tempStringPrice,tempStringSymbol);
+     			dm.insertIntoProducts(tempStringID,tempStringName,tempStringPrice,tempStringSymbol);
      			
      			
      			
@@ -155,7 +154,7 @@ public class Sincronizare extends ListActivity {
             	JSONObject json1=new JSONObject(theString);
             	Log.i("_GetPerson_","<jsonobject>\n"+json1.toString()+"\n</jsonobject>");
             	
-            	this.dm = new DataManipulator(this);
+            	dm = new DataManipulator(getApplicationContext());
             	
             	JSONArray nameArray1;
             	nameArray1=json1.getJSONArray("GetRoutesByAgentResult");
@@ -168,7 +167,7 @@ public class Sincronizare extends ListActivity {
                  	tempStringZone = nameArray1.getJSONObject(i).getString("Zone");
                  		
          			
-         			this.dm.insertIntoClients(tempStringAgent,tempStringClient,tempStringRoute,tempStringZone);
+         			dm.insertIntoClients(tempStringAgent,tempStringClient,tempStringRoute,tempStringZone);
          			
                      tempString1=nameArray1.getJSONObject(i).getString("Client")+"\n"+
                      		nameArray1.getJSONObject(i).getString("Route")+"\n"+nameArray1.getJSONObject(i).getString("Zone");
@@ -187,17 +186,23 @@ public class Sincronizare extends ListActivity {
         } catch (Exception a) {
         	a.printStackTrace();
         }
-        
+            
+    		if (dm != null) {
+    			dm.close();
+    		}
+    		progressDialog.dismiss();
     }
     
-    
+    }.start();
+    	
+    }
     
     // @Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if (dm != null) {
-			dm.close();
-		}
+		//if (dm != null) {
+		//	dm.close();
+		//}
 	}
     
 	

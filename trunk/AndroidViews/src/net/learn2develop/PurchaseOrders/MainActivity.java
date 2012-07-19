@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -74,7 +75,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			
 		case R.id.Sincronizeazadate:
 			
-			progressDialog = ProgressDialog.show(this, "", "Sincronizeaza date...");
+			 // progressDialog = ProgressDialog.show(this, "", "Sincronizeaza date...");
 			 new Thread() {
 				 public void run() {
 					 try{
@@ -84,7 +85,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					 } catch (Exception e) {
 						 Log.e("log", e.getMessage());
 					}
-					progressDialog.dismiss();
+					// progressDialog.dismiss();
 				 }
 			 }.start();
 			// Intent r = new Intent(this,Sincronizare.class);
@@ -104,24 +105,28 @@ public class MainActivity extends Activity implements OnClickListener {
 			new Thread() {
 				 public void run() {
 					 try{
-						 sleep(5000);
+						 // sleep(5000);
+						 DataManipulator dm;
+						 dm = new DataManipulator(getApplicationContext());
+						 dm.deleteAllProducts();
+						 dm.deleteAllClients();
+						 if (dm != null) {
+							 dm.close();
+				    	 }
+
 					 }catch (Exception e) {
 						 Log.e("log", e.getMessage());
 					 }
 					 progressDialog.dismiss();
 				 }
 			}.start();
-			
-			this.dm = new DataManipulator(this);
-			this.dm.deleteAllProducts ();
-			this.dm.deleteAllClients();
-			if (this.dm != null) {
-    			this.dm.close();
-    		}
-			
-			//Intent t = new Intent("");
-			//startActivity(t);
-			
+			//this.dm = new DataManipulator(this);
+			//this.dm.deleteAllProducts ();
+			//this.dm.deleteAllClients();
+			//if (this.dm != null) {
+    		//	this.dm.close();
+    		//}
+			Toast.makeText(this, " OK ! " + "\n", Toast.LENGTH_LONG).show() ;
 			break;
 			
 		case R.id.Reinitializeazadateagent:
