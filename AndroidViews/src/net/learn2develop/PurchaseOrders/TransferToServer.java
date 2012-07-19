@@ -16,7 +16,8 @@ import android.util.Log;
 public class TransferToServer extends Activity {
 	 		DataManipulator dm;
 	 		List<String[]> ordersToSend = null ;
-        	private final static String SERVICE_URI = "http://192.168.61.3/SalesService/SalesService.svc";
+        	// private final static String SERVICE_URI = "http://192.168.61.3/SalesService/SalesService.svc";
+	 		private final static String SERVICE_URI = "http://ftp.pangram.ro:9090/SalesService/SalesService.svc";
         	@Override
             public void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
