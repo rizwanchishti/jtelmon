@@ -1,8 +1,7 @@
 /*
- * EliminareConsoane.cpp
- *
+ *  EliminareConsoane.cpp
+ *  http://informaticasite.ro/probleme-rezolvate-c++/siruri-de-caractere/eliminare-consoane-din-sir.html
  *  Created on: Aug 8, 2012
- *      Author: depit
  */
 
 #include<iostream>
