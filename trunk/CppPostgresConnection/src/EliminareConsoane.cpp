@@ -10,7 +10,7 @@
 // #include <ncurses.h>
 #include "portablegetch.h"
 
-int main()
+int mainec()
 {
  using namespace std;
  char caracterele_primite[20],caracterele_ramase[20],vocale[]="aeiouAEIOU";
