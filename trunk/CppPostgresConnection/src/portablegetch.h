@@ -1,8 +1,7 @@
 /*
  * portablegetch.h
- *
- *  Created on: Aug 9, 2012
- *      Author: Java
+ *  http://stackoverflow.com/questions/6856635/hide-password-input-on-terminal
+ *  http://www.cplusplus.com/forum/articles/10627/
  */
 
 #ifndef PGETCH
