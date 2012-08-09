@@ -40,7 +40,9 @@ int main()
 cout << caracterele_ramase;
 
 // getch();
-// getch()->conio.h->windows
+// getch()->#include"conio.h"->Windows
+// include_portablegetch.h
+// getchar()->#include<ncurses.h>->Linux
 
 getch();
 return 1;

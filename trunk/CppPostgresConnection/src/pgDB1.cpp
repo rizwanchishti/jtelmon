@@ -199,7 +199,7 @@ void DropEmployeeTable(PGconn *conn)
 }
 
 
-#define WORD "this is a test"
+// #define WORD "this is a test"
 int main2(){
 PGconn     *conn = NULL;
 
