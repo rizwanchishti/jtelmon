@@ -7,7 +7,8 @@
 #include<iostream>
 #include<string.h>
 // #include"conio.h"
-#include <ncurses.h>
+// #include <ncurses.h>
+#include "portablegetch.h"
 
 int main()
 {
@@ -41,8 +42,6 @@ cout << caracterele_ramase;
 // getch();
 // getch()->conio.h->windows
 
-getchar();
+getch();
 return 1;
 }
-
-
