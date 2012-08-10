@@ -6,7 +6,7 @@ using namespace std;
 // Function headers:
 double avg(double *sirdezecimale, int size);
 
-int main(){
+int main010(){
     // Variable Declaration
     double* sirdezecimale;
     int LungimeSirZecimale;

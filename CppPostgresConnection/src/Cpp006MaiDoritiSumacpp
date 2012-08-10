@@ -2,7 +2,7 @@
 #include "conio.h"
 using namespace std;
 
-int main()
+int main006()
 {
 	int counter;
 	int sum(0);
