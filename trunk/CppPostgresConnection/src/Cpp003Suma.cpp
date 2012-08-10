@@ -1,5 +1,5 @@
 #include <iostream>
-int main1()
+int main003()
 {
      using  namespace std;
             int a;

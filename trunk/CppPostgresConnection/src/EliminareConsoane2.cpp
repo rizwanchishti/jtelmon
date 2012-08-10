@@ -1,7 +1,7 @@
 #include<iostream>
 #include<string.h>
 #include"conio.h"
-void main()
+void mainec2()
 {
  using namespace std;
   char maiDoriti[1] ;
