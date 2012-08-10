@@ -5,6 +5,7 @@
 	#include"conio.h"
 #endif
 
+// Tema : sa se verifice daca al 2-lea nr e mai mic decat primul ...
 using namespace std;
 
 int main()
@@ -12,9 +13,9 @@ int main()
 	int counter , first , last;
 	int sum1(0) , sum2(0) ;
 	char maiDoriti ='y';
-	// mD='y';
 	while (maiDoriti=='y')
 	{
+		cout << "Suma numerelor cuprinse intre primul si al doilea numar"<< endl;
 		cout << "Introduceti primul numar :";
 		cin >> first;
 		cout<< "Introduceti al doilea numar:";
