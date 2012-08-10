@@ -10,11 +10,10 @@ using namespace std;
 int main()
 {
 	int counter;
-	int sum(0);
+	int sum1(0);
 	int first;
 	int last;
 	int sum2(0);
-	char maiDoriti[1] ;
 	char mD ;
 	mD='y';
 	while (mD=='y')
@@ -25,9 +24,9 @@ int main()
 		cin >> last;
 
 		for(  counter = first; counter <= last; counter++ )
-		 			sum=sum+counter;
+		 			sum1=sum1+counter;
 
-	    cout << "Suma dintre ele Prin metoda 1 este " << sum << endl;
+	    cout << "Suma dintre ele Prin metoda 1 este " << sum1 << endl;
 		sum2 = ((last+first)*(last-first+1))/2;
 	    cout << "Suma dintre ele Prin metoda 2 este " << sum2 << endl;
 	    cout << "Mai doriti y/n" << endl;
@@ -35,7 +34,7 @@ int main()
 	    while(mD!='y' && mD!='n'){
 	    	mD = getch();
 	    }
-	    sum  = 0;
+	    sum1  = 0;
 		sum2 = 0;
 	}
 	cout << "Programul se inchde";
