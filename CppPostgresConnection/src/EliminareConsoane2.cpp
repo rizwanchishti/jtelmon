@@ -1,6 +1,10 @@
 #include<iostream>
 #include<string.h>
-#include"conio.h"
+// #include"conio.h"
+#ifndef PGETCH
+	#include "portablegetch.h"
+#endif
+
 void mainec2()
 {
  using namespace std;
@@ -35,8 +39,8 @@ while (maiDoriti[0]=='y')
 							}         // end_WHILE
 					cout << caracterele_ramase<<endl;
 		 cout<<"Mai doriti y/n"<<endl;
-				maiDoriti[0]=_getch();
+				maiDoriti[0]=getch();
 				}
 cout<<"Programul se inchde";
-_getch();
+getch();
 }
