@@ -1,6 +1,10 @@
 #include<iostream>
 #include<string.h>
-#include"conio.h"
+// #include"conio.h"
+#ifndef PGETCH
+	#include "portablegetch.h"
+#endif
+
 using namespace std;
 
 // Function headers:
