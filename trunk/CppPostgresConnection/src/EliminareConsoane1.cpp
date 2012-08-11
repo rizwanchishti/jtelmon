@@ -8,7 +8,9 @@
 #include<string.h>
 // #include"conio.h"
 // #include <ncurses.h>
-#include "portablegetch.h"
+#ifndef PGETCH
+	#include "portablegetch.h"
+#endif
 
 int mainec1()
 {
