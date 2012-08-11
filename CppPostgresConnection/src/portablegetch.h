@@ -9,12 +9,13 @@
 #ifdef __unix__
 #include <termios.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <cstdlib>
 
 static struct termios n_term;
 static struct termios o_term;
 
-static int
-cbreak(int fd)
+static int cbreak(int fd)
 {
    if((tcgetattr(fd, &o_term)) == -1)
       return -1;
@@ -27,13 +28,14 @@ cbreak(int fd)
    return 1;
 }
 
-int getch()
+static int getch()
 {
    int cinput;
 
    if(cbreak(STDIN_FILENO) == -1) {
       fprintf(stderr, "cbreak failure, exiting \n");
       exit(EXIT_FAILURE);
+
    }
    cinput = getchar();
    tcsetattr(STDIN_FILENO, TCSANOW, &o_term);
