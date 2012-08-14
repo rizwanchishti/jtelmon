@@ -15,7 +15,8 @@ class MyApp : public wxApp
     virtual bool OnInit();
 };
 
-IMPLEMENT_APP(MyApp)
+// MAIN ->
+// IMPLEMENT_APP(MyApp)
 
 
 class MyFrame : public wxFrame
