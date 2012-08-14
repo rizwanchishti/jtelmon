@@ -1,6 +1,16 @@
 
-// http://wiki.wxwidgets.org/Writing_Your_First_Application-Common_Dialogs
+/*
+     http://wiki.wxwidgets.org/Writing_Your_First_Application-Introduction
+     http://wiki.wxwidgets.org/Writing_Your_First_Application-Adding_A_Button
+     http://wiki.wxwidgets.org/Writing_Your_First_Application-Using_The_WxTextCtrl
+     http://wiki.wxwidgets.org/Writing_Your_First_Application-Common_Dialogs
 
+	 http://wiki.wxwidgets.org/Converting_everything_to_and_from_wxString
+
+     http://wiki.wxwidgets.org/Printing
+
+
+*/
 #include <wx/wxprec.h>
 
 #ifndef WX_PRECOMP
@@ -86,7 +96,9 @@ void MainFrame::OpenFile(wxCommandEvent& WXUNUSED(event))
 		// Set the Title to reflect the  file open
 		wxString temp= OpenDialog->GetFilename();
 		// this->SetTitle(wxString("Edit - ") << OpenDialog->GetFilename());
-		this->SetTitle(temp);
+		// http://wiki.wxwidgets.org/Converting_everything_to_and_from_wxString
+		this->SetTitle( wxString(wxT("Edit - ")) + temp);
+		// this->SetTitle(temp);
 	}
 }
 
