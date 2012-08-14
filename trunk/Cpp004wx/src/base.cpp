@@ -71,7 +71,10 @@ void MainFrame::NewFile(wxCommandEvent& WXUNUSED(event))
 
 void MainFrame::OpenFile(wxCommandEvent& WXUNUSED(event))
 {
-	wxFileDialog *OpenDialog = new wxFileDialog( this, _("Choose a file to open"), wxEmptyString, wxEmptyString,	_("Text files (*.txt)|*.txt|C++ Source Files (*.cpp, *.cxx)|*.cpp;*.cxx|C Source files (*.c)|*.c|C header files (*.h)|*.h"),wxFD_OPEN, wxDefaultPosition);
+	wxFileDialog *OpenDialog = new wxFileDialog( this, _
+			("Choose a file to open") , wxEmptyString , wxEmptyString , _
+			("Text files (*.txt)|*.txt|C++ Source Files (*.cpp, *.cxx)|*.cpp;*.cxx|C Source files (*.c)|*.c|C header files (*.h)|*.h") ,
+			wxFD_OPEN , wxDefaultPosition);
 
 	// Creates a "open file" dialog with 4 file types
 	if (OpenDialog->ShowModal() == wxID_OK) // if the user click "Open" instead of "cancel"
@@ -81,7 +84,9 @@ void MainFrame::OpenFile(wxCommandEvent& WXUNUSED(event))
 		// Sets our current document to the file the user selected
 		MainEditBox->LoadFile(CurrentDocPath); //Opens that file
 		// Set the Title to reflect the  file open
-		// SetTitle(wxString("Edit - ") << OpenDialog->GetFilename());
+		wxString temp= OpenDialog->GetFilename();
+		// this->SetTitle(wxString("Edit - ") << OpenDialog->GetFilename());
+		this->SetTitle(temp);
 	}
 }
 
@@ -92,7 +97,8 @@ void MainFrame::CloseFile(wxCommandEvent& WXUNUSED(event))
 	// Reset the current File being edited
 	CurrentDocPath = wxT("C:/");
 	// Set the Title to reflect the file open
-	SetTitle(_("Edit - untitled *"));
+	this->SetTitle(_("Edit - untitled *"));
+
 }
 
 void MainFrame::SaveFile(wxCommandEvent& WXUNUSED(event))
@@ -103,7 +109,11 @@ void MainFrame::SaveFile(wxCommandEvent& WXUNUSED(event))
 
 void MainFrame::SaveFileAs(wxCommandEvent& WXUNUSED(event))
 {
-	wxFileDialog *SaveDialog = new wxFileDialog(this, _("Save File As _?"), wxEmptyString, wxEmptyString, _("Text files (*.txt)|*.txt|C++ Source Files (*.cpp)|*.cpp|C Source files (*.c)|*.c|C header files (*.h)|*.h"),wxFD_SAVE | wxFD_OVERWRITE_PROMPT, wxDefaultPosition);
+	wxFileDialog *SaveDialog = new wxFileDialog(this, _
+			("Save File As _?"), wxEmptyString, wxEmptyString, _
+			("Text files (*.txt)|*.txt|C++ Source Files (*.cpp)|*.cpp|C Source files (*.c)|*.c|C header files (*.h)|*.h"),
+			wxFD_SAVE | wxFD_OVERWRITE_PROMPT,
+			wxDefaultPosition);
 
 	// Creates a Save Dialog with 4 file types
 	if (SaveDialog->ShowModal() == wxID_OK) // If the user clicked "OK"
