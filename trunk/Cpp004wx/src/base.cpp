@@ -6,6 +6,7 @@
      http://wiki.wxwidgets.org/Writing_Your_First_Application-Common_Dialogs
 
 	 http://wiki.wxwidgets.org/Converting_everything_to_and_from_wxString
+	 http://wiki.wxwidgets.org/Reading_text_from_a_file
 
      http://wiki.wxwidgets.org/Printing
 
@@ -77,6 +78,7 @@ void MainFrame::NewFile(wxCommandEvent& WXUNUSED(event))
 	CurrentDocPath = wxT("C:/");
 	// Set the Title to reflect the file open
 	SetTitle(_("Edit - untitled *"));
+	MainEditBox->AppendText(wxString(wxT("Am inceput sa editam un text nou ... ")));
 }
 
 void MainFrame::OpenFile(wxCommandEvent& WXUNUSED(event))
