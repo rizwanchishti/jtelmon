@@ -9,7 +9,7 @@
 void CloseConn(PGconn *conn)
 {
     PQfinish(conn);
-    getchar();
+    // getchar();
     // exit(1);
 }
 
