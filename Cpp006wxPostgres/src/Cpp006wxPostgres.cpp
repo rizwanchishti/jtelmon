@@ -3,7 +3,7 @@
 // Author      : 
 // Version     :
 // Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// https://jtelmon.googlecode.com/svn/trunk/CppPostgresConnection/src/pgDB1.cpp
 //============================================================================
 
 #include <iostream>
