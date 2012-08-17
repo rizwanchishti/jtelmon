@@ -11,6 +11,6 @@
 #include "libpq-fe.h"
 PGconn *ConnectDB();
 void CloseConn(PGconn *conn);
-void FetchRecords(PGconn *conn);
+char* FetchRecords(PGconn *conn);
 
 #endif /* POSTGRESCONNECTION_H_ */

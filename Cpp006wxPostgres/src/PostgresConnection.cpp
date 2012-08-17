@@ -3,8 +3,9 @@
 #include <stdarg.h>
 #include "libpq-fe.h"
 #include <string>
+#include <string.h>
 
-// using namespace std;
+using namespace std;
 
 void CloseConn(PGconn *conn)
 {
@@ -82,11 +83,14 @@ void InsertEmployeeRec(PGconn *conn, char * fname, char * lname)
 
 
 /* Fetch employee record and display it on screen */
-void FetchRecords(PGconn *conn)
+char* FetchRecords(PGconn *conn)
 {
   // Will hold the number of field in employee table
   int nFields;
   char * temp;
+  char * ctemp = NULL;
+  string stemp;
+
 
   // Start a transaction block
   PGresult *res  = PQexec(conn, "BEGIN");
@@ -132,8 +136,12 @@ void FetchRecords(PGconn *conn)
     {
     	temp=PQfname(res, i);
     	printf("%-50s", temp );
-    	// printf("%-30s", PQfname(res, i));
+    	// strcpy(ctemp,temp);
+    	// temp2 = new char* ;
+    	// stemp = sprintf("%-50s", temp );
+    	// ctemp = ctemp + stemp;
 
+    	// printf("%-30s", PQfname(res, i));
     }
     printf("\n********************************************************************\n");
 
@@ -159,6 +167,7 @@ void FetchRecords(PGconn *conn)
 
   // Clear result
     PQclear(res);
+    return ctemp;
 }
 
 /* Erase all record in employee table */

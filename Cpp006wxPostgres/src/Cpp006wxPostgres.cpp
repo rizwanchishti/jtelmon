@@ -6,7 +6,7 @@
 // https://jtelmon.googlecode.com/svn/trunk/CppPostgresConnection/src/pgDB1.cpp
 //============================================================================
 
-#include <iostream>
+// #include <iostream>
 #include "PostgresConnection.h"
 
 using namespace std;

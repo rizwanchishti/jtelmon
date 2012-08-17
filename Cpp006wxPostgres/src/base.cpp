@@ -19,6 +19,7 @@
 #endif
 
 #include "base.h"
+#include "PostgresConnection.h"
 
 IMPLEMENT_APP(MainApp) // Initializes the MainApp class...
 
@@ -72,6 +73,14 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
 
 void MainFrame::NewFile(wxCommandEvent& WXUNUSED(event))
 {
+
+	char * temp2;
+	PGconn *conn = NULL;
+	conn = ConnectDB();
+	temp2 = FetchRecords(conn);
+	CloseConn(conn);
+
+
 	// Clear the edit box
 	MainEditBox->Clear();
 	// reset the path of our current open file
@@ -79,6 +88,7 @@ void MainFrame::NewFile(wxCommandEvent& WXUNUSED(event))
 	// Set the Title to reflect the file open
 	SetTitle(_("Edit - untitled *"));
 	MainEditBox->AppendText(wxString(wxT("Am inceput sa editam un text nou ... ")));
+	// MainEditBox->AppendText(wxString(wxT(temp2)));
 }
 
 void MainFrame::OpenFile(wxCommandEvent& WXUNUSED(event))
