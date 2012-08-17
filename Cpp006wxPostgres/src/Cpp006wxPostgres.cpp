@@ -11,7 +11,7 @@
 
 using namespace std;
 
-int main() {
+int main1() {
 
 	PGconn *conn = NULL;
 	conn = ConnectDB();

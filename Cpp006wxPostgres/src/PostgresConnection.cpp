@@ -18,7 +18,8 @@ PGconn *ConnectDB()
   PGconn *conn = NULL;
 
   // Make a connection to the database
-  conn = PQconnectdb("user=postgres password=telinit dbname=SoftySales hostaddr=127.0.0.1 port=5432");
+  //conn = PQconnectdb("user=postgres password=telinit dbname=SoftySales hostaddr=127.0.0.1 port=5432");
+  conn = PQconnectdb("user=postgres password=telinit dbname=SoftySales hostaddr=192.168.61.207 port=5432");
 
   // Check to see that the backend connection was successfully made
     if (PQstatus(conn) != CONNECTION_OK)
