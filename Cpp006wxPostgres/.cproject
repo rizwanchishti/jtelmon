@@ -28,12 +28,19 @@
 									<listOptionValue builtIn="false" value="&quot;C:\SourceCode\Libraries\wxWidgets2.8\lib\gcc_dll\msw&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\SourceCode\Libraries\wxWidgets2.8\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\MinGW\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\MinGW32TDM\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\MinGW\lib\gcc\mingw32\4.6.2\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\MinGW32TDM\lib\gcc\mingw32\4.6.1\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\MinGW\lib\gcc\mingw32\4.6.2\include\c++&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\MinGW32TDM\lib\gcc\mingw32\4.6.1\include\c++&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\MinGW\lib\gcc\mingw32\4.6.2\include\c++\backward&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\MinGW32TDM\lib\gcc\mingw32\4.6.1\include\c++\backward&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\MinGW\lib\gcc\mingw32\4.6.2\include\c++\mingw32&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\MinGW32TDM\lib\gcc\mingw32\4.6.1\include\c++\mingw32&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\MinGW\lib\gcc\mingw32\4.6.2\include-fixed&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\MinGW32TDM\lib\gcc\mingw32\4.6.1\include-fixed&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\Program Files\PostgreSQL\9.1\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Program Files (x86)\PostgreSQL\9.1\include&quot;"/>
 									<listOptionValue builtIn="false" value="/usr/include/pgsql"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.optimization.level.773820532" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
@@ -141,4 +148,5 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>
