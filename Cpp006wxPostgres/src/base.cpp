@@ -28,7 +28,11 @@ bool MainApp::OnInit()
 {
 	// Create an instance of our frame, or window
 	MainFrame *MainWin = new MainFrame(
-		_("Edit"), wxPoint(1, 1), wxSize(300, 200));
+		_("Edit"), wxPoint(1, 1), wxSize(600, 400));
+
+	MainWin->Connect( ID_ABOUT, wxEVT_COMMAND_MENU_SELECTED,
+                    (wxObjectEventFunction) &MainFrame::OnAbout );
+
 	MainWin->Show(TRUE); // show the window
 	SetTopWindow(MainWin); // and finally, set it as the main window
 	return TRUE;
@@ -38,9 +42,18 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
 : wxFrame((wxFrame*) NULL, -1, title, pos, size)
 {
 	CreateStatusBar(2);
+	SetStatusText( _("Poti sa faci asta sa mearga pe MacOS ?") );
 
 	MainMenu = new wxMenuBar();
 	wxMenu *FileMenu = new wxMenu();
+
+	// ->
+	// Alex1
+	wxMenu *HelpMenu = new wxMenu();
+	wxMenuItem* about;
+	about = new wxMenuItem( HelpMenu, ID_ABOUT, wxString( wxT("About") ) , wxEmptyString, wxITEM_NORMAL );
+	HelpMenu->Append(about);
+	// <-
 
 	FileMenu->Append(MENU_New,
 		_("&New"), _("Create a new file"));
@@ -62,13 +75,20 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
 		_("&Quit"), _("Quit the editor"));
 
 	MainMenu->Append(FileMenu, _("&File"));
+
+	// ->
+	// Alex2
+	MainMenu->Append(HelpMenu, _("&Help"));
+	// <-
+
 	SetMenuBar(MainMenu);
 
 	MainEditBox = new wxTextCtrl(
 		this, TEXT_Main, _("Hi!"), wxDefaultPosition, wxDefaultSize,
 		wxTE_MULTILINE | wxTE_RICH , wxDefaultValidator, wxTextCtrlNameStr);
 
-	Maximize(); // Maximize the window
+	Centre(wxBOTH);
+	// Maximize(); // Maximize the window
 }
 
 void MainFrame::NewFile(wxCommandEvent& WXUNUSED(event))
@@ -77,7 +97,7 @@ void MainFrame::NewFile(wxCommandEvent& WXUNUSED(event))
 	char * temp2;
 	PGconn *conn = NULL;
 	conn = ConnectDB();
-	temp2 = FetchRecords(conn);
+	temp2 = FetchEmployeeRec(conn);
 	CloseConn(conn);
 
 
@@ -88,7 +108,7 @@ void MainFrame::NewFile(wxCommandEvent& WXUNUSED(event))
 	// Set the Title to reflect the file open
 	SetTitle(_("Edit - untitled *"));
 	MainEditBox->AppendText(wxString(wxT("Am inceput sa editam un text nou ... ")));
-	// MainEditBox->AppendText(wxString(wxT(temp2)));
+	MainEditBox->AppendText(wxString(wxT(temp2)));
 }
 
 void MainFrame::OpenFile(wxCommandEvent& WXUNUSED(event))
@@ -156,4 +176,11 @@ void MainFrame::SaveFileAs(wxCommandEvent& WXUNUSED(event))
 void MainFrame::Quit(wxCommandEvent& WXUNUSED(event))
 {
 	Close(TRUE); // Close the window
+}
+
+void MainFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
+{
+    wxMessageBox( _("Faci sa mearga asta si pe Mac ?"),
+                  _("Salutari Lucian ... "),
+                  wxOK|wxICON_INFORMATION, this );
 }

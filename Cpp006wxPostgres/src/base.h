@@ -2,6 +2,8 @@
 #include <wx/menu.h>
 #include <wx/textctrl.h>
 
+#define ID_ABOUT 1005
+
 // MainApp is the class for our application, it just acts
 // as a container for the window or frame in MainFrame.
 class MainApp: public wxApp
@@ -23,6 +25,11 @@ public:
 	void SaveFile( wxCommandEvent& event );
 	void SaveFileAs( wxCommandEvent& event );
 	void CloseFile( wxCommandEvent& event );
+
+	// ->
+	// Alex3
+	void OnAbout( wxCommandEvent& event );
+	// <-
 
 	wxTextCtrl *MainEditBox;
 	wxMenuBar *MainMenu;

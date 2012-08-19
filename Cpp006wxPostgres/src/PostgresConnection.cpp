@@ -14,7 +14,7 @@ void CloseConn(PGconn *conn)
     // exit(1);
 }
 
-PGconn *ConnectDB()
+PGconn *ConnectSalesDB()
 {
   PGconn *conn = NULL;
 
@@ -33,6 +33,27 @@ PGconn *ConnectDB()
 
   return conn;
 }
+
+
+PGconn *ConnectDB()
+{
+  PGconn *conn = NULL;
+
+  // Make a connection to the database
+  conn = PQconnectdb("user=postgres password=telinit dbname=postgres hostaddr=127.0.0.1 port=5432");
+
+  // Check to see that the backend connection was successfully made
+    if (PQstatus(conn) != CONNECTION_OK)
+    {
+        printf("Connection to database failed");
+        CloseConn(conn);
+    }
+
+  printf("Connection to database - OK\n");
+
+  return conn;
+}
+
 
 /* Create employee table */
 void CreateEmployeeTable(PGconn *conn)
@@ -169,6 +190,90 @@ char* FetchRecords(PGconn *conn)
     PQclear(res);
     return ctemp;
 }
+
+
+/* Fetch employee record and display it on screen */
+char* FetchEmployeeRec(PGconn *conn)
+{
+  // Will hold the number of field in employee table
+  int nFields;
+  char * temp;
+
+  // Start a transaction block
+  PGresult *res  = PQexec(conn, "BEGIN");
+
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+    {
+        printf("BEGIN command failed");
+        PQclear(res);
+        CloseConn(conn);
+    }
+
+   // Clear result
+    PQclear(res);
+
+    // Fetch rows from employee table
+    res = PQexec(conn, "DECLARE emprec CURSOR FOR select * from employee");
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+    {
+        printf("DECLARE CURSOR failed");
+        PQclear(res);
+        CloseConn(conn);
+    }
+
+  // Clear result
+    PQclear(res);
+
+    res = PQexec(conn, "FETCH ALL in emprec");
+
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+    {
+        printf("FETCH ALL failed");
+        PQclear(res);
+        CloseConn(conn);
+    }
+
+    // Get the field name
+    nFields = PQnfields(res);
+
+  // Prepare the header with employee table field name
+  printf("\nFetch employee record:");
+  printf("\n********************************************************************\n");
+    for (int i = 0; i < nFields; i++)
+    {
+    	temp=PQfname(res, i);
+    	printf("%-30s", temp );
+    	// printf("%-30s", PQfname(res, i));
+
+    }
+    printf("\n********************************************************************\n");
+
+    // Next, print out the employee record for each row
+    for (int i = 0; i < PQntuples(res); i++)
+    {
+        for (int j = 0; j < nFields; j++){
+        	temp=PQgetvalue(res, i, j);
+        	printf("%-30s", temp);
+            // printf("%-30s", PQgetvalue(res, i, j));
+        }
+        printf("\n");
+    }
+
+    PQclear(res);
+
+    // Close the emprec
+    res = PQexec(conn, "CLOSE emprec");
+    PQclear(res);
+
+    // End the transaction
+    res = PQexec(conn, "END");
+
+  // Clear result
+    PQclear(res);
+    return temp;
+}
+
+
 
 /* Erase all record in employee table */
 void RemoveAllEmployeeRec(PGconn *conn)
