@@ -107,7 +107,7 @@ void MainFrame::NewFile(wxCommandEvent& WXUNUSED(event))
 	CurrentDocPath = wxT("C:/");
 	// Set the Title to reflect the file open
 	SetTitle(_("Edit - untitled *"));
-	MainEditBox->AppendText(wxString(wxT("Am inceput sa editam un text nou ... ")));
+	// MainEditBox->AppendText(wxString(wxT("Am inceput sa editam un text nou ... ")));
 	MainEditBox->AppendText(wxString(wxT(temp2)));
 }
 
