@@ -63,6 +63,7 @@
 									<listOptionValue builtIn="false" value="&quot;C:\Program Files\PostgreSQL\9.1\lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\SourceCode\Libraries\wxWidgets2.8\lib\gcc_dll&quot;"/>
 									<listOptionValue builtIn="false" value="/usr/lib64"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Program Files (x86)\PostgreSQL\9.1\lib&quot;"/>
 								</option>
 								<option id="gnu.cpp.link.option.flags.1146055614" name="Linker flags" superClass="gnu.cpp.link.option.flags" value=" -mthreads -LC:\SourceCode\Libraries\wxWidgets2.8\lib\gcc_dll -lwxmsw28 -lwxtiff -lwxjpeg -lwxpng -lwxzlib -lwxregex -lwxexpat -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwxregex -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32 -lodbc32 " valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1330246819" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
@@ -73,7 +74,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+						<entry excluding="Cpp004pqPostgres.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -121,7 +122,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+						<entry excluding="Cpp004pqPostgres.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -132,21 +133,35 @@
 		<project id="Cpp006wxPostgres.cdt.managedbuild.target.gnu.exe.310773744" name="Executable" projectType="cdt.managedbuild.target.gnu.exe"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/Cpp006wxPostgres"/>
+		</configuration>
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/Cpp006wxPostgres"/>
+		</configuration>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.1823872466;cdt.managedbuild.config.gnu.exe.debug.1823872466.;cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.1963844998;cdt.managedbuild.tool.gnu.cpp.compiler.input.237010734">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.670867175;cdt.managedbuild.config.gnu.exe.release.670867175.;cdt.managedbuild.tool.gnu.c.compiler.exe.release.1374735502;cdt.managedbuild.tool.gnu.c.compiler.input.1649260558">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.1823872466;cdt.managedbuild.config.gnu.exe.debug.1823872466.;cdt.managedbuild.tool.gnu.c.compiler.mingw.base.776612319;cdt.managedbuild.tool.gnu.c.compiler.input.1802207814">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.1823872466;cdt.managedbuild.config.gnu.exe.debug.1823872466.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.414414736;cdt.managedbuild.tool.gnu.c.compiler.input.336313122">
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.1823872466;cdt.managedbuild.config.gnu.exe.debug.1823872466.;cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base.915594798;cdt.managedbuild.tool.gnu.cpp.compiler.input.16540559">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.670867175;cdt.managedbuild.config.gnu.exe.release.670867175.;cdt.managedbuild.tool.gnu.c.compiler.exe.release.1374735502;cdt.managedbuild.tool.gnu.c.compiler.input.1649260558">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.670867175;cdt.managedbuild.config.gnu.exe.release.670867175.;cdt.managedbuild.tool.gnu.cpp.compiler.exe.release.705265369;cdt.managedbuild.tool.gnu.cpp.compiler.input.517506899">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.1823872466;cdt.managedbuild.config.gnu.exe.debug.1823872466.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.414414736;cdt.managedbuild.tool.gnu.c.compiler.input.336313122">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>
