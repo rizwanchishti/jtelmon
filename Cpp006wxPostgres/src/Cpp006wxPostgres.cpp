@@ -12,7 +12,7 @@
 using namespace std;
 
 
-int main3() {
+int mainC() {
 
 	PGconn *conn = NULL;
 	conn = ConnectDB();

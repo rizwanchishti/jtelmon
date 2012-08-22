@@ -13,6 +13,7 @@
 
 */
 #include <wx/wxprec.h>
+#include <wx/string.h>
 
 #ifndef WX_PRECOMP
 #	include <wx/wx.h>
@@ -94,12 +95,19 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
 void MainFrame::NewFile(wxCommandEvent& WXUNUSED(event))
 {
 
-	char * temp2;
+	char * temp4;
 	PGconn *conn = NULL;
 	conn = ConnectDB();
-	temp2 = FetchEmployeeRec(conn);
+	temp4 = FetchEmployeeRec(conn);
 	CloseConn(conn);
 
+	// http://wiki.wxwidgets.org/Converting_everything_to_and_from_wxString
+	// http://wiki.wxwidgets.org/WxString
+	// http://docs.wxwidgets.org/2.8/wx_unicode.html
+	// GTK 2.0 only accepts UTF-8 strings.
+	wxString wxStr1 = wxString::FromUTF8(temp4);
+
+	// str(ascii_str, wxConvUTF8);
 
 	// Clear the edit box
 	MainEditBox->Clear();
@@ -108,7 +116,10 @@ void MainFrame::NewFile(wxCommandEvent& WXUNUSED(event))
 	// Set the Title to reflect the file open
 	SetTitle(_("Edit - untitled *"));
 	// MainEditBox->AppendText(wxString(wxT("Am inceput sa editam un text nou ... ")));
-	MainEditBox->AppendText(wxString(wxT(temp2)));
+	MainEditBox->AppendText(wxStr1);
+
+	// this->MainEditBox->AppendText( wxString( wxT( temp4 ) ) );
+
 }
 
 void MainFrame::OpenFile(wxCommandEvent& WXUNUSED(event))
