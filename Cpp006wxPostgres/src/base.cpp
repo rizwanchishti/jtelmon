@@ -107,8 +107,6 @@ void MainFrame::NewFile(wxCommandEvent& WXUNUSED(event))
 	// GTK 2.0 only accepts UTF-8 strings.
 	wxString wxStr1 = wxString::FromUTF8(temp4);
 
-	// str(ascii_str, wxConvUTF8);
-
 	// Clear the edit box
 	MainEditBox->Clear();
 	// reset the path of our current open file
@@ -117,7 +115,6 @@ void MainFrame::NewFile(wxCommandEvent& WXUNUSED(event))
 	SetTitle(_("Edit - untitled *"));
 	// MainEditBox->AppendText(wxString(wxT("Am inceput sa editam un text nou ... ")));
 	MainEditBox->AppendText(wxStr1);
-
 	// this->MainEditBox->AppendText( wxString( wxT( temp4 ) ) );
 
 }
