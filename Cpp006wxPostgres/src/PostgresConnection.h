@@ -10,6 +10,7 @@
 
 #include "libpq-fe.h"
 PGconn *ConnectDB();
+PGconn *ConnectSalesDB();
 void CreateEmployeeTable(PGconn *conn);
 void InsertEmployeeRec(PGconn*, char*, char *);
 void CloseConn(PGconn *conn);

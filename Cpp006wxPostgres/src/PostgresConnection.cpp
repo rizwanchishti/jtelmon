@@ -105,14 +105,17 @@ void InsertEmployeeRec(PGconn *conn, char * fname, char * lname)
 
 
 /* Fetch employee record and display it on screen */
-char* FetchRecords(PGconn *conn)
+const char* FetchRecords(PGconn *conn)
 {
   // Will hold the number of field in employee table
   int nFields;
-  char * temp;
-  char * ctemp = NULL;
-  string stemp;
+  // char * temp;
+  char * temp1;
+  char * temp2;
+  const char * temp3;
+  std::string sTemp;
 
+  temp2 = (char *) malloc(100);
 
   // Start a transaction block
   PGresult *res  = PQexec(conn, "BEGIN");
@@ -147,37 +150,28 @@ char* FetchRecords(PGconn *conn)
         PQclear(res);
         CloseConn(conn);
     }
-
-    // Get the field name
     nFields = PQnfields(res);
 
-  // Prepare the header with employee table field name
   printf("\nFetch employee record:");
   printf("\n********************************************************************\n");
     for (int i = 0; i < nFields; i++)
     {
-    	temp=PQfname(res, i);
-    	printf("%-50s", temp );
-    	// strcpy(ctemp,temp);
-    	// temp2 = new char* ;
-    	// stemp = sprintf("%-50s", temp );
-    	// ctemp = ctemp + stemp;
-
-    	// printf("%-30s", PQfname(res, i));
-
-    	// strcpy(ctemp,temp);
+    	// temp=PQfname(res, i);
+    	temp1=PQfname(res, i);
+    	printf("%-50s", temp1 );
+    	sprintf(temp2 ,"%-50s" ,  temp1);
+    	sTemp.append(temp2);
 
     }
     printf("\n********************************************************************\n");
-
-    // Next, print out the employee record for each row
+    sTemp.append("\n********************************************************************\n");
     for (int i = 0; i < PQntuples(res); i++)
     {
         for (int j = 0; j < nFields; j++){
-        	temp=PQgetvalue(res, i, j);
-        	printf("%-50s", temp);
-            // printf("%-30s", PQgetvalue(res, i, j));
-        	// strcpy(ctemp,temp);
+        	temp1=PQgetvalue(res, i, j);
+        	printf("%-50s", temp1);
+        	sprintf(temp2 ,"%-50s" ,  temp1);
+        	sTemp.append(temp2);
         }
         printf("\n");
     }
@@ -193,7 +187,12 @@ char* FetchRecords(PGconn *conn)
 
   // Clear result
     PQclear(res);
-    return ctemp;
+    // return ctemp;
+
+    temp3 = sTemp.c_str();
+    return temp3;
+
+
 }
 
 

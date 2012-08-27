@@ -14,6 +14,7 @@
 */
 #include <wx/wxprec.h>
 #include <wx/string.h>
+#include <wx/font.h>
 
 #ifndef WX_PRECOMP
 #	include <wx/wx.h>
@@ -97,15 +98,33 @@ void MainFrame::NewFile(wxCommandEvent& WXUNUSED(event))
 
 	char * temp4;
 	PGconn *conn = NULL;
-	conn = ConnectDB();
-	temp4 = FetchEmployeeRec(conn);
+	// conn = ConnectDB();
+	conn = ConnectSalesDB();
+	// temp4 = FetchEmployeeRec(conn);
+	temp4 = FetchRecords(conn);
 	CloseConn(conn);
 
 	// http://wiki.wxwidgets.org/Converting_everything_to_and_from_wxString
 	// http://wiki.wxwidgets.org/WxString
 	// http://docs.wxwidgets.org/2.8/wx_unicode.html
 	// GTK 2.0 only accepts UTF-8 strings.
-	wxString wxStr1 = wxString::FromUTF8(temp4);
+
+	// wxString wxStr1 = wxString::FromUTF8(temp4);
+	wxString wxStr1 = wxString::FromAscii(temp4);
+	// FromAscii(str);
+
+	MainEditBox->SetFont(wxSystemSettings::GetFont(wxSYS_ANSI_FIXED_FONT));
+	// http://wxcode.sourceforge.net/docs/wxpdfdoc/classwx_pdf_utility.html
+	// wxPdfDocument !!!!
+	// http://forums.wxwidgets.org/viewtopic.php?f=30&t=35341
+
+	// http://en.wikipedia.org/wiki/Consolas
+	// wxTextCtrl , setFont , wxFont : include <wx/font.h>
+	// wxFont font1 = wxFont(10, wx.MODERN, wx.NORMAL, wx.NORMAL, False, 'Consolas');
+	// MainEditBox.SetFont(font1);
+	// MainEditBox->SetFont(font1);
+	// MainEditBox->SetFont(wxFont (10, wx.SWISS, wx.NORMAL, wx.BOLD));
+	MainEditBox->SetFont(wxFont (12, 74, 90, 92, false, wxT("Courier New") ) );
 
 	// Clear the edit box
 	MainEditBox->Clear();
