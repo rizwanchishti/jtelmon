@@ -27,6 +27,12 @@ public class SoftyResource {
 		return dao.findAllOrders();
 	}
 	
+	@GET @Path("/allproducts")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public List<Product> findAllProducts() {
+		return dao.findAllProducts();
+	}
+
 	
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

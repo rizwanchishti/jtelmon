@@ -52,6 +52,49 @@ public class SoftyDAO {
         return list;
     }
 
+    // http://zetcode.com/db/postgresqljavatutorial/
+    // import java.util.logging.Level;
+    // import java.util.logging.Logger;
+    // Transaction support
+    
+    
+    public List<Product> findAllProducts() {
+    	List<Product> list = new ArrayList<Product>();
+    	
+        Connection c = null;
+    	String sql = "SELECT pr.product_id , pr.product_name  , pr.class_id , pr.price , pr.symbol FROM product as pr ";
+
+        try {
+            c = ConnectionHelperPg.getConnection();
+            Statement s = c.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            while (rs.next()) {
+
+            	list.add(processProductRow(rs));
+            	
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+		} finally {
+			ConnectionHelperPg.close(c);
+		}
+    	
+    	
+    	return list;
+    }
+    
+    protected Product processProductRow(ResultSet rs) throws SQLException {
+    	
+    	Product pr = new Product();
+    	pr.setProductName(rs.getString("product_name"));
+    	pr.setSymbolName (rs.getString("symbol" ));
+    	pr.setProductID  (rs.getInt   ("product_id"  ));
+    	pr.setClassID    (rs.getInt   ("class_id"    ));
+    	
+    	return pr;
+    }
+    
     protected OrderData processOrderRow(ResultSet rs) throws SQLException {
     	OrderData oD = new OrderData();
     	// oD.setProduct(rs.getInt("uid"));
