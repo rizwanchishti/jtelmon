@@ -33,6 +33,12 @@ public class SoftyResource {
 		return dao.findAllProducts();
 	}
 
+	@GET @Path("/routes")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public List<ClientRoute> GetRoutesByAgent() {
+		return dao.GetRoutesByAgent();
+	}
+
 	
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
