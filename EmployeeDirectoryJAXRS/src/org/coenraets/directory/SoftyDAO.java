@@ -58,6 +58,63 @@ public class SoftyDAO {
     // Transaction support
     
     
+    // public List<ClientRoute> GetRoutesByAgent(String agentid){
+    public List<ClientRoute> GetRoutesByAgent(){
+    	List<ClientRoute> list = new ArrayList<ClientRoute>();
+        
+    	/* SELECT PersoanaClient.denumire AS Client , zona.denumire AS Zona, rute.denumire as Ruta, PersoanaAgent.denumire as Agent, 
+                	  PersoanaAgent.persoana_id as agent_id
+                                FROM   clienti_rute , rute , client , persoana as PersoanaClient , zona , utilizator, persoana as PersoanaAgent
+                                where clienti_rute.client_id=client.client_id
+                                and client.client_id= PersoanaClient.persoana_id
+                                and client.zona_id=Zona.zona_id
+                                and clienti_rute.ruta_id=rute.rute_id
+                                and rute.agent_id=utilizator.utilizator_id
+                                and utilizator.utilizator_id=PersoanaAgent.persoana_id
+                                and PersoanaAgent.persoana_id=1
+        */
+        Connection c = null;
+    	String sql = " SELECT PersoanaClient.denumire AS Client , zona.denumire AS Zona, rute.denumire as Ruta, PersoanaAgent.denumire as Agent, " + 
+    			                   " PersoanaAgent.persoana_id as agent_id " +
+    			     " FROM clienti_rute , rute , client , persoana as PersoanaClient , zona , utilizator, persoana as PersoanaAgent" +
+    			     " where clienti_rute.client_id=client.client_id " +
+    			     " and client.client_id= PersoanaClient.persoana_id " +
+    			     " and client.zona_id=Zona.zona_id " +
+    			     " and clienti_rute.ruta_id=rute.rute_id " +
+    			     " and rute.agent_id=utilizator.utilizator_id " + 
+    			     " and utilizator.utilizator_id=PersoanaAgent.persoana_id " + 
+    			     " and PersoanaAgent.persoana_id=1 "   ;
+
+        try {
+            c = ConnectionHelperPg.getConnection();
+            Statement s = c.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            while (rs.next()) {
+                list.add(processRouteRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+		} finally {
+			ConnectionHelperPg.close(c);
+		}
+
+    	return list;
+    }
+
+    protected ClientRoute processRouteRow(ResultSet rs) throws SQLException {
+    	
+    	ClientRoute cr = new ClientRoute();
+    	cr.setAgent      (rs.getString     ("Agent"     ));
+    	cr.setAgentID    (rs.getInt        ("agent_id"  ));
+    	cr.setClient     (rs.getString     ("Client"    ));
+    	cr.setRoute      (rs.getString     ("Ruta"      ));
+    	cr.setZone       (rs.getString     ("Zona"      ));
+    	
+    	return cr;
+    }
+
+    
     public List<Product> findAllProducts() {
     	List<Product> list = new ArrayList<Product>();
     	
@@ -87,10 +144,11 @@ public class SoftyDAO {
     protected Product processProductRow(ResultSet rs) throws SQLException {
     	
     	Product pr = new Product();
-    	pr.setProductName(rs.getString("product_name"));
-    	pr.setSymbolName (rs.getString("symbol" ));
-    	pr.setProductID  (rs.getInt   ("product_id"  ));
-    	pr.setClassID    (rs.getInt   ("class_id"    ));
+    	pr.setProductName(rs.getString     ("product_name"));
+    	pr.setSymbolName (rs.getString     ("symbol"      ));
+    	pr.setPrice      (rs.getBigDecimal ("price"       ));
+    	pr.setProductID  (rs.getInt        ("product_id"  ));
+    	pr.setClassID    (rs.getInt        ("class_id"    ));
     	
     	return pr;
     }
