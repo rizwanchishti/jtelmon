@@ -16,13 +16,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SoftyDAO {
 
     public List<UserPass> findAll() {
         List<UserPass> list = new ArrayList<UserPass>();
         Connection c = null;
-    	String sql = "SELECT up.utilizatorid as uid , up.parola as password FROM userpass as up ";
+    	String sql = "SELECT up.user_id as uid , up.secret as password FROM userpass as up ";
 
         try {
             c = ConnectionHelperPg.getConnection();
@@ -33,6 +35,8 @@ public class SoftyDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
             throw new RuntimeException(e);
 		} finally {
 			ConnectionHelperPg.close(c);
@@ -40,6 +44,49 @@ public class SoftyDAO {
         return list;
     }
 
+    public List<UserPass> findAllAgents() {
+        List<UserPass> list = new ArrayList<UserPass>();
+        Connection c = null;
+/*
+			select PersoanaAgent.denumire as Agent , PersoanaAgent.persoana_id , utilizator.parola , zona.denumire
+			from persoana as PersoanaAgent , utilizator , zona 
+				where 
+				   utilizator.utilizator_id=PersoanaAgent.persoana_id
+			       and utilizator.zona_id=zona.zona_id
+*/
+    	String sql = " select PersoanaAgent.denumire as agent , PersoanaAgent.persoana_id , utilizator.parola as password, zona.denumire as zone " +
+    			" from persoana as PersoanaAgent , utilizator , zona " +
+    			" where utilizator.utilizator_id=PersoanaAgent.persoana_id " +
+    			" and utilizator.zona_id=zona.zona_id ";
+
+        try {
+            c = ConnectionHelperPg.getConnection();
+            Statement s = c.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            while (rs.next()) {
+                list.add(processUserPassRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+            throw new RuntimeException(e);
+		} finally {
+			ConnectionHelperPg.close(c);
+		}
+        return list;
+    }
+
+    protected UserPass processUserPassRow(ResultSet rs) throws SQLException {
+    	UserPass up = new UserPass();
+    	up.setId(rs.getInt("persoana_id"));
+    	up.setPassword(rs.getString("password"));
+    	up.setUserName(rs.getString("agent"));
+    	up.setZone(rs.getString("zone"));
+    	return up;
+    }
+
+    
     public List<OrderData> findAllOrders() {
         List<OrderData> list = new ArrayList<OrderData>();
         Connection c = null;
@@ -54,6 +101,8 @@ public class SoftyDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
             throw new RuntimeException(e);
 		} finally {
 			ConnectionHelperPg.close(c);
@@ -103,6 +152,9 @@ public class SoftyDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+
             throw new RuntimeException(e);
 		} finally {
 			ConnectionHelperPg.close(c);
@@ -135,6 +187,9 @@ public class SoftyDAO {
     		}
     	} catch (SQLException e) {
     		e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+
     		throw new RuntimeException(e);
     	} finally {
     		ConnectionHelperPg.close(c);
@@ -174,6 +229,9 @@ public class SoftyDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+
             throw new RuntimeException(e);
 		} finally {
 			ConnectionHelperPg.close(c);
@@ -229,6 +287,9 @@ public class SoftyDAO {
             // employee.setId(id);
         } catch (Exception e) {
             e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+
             throw new RuntimeException(e);
 		} finally {
 			ConnectionHelperPg.close(c);
@@ -256,6 +317,9 @@ public class SoftyDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+
             throw new RuntimeException(e);
 		} finally {
 			ConnectionHelper.close(c);
@@ -307,6 +371,9 @@ public class SoftyDAO {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+
             throw new RuntimeException(e);
 		} finally {
 			ConnectionHelper.close(c);
@@ -344,6 +411,9 @@ public class SoftyDAO {
             employee.setId(id);
         } catch (Exception e) {
             e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+
             throw new RuntimeException(e);
 		} finally {
 			ConnectionHelper.close(c);
@@ -370,6 +440,9 @@ public class SoftyDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+
             throw new RuntimeException(e);
 		} finally {
 			ConnectionHelper.close(c);
@@ -387,6 +460,9 @@ public class SoftyDAO {
             return count == 1;
         } catch (Exception e) {
             e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+
             throw new RuntimeException(e);
 		} finally {
 			ConnectionHelper.close(c);
