@@ -39,6 +39,12 @@ public class SoftyResource {
 		return dao.GetRoutesByAgent();
 	}
 
+	@GET @Path("{id}/routes")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public List<ClientRoute> GetRoutesByAgent(@PathParam("id") String agent_id) {
+		return dao.GetRoutesByAgent(Integer.parseInt(agent_id));
+	}
+
 	
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

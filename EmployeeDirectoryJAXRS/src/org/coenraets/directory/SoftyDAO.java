@@ -1,3 +1,12 @@
+/*
+ 
+    http://www.vogella.com/articles/REST/article.html
+	http://www.ibm.com/developerworks/library/wa-aj-tomcat/
+	http://coenraets.org/blog/2011/12/restful-services-with-jquery-and-java-using-jax-rs-and-jersey/
+	http://zetcode.com/db/postgresqljavatutorial/
+	
+*/
+
 package org.coenraets.directory;
 
 import java.sql.Connection;
@@ -102,6 +111,39 @@ public class SoftyDAO {
     	return list;
     }
 
+    
+    public List<ClientRoute> GetRoutesByAgent(int agent_id) {
+    	List<ClientRoute> list = new ArrayList<ClientRoute>();
+    	Connection c = null;
+    	String sql = " SELECT PersoanaClient.denumire AS Client , zona.denumire AS Zona, rute.denumire as Ruta, PersoanaAgent.denumire as Agent, " + 
+                " PersoanaAgent.persoana_id as agent_id " +
+                " FROM clienti_rute , rute , client , persoana as PersoanaClient , zona , utilizator, persoana as PersoanaAgent" +
+                " where clienti_rute.client_id=client.client_id " +
+                " and client.client_id= PersoanaClient.persoana_id " +
+                " and client.zona_id=Zona.zona_id " +
+                " and clienti_rute.ruta_id=rute.rute_id " +
+                " and rute.agent_id=utilizator.utilizator_id " + 
+                " and utilizator.utilizator_id=PersoanaAgent.persoana_id " + 
+                " and PersoanaAgent.persoana_id=? "   ;
+    	try {
+    		c = ConnectionHelperPg.getConnection();
+    		PreparedStatement ps = c.prepareStatement(sql);
+    		ps.setInt(1, agent_id);
+    		ResultSet rs = ps.executeQuery();
+    		while (rs.next()) {
+    			list.add(processRouteRow(rs));
+    		}
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		throw new RuntimeException(e);
+    	} finally {
+    		ConnectionHelperPg.close(c);
+    	}
+    	return list;
+    }
+
+    
+    
     protected ClientRoute processRouteRow(ResultSet rs) throws SQLException {
     	
     	ClientRoute cr = new ClientRoute();
