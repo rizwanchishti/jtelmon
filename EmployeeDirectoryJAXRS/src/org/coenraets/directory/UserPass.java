@@ -9,9 +9,9 @@ public class UserPass {
 
     private String password;
     
-    private String firstName;
+    private String userName;
 
-    private String lastName;
+    private String zone;
 
     private String city;
 
@@ -27,8 +27,6 @@ public class UserPass {
 
 	private UserPass manager;
 	
-	private int reportCount;
-	
 	public UserPass() {
 
     }
@@ -41,20 +39,20 @@ public class UserPass {
 		this.userID = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setUserName(String user_name) {
+		this.userName = user_name;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getZone() {
+		return zone;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setZone(String zone_name) {
+		this.zone = zone_name;
 	}
 
 	public String getPassword() {
@@ -119,14 +117,6 @@ public class UserPass {
 
 	public void setManager(UserPass manager) {
 		this.manager = manager;
-	}
-
-	public int getReportCount() {
-		return reportCount;
-	}
-
-	public void setReportCount(int reportCount) {
-		this.reportCount = reportCount;
 	}
 
 }

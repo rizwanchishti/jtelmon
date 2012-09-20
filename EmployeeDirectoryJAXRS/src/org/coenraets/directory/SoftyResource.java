@@ -17,8 +17,8 @@ public class SoftyResource {
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public List<UserPass> findAll() {
-		return dao.findAll();
+	public List<UserPass> findAllAgents() {
+		return dao.findAllAgents();
 	}
 
 	@GET @Path("/allorders")
