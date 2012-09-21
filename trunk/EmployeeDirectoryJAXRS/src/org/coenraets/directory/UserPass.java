@@ -28,7 +28,10 @@ public class UserPass {
 	private UserPass manager;
 	
 	public UserPass() {
-
+		this.userID=0;
+		this.password = new String("O");
+		this.userName = new String("O");
+		this.zone     = new String("O");
     }
 	
 	public int getId() {
