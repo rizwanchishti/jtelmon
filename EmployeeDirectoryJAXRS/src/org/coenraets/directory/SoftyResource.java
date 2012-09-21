@@ -15,13 +15,14 @@ public class SoftyResource {
 
 	SoftyDAO dao = new SoftyDAO();
 	
-	@GET
+	// all users = agenti : inactiv + activ cu si fara rute + desktop users 
+	@GET @Path("/allusers")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<UserPass> findAllAgents() {
 		return dao.findAllAgents();
 	}
 
-	@GET @Path("/allorders")
+	@GET 
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<OrderData> findAllOrders() {
 		return dao.findAllOrders();
@@ -44,8 +45,20 @@ public class SoftyResource {
 	public List<ClientRoute> GetRoutesByAgent(@PathParam("id") String agent_id) {
 		return dao.GetRoutesByAgent(Integer.parseInt(agent_id));
 	}
-
 	
+	@GET @Path("/search/{id}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public UserPass findAgentById(@PathParam("id") String id) {
+		return dao.findAgentById(Integer.parseInt(id));
+	}
+
+	// UserPass confirmAgentByPassId(int agent_id, String agent_password)
+	@GET @Path("/search/{id}/{password}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public UserPass confirmAgentByPassId(@PathParam("id") String id , @PathParam("password") String password) {
+		return dao.confirmAgentByPassId(Integer.parseInt(id), password);
+	}
+
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

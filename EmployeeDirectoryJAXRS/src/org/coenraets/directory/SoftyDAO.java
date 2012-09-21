@@ -77,6 +77,60 @@ public class SoftyDAO {
         return list;
     }
 
+    public UserPass findAgentById(int agent_id) {
+    	String sql = " select PersoanaAgent.denumire as agent , PersoanaAgent.persoana_id , utilizator.parola as password, zona.denumire as zone " +
+    			" from persoana as PersoanaAgent , utilizator , zona " +
+    			" where utilizator.utilizator_id=PersoanaAgent.persoana_id " +
+    			" and utilizator.zona_id=zona.zona_id and PersoanaAgent.persoana_id = ? ";
+    	UserPass up = new UserPass();
+        Connection c = null;
+        try {
+            c = ConnectionHelperPg.getConnection();
+            PreparedStatement ps = c.prepareStatement(sql);
+            ps.setInt(1, agent_id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                up = processUserPassRow(rs);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+            throw new RuntimeException(e);
+		} finally {
+			ConnectionHelperPg.close(c);
+		}
+        return up;
+    }
+
+    public UserPass confirmAgentByPassId(int agent_id, String agent_password) {
+    	String sql = " select PersoanaAgent.denumire as agent , PersoanaAgent.persoana_id , utilizator.parola as password, zona.denumire as zone " +
+    			" from persoana as PersoanaAgent , utilizator , zona " +
+    			" where utilizator.utilizator_id=PersoanaAgent.persoana_id " +
+    			" and utilizator.zona_id=zona.zona_id and PersoanaAgent.persoana_id = ? and utilizator.parola = ? ";
+    	UserPass up = new UserPass();
+        Connection c = null;
+        try {
+            c = ConnectionHelperPg.getConnection();
+            PreparedStatement ps = c.prepareStatement(sql);
+            ps.setInt(1, agent_id);
+            ps.setString(2, agent_password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                up = processUserPassRow(rs);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+            throw new RuntimeException(e);
+		} finally {
+			ConnectionHelperPg.close(c);
+		}
+        return up;
+    }
+
+    
     protected UserPass processUserPassRow(ResultSet rs) throws SQLException {
     	UserPass up = new UserPass();
     	up.setId(rs.getInt("persoana_id"));
@@ -110,6 +164,8 @@ public class SoftyDAO {
         return list;
     }
 
+    
+   
     // http://zetcode.com/db/postgresqljavatutorial/
     // import java.util.logging.Level;
     // import java.util.logging.Logger;
