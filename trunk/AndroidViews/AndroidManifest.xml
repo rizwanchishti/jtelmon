@@ -74,6 +74,10 @@
 
         <activity android:name=".PurchaseOrders.TransferToWebService" 
                   android:label="@string/app_name">
+        </activity>       
+         
+        <activity android:name=".PurchaseOrders.SyncFromWebService" 
+                  android:label="@string/app_name">
         </activity>        
         
         
@@ -233,10 +237,7 @@
         	android:label="@string/contact_intent"
         	android:theme="@android:style/Theme.Dialog">
         </activity>
-
-          <activity android:name=".AndroidViews.DbContactConsole"
-                  android:label="@string/app_name" />        
-
+	
     </application>
     
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>    
