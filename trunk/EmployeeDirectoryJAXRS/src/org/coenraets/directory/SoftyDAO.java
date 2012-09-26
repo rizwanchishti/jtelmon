@@ -144,7 +144,8 @@ public class SoftyDAO {
     public List<OrderData> findAllOrders() {
         List<OrderData> list = new ArrayList<OrderData>();
         Connection c = null;
-    	String sql = "SELECT so.client as client , so.product as product , so.pieces as pieces , so.lineorder as lineorder FROM softyorders2 as so ";
+    	String sql = "SELECT so.client as client , so.product as product , so.pieces as pieces , so.lineorder as lineorder , " + 
+    			" so.discount as discount FROM softyorders2 as so ";
 
         try {
             c = ConnectionHelperPg.getConnection();
@@ -317,6 +318,7 @@ public class SoftyDAO {
     	oD.setProduct(rs.getString("product"));
     	oD.setClient(rs.getString("client"));
     	oD.setPieces(rs.getString("pieces"));
+    	oD.setDiscount(rs.getString("discount"));
     	return oD;
     }
     
