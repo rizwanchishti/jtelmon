@@ -132,7 +132,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 			
 		case R.id.Reinitializeazadateagent:
-			Intent y = new Intent("");
+			Intent y = new Intent(this,DateAgent.class);
 			startActivity(y);
 			
 			break;

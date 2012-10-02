@@ -23,6 +23,7 @@ public class DataManipulator {
         static final String TABLE_ORDERS   = "orders2";
         static final String TABLE_PRODUCTS = "products2";
         static final String TABLE_CLIENTS = "clients2";
+        static final String TABLE_SETUP = "setup";
         private static Context context;
         static SQLiteDatabase db;
         List < CommandLine > orderOfClient ;
@@ -223,6 +224,7 @@ public class DataManipulator {
                         db.execSQL("CREATE TABLE " + TABLE_ORDERS +   " (lineOrderId INTEGER PRIMARY KEY, clientName TEXT, productName TEXT, piecesNumber TEXT, discountNumber TEXT)");
                         db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (_id integer primary key autoincrement, ID TEXT, Name TEXT, Price TEXT, Symbol TEXT)");
                         db.execSQL("CREATE TABLE " + TABLE_CLIENTS + " (_id integer primary key autoincrement, Agent TEXT, Client TEXT, Route TEXT, Zone TEXT)");
+                        db.execSQL("CREATE TABLE " + TABLE_SETUP + " (_id integer primary key autoincrement, UtilizatorID TEXT, Parola TEXT, SefID TEXT, ZonaID TEXT)");
                 }
 
                 @Override
@@ -230,6 +232,7 @@ public class DataManipulator {
                         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDERS);
                         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
                         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIENTS);
+                        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETUP);
                         onCreate(db);
                 }
         }
