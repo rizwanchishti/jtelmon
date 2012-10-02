@@ -1,4 +1,11 @@
 package net.learn2develop.PurchaseOrders;
+
+// http://code.google.com/p/jtelmon/source/browse/trunk/AndroidViews/src/net/learn2develop/PurchaseOrders/AdaugaAgent.java
+// http://code.google.com/p/jtelmon/source/browse/trunk/AndroidViews/src/net/learn2develop/PurchaseOrders/AgentSetup.java
+// http://code.google.com/p/javajdbc/source/browse/trunk/AsecondActivity/src/eu/itcsolutions/android/tutorial/AdaugaAgent.java
+// AdaugaAgent ramane clasa care seteaza noul agent in SQLS
+// AgentSetup  este clasa care va seta noul agent in Postgres
+
 import net.learn2develop.R;
 import java.io.BufferedReader;
 import java.io.InputStream;
