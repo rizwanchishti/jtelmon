@@ -1,6 +1,5 @@
-
 package net.learn2develop.PurchaseOrders;
-
+// https://code.google.com/p/javajdbc/source/browse/trunk/AsecondActivity/src/eu/itcsolutions/android/tutorial/MainActivity.java
 import net.learn2develop.R;
 import android.app.Activity;
 import android.app.ProgressDialog;
