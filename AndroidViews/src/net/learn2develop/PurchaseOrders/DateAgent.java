@@ -26,7 +26,8 @@ public class DateAgent extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if(v.getId() == R.id.Button01add){
-            Intent intent1 = new Intent(this,AdaugaAgent.class);
+            //Intent intent1 = new Intent(this,AdaugaAgent.class);
+			Intent intent1 = new Intent(this,AgentSetup.class);
             //start the SelectieRutaActivity
             this.startActivity(intent1);
     }
