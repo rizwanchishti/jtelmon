@@ -16,7 +16,7 @@ import java.util.Vector;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
+
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -31,6 +31,10 @@ import org.json.JSONObject;
 import org.json.JSONStringer;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+
+import android.util.Log;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AgentSetup extends Activity {
 	
@@ -54,14 +58,11 @@ public class AgentSetup extends Activity {
                 String isNot =new String("");
                
                 // HttpGet request = new HttpGet(SERVICE_URI + "/json/userpasscheck ");       
-                HttpGet request = new HttpGet(SERVICE_URI + "/sales/search/1 ");
+                HttpGet request = new HttpGet(SERVICE_URI + "/sales/search/1");
                 request.setHeader("Accept", "application/json");
                 request.setHeader("Content-type", "application/json"); 
                 DefaultHttpClient httpClient = new DefaultHttpClient();
                 String theString = new String("");
-            
- 
-           
             
             try {
                 HttpResponse response = httpClient.execute(request);
@@ -82,34 +83,31 @@ public class AgentSetup extends Activity {
                         }
                 stream.close();
                 theString = builder.toString();
-             // www.jondev.net/articles/Android_JSON_Parser_Example
                 JSONObject json=new JSONObject(theString);
-                // JSONObject raspunsEfectiv = json.getJSONObject("getJsonPersonsResult");
                 Log.i("userpasscheck","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
+                Log.i("userPass","<UtilizatorID"+">"      +json.getString("id")    +"</UtilizatorID"    +">\n");
+                Log.i("userPass","<Parola"+">"            +json.getString("password")          +"</Parola"          +">\n");
                 
-                JSONArray nameArray=json.getJSONArray("userpasscheck");
-            for(int i=0;i<nameArray.length();i++)
-            	
-            {
-                Log.i("userpasscheck","<UtilizatorID"+i+">"      +nameArray.getJSONObject(i).getString("UtilizatorID")    +"</UtilizatorID"    +i+">\n");
-                Log.i("userpasscheck","<Parola"+i+">"    +nameArray.getJSONObject(i).getString("Parola")    +"</Parola"    +i+">\n");
-               // Log.i("userpasscheck","<Price"+i+">"   +nameArray.getJSONObject(i).getString("Price")   +"</Price"   +i+">\n");
-             //   Log.i("userpasscheck","<Symbol"+i+">"  +nameArray.getJSONObject(i).getString("Symbol")+"</Symbol"+i+">\n");
-                
-                tempString=nameArray.getJSONObject(i).getString("Name")+"\n"+
-                                nameArray.getJSONObject(i).getString("Price")+"\n"+nameArray.getJSONObject(i).getString("Symbol");
-                vectorOfStrings.add(new String(tempString));
-            }
-            
-            int orderCount = vectorOfStrings.size();
-            String[] orderTimeStamps = new String[orderCount];
-            vectorOfStrings.copyInto(orderTimeStamps); 
-          //  setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , orderTimeStamps));
-            
-                } catch (Exception e) {
+                JSONArray nameArray=json.getJSONArray("userPass");
+                for(int i=0;i<nameArray.length();i++)
+                {
+                	Log.i("userPass","<UtilizatorID"+i+">"      +nameArray.getJSONObject(i).getString("id")    +"</UtilizatorID"    +i+">\n");
+                	Log.i("userPass","<Parola"+i+">"            +nameArray.getJSONObject(i).getString("password")          +"</Parola"          +i+">\n");
+                	// 	Log.i("userpasscheck","<Price"+i+">"   +nameArray.getJSONObject(i).getString("Price")   +"</Price"   +i+">\n");
+                	//  Log.i("userpasscheck","<Symbol"+i+">"  +nameArray.getJSONObject(i).getString("Symbol")+"</Symbol"+i+">\n");
+                	
+                	// tempString=nameArray.getJSONObject(i).getString("Name")+"\n"+
+                    //            nameArray.getJSONObject(i).getString("Price")+"\n"+nameArray.getJSONObject(i).getString("Symbol");
+                	// vectorOfStrings.add(new String(tempString));
+                }
+            	// int orderCount = vectorOfStrings.size();
+            	// String[] orderTimeStamps = new String[orderCount];
+            	// vectorOfStrings.copyInto(orderTimeStamps); 
+            	//setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , orderTimeStamps));
+            } catch (Exception e) {
                         e.printStackTrace();
-                }        
-              
-     
+                        Logger lgr = Logger.getLogger(AgentSetup.class.getName());
+                        lgr.log(Level.SEVERE, e.getMessage(), e);
+            }        
         }
 }
