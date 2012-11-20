@@ -8,6 +8,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+// Access-Control-Allow-Origin @Produces MediaType.APPLICATION_JSON
+// import javax.ws.rs.core.Context;
+// import javax.servlet.http.HttpServletResponse;
+// public List<Employee> findAll(@Context HttpServletResponse serverResponse) {
+
+ 
 @Path("/employees")
 public class EmployeeResource {
 
