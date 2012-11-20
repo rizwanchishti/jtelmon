@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Employee Directory</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.min.js"></script>
 </head>
     
 <body>
@@ -10,6 +11,37 @@
 <p><a href="http://192.168.61.207:8080/EmployeeDirectoryJAXRS/rest/employees/1">http://coenraets.org/rest/employees/1</a></p>
 <p><a href="http://192.168.61.207:8080/EmployeeDirectoryJAXRS/rest/employees/1/reports">http://coenraets.org/rest/employees/1/reports</a></p>
 
-</body>
+<button id="ajax">ajax call</button>
+<button id="json">json</button>
 
+
+</body>
 </html>
+
+<script type="text/javascript">
+    $('#json').click(function(){ 
+        alert('json');
+         $.getJSON("http://192.168.61.207:8080/PostgresWebServiceJSONP/rest/jsonp/string?callback=?",
+         function(data) {
+            alert(data);         
+          });   
+    });
+
+    $('#ajax').click(function(){ 
+        alert('ajax');
+         $.ajax({ 
+             type: "GET",
+             dataType: "jsonp",
+	         jsonpCallback:'getString',	
+             url: "http://localhost:8080/PostgresWebServiceJSONP/rest/jsonp/string",
+             success: function(data){        
+                alert(data);
+             },
+    	     error: function(e) {
+                console.log(e.message);
+             }
+         });
+    });
+
+</script>
+
