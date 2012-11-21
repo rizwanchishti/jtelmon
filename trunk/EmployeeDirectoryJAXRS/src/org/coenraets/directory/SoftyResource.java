@@ -1,5 +1,6 @@
 package org.coenraets.directory;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -8,7 +9,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+
+import com.sun.jersey.api.json.JSONWithPadding;
 
 @Path("/sales")
 public class SoftyResource {
@@ -20,6 +25,16 @@ public class SoftyResource {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<UserPass> findAllAgents() {
 		return dao.findAllAgents();
+	}
+	
+	// http://192.168.61.207:8080/PostgresWebServiceJSONP15/rest/sales/allusers/jsonp
+	@GET
+	@Path("/allusers/jsonp")
+	@Produces({"application/javascript"})
+	public JSONWithPadding findAllAgentsJsonP( @QueryParam("callback") String callback) {
+	    Collection<UserPass> agents = findAllAgents();
+	    return new JSONWithPadding(new GenericEntity<Collection<UserPass>>(agents) {
+	    }, callback);
 	}
 
 	@GET 
