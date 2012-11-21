@@ -7,23 +7,26 @@
     
 <body>
 
+<!-- 
 https://github.com/nhachicha/Jsonp-with-JAXRS/blob/master/jsonp_demo.html
 </br>
 https://github.com/nhachicha/Jsonp-with-JAXRS/blob/master/src/main/java/dev/nhachicha/Service.java
 </br>
-
 <p><a href="http://192.168.61.207:8080/EmployeeDirectoryJAXRS/rest/employees">http://coenraets.org/rest/employees</a></p>
 <p><a href="http://192.168.61.207:8080/EmployeeDirectoryJAXRS/rest/employees/1">http://coenraets.org/rest/employees/1</a></p>
 <p><a href="http://192.168.61.207:8080/EmployeeDirectoryJAXRS/rest/employees/1/reports">http://coenraets.org/rest/employees/1/reports</a></p>
+-->
 
 <button id="ajax">ajax call</button>
 <button id="json">json</button>
 <button id="collection">collection</button>
-<button id="collection1">collection1</button>
+<button id="allusers">allusers</button>
+<!--  
+http://192.168.61.207:8080/PostgresWebServiceJSONP15/rest/sales/allusers/jsonp
+-->
 
 <div id="resp">
 </div>  
-
 
 
 <script type="text/javascript">
@@ -35,22 +38,23 @@ https://github.com/nhachicha/Jsonp-with-JAXRS/blob/master/src/main/java/dev/nhac
           });   
     });
 
-    $('#collection').click(function(){ 
-        alert('collection');
-         $.getJSON("http://192.168.61.207:8080/PostgresWebServiceJSONP/rest/jsonp/jaxbCollection?callback=jaxbCollectionCallback",
-         function(data) {
-            alert(data);         
-          });   
-    });
 
-    $('#collection1').click(function(){ 
+    $('#collection').click(function(){ 
          $.getJSON("http://192.168.61.207:8080/PostgresWebServiceJSONP/rest/jsonp/jaxbCollection?callback=?",
          function(data) {
          	     $("#resp").empty();
         		 jaxbCollectionCallback(data);
          });   
     });
-    
+
+    $('#allusers').click(function(){ 
+        $.getJSON("http://192.168.61.207:8080/PostgresWebServiceJSONP/rest/sales/allusers/jsonp?callback=?",
+        function(data) {
+        	 $("#resp").empty();
+       		 allusersCollectionCallback(data);
+        });   
+   });
+
     
     $('#ajax').click(function(){ 
         alert('ajax');
@@ -68,6 +72,10 @@ https://github.com/nhachicha/Jsonp-with-JAXRS/blob/master/src/main/java/dev/nhac
          });
     });
 
+    function allusersCollectionCallback(data){
+    	writeUserArray(data.userPass);
+    }
+    
     function jaxbCollectionCallback(data) {
     	writeArray(data.person);	
 	}
@@ -77,11 +85,22 @@ https://github.com/nhachicha/Jsonp-with-JAXRS/blob/master/src/main/java/dev/nhac
 			writePerson(info[int]);
 		}
 	}
+
+    function writeUserArray(info) {
+		for ( var int = 0; int < info.length; int++) {
+			writeUser(info[int]);
+		}
+	}
+
     
     function writePerson(person){
 	    $("#resp").append('<h4>Response: '+person.name+": "+person.age+'</h4>');
 	} 
-		
+
+    function writeUser(person){
+	    $("#resp").append('<h4>Response: '+person.userName+": "+person.password+'</h4>');
+	} 
+
     
 </script>
 
