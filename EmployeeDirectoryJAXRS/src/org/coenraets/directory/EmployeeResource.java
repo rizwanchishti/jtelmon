@@ -12,7 +12,6 @@ import javax.ws.rs.core.MediaType;
 // import javax.ws.rs.core.Context;
 // import javax.servlet.http.HttpServletResponse;
 // public List<Employee> findAll(@Context HttpServletResponse serverResponse) {
-
  
 @Path("/employees")
 public class EmployeeResource {
