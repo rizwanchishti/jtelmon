@@ -4,10 +4,15 @@
 // var serviceURL = "http://192.168.61.207:8080/EmployeeDirectoryJAXRS/rest/";
 
 // var serviceURL = "http://coenraets.org/rest/"
-var serviceURL = "http://localhost:8080/EmployeeDirectoryJAXRS/rest/"
+
+// http://ftp.pangram.ro:8090/PgWebS/rest/employees/jsonp/1?callback
+// var serviceURL = "http://localhost:8080/EmployeeDirectoryJAXRS/rest/"
+
+// var serviceURL = "http://ftp.pangram.ro:8090/PgWebS/rest/employees/jsonp/1?callback"
+var serviceURL = "http://ftp.pangram.ro:8090/PgWebS/rest/"
 
 $(document).ajaxError(function(event, request, settings) {
-	alert("Error accessing the server");
+	alert("Error accessing the server : ftp.pangram.ro ");
 });
 
 getEmployee();
@@ -30,7 +35,7 @@ function getEmployee() {
 		return;
 	}
 	console.log('getEmployee ' + id);
-	$.getJSON(serviceURL + 'employees/' + id, function(data) {
+	$.getJSON(serviceURL + 'employees/jsonp/' + id+'?callback=?', function(data) {
 		if (!data) {
 			alert('Employee not found');
 			return;
