@@ -35,7 +35,7 @@ http://192.168.61.207:8080/PostgresWebServiceJSONP15/rest/sales/allusers/jsonp
 <script type="text/javascript">
     $('#json').click(function(){ 
         alert('json');
-         $.getJSON("http://ftp.pangram.ro:8090/PostgresWebServiceJSONP/rest/jsonp/string?callback=?",
+         $.getJSON("http://ftp.pangram.ro:8090/PgWebS/rest/jsonp/string?callback=?",
          function(data) {
             alert(data);         
           });   
@@ -43,7 +43,7 @@ http://192.168.61.207:8080/PostgresWebServiceJSONP15/rest/sales/allusers/jsonp
 
 
     $('#collection').click(function(){ 
-         $.getJSON("http://ftp.pangram.ro:8090/PostgresWebServiceJSONP/rest/jsonp/jaxbCollection?callback=?",
+         $.getJSON("http://ftp.pangram.ro:8090/PgWebS/rest/jsonp/jaxbCollection?callback=?",
          function(data) {
          	     $("#resp").empty();
         		 jaxbCollectionCallback(data);
@@ -51,7 +51,7 @@ http://192.168.61.207:8080/PostgresWebServiceJSONP15/rest/sales/allusers/jsonp
     });
 
     $('#allusers').click(function(){ 
-        $.getJSON("http://ftp.pangram.ro:8090/PostgresWebServiceJSONP/rest/sales/allusers/jsonp?callback=?",
+        $.getJSON("http://ftp.pangram.ro:8090/PgWebS/rest/sales/allusers/jsonp?callback=?",
         function(data) {
         	 $("#resp").empty();
        		 allusersCollectionCallback(data);
@@ -65,7 +65,7 @@ http://192.168.61.207:8080/PostgresWebServiceJSONP15/rest/sales/allusers/jsonp
              type: "GET",
              dataType: "jsonp",
 	         jsonpCallback:'getString',	
-             url: "http://ftp.pangram.ro:8090/PostgresWebServiceJSONP/rest/jsonp/string",
+             url: "http://ftp.pangram.ro:8090/PgWebS/rest/jsonp/string",
              success: function(data){        
                 alert(data);
              },
