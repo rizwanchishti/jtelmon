@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ http://incubator.apache.org/odftoolkit/simple/gettingstartguide.html
+ http://www.langintro.com/odfdom_tutorials/
+ * 
  */
 
 package ODS;
