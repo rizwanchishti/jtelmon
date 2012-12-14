@@ -512,15 +512,15 @@ static void CreatePaloDB( ){
 }
 
 
-static void aSmallCube() {
-    String[] aS_denumire = new String[100];
+static void smallCube1() {
+    // String[] aS_denumire = new String[100];
     ConnectionConfiguration ccfg = new ConnectionConfiguration(olap_server_ip, olap_server_port);
     ccfg.setUser(olap_server_user);
     ccfg.setPassword(olap_server_pass);
     Connection conn = ConnectionFactory.getInstance().newConnection(ccfg);
     Database demo2 =  null;
     try {
-        demo2 =  conn.addDatabase("Consolidation");
+        demo2 =  conn.addDatabase("Pangram1");
     } catch (Exception e) {
         System.err.println("Cube already created");
         System.exit(1);
@@ -552,10 +552,102 @@ static void aSmallCube() {
     }
 }
 
+static void smallCube2() {
+    // Agentii TM
+    String[] aS_denumire = new String[100];
+    int index1=0;
+    String url_sursa = url_sursa_postgres;
+    String username_sursa = "postgres";
+    String password_sursa = "telinit";
+    java.sql.Connection conn_sursa = null;
+    java.sql.Statement stmt_sursa = null;
+    try {
+        Class.forName("org.postgresql.Driver");
+        System.out.println("Driver PostgreSQL OK");
+    } catch (Exception e) {
+        System.err.println("Failed to load Postgres Driver");
+    }
+    try {
+        conn_sursa = DriverManager.getConnection(url_sursa,username_sursa,password_sursa);
+        stmt_sursa = conn_sursa.createStatement();
+        System.out.println("Connection to source PostgreSQL OK");
+    } catch (Exception e) {
+        System.err.println("Connection to Postgres failed");
+    }
+try {
+    String SQL_sursa = " SELECT numere_lucru.nrlc_id, numere_lucru.nick, numere_lucru.denumire, numere_lucru.categorie_id, categorie.denumire as categorie_denumire, numere_lucru.grupa_id, numere_lucru.clasa_id FROM numere_lucru, categorie WHERE numere_lucru.categorie_id=categorie.categ_id AND numere_lucru.sw_0='a' AND numere_lucru.categorie_id = '0249' ORDER BY numere_lucru.denumire ";
+    ResultSet rs_sursa = null;
+    rs_sursa = stmt_sursa.executeQuery(SQL_sursa);
+    String illegal_char = " ";
+    String legal_char = "";
+    String mS_denumire;
+    while (rs_sursa.next()) {
+        mS_denumire = rs_sursa.getString("nick");
+        aS_denumire[index1]= mS_denumire.replaceAll(illegal_char, legal_char);
+        System.out.println(aS_denumire[index1]);
+        index1=index1+1;
+    }
+    System.out.println("Transfer OK");
+    System.out.println(Integer.toString(index1));
+    rs_sursa.close();
+    stmt_sursa.close();
+    conn_sursa.close();
+} catch (Exception e) {
+    System.err.println("An error has occurred during transfer");
+    System.err.println(e);
+}  
+    ConnectionConfiguration ccfg = new ConnectionConfiguration(olap_server_ip, olap_server_port);
+    ccfg.setUser(olap_server_user);
+    ccfg.setPassword(olap_server_pass);
+    Connection conn = ConnectionFactory.getInstance().newConnection(ccfg);
+    Database demo2 =  null;
+    try {
+        demo2 =  conn.addDatabase("Pangram2");
+    } catch (Exception e) {
+        System.err.println("Cube already created");
+    }
+    Dimension[] dimensions = new Dimension[3];
+    Dimension dim1 = demo2.addDimension("dimWarehouse");
+    Dimension dim2 = demo2.addDimension("dimYears");
+    Dimension dim3 = demo2.addDimension("dimCustomers");
+    Hierarchy hie1 = dim1.getDefaultHierarchy();
+    Hierarchy hie2 = dim2.getDefaultHierarchy();
+    Hierarchy hie3 = dim3.getDefaultHierarchy();
+    dimensions[0]=dim1;
+    dimensions[1]=dim2;
+    dimensions[2]=dim3;
+    hie1.addElement("Timisoara", Element.ELEMENTTYPE_NUMERIC);
+    hie1.addElement("Bucuresti", Element.ELEMENTTYPE_NUMERIC);
+    hie1.addElement("Cluj", Element.ELEMENTTYPE_NUMERIC);
+    hie2.addElement("2003", Element.ELEMENTTYPE_NUMERIC);
+    hie2.addElement("2004", Element.ELEMENTTYPE_NUMERIC);
+    hie2.addElement("2005", Element.ELEMENTTYPE_NUMERIC);
+    hie3.addElement("Metro", Element.ELEMENTTYPE_NUMERIC);
+    hie3.addElement("Kaufland", Element.ELEMENTTYPE_NUMERIC);
+    hie3.addElement("Real", Element.ELEMENTTYPE_NUMERIC);
+    Element parent, child;
+    int index2;
+    parent = hie1.getElementByName("Timisoara");
+    Consolidation[] consolidations = new Consolidation[index1];
+    for(index2=0;index2<index1;index2++ ){
+        child = hie1.addElement(aS_denumire[index2], Element.ELEMENTTYPE_NUMERIC);
+        consolidations[index2] = hie1.newConsolidation(child, parent, 1);
+    }
+    parent.updateConsolidations(consolidations);
+    Cube cube = null;
+    try {
+        cube = demo2.addCube("cubeSales", dimensions);
+    } catch (Exception e) {
+        System.err.println("Cube creation failed");
+        System.err.println(e);
+        System.exit(1);
+    }
+}
+
 public static void main(String[] args) {
     //CreatePaloDB();
     
-    aSmallCube();
+    smallCube2();
             
     // CreateDimDepoAg();
     // CreateDimCustomer();
