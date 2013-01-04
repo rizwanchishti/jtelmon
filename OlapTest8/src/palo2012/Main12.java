@@ -36,12 +36,12 @@ import org.palo.api.Element;
 import org.palo.api.Consolidation;
 import org.palo.api.Cube;
 
-public class Main1 {
+public class Main12 {
 
     static String url_sursa_postgres1 = "jdbc:postgresql://gate.montebanato.ro:5432/pangram_week_2008";
     static String url_sursa_postgres2 = "jdbc:postgresql://192.168.61.207:5432/pangram_main_2008";
     static String url_sursa_postgres  = url_sursa_postgres2;
-    static String olap_db_name        = "olap8a1_2012";
+    static String olap_db_name        = "olap8a2_2012";
     static String olap_server_ip1      = "192.168.61.8";
     static String olap_server_ip2      = "192.168.61.21";
     static String olap_server_ip      = olap_server_ip1;
@@ -547,9 +547,13 @@ static void smallCube1() {
     Cube cube = null;
     try {
         cube = demo2.addCube("cubeSales", dimensions);
+        String COORDINATES1[] = {"Timisoara","2003","Metro"};
+        cube.setData(COORDINATES1, new Double(247.26));
+        conn.disconnect();
     } catch (Exception e) {
         System.err.println("Cube creation failed");
     }
+    conn.disconnect();
 }
 
 static void smallCube2() {
@@ -637,6 +641,11 @@ try {
     Cube cube = null;
     try {
         cube = demo2.addCube("cubeSales", dimensions);
+        //String COORDINATES1[] = {"Timisoara","2003","Metro"};
+        String COORDINATES1[] = {"BERENDEI","2003","Metro"};
+        String COORDINATES2[] = {"BICHEL","2003","Metro"};
+        cube.setData(COORDINATES1, new Double(247.26));
+        cube.setData(COORDINATES2, new Double(2.74));
     } catch (Exception e) {
         System.err.println("Cube creation failed");
         System.err.println(e);
@@ -647,11 +656,12 @@ try {
 public static void main(String[] args) {
     //CreatePaloDB();
     
-    smallCube2();
+     // smallCube1();
+     smallCube2();
             
-    // CreateDimDepoAg();
-    // CreateDimCustomer();
-    // CreateDimProduct();
+     // CreateDimDepoAg();
+     // CreateDimCustomer();
+     // CreateDimProduct();
     
     System.exit(0);
 }
