@@ -1,4 +1,4 @@
-package palo2012;
+package palo2013;
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
  * http://www.jedox.com/community/palo-forum/index.php?page=Thread&threadID=673
  *  ? palo C Api ! 
@@ -19,6 +19,9 @@ package palo2012;
  *  http://www.flickr.com/photos/24834074@N04/3249770060/sizes/o/
  *  http://jtelmon.googlecode.com/svn/
  *  OlapTest7b, JTelMob875, RubyApplication1
+ * 
+ *  MainCube20130109 : smallCube4();
+ * 
  */
 
 import java.sql.DriverManager;
@@ -36,7 +39,11 @@ import org.palo.api.Element;
 import org.palo.api.Consolidation;
 import org.palo.api.Cube;
 
-public class Main12 {
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class MainCube20130109 {
 
     static String url_sursa_postgres1 = "jdbc:postgresql://gate.montebanato.ro:5432/pangram_week_2008";
     static String url_sursa_postgres2 = "jdbc:postgresql://192.168.61.207:5432/pangram_main_2008";
@@ -661,12 +668,305 @@ try {
     }
 }
 
+
+static void smallCube3() {
+    //  TM Agents : clasa_id = '0082'
+    // smallcube3 = smallcube2 + Map<Object,String>
+    String[] aS_denumire = new String[100];
+    
+    Map<Object,String> mp=new HashMap<Object, String>();
+    
+    int index1=0;
+    String url_sursa = url_sursa_postgres;
+    String username_sursa = "postgres";
+    String password_sursa = "telinit";
+    java.sql.Connection conn_sursa = null;
+    java.sql.Statement stmt_sursa = null;
+    try {
+        Class.forName("org.postgresql.Driver");
+        System.out.println("Driver PostgreSQL OK");
+    } catch (Exception e) {
+        System.err.println("Failed to load Postgres Driver");
+    }
+    try {
+        conn_sursa = DriverManager.getConnection(url_sursa,username_sursa,password_sursa);
+        stmt_sursa = conn_sursa.createStatement();
+        System.out.println("Connection to source PostgreSQL OK");
+    } catch (Exception e) {
+        System.err.println("Connection to Postgres failed");
+    }
+try {
+    String SQL_sursa = " SELECT numere_lucru.nrlc_id as id_agent, numere_lucru.nick, numere_lucru.denumire as denumire_agent , numere_lucru.categorie_id, clasa.denumire as clasa_denumire, numere_lucru.grupa_id, numere_lucru.clasa_id FROM numere_lucru, clasa WHERE numere_lucru.clasa_id=clasa.clasa_id AND numere_lucru.sw_0='a' AND numere_lucru.clasa_id = '0082' ORDER BY numere_lucru.denumire";
+    // Doar TM - agentii MzTim
+    
+    ResultSet rs_sursa = null;
+    rs_sursa = stmt_sursa.executeQuery(SQL_sursa);
+    String illegal_char = " ";
+    String legal_char = "-";
+    String mS_denumire;
+    String mS_id;
+    //int indexOf;
+    while (rs_sursa.next()) {
+        mS_denumire = rs_sursa.getString("denumire_agent").trim().replaceAll(illegal_char, legal_char);
+        mS_id       = rs_sursa.getString("id_agent");
+        // indexOf = mS_denumire.indexOf("-");
+        // if (indexOf>0)
+           // mS_denumire=mS_denumire.substring(0, indexOf);
+        //mS_denumire.replaceAll(illegal_char, legal_char);
+        //aS_denumire[index1]= mS_denumire;
+        //aS_denumire[index1]= mS_denumire.replaceAll(illegal_char, legal_char);
+        aS_denumire[index1]= mS_denumire;
+        mp.put(mS_id, mS_denumire);
+        System.out.println(mS_id + " " + aS_denumire[index1]);
+        index1=index1+1;
+    }
+    System.out.println("Transfer OK");
+    System.out.println(Integer.toString(index1)+" records ");
+    rs_sursa.close();
+    stmt_sursa.close();
+    conn_sursa.close();
+} catch (Exception e) {
+    System.err.println("An error has occurred during transfer");
+    System.err.println(e);
+}  
+    ConnectionConfiguration ccfg = new ConnectionConfiguration(olap_server_ip, olap_server_port);
+    ccfg.setUser(olap_server_user);
+    ccfg.setPassword(olap_server_pass);
+    Connection conn = ConnectionFactory.getInstance().newConnection(ccfg);
+    Database demo2 =  null;
+    try {
+        demo2 =  conn.addDatabase("Pangram2");
+    } catch (Exception e) {
+        System.err.println("Cube already created");
+    }
+    Dimension[] dimensions = new Dimension[3];
+    Dimension dim1 = demo2.addDimension("dimWarehouse");
+    Dimension dim2 = demo2.addDimension("dimYears");
+    Dimension dim3 = demo2.addDimension("dimCustomers");
+    Hierarchy hie1 = dim1.getDefaultHierarchy();
+    Hierarchy hie2 = dim2.getDefaultHierarchy();
+    Hierarchy hie3 = dim3.getDefaultHierarchy();
+    dimensions[0]=dim1;
+    dimensions[1]=dim2;
+    dimensions[2]=dim3;
+    hie1.addElement("Timisoara", Element.ELEMENTTYPE_NUMERIC);
+    hie1.addElement("Bucuresti", Element.ELEMENTTYPE_NUMERIC);
+    hie1.addElement("Cluj", Element.ELEMENTTYPE_NUMERIC);
+    hie2.addElement("2011", Element.ELEMENTTYPE_NUMERIC);
+    hie2.addElement("2012", Element.ELEMENTTYPE_NUMERIC);
+    hie2.addElement("2013", Element.ELEMENTTYPE_NUMERIC);
+    hie3.addElement("Metro", Element.ELEMENTTYPE_NUMERIC);
+    hie3.addElement("Kaufland", Element.ELEMENTTYPE_NUMERIC);
+    hie3.addElement("Real", Element.ELEMENTTYPE_NUMERIC);
+    Element parent, child;
+    int index2;
+    parent = hie1.getElementByName("Timisoara");
+    Consolidation[] consolidations = new Consolidation[index1];
+    for(index2=0;index2<index1;index2++ ){
+        child = hie1.addElement(aS_denumire[index2], Element.ELEMENTTYPE_NUMERIC);
+        consolidations[index2] = hie1.newConsolidation(child, parent, 1);
+    }
+    parent.updateConsolidations(consolidations);
+    Cube cube = null;
+    try {
+        cube = demo2.addCube("cubeSales", dimensions);
+        //String COORDINATES1[] = {"BERENDEI","2003","Metro"};
+        String COORDINATES1[] = {mp.get("0100658"),"2013","Metro"};
+        cube.setData(COORDINATES1, new Double(247.26));
+        
+        //String COORDINATES2[] = {"BICHEL","2003","Metro"};
+        String COORDINATES2[] = {mp.get("0100849"),"2013","Metro"};
+        cube.setData(COORDINATES2, new Double(2.74));
+        
+    } catch (Exception e) {
+        System.err.println("Cube creation failed");
+        System.err.println(e);
+        System.exit(1);
+    }
+}
+
+static void smallCube4() {
+    //  TM Agents : clasa_id = '0082'
+    // smallcube3 = smallcube2 + Map<Object,String>
+    String[] aS_denumire = new String[100];
+    
+    Map<Object,String> mp=new HashMap<Object, String>();
+    
+    String mS_id="0";
+    double md_valoare=0;
+    double md_val_tva;
+
+    
+    int index1=0;
+    String url_sursa = url_sursa_postgres;
+    String username_sursa = "postgres";
+    String password_sursa = "telinit";
+    java.sql.Connection conn_sursa = null;
+    java.sql.Statement stmt_sursa = null;
+    try {
+        Class.forName("org.postgresql.Driver");
+        System.out.println("Driver PostgreSQL OK");
+    } catch (Exception e) {
+        System.err.println("Failed to load Postgres Driver");
+    }
+    try {
+        conn_sursa = DriverManager.getConnection(url_sursa,username_sursa,password_sursa);
+        stmt_sursa = conn_sursa.createStatement();
+        System.out.println("Connection to source PostgreSQL OK");
+    } catch (Exception e) {
+        System.err.println("Connection to Postgres failed");
+    }
+try {
+    String SQL_sursa1 = " SELECT numere_lucru.nrlc_id as id_agent, numere_lucru.nick, numere_lucru.denumire as denumire_agent , numere_lucru.categorie_id, clasa.denumire as clasa_denumire, numere_lucru.grupa_id, numere_lucru.clasa_id FROM numere_lucru, clasa WHERE numere_lucru.clasa_id=clasa.clasa_id AND numere_lucru.sw_0='a' AND numere_lucru.clasa_id = '0082' ORDER BY numere_lucru.denumire";
+    // Doar TM - agentii MzTim
+    
+    String SQL_sursa2 = " select cln.denumire as filiala, nl1.nrlc_id as agent_id ,nl1.denumire as agent,t.cui,t.plt,t.denumire as client,sum(f.valoare_vn+f.val_chelt_expl_1+f.val_chelt_expl_2+f.val_disc_expl)::numeric(12,2) as valoare,sum(f.val_tva_c_nor+f.val_tva_c_red)::numeric(12,2) as val_tva,sum(f.valoare_vn+f.val_chelt_expl_1+f.val_chelt_expl_2+f.val_disc_expl+f.val_tva_c_nor+f.val_tva_c_red)::numeric(12,2) as valoare_tot,max(clt.denumire)::char(35) as clasat,MAX(grt.denumire)::char(35) as grupat,max(s.denloc)::char(45) as loc,MAX(j.denj) as jud from facturi_v_c f inner join tip_doc td on f.tipd_id=td.tipd_id and SUBSTR(td.contd,1,3)<>'418' inner join gestiuni g on f.gestiune_id=g.gest_id inner join numere_lucru nl1 on f.nrlc_id=nl1.nrlc_id inner join clasa cln on nl1.clasa_id=cln.clasa_id inner join vterti t on f.tert_id=t.tert_id inner join clasa clt on t.clasa_id=clt.clasa_id inner join grupa grt on t.grupa_id=grt.grupa_id inner join siruta s on t.siruta=s.siruta inner join jud j on s.jud=j.jud where f.data_f between '2012-01-01' and '2012-12-31' and UPPER(SUBSTR(f.cassa,1,1))='F' and UPPER(f.tiparit)<>'M' AND nl1.nrlc_id='0100843' and t.cui='13479097'group by filiala,agent_id,agent,cui,plt,client having sum(f.valoare_vn+f.val_chelt_expl_1+f.val_chelt_expl_2+f.val_disc_expl)<>0order by filiala,agent,client";
+    /*
+Pe axa DEPOZITELOR cu AGENTI va fi o singura diviziune:   Timisoara - FRIMU NADIA
+Pe axa CLENTILOR va fi o singura diviziune:   ALMIRA TRADE
+Pe axa TIMPULUI ~ va fi tot o singura diviziune : 2012
+* 
+select cln.denumire as filiala, nl1.nrlc_id as agent_id ,nl1.denumire as agent,t.cui,t.plt,
+t.denumire as client,sum(f.valoare_vn+f.val_chelt_expl_1+f.val_chelt_expl_2+f.val_disc_expl)::numeric(12,2) as valoare,
+sum(f.val_tva_c_nor+f.val_tva_c_red)::numeric(12,2) as val_tva,
+sum(f.valoare_vn+f.val_chelt_expl_1+f.val_chelt_expl_2+f.val_disc_expl+f.val_tva_c_nor+f.val_tva_c_red)::numeric(12,2) as valoare_tot,
+max(clt.denumire)::char(35) as clasat,MAX(grt.denumire)::char(35) as grupat,
+max(s.denloc)::char(45) as loc,MAX(j.denj) as jud
+from facturi_v_c f inner join tip_doc td on f.tipd_id=td.tipd_id and SUBSTR(td.contd,1,3)<>'418' inner join gestiuni g on f.gestiune_id=g.gest_id
+inner join numere_lucru nl1 on f.nrlc_id=nl1.nrlc_id
+inner join clasa cln on nl1.clasa_id=cln.clasa_id 
+inner join vterti t on f.tert_id=t.tert_id
+inner join clasa clt on t.clasa_id=clt.clasa_id
+inner join grupa grt on t.grupa_id=grt.grupa_id
+inner join siruta s on t.siruta=s.siruta
+inner join jud j on s.jud=j.jud
+where f.data_f between '2012-01-01' and '2012-12-31' and
+UPPER(SUBSTR(f.cassa,1,1))='F' and UPPER(f.tiparit)<>'M' AND nl1.nrlc_id='0100843' and t.cui='13479097'
+group by filiala,agent_id,agent,cui,plt,client
+having sum(f.valoare_vn+f.val_chelt_expl_1+f.val_chelt_expl_2+f.val_disc_expl)<>0
+order by filiala,agent,client;
+     */
+    
+    ResultSet rs_sursa1 = null;
+    ResultSet rs_sursa2 = null;
+    rs_sursa1 = stmt_sursa.executeQuery(SQL_sursa1);
+    String illegal_char = " ";
+    String legal_char = "-";
+    String mS_denumire;
+    // int indexOf;
+    // rs_sursa1.first();
+    while (rs_sursa1.next()) {
+        mS_denumire = rs_sursa1.getString("denumire_agent").trim().replaceAll(illegal_char, legal_char);
+        mS_id       = rs_sursa1.getString("id_agent");
+        // indexOf = mS_denumire.indexOf("-");
+        // if (indexOf>0)
+           // mS_denumire=mS_denumire.substring(0, indexOf);
+        //mS_denumire.replaceAll(illegal_char, legal_char);
+        //aS_denumire[index1]= mS_denumire;
+        //aS_denumire[index1]= mS_denumire.replaceAll(illegal_char, legal_char);
+        aS_denumire[index1]= mS_denumire;
+        mp.put(mS_id, mS_denumire);
+        System.out.println(mS_id + " " + aS_denumire[index1]);
+        index1=index1+1;
+    }
+    rs_sursa2 = stmt_sursa.executeQuery(SQL_sursa2);
+    // rs_sursa2.first();
+    while (rs_sursa2.next()) {
+        mS_denumire = rs_sursa2.getString("agent").trim().replaceAll(illegal_char, legal_char);
+        mS_id       = rs_sursa2.getString("agent_id");
+        md_valoare  = rs_sursa2.getDouble("valoare");
+        md_val_tva  = rs_sursa2.getDouble("val_tva");
+        // indexOf = mS_denumire.indexOf("-");
+        // if (indexOf>0)
+           // mS_denumire=mS_denumire.substring(0, indexOf);
+        //mS_denumire.replaceAll(illegal_char, legal_char);
+        //aS_denumire[index1]= mS_denumire;
+        //aS_denumire[index1]= mS_denumire.replaceAll(illegal_char, legal_char);
+        //aS_denumire[index1]= mS_denumire;
+        //mp.put(mS_id, mS_denumire);
+        System.out.println("Valoare agenti : " + mS_id + " " + mS_denumire + " = " + Double.toString(md_valoare));
+    }
+    
+    System.out.println("Transfer OK");
+    System.out.println(Integer.toString(index1)+" records ");
+    rs_sursa1.close();
+    rs_sursa2.close();
+    stmt_sursa.close();
+    conn_sursa.close();
+} catch (Exception e) {
+    System.err.println("An error has occurred during transfer");
+    System.err.println(e);
+}  
+    ConnectionConfiguration ccfg = new ConnectionConfiguration(olap_server_ip, olap_server_port);
+    ccfg.setUser(olap_server_user);
+    ccfg.setPassword(olap_server_pass);
+    Connection conn = ConnectionFactory.getInstance().newConnection(ccfg);
+    Database demo2 =  null;
+    try {
+        demo2 =  conn.addDatabase("Pangram4");
+    } catch (Exception e) {
+        System.err.println("Cube already created");
+    }
+    Dimension[] dimensions = new Dimension[3];
+    Dimension dim1 = demo2.addDimension("dimWarehouse");
+    Dimension dim2 = demo2.addDimension("dimYears");
+    Dimension dim3 = demo2.addDimension("dimCustomers");
+    Hierarchy hie1 = dim1.getDefaultHierarchy();
+    Hierarchy hie2 = dim2.getDefaultHierarchy();
+    Hierarchy hie3 = dim3.getDefaultHierarchy();
+    dimensions[0]=dim1;
+    dimensions[1]=dim2;
+    dimensions[2]=dim3;
+    hie1.addElement("Timisoara", Element.ELEMENTTYPE_NUMERIC);
+    hie1.addElement("Bucuresti", Element.ELEMENTTYPE_NUMERIC);
+    hie1.addElement("Cluj", Element.ELEMENTTYPE_NUMERIC);
+    hie2.addElement("2011", Element.ELEMENTTYPE_NUMERIC);
+    hie2.addElement("2012", Element.ELEMENTTYPE_NUMERIC);
+    hie2.addElement("2013", Element.ELEMENTTYPE_NUMERIC);
+    hie3.addElement("Metro", Element.ELEMENTTYPE_NUMERIC);
+    hie3.addElement("Kaufland", Element.ELEMENTTYPE_NUMERIC);
+    hie3.addElement("Real", Element.ELEMENTTYPE_NUMERIC);
+    hie3.addElement("Almira-Trade", Element.ELEMENTTYPE_NUMERIC);
+    Element parent, child;
+    int index2;
+    parent = hie1.getElementByName("Timisoara");
+    Consolidation[] consolidations = new Consolidation[index1];
+    for(index2=0;index2<index1;index2++ ){
+        child = hie1.addElement(aS_denumire[index2], Element.ELEMENTTYPE_NUMERIC);
+        consolidations[index2] = hie1.newConsolidation(child, parent, 1);
+    }
+    parent.updateConsolidations(consolidations);
+    Cube cube = null;
+    try {
+        cube = demo2.addCube("cubeSales", dimensions);
+        //String COORDINATES1[] = {"BERENDEI","2013","Metro"};
+        String COORDINATES1[] = {mp.get("0100658"),"2013","Metro"};
+        cube.setData(COORDINATES1, new Double(247.26));
+        
+        //String COORDINATES2[] = {"BICHEL","2013","Metro"};
+        String COORDINATES2[] = {mp.get("0100849"),"2013","Metro"};
+        cube.setData(COORDINATES2, new Double(2.74));
+        
+        String COORDINATES3[] = {mp.get(mS_id),"2012","Almira-Trade"};
+        cube.setData(COORDINATES3, md_valoare);
+        
+        
+    } catch (Exception e) {
+        System.err.println("Cube creation failed");
+        System.err.println(e);
+        System.exit(1);
+    }
+}
+
 public static void main(String[] args) {
     //CreatePaloDB();
     
      // smallCube1();
-     smallCube2();
-            
+     // smallCube2();
+     // smallCube3();
+    
+        smallCube4();
+        
      // CreateDimDepoAg();
      // CreateDimCustomer();
      // CreateDimProduct();
