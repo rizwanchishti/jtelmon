@@ -48,7 +48,7 @@ public class MainCube20130109 {
     static String url_sursa_postgres1 = "jdbc:postgresql://gate.montebanato.ro:5432/pangram_week_2008";
     static String url_sursa_postgres2 = "jdbc:postgresql://192.168.61.207:5432/pangram_main_2008";
     static String url_sursa_postgres  = url_sursa_postgres2;
-    static String olap_db_name        = "olap8a2_2012";
+    static String olap_db_name        = "olap8_2013ian";
     static String olap_server_ip1      = "192.168.61.8";
     static String olap_server_ip2      = "192.168.61.21";
     static String olap_server_ip      = olap_server_ip1;
@@ -208,6 +208,18 @@ try {
 
 
   static void CreateDimProduct(){
+      
+      /*
+select nomstoc.stoc_id, nomstoc.simbol, nomstoc.denumire, 
+clasa.denumire as clasa, grupa.denumire as grupa, 
+categorie.denumire as categorie from nomstoc, categorie, grupa, clasa  
+where nomstoc.sw_0='a' AND  
+nomstoc.categorie_id=categorie.categ_id  
+AND nomstoc.grupa_id=grupa.grupa_id  
+AND nomstoc.clasa_id=clasa.clasa_id  
+ORDER BY clasa, grupa, categorie  
+       */
+      
     String SQL_Product = " " +
      " select nomstoc.stoc_id, nomstoc.simbol, nomstoc.denumire, " +
      " clasa.denumire as clasa, grupa.denumire as grupa, " +
@@ -250,7 +262,7 @@ try {
     ResultSet rs_sursa = null;
     rs_sursa = stmt_sursa.executeQuery(SQL_sursa);
     String illegal_char = " ";
-    String legal_char = "_";
+    String legal_char = "-";
     String mS_denCli =" ", mS_denCls =" ", mS_denCat =" ", mS_denGru =" ";
     Client iClient = null;
     while (rs_sursa.next()) {
@@ -276,6 +288,18 @@ try {
 
 
   static void CreateDimCustomer(){
+      /*
+         SELECT tert_id, terti.denumire as client,
+         clasa.denumire as clasa, 
+         grupa.denumire as grupa, 
+         categorie.denumire as categorie 
+         FROM  terti, categorie, grupa, clasa 
+         WHERE terti.categorie_id=categorie.categ_id 
+	     AND terti.grupa_id=grupa.grupa_id 
+	     AND terti.clasa_id=clasa.clasa_id 
+	     AND terti.sw_0='a'  
+         ORDER BY clasa, grupa, categorie 
+       */
     String SQL_Customer = " " +
         " SELECT tert_id, terti.denumire as client, " +
         " clasa.denumire as clasa, " +
@@ -306,7 +330,7 @@ try {
     Hierarchy hie1 = dim1.getDefaultHierarchy();
     dimensions[0]=dim1;
     String illegal_char = " ";
-    String legal_char = "";
+    String legal_char = "-";
     String mS_denumire;
     String mS_id;
     Element parent, child;
@@ -322,10 +346,10 @@ try {
         mS_denumire = iClient.getDenumire();
         mS_id= iClient.getID();
         //if(!mS_denumire.substring(0, 1).equals("0")){
-            mS_denumire = mS_denumire.replaceAll(illegal_char, legal_char);
-            mS_id = mS_id.replaceAll(illegal_char, legal_char);
+            // mS_denumire = mS_denumire.replaceAll(illegal_char, legal_char);
+            // mS_id = mS_id.replaceAll(illegal_char, legal_char);
             System.out.println(" __Client_" + index1 + "  " + mS_denumire);
-            mS_denumire = mS_denumire.concat(mS_id);
+            mS_denumire = mS_denumire.concat("-"+mS_id);
             hie1.addElement( mS_denumire , Element.ELEMENTTYPE_NUMERIC);
         //}
     }
@@ -362,15 +386,15 @@ try {
     ResultSet rs_sursa = null;
     rs_sursa = stmt_sursa.executeQuery(SQL_sursa);
     String illegal_char = " ";
-    String legal_char = "";
+    String legal_char = "-";
     String mS_iD= " ", mS_denCli =" ", mS_denCls =" ", mS_denCat =" ", mS_denGru =" ";
     Client iClient = null;
     while (rs_sursa.next()) {
-        mS_iD = rs_sursa.getString("tert_id").replaceAll(illegal_char, legal_char);
-        mS_denCli = rs_sursa.getString("client").replaceAll(illegal_char, legal_char);
-        mS_denCat = rs_sursa.getString("categorie").replaceAll(illegal_char, legal_char);
-        mS_denGru = rs_sursa.getString("grupa").replaceAll(illegal_char, legal_char);
-        mS_denCls = rs_sursa.getString("clasa").replaceAll(illegal_char, legal_char);
+        mS_iD = rs_sursa.getString("tert_id").trim().replaceAll(illegal_char, legal_char);
+        mS_denCli = rs_sursa.getString("client").trim().replaceAll(illegal_char, legal_char);
+        mS_denCat = rs_sursa.getString("categorie").trim().replaceAll(illegal_char, legal_char);
+        mS_denGru = rs_sursa.getString("grupa").trim().replaceAll(illegal_char, legal_char);
+        mS_denCls = rs_sursa.getString("clasa").trim().replaceAll(illegal_char, legal_char);
         System.out.println(mS_denCli + "  " + mS_denCls + "  " + mS_denGru + "  " + mS_denCat);
         iClient = new Client(mS_iD,mS_denCli,mS_denCls,mS_denCat,mS_denGru);
         CustomerList.add(iClient);
@@ -390,8 +414,8 @@ try {
 
   static void CreateDimDepoAg(){
     // SQL4 AGENTI & DEPOZITE
-    String SQL_AgByDep = " SELECT numere_lucru.nrlc_id, numere_lucru.nick, numere_lucru.denumire, " +
-             " numere_lucru.categorie_id, categorie.denumire as categorie_denumire, " +
+    String SQL_AgByDep = " SELECT numere_lucru.nrlc_id, numere_lucru.nick, numere_lucru.denumire as denumire_agent, " +
+             " numere_lucru.categorie_id, categorie.denumire as categorie_depozit, " +
              " numere_lucru.grupa_id, numere_lucru.clasa_id "+
              " FROM numere_lucru, categorie " +
              " WHERE numere_lucru.categorie_id=categorie.categ_id AND numere_lucru.sw_0='a' " +
@@ -429,15 +453,15 @@ try {
     ResultSet rs_sursa = null;
     rs_sursa = stmt_sursa.executeQuery(SQL_sursa);
     String illegal_char = " ";
-    String legal_char = "";
+    String legal_char = "-";
     String mS_denDep =" ", mS_denAg =" ";
     Depozit iDepo = null;
     while (rs_sursa.next()) {
-        mS_denAg = rs_sursa.getString("nick").replaceAll(illegal_char, legal_char);
-        mS_denDep = rs_sursa.getString("categorie_denumire").replaceAll(illegal_char, legal_char);
+        mS_denAg = rs_sursa.getString("denumire_agent").trim().replaceAll(illegal_char, legal_char);
+        mS_denDep = rs_sursa.getString("categorie_depozit").replaceAll(illegal_char, legal_char);
         if ( (iDepo !=null) && ( iDepo.getDen().equals(mS_denDep)) ){
             iDepo.listOfAgents.add(mS_denAg);
-            if(mS_denDep.trim().equals("ARAD")){
+            if(mS_denDep.trim().equals("RESITA")){
                 System.out.println(mS_denAg + "  " + Integer.toString(iDepo.listOfAgents.size()));
             }
         }  
@@ -959,17 +983,22 @@ order by filiala,agent,client;
 }
 
 public static void main(String[] args) {
-    //CreatePaloDB();
+    CreatePaloDB();
     
      // smallCube1();
      // smallCube2();
      // smallCube3();
     
-        smallCube4();
+     // smallCube4();
         
      // CreateDimDepoAg();
+     // DUBLAT : AGENT G RESITA 2  
+    
      // CreateDimCustomer();
-     // CreateDimProduct();
+    
+    
+     CreateDimProduct();
+    
     
     System.exit(0);
 }
