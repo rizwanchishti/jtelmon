@@ -208,7 +208,6 @@ try {
 
 
   static void CreateDimProduct(){
-      
       /*
 select nomstoc.stoc_id, nomstoc.simbol, nomstoc.denumire, 
 clasa.denumire as clasa, grupa.denumire as grupa, 
@@ -218,17 +217,17 @@ nomstoc.categorie_id=categorie.categ_id
 AND nomstoc.grupa_id=grupa.grupa_id  
 AND nomstoc.clasa_id=clasa.clasa_id  
 ORDER BY clasa, grupa, categorie  
+* 
+select distinct n.stoc_id,n.simbol,n.denumire,n.categorie_id,n.grupa_id,n.clasa_id,cl.denumire as clasa,gr.denumire as grupa
+from facturi_v_c f 
+inner join facturi_cv_c c on f.fact_id=c.fact_id 
+inner join nomstoc n on c.stoc_id=n.stoc_id 
+inner join categorie cat on n.categorie_id=cat.categ_id
+inner join grupa gr on n.grupa_id=gr.grupa_id
+inner join clasa cl on n.clasa_id=cl.clasa_id
+where f.data_f>'2013-01-01'
        */
-      
-    String SQL_Product = " " +
-     " select nomstoc.stoc_id, nomstoc.simbol, nomstoc.denumire, " +
-     " clasa.denumire as clasa, grupa.denumire as grupa, " +
-     " categorie.denumire as categorie from nomstoc, categorie, grupa, clasa  " +
-     " where nomstoc.sw_0='a' AND  " +
-     " nomstoc.categorie_id=categorie.categ_id  " +
-     " AND nomstoc.grupa_id=grupa.grupa_id  " +
-     " AND nomstoc.clasa_id=clasa.clasa_id  " +
-     " ORDER BY clasa, grupa, categorie  " ;
+    String SQL_Product = " select distinct n.stoc_id,n.simbol,n.denumire,n.categorie_id,n.grupa_id,n.clasa_id,cl.denumire as clasa,gr.denumire as grupa, cat.denumire as categorie from facturi_v_c f inner join facturi_cv_c c on f.fact_id=c.fact_id inner join nomstoc n on c.stoc_id=n.stoc_id inner join categorie cat on n.categorie_id=cat.categ_id inner join grupa gr on n.grupa_id=gr.grupa_id inner join clasa cl on n.clasa_id=cl.clasa_id where f.data_f>'2013-01-01' " ;
     String SQL_Sursa = SQL_Product;
     List<Produs> ProductList = new ArrayList<Produs>();
     ProductList  =  getProductListBySQL (SQL_Sursa);
@@ -266,7 +265,7 @@ try {
     String mS_denCli =" ", mS_denCls =" ", mS_denCat =" ", mS_denGru =" ";
     Client iClient = null;
     while (rs_sursa.next()) {
-        mS_denCli = rs_sursa.getString("denumire").replaceAll(illegal_char, legal_char);
+        mS_denCli = rs_sursa.getString("denumire").trim().replaceAll(illegal_char, legal_char)+"---"+rs_sursa.getString("stoc_id");
         mS_denCat = rs_sursa.getString("categorie").replaceAll(illegal_char, legal_char);
         mS_denGru = rs_sursa.getString("grupa").replaceAll(illegal_char, legal_char);
         mS_denCls = rs_sursa.getString("clasa").replaceAll(illegal_char, legal_char);
