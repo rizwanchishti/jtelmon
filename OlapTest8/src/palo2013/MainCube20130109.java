@@ -412,13 +412,21 @@ try {
 
 
   static void CreateDimDepoAg(){
-    // SQL4 AGENTI & DEPOZITE
+      /*
+    SQL4 AGENTI & DEPOZITE
     String SQL_AgByDep = " SELECT numere_lucru.nrlc_id, numere_lucru.nick, numere_lucru.denumire as denumire_agent, " +
              " numere_lucru.categorie_id, categorie.denumire as categorie_depozit, " +
              " numere_lucru.grupa_id, numere_lucru.clasa_id "+
              " FROM numere_lucru, categorie " +
              " WHERE numere_lucru.categorie_id=categorie.categ_id AND numere_lucru.sw_0='a' " +
              " ORDER BY categorie.denumire, numere_lucru.denumire ";
+select distinct nl.nrlc_id,nl.nick,nl.denumire as dnumire_agent,cat.denumire as categorie_depozit,nl.categorie_id,nl.grupa_id,nl.clasa_id  
+from facturi_v_c f 
+inner join numere_lucru nl on f.nrlc_id=nl.nrlc_id 
+inner join categorie cat on nl.categorie_id=cat.categ_id
+where f.data_f>'2012-01-01' order by 3
+     */
+    String SQL_AgByDep = "select distinct nl.nrlc_id,nl.nick,nl.denumire as denumire_agent,cat.denumire as categorie_depozit,nl.categorie_id,nl.grupa_id,nl.clasa_id from facturi_v_c f inner join numere_lucru nl on f.nrlc_id=nl.nrlc_id inner join categorie cat on nl.categorie_id=cat.categ_id where f.data_f>'2012-01-01' order by 4,3  ";
     String SQL_Sursa = SQL_AgByDep;
     List<Depozit> DepoAgList = new ArrayList<Depozit>();
     DepoAgList  =  getDepoAgListBySQL (SQL_Sursa);
@@ -456,7 +464,7 @@ try {
     String mS_denDep =" ", mS_denAg =" ";
     Depozit iDepo = null;
     while (rs_sursa.next()) {
-        mS_denAg = rs_sursa.getString("denumire_agent").trim().replaceAll(illegal_char, legal_char);
+        mS_denAg = rs_sursa.getString("denumire_agent").trim().replaceAll(illegal_char, legal_char)+"---"+rs_sursa.getString("nrlc_id");
         mS_denDep = rs_sursa.getString("categorie_depozit").replaceAll(illegal_char, legal_char);
         if ( (iDepo !=null) && ( iDepo.getDen().equals(mS_denDep)) ){
             iDepo.listOfAgents.add(mS_denAg);
@@ -987,17 +995,14 @@ public static void main(String[] args) {
      // smallCube1();
      // smallCube2();
      // smallCube3();
-    
      // smallCube4();
         
-     // CreateDimDepoAg();
-     // DUBLAT : AGENT G RESITA 2  
-    
+     CreateDimDepoAg();
+     // Agentii au ID in denumire si sunt doar cei care au facturat dupa 2012-01-01 ... 
      // CreateDimCustomer();
-    
-    
-     CreateDimProduct();
-    
+     // AXA Clientilor are ID in denumire ; si la Clienti pot sa-i filtrez doar pe cei facturati dupa 2012-01-01 ... 
+     // CreateDimProduct();
+     // AXA PRODUSELOR contine doar se s-a vandut dupa 2012 iar in denumire apare si ID_PRODUS !    
     
     System.exit(0);
 }
