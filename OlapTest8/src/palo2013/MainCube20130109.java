@@ -1008,7 +1008,7 @@ public static void main(String[] args) {
     
      // 1. Filtrez si clientii doar pe cei facturati dupa 2012-01-01
      // 2. smallCube5() La Frimu-Nadia-TM : pe Almira-Trade sa parcurg toate produsele !  
-     // 3. inserarea valorii sa o fac in functie de productMap(ID) + clientMap(ID) + agentMap(ID) ... 
+     // 3. inserarea valorii as putea sa o fac (nu cred ca e obligatoriu) si in functie de productMap(ID) + clientMap(ID) + agentMap(ID) ... 
     
     
     System.exit(0);
