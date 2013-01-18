@@ -821,7 +821,7 @@ static void smallCube4() {
     // smallcube3 = smallcube2 + Map<Object,String>
     String[] aS_denumire = new String[100];
     
-    Map<Object,String> mp=new HashMap<Object, String>();
+    Map<Object,String> productMap=new HashMap<Object, String>();
     
     String mS_id="0";
     double md_valoare=0;
@@ -896,7 +896,7 @@ order by filiala,agent,client;
         //aS_denumire[index1]= mS_denumire;
         //aS_denumire[index1]= mS_denumire.replaceAll(illegal_char, legal_char);
         aS_denumire[index1]= mS_denumire;
-        mp.put(mS_id, mS_denumire);
+        productMap.put(mS_id, mS_denumire);
         System.out.println(mS_id + " " + aS_denumire[index1]);
         index1=index1+1;
     }
@@ -971,14 +971,14 @@ order by filiala,agent,client;
     try {
         cube = demo2.addCube("cubeSales", dimensions);
         //String COORDINATES1[] = {"BERENDEI","2013","Metro"};
-        String COORDINATES1[] = {mp.get("0100658"),"2013","Metro"};
+        String COORDINATES1[] = {productMap.get("0100658"),"2013","Metro"};
         cube.setData(COORDINATES1, new Double(247.26));
         
         //String COORDINATES2[] = {"BICHEL","2013","Metro"};
-        String COORDINATES2[] = {mp.get("0100849"),"2013","Metro"};
+        String COORDINATES2[] = {productMap.get("0100849"),"2013","Metro"};
         cube.setData(COORDINATES2, new Double(2.74));
         
-        String COORDINATES3[] = {mp.get(mS_id),"2012","Almira-Trade"};
+        String COORDINATES3[] = {productMap.get(mS_id),"2012","Almira-Trade"};
         cube.setData(COORDINATES3, md_valoare);
         
         
@@ -997,12 +997,23 @@ public static void main(String[] args) {
      // smallCube3();
      // smallCube4();
         
-     CreateDimDepoAg();
+    CreateDimDepoAg();
      // Agentii au ID in denumire si sunt doar cei care au facturat dupa 2012-01-01 ... 
+     
      // CreateDimCustomer();
      // AXA Clientilor are ID in denumire ; si la Clienti pot sa-i filtrez doar pe cei facturati dupa 2012-01-01 ... 
+     
      // CreateDimProduct();
      // AXA PRODUSELOR contine doar se s-a vandut dupa 2012 iar in denumire apare si ID_PRODUS !    
+    
+     // 1. Filtrez si clientii doar pe cei facturati dupa 2012-01-01
+     // 2. smallCube5() La Frimu-Nadia-TM : pe Almira-Trade sa parcurg toate produsele !  
+     //        inserarea valorii sa o fac in functie de productMap(ID) + clientMap(ID) + agentMap(ID) ... 
+    
+    
+     // 3. smallCube6() in care sa parcurg Timisoara si toti clientii ... 
+    
+     
     
     System.exit(0);
 }
