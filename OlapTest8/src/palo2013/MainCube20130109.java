@@ -997,10 +997,10 @@ public static void main(String[] args) {
      // smallCube3();
      // smallCube4();
         
-    CreateDimDepoAg();
+     // CreateDimDepoAg();
      // Agentii au ID in denumire si sunt doar cei care au facturat dupa 2012-01-01 ... 
      
-     // CreateDimCustomer();
+     CreateDimCustomer();
      // AXA Clientilor are ID in denumire ; si la Clienti pot sa-i filtrez doar pe cei facturati dupa 2012-01-01 ... 
      
      // CreateDimProduct();
