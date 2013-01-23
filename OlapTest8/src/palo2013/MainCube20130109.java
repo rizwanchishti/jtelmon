@@ -298,18 +298,23 @@ try {
 	     AND terti.clasa_id=clasa.clasa_id 
 	     AND terti.sw_0='a'  
          ORDER BY clasa, grupa, categorie 
+         * 
+select distinct t.cui,t.sediu as denumire,t.categorie_id,t.grupa_id,t.clasa_id  
+from facturi_v_c f 
+inner join vterti t on f.tert_id=t.tert_id 
+inner join categorie cat on t.categorie_id=cat.categ_id 
+inner join grupa gr on t.grupa_id=gr.grupa_id 
+inner join clasa cl on t.clasa_id=cl.clasa_id 
+where f.data_f>'2012-01-01' 
+* 
+select distinct t.tert_id,t.cui,t.plt,t.denumire as client, cat.denumire as categorie, gr.denumire as grupa, cl.denumire as clasa , t.categorie_id,t.grupa_id,t.clasa_id  
+from facturi_v_c f inner join vterti t on f.tert_id=t.tert_id 
+inner join categorie cat on t.categorie_id=cat.categ_id 
+inner join grupa gr on t.grupa_id=gr.grupa_id 
+inner join clasa cl on t.clasa_id=cl.clasa_id 
+where f.data_f>'2012-01-01' order by 2
        */
-    String SQL_Customer = " " +
-        " SELECT tert_id, terti.denumire as client, " +
-        " clasa.denumire as clasa, " +
-        " grupa.denumire as grupa, " +
-        " categorie.denumire as categorie " +
-        " FROM  terti, categorie, grupa, clasa " +
-        " WHERE terti.categorie_id=categorie.categ_id " +
-	    " AND terti.grupa_id=grupa.grupa_id " +
-	    " AND terti.clasa_id=clasa.clasa_id " +
-	    " AND terti.sw_0='a' " +
-        " ORDER BY clasa, grupa, categorie ";
+    String SQL_Customer = " select distinct t.tert_id,t.cui,t.plt,t.denumire as client, cat.denumire as categorie, gr.denumire as grupa, cl.denumire as clasa , t.categorie_id,t.grupa_id,t.clasa_id from facturi_v_c f inner join vterti t on f.tert_id=t.tert_id inner join categorie cat on t.categorie_id=cat.categ_id inner join grupa gr on t.grupa_id=gr.grupa_id inner join clasa cl on t.clasa_id=cl.clasa_id where f.data_f>'2012-01-01' order by 2 ";
     String SQL_Sursa = SQL_Customer;
     List<Client> CustomerList = new ArrayList<Client>();
     CustomerList  =  getCustomerListBySQL (SQL_Sursa);
@@ -348,7 +353,7 @@ try {
             // mS_denumire = mS_denumire.replaceAll(illegal_char, legal_char);
             // mS_id = mS_id.replaceAll(illegal_char, legal_char);
             System.out.println(" __Client_" + index1 + "  " + mS_denumire);
-            mS_denumire = mS_denumire.concat("-"+mS_id);
+            mS_denumire = mS_denumire.concat("---"+mS_id);
             hie1.addElement( mS_denumire , Element.ELEMENTTYPE_NUMERIC);
         //}
     }
@@ -990,6 +995,7 @@ order by filiala,agent,client;
 }
 
 public static void main(String[] args) {
+
     CreatePaloDB();
     
      // smallCube1();
@@ -998,19 +1004,23 @@ public static void main(String[] args) {
      // smallCube4();
         
      // CreateDimDepoAg();
-     // Agentii au ID in denumire si sunt doar cei care au facturat dupa 2012-01-01 ... 
+     // Agentii au ID in denumire ; Sunt doar cei care au facturat dupa 2012-01-01 ... 
      
      CreateDimCustomer();
-     // AXA Clientilor are ID in denumire ; si la Clienti pot sa-i filtrez doar pe cei facturati dupa 2012-01-01 ... 
+     // AXA Clientilor are TERT_ID in denumire ; Sunt doar pe cei facturati dupa 2012-01-01 ... 
+     // cui_id = ID sediu , tert_id = ID PLT
      
      // CreateDimProduct();
      // AXA PRODUSELOR contine doar se s-a vandut dupa 2012 iar in denumire apare si ID_PRODUS !    
     
-     // 1. Filtrez si clientii doar pe cei facturati dupa 2012-01-01
-     // 2. smallCube5() La Frimu-Nadia-TM : pe Almira-Trade sa parcurg toate produsele !  
-     // 3. inserarea valorii as putea sa o fac (nu cred ca e obligatoriu) si in functie de productMap(ID) + clientMap(ID) + agentMap(ID) ... 
-    
-    
+     // 1. smallCube5() La Frimu-Nadia-TM : pe Almira-Trade sa parcurg toate produsele !  
+     // 2. inserarea valorii as putea sa o fac (nu cred ca e obligatoriu) si in functie de productMap(ID) + clientMap(ID) + agentMap(ID) ... 
+     
+     
+     // Q : De ce trebuie facute axele cubului intr-o procedura separata ? 
+     // A : Pentru ca procedura de umplere a cubului trebuie sa faca update INCREMENTAL zilnic  ... 
+     //     ... adica ce s-a calculat anterior ramane valabil ; 
+     
     System.exit(0);
 }
 }
