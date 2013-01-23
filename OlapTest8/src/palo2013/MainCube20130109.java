@@ -1006,7 +1006,7 @@ public static void main(String[] args) {
      // CreateDimDepoAg();
      // Agentii au ID in denumire ; Sunt doar cei care au facturat dupa 2012-01-01 ... 
      
-     CreateDimCustomer();
+     // CreateDimCustomer();
      // AXA Clientilor are TERT_ID in denumire ; Sunt doar pe cei facturati dupa 2012-01-01 ... 
      // cui_id = ID sediu , tert_id = ID PLT
      
@@ -1015,7 +1015,6 @@ public static void main(String[] args) {
     
      // 1. smallCube5() La Frimu-Nadia-TM : pe Almira-Trade sa parcurg toate produsele !  
      // 2. inserarea valorii as putea sa o fac (nu cred ca e obligatoriu) si in functie de productMap(ID) + clientMap(ID) + agentMap(ID) ... 
-     
      
      // Q : De ce trebuie facute axele cubului intr-o procedura separata ? 
      // A : Pentru ca procedura de umplere a cubului trebuie sa faca update INCREMENTAL zilnic  ... 
