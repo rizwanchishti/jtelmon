@@ -10,14 +10,14 @@ package palo2013;
 
 import java.sql.*;
 
-public class testTransfer001 {
+public class testTransfer002 {
 
     protected static void testConnection(){
 
-String url_sursa = "jdbc:postgresql://192.168.1.200:5432/pangram_main_2008";
+String url_sursa = "jdbc:postgresql://192.168.61.207:5432/pangram_main_2008";
 String username_sursa = "postgres";
 String password_sursa = "telinit";
-String url_destinatie = "jdbc:postgresql://192.168.1.200:5432/pangram_warehouse_2009";
+String url_destinatie = "jdbc:postgresql://192.168.6.207:5432/pangram_warehouse_2013";
 String username_destinatie = "postgres";
 String password_destinatie = "telinit";
 
@@ -53,17 +53,7 @@ try {
 try {
 
 
-String SQL_sursa = " SELECT F.FACT_ID,F.NRDOC,F.DATA_F,f.tiparit,f.verstor,F.VALOARE_VN,F.VAL_DISC_INCL,F.VAL_DISC_EXPL,F.VAL_TVA_C_NOR,F.TERT_ID,F.NRLC_ID,F.GESTIUNE_ID," +
-        "G.DENUMIRE AS GEST,T.DENUMIRE AS CLIENT,nl.NICK AS AGENT," +
-        "C.STOC_ID,N.SIMBOL,N.DENUMIRE AS PRODUS,C.CANTITATE,C.PRET_VANZARE,C.PR_DISC_INCL,C.PR_DISC_EXPL,ROUND(C.CANTITATE*N.MASA,2)::NUMERIC(11,2) AS MASA,CAP.DENUMIRE AS CATEG_PRODUS," +
-        "CAT.DENUMIRE AS CATEG_TERT,CAL.DENUMIRE AS CATEG_AGENT,GRP.DENUMIRE AS GRUPA_PRODUS,GRT.DENUMIRE AS GRUPA_TERT,GRL.DENUMIRE AS GRUPA_AGENT,CLP.DENUMIRE AS CLASA_PRODUS,CLT.DENUMIRE AS CLASA_TERT,CLL.DENUMIRE AS CLASA_AGENT," +
-        "S.DENLOC AS LOC,J.DENJ AS JUDET " +
-        "FROM FACTURI_V_C F INNER JOIN GESTIUNI G ON F.GESTIUNE_ID=G.GEST_ID INNER JOIN VTERTI T ON F.TERT_ID=T.TERT_ID INNER JOIN SIRUTA S ON T.SIRUTA=S.SIRUTA " +
-        "INNER JOIN JUD J ON S.JUD=J.JUD INNER JOIN NUMERE_LUCRU NL ON F.NRLC_ID=NL.NRLC_ID INNER JOIN FACTURI_CV_C C ON F.FACT_ID=C.FACT_ID INNER JOIN NOMSTOC N ON C.STOC_ID=N.STOC_ID " +
-        "INNER JOIN CLASA CLP ON N.CLASA_ID=CLP.CLASA_ID AND CLP.FISIER='nomstoc' INNER JOIN CLASA CLT ON T.CLASA_ID=CLT.CLASA_ID AND CLT.FISIER='terti' inner join clasa cll on nl.clasa_id=cll.clasa_id and cll.fisier='numere_lucru' " +
-        "inner join grupa grp on n.grupa_id=grp.grupa_id and grp.fisier='nomstoc' inner join grupa grt on t.grupa_ID=grt.grupa_id and grt.fisier='terti' inner join grupa grl on nl.grupa_id=grl.grupa_id and grl.fisier='numere_lucru' " +
-        "inner join categorie cap on n.categorie_id=cap.categ_id and cap.fisier='nomstoc' inner join categorie cat on t.categorie_id=cat.categ_id and cat.fisier='terti' inner join categorie cal " +
-        "on nl.categorie_id=cal.categ_id and cal.fisier='numere_lucru' where f.data_f>'2009-03-31'";
+String SQL_sursa=" select * from vanzfull";
 
 ResultSet rs_sursa = null;
 rs_sursa = stmt_sursa.executeQuery(SQL_sursa);
@@ -160,72 +150,45 @@ catch (Exception e) {
   WITH OWNER = postgres
        ENCODING = 'SQL_ASCII';
 
--- Table: sales_details
--- DROP TABLE sales_details;
+-- Table: vanzfull
 
-CREATE TABLE sales_details
+-- DROP TABLE vanzfull;
+
+CREATE TABLE vanzfull
 (
-  fact_id character(10),
+  doc character(35),
   nrdoc character(16),
-  data_f date,
-  tiparit character(1),
-  verstor numeric(1),
-  valoare_vn numeric(13,2),
-  val_disc_incl numeric(12,2),
-  val_disc_expl numeric(12,2),
-  val_tva_c_nor numeric(12,2),
-  tert_id character(9),
-  nrlc_id character(7),
-  gestiune_id character(7),
-  gest character(30),
-  client character(90),
-  agent character(10),
-  stoc_id character(10),
+  data date,
+  depozit character(30),
+  filiala character(35),
+  agent character(40),
+  cui character(14),
+  plt character(2),
+  client bpchar,
   simbol character(13),
   produs character(45),
-  cantitate numeric(10,3),
-  pret_vanzare numeric(12,2),
+  cant numeric(12,2),
+  masa numeric(12,4),
+  pret numeric(12,2),
   pr_disc_incl numeric(6,2),
-  pr_disc_expl numeric(6,2),
-  masa numeric(11,2),
-  categ_produs character(35),
-  categ_tert character(35),
-  categ_agent character(35),
-  grupa_produs character(35),
-  grupa_tert character(35),
-  grupa_agent character(35),
-  clasa_produs character(35),
-  clasa_tert character(35),
-  clasa_agent character(35),
-  loc character(40),
-  judet character(20)
+  valnet numeric(12,2),
+  pret_lista numeric(12,2),
+  valbrut numeric(12,2),
+  clasat character(35),
+  grupat character(35),
+  clasap character(35),
+  grupap character(35),
+  loc character(45),
+  jud bpchar,
+  zi double precision,
+  luna double precision,
+  an double precision,
+  trimestru double precision
 )
-WITH (OIDS=FALSE);
-ALTER TABLE sales_details OWNER TO postgres;
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE vanzfull OWNER TO postgres;
 
-* 
-SELECT F.FACT_ID,F.NRDOC,F.DATA_F,f.tiparit,f.verstor,F.VALOARE_VN,F.VAL_DISC_INCL,F.VAL_DISC_EXPL,F.VAL_TVA_C_NOR,F.TERT_ID,F.NRLC_ID,F.GESTIUNE_ID,
-        G.DENUMIRE AS GEST,T.DENUMIRE AS CLIENT,nl.NICK AS AGENT,
-        C.STOC_ID,N.SIMBOL,N.DENUMIRE AS PRODUS,C.CANTITATE,C.PRET_VANZARE,C.PR_DISC_INCL,C.PR_DISC_EXPL,ROUND(C.CANTITATE*N.MASA,2)::NUMERIC(11,2) AS MASA,
-        CAP.DENUMIRE AS CATEG_PRODUS, CAT.DENUMIRE AS CATEG_TERT,CAL.DENUMIRE AS CATEG_AGENT,GRP.DENUMIRE AS GRUPA_PRODUS,GRT.DENUMIRE AS GRUPA_TERT,
-        GRL.DENUMIRE AS GRUPA_AGENT, CLP.DENUMIRE AS CLASA_PRODUS,CLT.DENUMIRE AS CLASA_TERT,CLL.DENUMIRE AS CLASA_AGENT, S.DENLOC AS LOC,J.DENJ AS JUDET 
-        FROM FACTURI_V_C F 
-        INNER JOIN GESTIUNI G ON F.GESTIUNE_ID=G.GEST_ID 
-        INNER JOIN VTERTI T ON F.TERT_ID=T.TERT_ID 
-        INNER JOIN SIRUTA S ON T.SIRUTA=S.SIRUTA 
-        INNER JOIN JUD J ON S.JUD=J.JUD 
-        INNER JOIN NUMERE_LUCRU NL ON F.NRLC_ID=NL.NRLC_ID 
-        INNER JOIN FACTURI_CV_C C ON F.FACT_ID=C.FACT_ID 
-        INNER JOIN NOMSTOC N ON C.STOC_ID=N.STOC_ID 
-        INNER JOIN CLASA CLP ON N.CLASA_ID=CLP.CLASA_ID AND CLP.FISIER='nomstoc' 
-        INNER JOIN CLASA CLT ON T.CLASA_ID=CLT.CLASA_ID AND CLT.FISIER='terti' 
-        inner join clasa cll on nl.clasa_id=cll.clasa_id and cll.fisier='numere_lucru' 
-        inner join grupa grp on n.grupa_id=grp.grupa_id and grp.fisier='nomstoc' 
-        inner join grupa grt on t.grupa_ID=grt.grupa_id and grt.fisier='terti' 
-        inner join grupa grl on nl.grupa_id=grl.grupa_id and grl.fisier='numere_lucru' 
-        inner join categorie cap on n.categorie_id=cap.categ_id and cap.fisier='nomstoc' 
-        inner join categorie cat on t.categorie_id=cat.categ_id and cat.fisier='terti' inner join categorie cal 
-        on nl.categorie_id=cal.categ_id and cal.fisier='numere_lucru' where f.data_f>'2013-01-15'
-* 
 */
 

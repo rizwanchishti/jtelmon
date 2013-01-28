@@ -994,6 +994,218 @@ order by filiala,agent,client;
     }
 }
 
+
+
+static void smallCube5() {
+    //  TM Agents : clasa_id = '0082'
+    // smallcube3 = smallcube2 + Map<Object,String>
+    String[] aS_denumire = new String[100];
+    
+    Map<Object,String> productMap=new HashMap<Object, String>();
+    
+    String mS_id="0";
+    double md_valoare=0;
+    double md_val_tva;
+
+    
+    int index1=0;
+    String url_sursa = url_sursa_postgres;
+    String username_sursa = "postgres";
+    String password_sursa = "telinit";
+    java.sql.Connection conn_sursa = null;
+    java.sql.Statement stmt_sursa = null;
+    try {
+        Class.forName("org.postgresql.Driver");
+        System.out.println("Driver PostgreSQL OK");
+    } catch (Exception e) {
+        System.err.println("Failed to load Postgres Driver");
+    }
+    try {
+        conn_sursa = DriverManager.getConnection(url_sursa,username_sursa,password_sursa);
+        stmt_sursa = conn_sursa.createStatement();
+        System.out.println("Connection to source PostgreSQL OK");
+    } catch (Exception e) {
+        System.err.println("Connection to Postgres failed");
+    }
+try {
+    String SQL_sursa1 = " ";
+    // Doar TM - agentii MzTim
+    
+    String SQL_sursa2 = " ";
+
+    /*
+drop table if exists vanzfull;
+create table vanzfull as
+ select case when SUBSTR(td.contd,1,3)='418' then 'Aviz'::char(35) else 'Factura':: char(35) end as doc,f.nrdoc,f.data_f as data,g.denumire as depozit,
+  cln.denumire as filiala,nl1.denumire as agent,t.cui,t.plt,
+  t.denumire as client,n.simbol,n.denumire as produs,sum(c.cantitate)::numeric(12,2) as cant,sum(ROUND(c.cantitate*n.masa,2))::numeric(12,4) as masa,MAX(c.pret_vanzare)::numeric(12,2) as pret,c.pr_disc_incl,
+  sum(ROUND(c.pret_vanzare*c.cantitate,2))::numeric(12,2) as valnet,
+  MAX(case when c.pr_disc_incl>=99 then np.pret_gross else round(c.pret_vanzare*(1+c.pr_disc_incl/100),2) end )::numeric(12,2)  as pret_lista,
+  sum(ROUND((case when c.pr_disc_incl>=99 then np.pret_gross else round(c.pret_vanzare*(1+c.pr_disc_incl/100),2) end)*c.cantitate,2))::numeric(12,2) as valbrut,
+  max(clt.denumire)::char(35) as clasat,MAX(grt.denumire)::char(35) as grupat,MAX(clp.denumire)::char(35) as clasap,MAX(grp.denumire)::char(35) as grupap,
+  max(s.denloc)::char(45) as loc,MAX(j.denj) as jud,EXTRACT(DAY FROM f.data_f) as zi,EXTRACT(MONTH FROM f.data_f) as luna,EXTRACT(YEAR FROM f.data_f) as an,EXTRACT(QUARTER FROM f.data_f) as trimestru
+  from facturi_v_c f inner join tip_doc td on f.tipd_id=td.tipd_id and SUBSTR(td.docprim,1,2)<>'06'
+  inner join conturi_descarcare cd on td.contc=cd.cont_venit inner join gestiuni g on f.gestiune_id=g.gest_id
+  inner join numere_lucru nl1 on f.nrlc_id=nl1.nrlc_id
+  inner join clasa cln on nl1.clasa_id=cln.clasa_id
+ inner join vterti t on f.tert_id=t.tert_id inner join clasa clt on t.clasa_id=clt.clasa_id inner join grupa grt on t.grupa_id=grt.grupa_id
+ inner join siruta s on t.siruta=s.siruta inner join jud j on s.jud=j.jud
+ inner join facturi_cv_c c on f.fact_id=c.fact_id inner join nomstoc n on c.stoc_id=n.stoc_id
+ inner join nomstoc_pretcrt np on n.simbol=np.simbol and n.cms<>2 and np.gestiune_cod=g.gestiune_cod and np.cont_gest=cd.cont_gest and c.codlot=np.codlot 
+ inner join clasa clp on n.clasa_id=clp.clasa_id inner join grupa grp on n.grupa_id=grp.grupa_id
+ where f.data_f between '2012-12-01' and '2012-12-31' and UPPER(SUBSTR(f.cassa,1,1))='F' and UPPER(f.tiparit)<>'M'
+ group by 1,2,3,4,5,6,7,8,9,10,11,15 having sum(c.cantitate)<>0 union all
+select 'Bon fiscal':: char(35) as doc,f.nrdoc,f.data_f as data,g.denumire as depozit,
+cln.denumire as filiala,nl1.denumire as agent,t.cui,t.plt,
+t.denumire as client,n.simbol,n.denumire as produs,sum(c.cantitate)::numeric(12,2) as cant,sum(ROUND(c.cantitate*n.masa,2))::numeric(12,4) as masa,MAX(c.pret_vanzare)::numeric(12,2) as pret,c.pr_disc_incl,
+sum(ROUND(c.pret_vanzare*c.cantitate,2))::numeric(12,2) as valnet,
+MAX(case when c.pr_disc_incl>=99 then np.pret_gross else round(c.pret_vanzare*(1+c.pr_disc_incl/100),2) end )::numeric(12,2)  as pret_lista,
+sum(ROUND((case when c.pr_disc_incl>=99 then np.pret_gross else round(c.pret_vanzare*(1+c.pr_disc_incl/100),2) end)*c.cantitate,2))::numeric(12,2) as valbrut,
+max(clt.denumire)::char(35) as clasat,MAX(grt.denumire)::char(35) as grupat,MAX(clp.denumire)::char(35) as clasap,MAX(grp.denumire)::char(35) as grupap,
+max(s.denloc)::char(45) as loc,MAX(j.denj) as jud,EXTRACT(DAY FROM f.data_f) as zi,EXTRACT(MONTH FROM f.data_f) as luna,EXTRACT(YEAR FROM f.data_f) as an,EXTRACT(QUARTER FROM f.data_f) as trimestru 
+from facturi_v_c f inner join tip_doc td on f.tipd_id=td.tipd_id and SUBSTR(td.docprim,1,2)='06' inner join conturi_descarcare cd on td.contc=cd.cont_venit inner join gestiuni g on f.gestiune_id=g.gest_id
+inner join numere_lucru nl1 on f.nrlc_id=nl1.nrlc_id
+inner join clasa cln on nl1.clasa_id=cln.clasa_id 
+inner join vterti t on case when f.tet_id2='' or f.tet_id2 is null then f.tert_id=t.tert_id else f.tet_id2=t.tert_id end
+inner join clasa clt on t.clasa_id=clt.clasa_id inner join grupa grt on t.grupa_id=grt.grupa_id
+inner join siruta s on t.siruta=s.siruta inner join jud j on s.jud=j.jud
+inner join facturi_cv_c c on f.fact_id=c.fact_id inner join nomstoc n on c.stoc_id=n.stoc_id
+inner join nomstoc_pretcrt np on n.simbol=np.simbol and n.cms<>2 and np.gestiune_cod=g.gestiune_cod and np.cont_gest=cd.cont_gest and c.codlot=np.codlot 
+inner join clasa clp on n.clasa_id=clp.clasa_id inner join grupa grp on n.grupa_id=grp.grupa_id
+where f.data_f between '2012-12-01' and '2012-12-31' and UPPER(SUBSTR(f.cassa,1,1))<>'F' and UPPER(f.cassa)<>'99' and UPPER(f.tiparit)<>'M'
+group by 1,2,3,4,5,6,7,8,9,10,11,15 having sum(c.cantitate)<>0 union all
+select 'Factura val.':: char(35) as doc,f.nrdoc,f.data_f as data,g.denumire as depozit,
+cln.denumire as filiala,nl1.denumire as agent,t.cui,t.plt,
+t.denumire as client,coalesce(n.simbol,'Fara'::char(13)) as simbol,coalesce(n.denumire,f.explicatii_cs::char(45)) as produs,0::numeric(12,2) as cant,0::numeric(12,4) as masa,
+MAX(coalesce(o.valoare,0))::numeric(12,2) as pret,0::numeric(6,2) as pr_disc_incl,
+sum(coalesce(o.valoare,f.valoare_vn))::numeric(12,2) as valnet,0::numeric(12,2) as pret_lista,sum(coalesce(o.valoare,f.valoare_vn))::numeric(12,2) as valbrut,
+max(clt.denumire)::char(35) as clasat,MAX(grt.denumire)::char(35) as grupat,MAX(coalesce(clp.denumire,'Valoric'))::char(35) as clasap,MAX(coalesce(grp.denumire,'Valoric'))::char(35) as grupap,
+max(s.denloc)::char(45) as loc,MAX(j.denj) as jud,EXTRACT(DAY FROM f.data_f) as zi,EXTRACT(MONTH FROM f.data_f) as luna,EXTRACT(YEAR FROM f.data_f) as an,EXTRACT(QUARTER FROM f.data_f) as trimestru 
+from facturi_v_c f inner join tip_doc td on f.tipd_id=td.tipd_id and td.docprim='021' inner join gestiuni g on f.gestiune_id=g.gest_id
+inner join numere_lucru nl1 on f.nrlc_id=nl1.nrlc_id
+inner join clasa cln on nl1.clasa_id=cln.clasa_id
+inner join vterti t on f.tert_id=t.tert_id inner join clasa clt on t.clasa_id=clt.clasa_id inner join grupa grt on t.grupa_id=grt.grupa_id
+inner join siruta s on t.siruta=s.siruta inner join jud j on s.jud=j.jud
+left join fact_off_inv o on f.fact_id=o.fact_id left join nomstoc n on o.simbol=n.simbol and n.cms<>2
+left join clasa clp on n.clasa_id=clp.clasa_id left join grupa grp on n.grupa_id=grp.grupa_id
+where f.data_f between '2012-12-01' and '2012-12-31' and UPPER(SUBSTR(f.cassa,1,1))='F' and UPPER(f.tiparit)<>'M'
+group by 1,2,3,4,5,6,7,8,9,10,11,15 having sum(f.valoare_vn+f.val_disc_expl+f.val_chelt_expl_1+f.val_chelt_expl_2)<>0 order by 5,6,9,3 ;
+
+*/
+    
+    ResultSet rs_sursa1 = null;
+    ResultSet rs_sursa2 = null;
+    rs_sursa1 = stmt_sursa.executeQuery(SQL_sursa1);
+    String illegal_char = " ";
+    String legal_char = "-";
+    String mS_denumire;
+    // int indexOf;
+    // rs_sursa1.first();
+    while (rs_sursa1.next()) {
+        mS_denumire = rs_sursa1.getString("denumire_agent").trim().replaceAll(illegal_char, legal_char);
+        mS_id       = rs_sursa1.getString("id_agent");
+        // indexOf = mS_denumire.indexOf("-");
+        // if (indexOf>0)
+           // mS_denumire=mS_denumire.substring(0, indexOf);
+        //mS_denumire.replaceAll(illegal_char, legal_char);
+        //aS_denumire[index1]= mS_denumire;
+        //aS_denumire[index1]= mS_denumire.replaceAll(illegal_char, legal_char);
+        aS_denumire[index1]= mS_denumire;
+        productMap.put(mS_id, mS_denumire);
+        System.out.println(mS_id + " " + aS_denumire[index1]);
+        index1=index1+1;
+    }
+    rs_sursa2 = stmt_sursa.executeQuery(SQL_sursa2);
+    // rs_sursa2.first();
+    while (rs_sursa2.next()) {
+        mS_denumire = rs_sursa2.getString("agent").trim().replaceAll(illegal_char, legal_char);
+        mS_id       = rs_sursa2.getString("agent_id");
+        md_valoare  = rs_sursa2.getDouble("valoare");
+        md_val_tva  = rs_sursa2.getDouble("val_tva");
+        // indexOf = mS_denumire.indexOf("-");
+        // if (indexOf>0)
+           // mS_denumire=mS_denumire.substring(0, indexOf);
+        //mS_denumire.replaceAll(illegal_char, legal_char);
+        //aS_denumire[index1]= mS_denumire;
+        //aS_denumire[index1]= mS_denumire.replaceAll(illegal_char, legal_char);
+        //aS_denumire[index1]= mS_denumire;
+        //mp.put(mS_id, mS_denumire);
+        System.out.println("Valoare agenti : " + mS_id + " " + mS_denumire + " = " + Double.toString(md_valoare));
+    }
+    
+    System.out.println("Transfer OK");
+    System.out.println(Integer.toString(index1)+" records ");
+    rs_sursa1.close();
+    rs_sursa2.close();
+    stmt_sursa.close();
+    conn_sursa.close();
+} catch (Exception e) {
+    System.err.println("An error has occurred during transfer");
+    System.err.println(e);
+}  
+    ConnectionConfiguration ccfg = new ConnectionConfiguration(olap_server_ip, olap_server_port);
+    ccfg.setUser(olap_server_user);
+    ccfg.setPassword(olap_server_pass);
+    Connection conn = ConnectionFactory.getInstance().newConnection(ccfg);
+    Database demo2 =  null;
+    try {
+        demo2 =  conn.addDatabase("Pangram4");
+    } catch (Exception e) {
+        System.err.println("Cube already created");
+    }
+    Dimension[] dimensions = new Dimension[3];
+    Dimension dim1 = demo2.addDimension("dimWarehouse");
+    Dimension dim2 = demo2.addDimension("dimYears");
+    Dimension dim3 = demo2.addDimension("dimCustomers");
+    Hierarchy hie1 = dim1.getDefaultHierarchy();
+    Hierarchy hie2 = dim2.getDefaultHierarchy();
+    Hierarchy hie3 = dim3.getDefaultHierarchy();
+    dimensions[0]=dim1;
+    dimensions[1]=dim2;
+    dimensions[2]=dim3;
+    hie1.addElement("Timisoara", Element.ELEMENTTYPE_NUMERIC);
+    hie1.addElement("Bucuresti", Element.ELEMENTTYPE_NUMERIC);
+    hie1.addElement("Cluj", Element.ELEMENTTYPE_NUMERIC);
+    hie2.addElement("2011", Element.ELEMENTTYPE_NUMERIC);
+    hie2.addElement("2012", Element.ELEMENTTYPE_NUMERIC);
+    hie2.addElement("2013", Element.ELEMENTTYPE_NUMERIC);
+    hie3.addElement("Metro", Element.ELEMENTTYPE_NUMERIC);
+    hie3.addElement("Kaufland", Element.ELEMENTTYPE_NUMERIC);
+    hie3.addElement("Real", Element.ELEMENTTYPE_NUMERIC);
+    hie3.addElement("Almira-Trade", Element.ELEMENTTYPE_NUMERIC);
+    Element parent, child;
+    int index2;
+    parent = hie1.getElementByName("Timisoara");
+    Consolidation[] consolidations = new Consolidation[index1];
+    for(index2=0;index2<index1;index2++ ){
+        child = hie1.addElement(aS_denumire[index2], Element.ELEMENTTYPE_NUMERIC);
+        consolidations[index2] = hie1.newConsolidation(child, parent, 1);
+    }
+    parent.updateConsolidations(consolidations);
+    Cube cube = null;
+    try {
+        cube = demo2.addCube("cubeSales", dimensions);
+        //String COORDINATES1[] = {"BERENDEI","2013","Metro"};
+        String COORDINATES1[] = {productMap.get("0100658"),"2013","Metro"};
+        cube.setData(COORDINATES1, new Double(247.26));
+        
+        //String COORDINATES2[] = {"BICHEL","2013","Metro"};
+        String COORDINATES2[] = {productMap.get("0100849"),"2013","Metro"};
+        cube.setData(COORDINATES2, new Double(2.74));
+        
+        String COORDINATES3[] = {productMap.get(mS_id),"2012","Almira-Trade"};
+        cube.setData(COORDINATES3, md_valoare);
+        
+        
+    } catch (Exception e) {
+        System.err.println("Cube creation failed");
+        System.err.println(e);
+        System.exit(1);
+    }
+}
+
+
+
 public static void main(String[] args) {
 
     CreatePaloDB();
@@ -1002,6 +1214,11 @@ public static void main(String[] args) {
      // smallCube2();
      // smallCube3();
      // smallCube4();
+    
+    
+    smallCube5();
+    // NoSQL !!!
+    
         
      // CreateDimDepoAg();
      // Agentii au ID in denumire ; Sunt doar cei care au facturat dupa 2012-01-01 ... 
@@ -1013,13 +1230,24 @@ public static void main(String[] args) {
      // CreateDimProduct();
      // AXA PRODUSELOR contine doar se s-a vandut dupa 2012 iar in denumire apare si ID_PRODUS !    
     
-     // 1. smallCube5() La Frimu-Nadia-TM : pe Almira-Trade sa parcurg toate produsele !  
-     // 2. inserarea valorii nu e bine sa o fac in functie de productMap(ID) + clientMap(ID) + agentMap(ID) ... 
+     // 2. smallCube5() La Frimu-Nadia-TM : pe Almira-Trade sa parcurg toate produsele !  
+     // 3. inserarea valorii nu e bine sa o fac in functie de productMap(ID) + clientMap(ID) + agentMap(ID) ... 
      
      // Q : De ce trebuie facute axele cubului intr-o procedura separata ? 
      // A : Pentru ca procedura de umplere a cubului trebuie sa faca update INCREMENTAL zilnic  ... 
-     //     ... adica ce s-a calculat anterior ramane valabil ; 
+     //     ... adica ce s-a calculat in ziua anterioara o ramas valabil ; 
      
+     // 1) facturiCube1() : Pentru versiunea BETA-INITIALA ( facturi_full.sql - fara produse + cu TVA : 
+     //   ~ consideram ca se creeaza cubul doar odata pe luna 
+     //      iar luna analizata sa fie cea anterioara ;
+     //      astfel nu este necesara o incrementare zilnica , iar pentru fiecare luna - alt cub ;
+     //      In acest fel se optimizeaza procedura de creare a cubului prin faptul ca nu trebuie 
+     //      doua rutine separate ( una de creeare dimensiuni si alta pentru date-valori ) 
+     //   ~ inserarea valorii se face in functie de clientMap(ID) + agentMap(ID) ... 
+     //   ~ inserarea valorilor se fac intr-o singura rutina cu bucle while incuibate 
+     //   ~ SQLu` merge repede , nu trebui procedura de transfer in pangram_warehouse_2013 ! 
+     //   ~ SQLu` trbuie modificat pentru a fi in denumire ID-agent si ID-client . 
+    
     System.exit(0);
 }
 }
