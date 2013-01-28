@@ -1242,11 +1242,11 @@ public static void main(String[] args) {
      //      iar luna analizata sa fie cea anterioara ;
      //      astfel nu este necesara o incrementare zilnica , iar pentru fiecare luna - alt cub ;
      //      In acest fel se optimizeaza procedura de creare a cubului prin faptul ca nu trebuie 
-     //      doua rutine separate ( una de creeare dimensiuni si alta pentru date-valori ) 
-     //   ~ inserarea valorii se face in functie de clientMap(ID) + agentMap(ID) ... 
+     //      doua rutine separate ( una de creeare dimensiuni si alta pentru inserare-date+valori ) 
+     //   ~ inserarea valorii s-ar face in functie de clientMap(ID) + agentMap(ID) ... 
      //   ~ inserarea valorilor se fac intr-o singura rutina cu bucle while incuibate 
      //   ~ SQLu` merge repede , nu trebui procedura de transfer in pangram_warehouse_2013 ! 
-     //   ~ SQLu` trbuie modificat pentru a fi in denumire ID-agent si ID-client . 
+     //   ~ SQLu` trebuie modificat pentru a fi in denumire ID---agent si ID---client . 
     
     System.exit(0);
 }
