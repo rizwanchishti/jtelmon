@@ -1,0 +1,149 @@
+package exclude;
+
+import java.math.BigInteger;
+
+import com.jedox.palojlib.exceptions.JpaloException;
+import com.jedox.palojlib.interfaces.*;
+import com.jedox.palojlib.main.*;
+/**
+ * @author Djordja Markovic
+ * @version 1.0
+ * @category PaloJlib 1.0.35 - Test
+ * http://www.jedox.com/community/palo-forum/index.php?page=Thread&postID=15198#post15198
+ * 
+ */
+
+public class TestClass
+{
+	/*
+	 * P_* = Palo_* (Server, Port, Username, Password, Timeout, SSLPreferred)
+	 * M_* = Method_* (Database, Cube, Dimension, Element, Attribute, Cell)
+	 */
+	private static final String P_Server = "127.0.0.1";
+	private static final String P_Port = "7777";
+	private static final String P_User = "admin";
+	private static final String P_Password = "admin";
+	private static final int P_TIMEOUT = 0;
+	private static final boolean P_SSLPREFERRED = false;
+	private static final String M_DATABASE = "Biker";
+	private static final String M_CUBE = "#_Years";
+	private static final String M_DIMENSION = "Years";
+	private static final String M_ELEMENT = "2011";
+	private static final String M_ATTRIBUTE = "Deutsch";
+
+	public static void main(String[] args) throws Exception {
+		try {
+//			connectServer();
+//			exploreServerDatabases(connectServer());
+//			exploreDatabaseCubes(connectServer());
+			exploreCubeDimensions(connectServer());
+//			exploreDimensionElements(connectServer());
+//			exploreDimensionAttributes(connectServer());
+////		getElementAttributeValue(connectServer());
+//			exploreElementAtributeValues(connectServer());
+//			testICell(connectServer());
+//			testRule(connectServer());
+			disconnectServer(connectServer());
+		} catch (JpaloException e) {
+			throw new JpaloException(e.getLocalizedMessage());
+		}
+	}		
+	public static Connection connectServer() throws Exception {
+		ConnectionConfiguration conconfig = new ConnectionConfiguration();
+		conconfig.setHost(P_Server);
+		conconfig.setPort(P_Port);		// Port: 7921 ist nicht aktiv
+		conconfig.setUsername(P_User);
+		conconfig.setPassword(P_Password);		
+		conconfig.setTimeout(P_TIMEOUT);
+		conconfig.setSslPreferred(P_SSLPREFERRED);
+		
+		try {
+			IConnection con = new ConnectionManager().getConnection(conconfig);
+			con.open();
+			System.out.println("Verbindung wird hergestellt...");
+			if (!con.isConnected()) 
+				System.out.println("Verbindung konnte nicht hergestellt werden...");
+			else 
+				System.out.println("Verbindung wurde hergestellt.");
+			return (Connection) con;
+		} catch (JpaloException e) {
+			System.out.println("ERROR: method connectServer / catch-block:1");
+			throw new JpaloException(e.getLocalizedMessage());
+		}
+	}
+	
+	public static void exploreServerDatabases(Connection connection) 
+	{
+		connection.open();
+		Database[] db = connection.getDatabases();
+		for(int i=0; i<db.length; i++) {
+			System.out.println(db[i].getName());		
+		}
+	}
+	
+	public static void exploreDatabaseCubes(Connection connection) {
+//		System.out.println("Name: "+db.getName() +" ID: "+db.getId()+" Cubes: "+db.getCubes().length+" Dimensions: "+db.getDimensions().length);
+		ICube[] ic = connection.getDatabaseByName(M_DATABASE).getCubes();
+		for(int i=0; i<ic.length; i++) {
+			System.out.println(ic[i].getName());
+		}
+	}
+	
+	public static void exploreCubeDimensions(Connection connection) {
+		IDimension[] id = connection.getDatabaseByName(M_DATABASE).getCubeByName(M_CUBE).getDimensions();
+		for(int i=0; i<id.length; i++) {
+			System.out.println(id[i].getName());
+		}
+	}
+	
+	public static void exploreDimensionElements(Connection connection) {
+		IElement[] ie = connection.getDatabaseByName(M_DATABASE).getCubeByName(M_CUBE).getDimensionByName(M_DIMENSION).getElements(true);
+		for(int i=0; i<ie.length; i++) {
+			System.out.println(ie[i].getName());
+		}
+	}
+	
+	public static void exploreDimensionAttributes(Connection connection) {
+		IAttribute[] ia = connection.getDatabaseByName(M_DATABASE).getCubeByName(M_CUBE).getDimensionByName(M_DIMENSION).getAttributes();
+		for(int i=0; i<ia.length; i++) {
+			System.out.println(ia[i].getName());
+		}
+	}
+	
+	public static void getElementAttributeValue(Connection connection) {
+		IElement ie = connection.getDatabaseByName(M_DATABASE).getCubeByName(M_CUBE).getDimensionByName(M_DIMENSION).
+				getElementByName(M_ELEMENT, true);
+		System.out.println(ie.getAttributeValue(M_ATTRIBUTE));
+	}
+	
+	public static void exploreElementAtributeValues(Connection connection) {
+		IElement[] ie = connection.getDatabaseByName(M_DATABASE).getCubeByName(M_CUBE).getDimensionByName(M_DIMENSION).getElements(true);
+		for(int i=0; i<ie.length; i++) {
+			System.out.println(ie[i].getName()+"\t"+ie[i].getAttributeValue(M_ATTRIBUTE));
+		}
+	}
+	
+	public static void testICell(Connection connection) {
+		//IElement[] ie = connection.getDatabaseByName(M_DATABASE).getCubeByName(M_CUBE).getDimensionByName(M_DIMENSION) --> standard
+		IElement[] ie = connection.getDatabaseByName(M_DATABASE).getCubeByName(M_CUBE).getDimensionByName(M_DIMENSION).getElements(true);
+		ICell bi= connection.getDatabaseByName(M_DATABASE).getCubeByName(M_CUBE).getCell(ie);		
+		//TODO ICell: PaloException(Palo error code: 1006)
+	}
+	public static void testRule(Connection connection) {
+		//IElement[] ie = connection.getDatabaseByName(M_DATABASE).getCubeByName(M_CUBE).getDimensionByName(M_DIMENSION) --> standard
+		IRule[] ir = connection.getDatabaseByName(M_DATABASE).getCubeByName(M_CUBE).getRules();
+		for(int i=0; i<ir.length; i++) {
+			System.out.println(ir[i]);
+		}
+		
+		//TODO Rule: noch keine richtige Ausgabe?!
+	}
+	
+	public static void disconnectServer(Connection connection) {
+		if(connection.isConnected()) {
+			connection.save();
+			connection.close();
+			System.out.println("Verbindung wurde getrennt.");
+		}
+	}
+}

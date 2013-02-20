@@ -22,6 +22,9 @@ package palo2013;
  * 
  *  MainCube20130109 : smallCube4();
  * 
+ * 
+ * http://palo.svn.sourceforge.net/viewvc/palo/molap/client/3.X/libraries/Java/legacy/paloapi/doc/
+ * 
  */
 
 import java.sql.DriverManager;
@@ -48,7 +51,7 @@ public class MainCube20130109 {
     static String url_sursa_postgres1 = "jdbc:postgresql://gate.montebanato.ro:5432/pangram_week_2008";
     static String url_sursa_postgres2 = "jdbc:postgresql://192.168.61.207:5432/pangram_main_2008";
     static String url_sursa_postgres  = url_sursa_postgres2;
-    static String olap_db_name        = "olap8_2013ian";
+    static String olap_db_name        = "olap8_2013feb";
     static String olap_server_ip1      = "192.168.61.8";
     static String olap_server_ip2      = "192.168.61.21";
     static String olap_server_ip      = olap_server_ip1;
@@ -994,9 +997,193 @@ order by filiala,agent,client;
     }
 }
 
-
-
 static void smallCube5() {
+    // a se vedea : SetDimDepoAgByList
+    // FACTURI_FULL
+    // smallcube3 = smallcube2 + Map<Object,String>
+    
+    
+    String[] aS_denumire = new String[100];
+    
+    Map<Object,String> agentMap=new HashMap<Object, String>();
+    
+    String mS_id="0";
+    double md_valoare=0;
+    double md_val_tva;
+
+    
+    int index1=0;
+    String url_sursa = url_sursa_postgres;
+    String username_sursa = "postgres";
+    String password_sursa = "telinit";
+    java.sql.Connection conn_sursa = null;
+    java.sql.Statement stmt_sursa = null;
+    try {
+        Class.forName("org.postgresql.Driver");
+        System.out.println("Driver PostgreSQL OK");
+    } catch (Exception e) {
+        System.err.println("Failed to load Postgres Driver");
+    }
+    try {
+        conn_sursa = DriverManager.getConnection(url_sursa,username_sursa,password_sursa);
+        stmt_sursa = conn_sursa.createStatement();
+        System.out.println("Connection to source PostgreSQL OK");
+    } catch (Exception e) {
+        System.err.println("Connection to Postgres failed");
+    }
+    String SQL_sursa1 = " select case when SUBSTR(td.contd,1,3)='418' then 'Aviz'::char(35) else 'Factura':: char(35) end as doc,f.nrdoc,f.data_f as data,g.denumire as depozit, "
+                      + " cln.denumire as filiala,nl1.denumire as agent, f.nrlc_id as id_agent, f.tert_id as id_client, t.cui,t.plt, " 
+                      + " t.denumire as client,f.zscadenta,sum(f.valoare_vn+f.val_chelt_expl_1+f.val_chelt_expl_2+f.val_disc_expl)::numeric(12,2) as valoare,sum(f.val_tva_c_nor+f.val_tva_c_red)::numeric(12,2) as val_tva, " 
+                      + " sum(f.valoare_vn+f.val_chelt_expl_1+f.val_chelt_expl_2+f.val_disc_expl+f.val_tva_c_nor+f.val_tva_c_red)::numeric(12,2) as valoare_tot, "
+                      + " max(clt.denumire)::char(35) as clasat,MAX(grt.denumire)::char(35) as grupat, " 
+                      + " max(s.denloc)::char(45) as loc,MAX(j.denj) as jud " 
+                      + " from facturi_v_c f inner join tip_doc td on f.tipd_id=td.tipd_id and SUBSTR(td.contd,1,3)<>'418' inner join gestiuni g on f.gestiune_id=g.gest_id "
+                      + " inner join numere_lucru nl1 on f.nrlc_id=nl1.nrlc_id " 
+                      + " inner join clasa cln on nl1.clasa_id=cln.clasa_id " 
+                      + " inner join vterti t on f.tert_id=t.tert_id inner join clasa clt on t.clasa_id=clt.clasa_id inner join grupa grt on t.grupa_id=grt.grupa_id "
+                      + " inner join siruta s on t.siruta=s.siruta inner join jud j on s.jud=j.jud "
+                      + " where f.data_f between '2012-01-01' and '2012-11-30' and UPPER(SUBSTR(f.cassa,1,1))='F' and UPPER(f.tiparit)<>'M' "
+                      + " group by td.contd,nrdoc,f.data_f,depozit,filiala,agent,id_agent,id_client,cui,plt,client,zscadenta having sum(f.valoare_vn+f.val_chelt_expl_1+f.val_chelt_expl_2+f.val_disc_expl)<>0 "
+                      + " order by filiala,agent,client,data " ;
+    /*
+select case when SUBSTR(td.contd,1,3)='418' then 'Aviz'::char(35) else 'Factura':: char(35) end as doc,f.nrdoc,f.data_f as data,g.denumire as depozit,
+cln.denumire as filiala,nl1.denumire as agent, f.nrlc_id as id_agent, f.tert_id as id_client, t.cui,t.plt,
+t.denumire as client,f.zscadenta,sum(f.valoare_vn+f.val_chelt_expl_1+f.val_chelt_expl_2+f.val_disc_expl)::numeric(12,2) as valoare,sum(f.val_tva_c_nor+f.val_tva_c_red)::numeric(12,2) as val_tva,
+sum(f.valoare_vn+f.val_chelt_expl_1+f.val_chelt_expl_2+f.val_disc_expl+f.val_tva_c_nor+f.val_tva_c_red)::numeric(12,2) as valoare_tot,
+max(clt.denumire)::char(35) as clasat,MAX(grt.denumire)::char(35) as grupat,
+max(s.denloc)::char(45) as loc,MAX(j.denj) as jud 
+from facturi_v_c f inner join tip_doc td on f.tipd_id=td.tipd_id and SUBSTR(td.contd,1,3)<>'418' inner join gestiuni g on f.gestiune_id=g.gest_id 
+inner join numere_lucru nl1 on f.nrlc_id=nl1.nrlc_id 
+inner join clasa cln on nl1.clasa_id=cln.clasa_id   
+inner join vterti t on f.tert_id=t.tert_id inner join clasa clt on t.clasa_id=clt.clasa_id inner join grupa grt on t.grupa_id=grt.grupa_id 
+inner join siruta s on t.siruta=s.siruta inner join jud j on s.jud=j.jud 
+where f.data_f between '2012-01-01' and '2012-11-30' and UPPER(SUBSTR(f.cassa,1,1))='F' and UPPER(f.tiparit)<>'M' 
+group by td.contd,nrdoc,f.data_f,depozit,filiala,agent,id_agent,id_client,cui,plt,client,zscadenta having sum(f.valoare_vn+f.val_chelt_expl_1+f.val_chelt_expl_2+f.val_disc_expl)<>0 
+order by filiala,agent,client,data ;
+*/
+    
+    ConnectionConfiguration ccfg = new ConnectionConfiguration(olap_server_ip, olap_server_port);
+    ccfg.setUser(olap_server_user);
+    ccfg.setPassword(olap_server_pass);
+    Connection conn_dest = ConnectionFactory.getInstance().newConnection(ccfg);
+    Database odb = null;
+    Element parent, child;
+    Consolidation[] consolidations = new Consolidation[1];
+    
+    try {
+        odb =  conn_dest.addDatabase(olap_db_name); // 5.SmallCube
+    } catch (Exception e) {
+        System.err.println("Cube already created");
+        odb = conn_dest.getDatabaseByName(olap_db_name);
+    }
+
+    Dimension[] dimensions = new Dimension[3];
+    Dimension dim1w = odb.addDimension("dimWarehouse");
+    Dimension dim3y = odb.addDimension("dimYears");
+    Dimension dim2c = odb.addDimension("dimCustomers");
+    Hierarchy hie1w = dim1w.getDefaultHierarchy();
+    Hierarchy hie3y = dim3y.getDefaultHierarchy();
+    Hierarchy hie2c = dim2c.getDefaultHierarchy();
+    dimensions[0]=dim1w;
+    dimensions[1]=dim3y;
+    dimensions[2]=dim2c;
+    
+    hie3y.addElement("2011", Element.ELEMENTTYPE_NUMERIC);
+    hie3y.addElement("2012", Element.ELEMENTTYPE_NUMERIC);
+    hie3y.addElement("2013", Element.ELEMENTTYPE_NUMERIC);
+    
+    hie2c.addElement("Metro", Element.ELEMENTTYPE_NUMERIC);
+    hie2c.addElement("Kaufland", Element.ELEMENTTYPE_NUMERIC);
+    hie2c.addElement("Real", Element.ELEMENTTYPE_NUMERIC);
+    hie2c.addElement("Almira-Trade", Element.ELEMENTTYPE_NUMERIC);
+    
+    
+try {  
+    ResultSet rs_sursa1 = null;
+    ResultSet rs_sursa2 = null;
+    rs_sursa1 = stmt_sursa.executeQuery(SQL_sursa1);
+    String illegal_char = " ";
+    String legal_char = "-";
+    String mS_denumireAgent_new, mS_denumireAgent_old;
+    String mS_denumireFiliala_new,mS_denumireFiliala_old;
+    mS_denumireFiliala_new = " ";
+    mS_denumireAgent_new = " ";
+    // int indexOf;
+    // rs_sursa1.first();
+    
+    // se baga filiala in dimensiune ,  se face bucla pe filiala ; 
+    // se baga agent in dimensiune, se face bucla pe agenti
+    // se baga in dimensiune clientii si valorile corespondente 
+    
+    // A SE VEDEA ALGORITMUL SIMILAR : getDepoAgListBySQL
+    
+    while (rs_sursa1.next()) {
+        mS_denumireFiliala_old = mS_denumireFiliala_new;
+        mS_denumireAgent_old   = mS_denumireAgent_new;
+        mS_denumireFiliala_new = rs_sursa1.getString("filiala").trim().replaceAll(illegal_char, legal_char);
+        mS_denumireAgent_new   = rs_sursa1.getString("agent").trim().replaceAll(illegal_char, legal_char);
+        mS_id                  = rs_sursa1.getString("id_agent");
+        if (!mS_denumireFiliala_new.equals(mS_denumireFiliala_old)){
+            // daca se schimba filiala , 
+            // se adauga in ierarhia dimensiunii DEPOZITE-AGENTI 
+            hie1w.addElement(mS_denumireFiliala_new, Element.ELEMENTTYPE_NUMERIC);
+        }
+        
+        if (!mS_denumireAgent_new.equals(mS_denumireAgent_old)){
+                // daca se schimba agentul 
+                parent = hie1w.getElementByName(mS_denumireFiliala_new);
+                child = hie1w.addElement(mS_denumireAgent_new, Element.ELEMENTTYPE_NUMERIC);
+                
+                // consolidations[0] = hie1w.newConsolidation(child, parent, 1);
+                // parent.updateConsolidations(consolidations);
+                parent.updateConsolidations(new Consolidation[]{hie1w.newConsolidation(child, parent, 1)});
+                // parent.updateConsolidations(new Consolidation[]{dim1w.newConsolidation(child, parent, 1)});
+                // consolidations[0] = null;
+                
+                agentMap.put(mS_id, mS_denumireAgent_new);
+                System.out.println(mS_id + " " + mS_denumireAgent_new);
+                // index1=index1+1;
+        }
+        
+        // hie2c.addElement("Metro", Element.ELEMENTTYPE_NUMERIC);
+        
+    }
+   
+    System.out.println("Transfer OK");
+    System.out.println(Integer.toString(index1)+" records ");
+    rs_sursa1.close();
+    rs_sursa2.close();
+    stmt_sursa.close();
+    conn_sursa.close();
+} catch (Exception e) {
+    System.err.println("An error has occurred during transfer");
+    System.err.println(e);
+}  
+    Cube cube = null;
+    try {
+        cube = odb.addCube("cubeSales", dimensions);
+        //String COORDINATES1[] = {"BERENDEI","2013","Metro"};
+        String COORDINATES1[] = {agentMap.get("0100658"),"2013","Metro"};
+        cube.setData(COORDINATES1, new Double(247.26));
+        
+        //String COORDINATES2[] = {"BICHEL","2013","Metro"};
+        String COORDINATES2[] = {agentMap.get("0100849"),"2013","Metro"};
+        cube.setData(COORDINATES2, new Double(2.74));
+        
+        String COORDINATES3[] = {agentMap.get(mS_id),"2012","Almira-Trade"};
+        cube.setData(COORDINATES3, md_valoare);
+        
+        
+    } catch (Exception e) {
+        System.err.println("Cube creation failed");
+        System.err.println(e);
+        System.exit(1);
+    }
+}
+
+
+static void smallCube6() {
+    // VANZARI FULL vanzfull.sql 
     //  TM Agents : clasa_id = '0082'
     // smallcube3 = smallcube2 + Map<Object,String>
     String[] aS_denumire = new String[100];
@@ -1006,7 +1193,6 @@ static void smallCube5() {
     String mS_id="0";
     double md_valoare=0;
     double md_val_tva;
-
     
     int index1=0;
     String url_sursa = url_sursa_postgres;
@@ -1217,6 +1403,7 @@ public static void main(String[] args) {
     
     
     smallCube5();
+    // smallCube6();
     // NoSQL !!!
     
         
@@ -1247,6 +1434,13 @@ public static void main(String[] args) {
      //   ~ inserarea valorilor se fac intr-o singura rutina cu bucle while incuibate 
      //   ~ SQLu` merge repede , nu trebui procedura de transfer in pangram_warehouse_2013 ! 
      //   ~ SQLu` trebuie modificat pentru a fi in denumire ID---agent si ID---client . 
+     //   ~ smallCube5 - in lucru 
+     // smallCube6 = DoNothingYET!!;
+    
+     // smallCube5() = FACTURI_FULL
+    
+     // pentru intelegerea notiunii de CONSOLIDARE - trebuie parcursas procedura : smallCube2
+    
     
     System.exit(0);
 }

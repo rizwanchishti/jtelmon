@@ -1,0 +1,74 @@
+http://www.jedox.com/community/palo-forum/index.php?page=Thread&threadID=388
+
+Q:
+constructing a consolidation hierarchy
+How can I construct a consolidation hierarchy using the Java API?
+
+I have a database called "sales" and a dimension called "month". Now I want to construct a cons hierarchy like this:
+
+month ->
+Q1->
+Jan (weight1.0)
+Feb (weight 1.0)
+Mar (weight 1.0)
+Q2->
+Apr ....
+
+I tried to create the numerical elements (Jan, Feb, Mar, Q1) first by using 
+
+dimension.addElement(<ename>,<etype>)
+
+Then I created a consolidation with
+
+dimension.newConsolidation(<jan-element>,<q1-element>,1.0)
+dimension.newConsolidation(<feb-element>,<q1-element>,1.0)
+dimension.newConsolidation(<mar-element>,<q1-element>,1.0)
+
+When I open the model browser in Excel (or the Eclipse Client) I see only the elements and their types, but no hierarchy! How can I achieve a hierarchy with teh java API? I am using the API 1.5.
+
+A:
+put all newly created consolidations into an array of consolidations. then use this:
+<parent-element>.updateConsolidations(<array-of-consolidations>);
+
+here a full example:
+Element parent, child;
+parent = dimension.getElementByName("rootElement");
+Consolidation[] consolidations = new Consolidations[3];
+child = dim.addElement("1st Element", Element.ELEMENTTYPE_NUMERIC);
+consolidations[0] = dim.newConsolidation(child, parent, 1);
+child = dim.addElement("2nd Element", Element.ELEMENTTYPE_NUMERIC);
+consolidations[1] = dim.newConsolidation(child, parent, 1);
+child = dim.addElement("3rd Element", Element.ELEMENTTYPE_NUMERIC);
+consolidations[2] = dim.newConsolidation(child, parent, 1);
+parent.updateConsolidations(consolidations);
+
+
+http://www.jedox.com/community/palo-forum/index.php?page=Thread&threadID=295
+
+Hierarchy creation
+Hi, i'm trying to create hierarchy in a dimension.
+The following script run without error, but it creates only elements and not the hierarchy. What's wrong?
+
+Database db = con.getDatabaseByName(DATABASE_NAME);
+Dimension dim = db.getDimensionByName(DIMENSION_NAME);
+Element b = dim.addElement("parent", Element.ELEMENTTYPE_CONSOLIDATED);
+Element a = dim.addElement("child", Element.ELEMENTTYPE_NUMERIC);
+Consolidation p = dim.newConsolidation(a,b,1) ;
+
+Thanks in advance.
+Marco
+
+
+RE: Hierarchy creation
+hy marco,
+
+I think you have to update the parent element with the new consolidations.
+for your example try
+
+b.updateConsolidations(new Consolidation[]{p});
+
+after you created your consolidation.
+
+regards,
+arnd
+

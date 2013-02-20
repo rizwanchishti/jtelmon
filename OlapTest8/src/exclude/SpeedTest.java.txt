@@ -1,0 +1,262 @@
+
+/*
+ * 
+ * http://palo.svn.sourceforge.net/viewvc/palo/molap/client/3.X/libraries/Java/legacy/paloapi/src/org/palo/api/
+ * http://palo.svn.sourceforge.net/viewvc/palo/molap/client/3.X/libraries/Java/palojlib/src/main/java/com/jedox/palojlib/main/
+ * 
+ * OLAP4J connection to Palo : 
+ * http://www.jedox.com/community/palo-forum/index.php?page=Thread&threadID=3772
+ * OLAP4J connections are based on XMLA, for Palo the XMLA port is 4242
+ * Connection connection = DriverManager.getConnection("jdbc:xmlaerver=http://localhost:4242;" + "User='admin';" + "Password='admin';" + "Catalog=Demo;" + "Cube=Sales");
+ * With OLAP4J you have the option to use any backend OLAP databases supporting this standard i.e Palo, Mondrian, SSAS
+ * 
+ * http://www.jedox.com/community/palo-forum/index.php?page=Thread&threadID=3310
+ * Jedox reimplemented the Palo Java API - which is no longer jPalo.jar but PalojLib.jar. 
+ * It's already available in Palo CE 3.2. During initial testing we were able to observe huge performance benefits.
+ * Talend directly uses Palo's Restful HTTP API without an intermediate like "jPalo"
+ * 
+ * 
+ * 
+ */
+
+package exclude;
+
+import java.util.ArrayList;
+
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.palo.api.Connection;
+import org.palo.api.ConnectionFactory;
+import org.palo.api.Database;
+import org.palo.api.Dimension;
+import org.palo.api.Element;
+import org.palo.api.Hierarchy;
+
+import com.jedox.palojlib.interfaces.IConnection;
+import com.jedox.palojlib.interfaces.IDatabase;
+import com.jedox.palojlib.interfaces.IDimension;
+import com.jedox.palojlib.interfaces.IElement;
+import com.jedox.palojlib.interfaces.IElement.ElementType;
+import com.jedox.palojlib.main.ConnectionConfiguration;
+import com.jedox.palojlib.main.ConnectionManager;
+import com.jedox.palojlib.main.Consolidation;
+import com.jedox.palojlib.managers.LoggerManager;
+
+
+public class SpeedTest {
+
+	final String junkDimName = "Junk";
+	final int maxNumber = 10000;
+	final int groupSize = 10;
+	final boolean slowDown = true; 
+	final Logger rootLogger = Logger.getRootLogger();
+	
+	final boolean runJPalo = false;
+	
+	public SpeedTest() throws Exception{
+		// Configure logger
+		Logger rootLogger = Logger.getRootLogger();
+		BasicConfigurator.configure();
+		rootLogger.setLevel(Level.INFO);
+
+		if (runJPalo){
+			rootLogger.info("JPalo: Generating junk dimension");
+			JPaloTest();
+			rootLogger.info("JPalo: Finished generating junk dimension:");
+		}
+		else {
+			rootLogger.info("PaloJLib: Generating junk dimension");
+			PaloJLibTest();
+			rootLogger.info("PaloJLib: Finished generating junk dimension:");
+		}
+	}
+
+	public static void main(String[] args) throws Exception {
+		new SpeedTest();
+	}
+
+	private void JPaloTest() throws Exception{
+
+		// Connect 		
+		org.palo.api.ConnectionConfiguration connConfig = new org.palo.api.ConnectionConfiguration("localhost","7777");
+		connConfig.setUser("admin");
+		connConfig.setPassword("admin");
+		connConfig.setTimeout(30000);
+		connConfig.setLoadOnDemand(true);
+
+		Connection connection = ConnectionFactory.getInstance().newConnection(connConfig);
+		Database db = connection.getDatabaseByName("Demo");
+
+		generateJPaloJunkDimension(db);
+
+		connection.disconnect();
+
+	}
+
+	private void generateJPaloJunkDimension(Database db){
+		Dimension junkDim = db.getDimensionByName(junkDimName);
+		if (junkDim != null)
+			db.removeDimension(junkDim);
+		junkDim = db.addDimension("Junk");
+		Hierarchy defHier = junkDim.getDefaultHierarchy();
+
+		ArrayList<Element> elements = new ArrayList<Element>();
+		ArrayList<Element> subGroups = new ArrayList<Element>();
+
+		for (int i = 1; i < maxNumber; i++){
+			elements.add(defHier.addElement(String.valueOf(i), Element.ELEMENTTYPE_NUMERIC));
+
+			if (i % groupSize == 0 || i == maxNumber - 1){
+				int groupNumber = i / groupSize;
+				if (i % groupSize > 0)
+					groupNumber++;
+
+				String groupName = "Group" + String.valueOf(groupNumber);
+
+				Element groupElem = defHier.addElement(groupName, Element.ELEMENTTYPE_NUMERIC);
+				subGroups.add(groupElem);
+
+				// Here we could potentially build an existing list of consolidations
+				if (slowDown)
+					groupElem.getChildren();
+
+				org.palo.api.Consolidation [] consolidations = new org.palo.api.Consolidation[elements.size()];
+				for (int j = 0; j < elements.size(); j++ )
+					// Note parent/child is swapped compared to palojlib
+					consolidations[j] = defHier.newConsolidation(elements.get(j),groupElem, 1.0);
+
+				groupElem.updateConsolidations(consolidations);
+				elements.clear();
+			}
+		}
+
+		// Create a top hierarchy
+		Element topElem = defHier.addElement("Top", Element.ELEMENTTYPE_NUMERIC);
+		org.palo.api.Consolidation [] consolidations = new org.palo.api.Consolidation[subGroups.size()];
+		for (int j = 0; j < subGroups.size(); j++ )
+			// Note parent/child is swapped compared to palojlib
+			consolidations[j] = defHier.newConsolidation(subGroups.get(j), topElem, 1);
+
+		topElem.updateConsolidations(consolidations);
+
+	}
+
+	private void PaloJLibTest() throws Exception{
+		// to keep the output uncluttered
+		LoggerManager.getInstance().setLevel(Level.OFF);
+
+		// Connect 		
+		ConnectionConfiguration connConfig = new ConnectionConfiguration();
+		connConfig.setHost("localhost");
+		connConfig.setPort("7777");
+		connConfig.setUsername("admin");
+		connConfig.setPassword("admin");
+		connConfig.setTimeout(30000);
+
+		IConnection connection = ConnectionManager.getConnection(connConfig);
+		IDatabase db = connection.getDatabaseByName("Demo");
+
+
+		generatePaloJLibJunkDimension(db);
+		
+		connection.close();
+	}
+
+	private void generatePaloJLibJunkDimension(IDatabase db){
+		IDimension junkDim = db.getDimensionByName(junkDimName);
+		if (junkDim != null)
+			db.removeDimension(junkDim);
+		junkDim = db.addDimension("Junk");
+
+		ArrayList<IElement> elements = new ArrayList<IElement>();
+		ArrayList<IElement> subGroups = new ArrayList<IElement>();
+
+		for (int i = 1; i < maxNumber; i++){
+			elements.add(junkDim.addBaseElement(String.valueOf(i), ElementType.ELEMENT_NUMERIC));
+
+			if (i % groupSize == 0 || i == maxNumber - 1){
+				int groupNumber = i / groupSize;
+				if (i % groupSize > 0)
+					groupNumber++;
+
+				String groupName = "Group" + String.valueOf(groupNumber);
+
+				IElement groupElem = junkDim.addBaseElement(groupName, ElementType.ELEMENT_NUMERIC);
+				subGroups.add(groupElem);
+
+				// Here we could potentially build an existing list of consolidations
+				if (slowDown)
+					groupElem.getChildren();
+
+				Consolidation [] consolidations = new Consolidation[elements.size()];
+				for (int j = 0; j < elements.size(); j++ )
+					consolidations[j] = junkDim.newConsolidation(groupElem, elements.get(j), 1);
+
+				junkDim.updateConsolidations(consolidations);
+				elements.clear();
+			}
+		}
+
+		// Create a top hierarchy
+		IElement topElem = junkDim.addBaseElement("Top", ElementType.ELEMENT_NUMERIC);
+		Consolidation [] consolidations = new Consolidation[subGroups.size()];
+		for (int j = 0; j < subGroups.size(); j++ )
+			consolidations[j] = junkDim.newConsolidation(topElem, subGroups.get(j), 1);
+		junkDim.updateConsolidations(consolidations);
+	}
+
+// http://www.jedox.com/community/palo-forum/index.php?page=Thread&threadID=3333        
+        
+        private void generatePaloJLibJunkDimensionEdited(IDatabase db){
+		
+		IDimension junkDim = db.getDimensionByName(junkDimName);
+		if (junkDim != null)
+			db.removeDimension(junkDim);
+		junkDim = db.addDimension("Junk");
+
+		ArrayList<String> names = new ArrayList<String>();
+		ArrayList<IElement.ElementType> types = new ArrayList<IElement.ElementType>();
+		names.add("top");
+		types.add(IElement.ElementType.ELEMENT_NUMERIC);
+
+		for (int i = 1; i < maxNumber; i++){
+			names.add(String.valueOf(i));
+			types.add(IElement.ElementType.ELEMENT_NUMERIC);
+
+			if (i % groupSize == 0 || i == maxNumber - 1){
+				int groupNumber = i / groupSize;
+				if (i % groupSize > 0)
+					groupNumber++;
+
+				String groupName = "Group" + String.valueOf(groupNumber);
+
+				names.add(groupName);
+				types.add(IElement.ElementType.ELEMENT_NUMERIC);
+
+
+			}
+		}
+		
+		junkDim.addElements(names.toArray(new String[0]), types.toArray(new ElementType[0]));
+		ArrayList<IConsolidation> consolidations = new ArrayList<IConsolidation>();
+		IElement top = junkDim.getElementByName("top", false);
+		
+		for (int i = 1; i < maxNumber; i++){
+
+			int groupNumber = ((i-1) / groupSize)+1;
+			IElement groupElem = junkDim.getElementByName("Group" + String.valueOf(groupNumber), false);
+			consolidations.add(junkDim.newConsolidation(groupElem, junkDim.getElementByName(String.valueOf(i),false), 1));
+			
+			//although palojlib checks only the dimension token each time, it will still slow up the process 
+			//if (slowDown)
+			//	groupElem.getChildren();
+			
+			if (i % groupSize == 1){
+				consolidations.add(junkDim.newConsolidation(top, junkDim.getElementByName("Group" + String.valueOf(groupNumber),false), 1));
+			}
+		}
+		junkDim.updateConsolidations(consolidations.toArray(new IConsolidation[0]));
+
+	}
+}
