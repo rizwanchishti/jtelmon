@@ -30,9 +30,11 @@ public class DataManipulator {
         private SQLiteStatement insertOrderTemplate;
         private SQLiteStatement insertProductTemplate;
         private SQLiteStatement insertClientTemplate;
+        private SQLiteStatement insertSetupTemplate;
         private static final String INSERT_ORDERS = "insert into " + TABLE_ORDERS + " (clientName,productName,piecesNumber,discountNumber) values (?,?,?,?)";
     	private static final String INSERT_PRODUCTS = "insert into " + TABLE_PRODUCTS + " (ID, Name, Price, Symbol) values (?,?,?,?)";
     	private static final String INSERT_CLIENTS = "insert into " + TABLE_CLIENTS + " (Agent, Client, Route, Zone) values (?,?,?,?)";
+    	private static final String INSERT_SETUP = "insert into " + TABLE_SETUP + " (UtilizatorID, Parola) values (?,?)";
         
    		public DataManipulator(Context context ) {
                 DataManipulator.context = context;
@@ -41,6 +43,7 @@ public class DataManipulator {
                 this.insertOrderTemplate = DataManipulator.db.compileStatement(INSERT_ORDERS);
                 this.insertProductTemplate = DataManipulator.db.compileStatement(INSERT_PRODUCTS);
                 this.insertClientTemplate = DataManipulator.db.compileStatement(INSERT_CLIENTS);
+                this.insertSetupTemplate = DataManipulator.db.compileStatement(INSERT_SETUP);
                 orderOfClient = new ArrayList<CommandLine>();
     	}
           
@@ -69,6 +72,15 @@ public class DataManipulator {
         		return this.insertClientTemplate.executeInsert();
         }
 
+        public long insertIntoSetup(String strID,String strPassword) {
+    		this.insertSetupTemplate.bindString(1, strID);
+    		this.insertSetupTemplate.bindString(2, strPassword);
+    		// this.insertClientTemplate.bindString(3, Route);
+    		// this.insertClientTemplate.bindString(4, Zone);
+    		return this.insertSetupTemplate.executeInsert();
+    }
+
+        
         public void adaugaLiniePeComanda(String denumire,String bucati,String discount,String prezenta){
         	CommandLine newLine = new CommandLine(denumire, bucati, discount, prezenta);
         	orderOfClient.add(newLine ) ;

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- this is a comment -->
+<!-- .DataSample -->
+<!-- .GetProducts02 -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="net.learn2develop"
+      android:versionCode="1"
+      android:versionName="1.0.0">
+    <application android:icon="@drawable/icon" android:label="@string/app_name">
+
+
+        <activity android:name=".TableView.MainProgress" 
+                  android:label="@string/app_name">
+            <intent-filter>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+
+        <activity android:name=".TableView.CreateTable" 
+                  android:label="@string/app_name">
+            <intent-filter>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+
+
+        <activity android:name=".bundle2activity.MainActivity" 
+                  android:label="@string/app_name">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+
+        <activity android:name=".bundle2activity.MainActivity2" 
+                  android:label="@string/app_name">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+
+        <activity android:name=".PurchaseOrders.MainActivity" 
+                  android:label="@string/app_name">
+            <intent-filter>
+                	<action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+        <activity android:name=".PurchaseOrders.SelectieClient" 
+                  android:label="@string/app_name">
+        </activity>        
+        <activity android:name=".PurchaseOrders.CautaProdus" 
+                  android:label="@string/app_name">
+        </activity>        
+        <activity android:name=".PurchaseOrders.Sincronizare" 
+                  android:label="@string/app_name">
+        </activity>        
+        <activity android:name=".PurchaseOrders.ClientMenu" 
+                  android:label="@string/app_name">
+        </activity>        
+        <activity android:name=".PurchaseOrders.ComandaNoua" 
+                  android:label="@string/app_name">
+        </activity>        
+        <activity android:name=".PurchaseOrders.UnsentOrders" 
+                  android:label="@string/app_name">
+        </activity>        
+
+        <activity android:name=".PurchaseOrders.TransferToServer" 
+                  android:label="@string/app_name">
+        </activity>        
+
+        <activity android:name=".PurchaseOrders.TransferToWebService" 
+                  android:label="@string/app_name">
+        </activity>       
+         
+        <activity android:name=".PurchaseOrders.SyncFromWebService" 
+                  android:label="@string/app_name">
+        </activity>        
+        
+        <activity android:name=".PurchaseOrders.DateAgent" 
+                  android:label="@string/app_name">
+        </activity>        
+
+        <activity android:name=".PurchaseOrders.AgentSetup" 
+                  android:label="@string/app_name">
+        </activity>        
+        
+        
+        <activity android:name=".PurchaseOrders.Prefs" 
+                  android:label="@string/app_name">
+        </activity>        
+            
+            
+
+        <activity android:name=".bundle2activity.SecondaryActivity2" 
+                  android:label="@string/app_name">
+        </activity>        
+
+
+        <activity android:name=".bundle2activity.SecondaryActivity" 
+                  android:label="@string/app_name">
+        </activity>        
+
+
+        <activity android:name=".WCF2SQLite.SQLiteAutocomplete02" 
+                  android:label="@string/app_name">
+            <intent-filter>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+
+
+        <activity android:name=".WCF2SQLite.SQLiteAutocomplete01" 
+                  android:label="@string/app_name">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+
+
+<!-- .AndroidViews.WCF2SQLite     -->
+<!-- WebService 2 SQLite DataBase  -->
+<!-- Get Products From WebService  -->
+<!-- Get Clients From WebService  -->
+<!-- Check Products From DataBase  -->
+<!-- Check Clients From DataBase  -->
+<!-- Empty SQLite DataBase         -->        
+        <activity android:name=".WCF2SQLite.WCF2SQLite" 
+                  android:label="@string/app_name">
+            <intent-filter>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+<!-- .AndroidViews.WCF2SQLite     -->
+
+        <activity android:name=".WCF2SQLite.GetClients02"
+                  android:label="@string/app_name" />
+
+        <activity android:name=".WCF2SQLite.GetProducts02"
+                  android:label="@string/app_name" />
+
+        <activity android:name=".WCF2SQLite.ClientsCheck"
+                  android:label="@string/app_name" />
+
+        <activity android:name=".WCF2SQLite.ProductsCheck"
+                  android:label="@string/app_name" />
+
+        <activity android:name=".WCF2SQLite.DataManipulator"
+                  android:label="@string/app_name" />
+                  
+<!-- .AndroidViews.GetClients01     -->        
+        <activity android:name=".AndroidViews.GetClients01" 
+                  android:label="@string/app_name">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+<!-- .AndroidViews.GetClients01     -->
+
+<!-- .AndroidViews.DbContactConsole     -->        
+<!-- http://www.youtube.com/watch?v=4WynsycSuL0  -->
+<!-- Menu -> Add, Modify, Remove : Contact Data  -->
+<!-- First Name , Mobile Phone, Email  -->
+        <activity android:name=".AndroidViews.DbContactConsole" 
+                  android:label="@string/app_name">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+<!-- .AndroidViews.DbContactConsole     -->
+
+        <activity android:name=".sqlitetutorial.ActivityMain" 
+                  android:label="@string/app_name">
+            <intent-filter>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+
+<!-- .AndroidViews.DataSample2     -->        
+<!-- WebService 2 SQLite DataBase  -->
+<!-- Get Products From WebService  -->
+<!-- Check Products From DataBase  -->
+<!-- Empty SQLite DataBase         -->
+        <activity android:name=".AndroidViews.DataSample2" 
+                  android:label="@string/app_name">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>        
+<!-- .AndroidViews.DataSample2     -->
+
+<!--  .AndroidViews.GetProducts02     -->    
+<!--   http://www.youtube.com/watch?v=_7gxQq467Nk  -->
+        <activity android:name=".AndroidViews.GetProducts02"
+                  android:label="@string/app_name" />
+<!-- .AndroidViews.GetProducts02     -->
+
+
+        <activity android:name=".sqlitetutorial.ActivityInsert"
+                  android:label="@string/app_name" />
+
+        <activity android:name=".sqlitetutorial.ActivityDelete"
+                  android:label="@string/app_name" />
+
+        <activity android:name=".sqlitetutorial.ActivityUpdate"
+                  android:label="@string/app_name" />
+        
+        <activity android:name=".AndroidViews.DataSave"
+                  android:label="@string/app_name" />
+
+        <activity android:name=".AndroidViews.DataCheck"
+                  android:label="@string/app_name" />
+
+         <activity android:name=".AndroidViews.BasicViewsExample"
+                  android:label="@string/app_name" />
+ 
+         <activity android:name=".AndroidViews.AutoCompleteExample"
+                  android:label="@string/app_name" />
+
+         <activity android:name=".AndroidViews.DepoziteAutoComplete"
+                  android:label="@string/app_name" />
+
+         <activity android:name=".AndroidViews.ListViewExample"
+                  android:label="@string/app_name" />
+
+         <activity android:name=".AndroidViews.LateOrdersByZone"
+                  android:label="@string/app_name" />
+                  
+          <activity android:name=".AndroidViews.GetPersons03"
+                  android:label="@string/app_name" />        
+
+          <activity android:name=".AndroidViews.SavePerson02"
+                  android:label="@string/app_name" />        
+
+          <activity android:name=".AndroidViews.Caltroid"
+                  android:label="@string/app_name" />        
+
+        <activity android:name=".AndroidViews.ContactDetails"
+        	android:label="@string/contact_intent"
+        	android:theme="@android:style/Theme.Dialog">
+        </activity>
+	
+    </application>
+    
+<uses-permission android:name="android.permission.INTERNET"></uses-permission>    
+</manifest>

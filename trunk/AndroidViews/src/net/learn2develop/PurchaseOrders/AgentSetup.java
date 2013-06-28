@@ -49,6 +49,8 @@ public class AgentSetup extends Activity {
 	    private final static String SERVICE_URI = "http://sfa.pangram.ro:8090/PostgresWebService/rest";
         // private final static String SERVICE_URI = "http://192.168.61.3/SalesService/SalesService.svc";
 
+	    DataManipulator dm = null;
+
         @Override
             public void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
@@ -74,6 +76,8 @@ public class AgentSetup extends Activity {
 
                 Vector<String> vectorOfStrings = new Vector<String>();
                 String tempString = new String();
+                String tempStringID         = new String();
+                String tempStringPassword   = new String();
                 
                 
                 StringBuilder builder = new StringBuilder();
@@ -83,31 +87,53 @@ public class AgentSetup extends Activity {
                         }
                 stream.close();
                 theString = builder.toString();
+                
                 JSONObject json=new JSONObject(theString);
+                tempStringID = json.getString("id");
+                tempStringPassword = json.getString("password");
+                
                 Log.i("userpasscheck","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
                 Log.i("userPass","<UtilizatorID"+">"      +json.getString("id")    +"</UtilizatorID"    +">\n");
                 Log.i("userPass","<Parola"+">"            +json.getString("password")          +"</Parola"          +">\n");
                 
-                JSONArray nameArray=json.getJSONArray("userPass");
-                for(int i=0;i<nameArray.length();i++)
-                {
-                	Log.i("userPass","<UtilizatorID"+i+">"      +nameArray.getJSONObject(i).getString("id")    +"</UtilizatorID"    +i+">\n");
-                	Log.i("userPass","<Parola"+i+">"            +nameArray.getJSONObject(i).getString("password")          +"</Parola"          +i+">\n");
+                dm = new DataManipulator(getApplicationContext());
+                dm.insertIntoSetup(tempStringID,tempStringPassword);
+                dm.close();
+                
+                //JSONArray nameArray=json.getJSONArray("userPass");
+                //for(int i=0;i<nameArray.length();i++)
+                //{
+                	//tempStringID       = nameArray.getJSONObject(i).getString("id")         ;
+                	//tempStringPassword = nameArray.getJSONObject(i).getString("password")   ; 
+                	
+                	//Log.i("userPass","<UtilizatorID"+i+">"      +nameArray.getJSONObject(i).getString("id")    +"</UtilizatorID"    +i+">\n");
+                	//Log.i("userPass","<Parola"+i+">"            +nameArray.getJSONObject(i).getString("password")          +"</Parola"          +i+">\n");
                 	// 	Log.i("userpasscheck","<Price"+i+">"   +nameArray.getJSONObject(i).getString("Price")   +"</Price"   +i+">\n");
                 	//  Log.i("userpasscheck","<Symbol"+i+">"  +nameArray.getJSONObject(i).getString("Symbol")+"</Symbol"+i+">\n");
+                	
+                	
                 	
                 	// tempString=nameArray.getJSONObject(i).getString("Name")+"\n"+
                     //            nameArray.getJSONObject(i).getString("Price")+"\n"+nameArray.getJSONObject(i).getString("Symbol");
                 	// vectorOfStrings.add(new String(tempString));
-                }
+                //}
+                
+                    
+
+                    
             	// int orderCount = vectorOfStrings.size();
             	// String[] orderTimeStamps = new String[orderCount];
             	// vectorOfStrings.copyInto(orderTimeStamps); 
-            	//setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , orderTimeStamps));
+            	// setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , orderTimeStamps));
             } catch (Exception e) {
                         e.printStackTrace();
                         Logger lgr = Logger.getLogger(AgentSetup.class.getName());
                         lgr.log(Level.SEVERE, e.getMessage(), e);
+
+                        if (dm != null) {
+                			dm.close();
+                		}
+                        
             }        
         }
 }
