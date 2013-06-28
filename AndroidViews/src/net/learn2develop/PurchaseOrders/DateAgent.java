@@ -24,7 +24,7 @@ public class DateAgent extends Activity implements OnClickListener {
 
 	// @Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
+		// reinitializeaza-date-agent
 		if(v.getId() == R.id.Button01add){
             //Intent intent1 = new Intent(this,AdaugaAgent.class);
 			Intent intent1 = new Intent(this,AgentSetup.class);
