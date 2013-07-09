@@ -19,6 +19,7 @@ import android.text.Editable;
 
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -37,6 +38,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AgentSetup extends Activity {
+
+	// REINITIALIZEAZA_DATE_AGENT
 	
 /* http://sfa.pangram.ro:8090/PostgresWebService/rest/sales/search/1/123456
 	<userPass>
@@ -50,15 +53,31 @@ public class AgentSetup extends Activity {
         // private final static String SERVICE_URI = "http://192.168.61.3/SalesService/SalesService.svc";
 
 	    DataManipulator dm = null;
+	    Bundle BundledAgent;
 
         @Override
             public void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
 
-                setContentView(R.layout.main);
+                setContentView(R.layout.main_agent_reinitializare);
                
                 String isNot =new String("");
-               
+                
+                BundledAgent = getIntent().getExtras();
+                if(BundledAgent != null) {
+                   String theAgent = BundledAgent.getString("agent");
+                   String thePass = BundledAgent.getString("parola");
+                   Log.i("BundledAgent " ,theAgent+" \n");
+                   TextView t1 = (TextView)findViewById(R.id.agentid);
+                   TextView t2 = (TextView)findViewById(R.id.agpass);
+                   if(t1 != null) {
+                       t1.setText(theAgent);
+                   }
+                   if(t2 != null) {
+                       t2.setText(thePass);
+                   }
+                }
+                
                 // HttpGet request = new HttpGet(SERVICE_URI + "/json/userpasscheck ");       
                 HttpGet request = new HttpGet(SERVICE_URI + "/sales/search/1");
                 request.setHeader("Accept", "application/json");
