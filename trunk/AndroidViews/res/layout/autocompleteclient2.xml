@@ -13,12 +13,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Denumire :"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
    
     <AutoCompleteTextView android:id="@+id/autocompleteClient"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"/>
+        android:layout_marginLeft="5dp" />
+    
+    <requestFocus/>
 </LinearLayout>
 
 <TextView
@@ -34,7 +37,7 @@
     android:layout_width="186dp"
     android:layout_height="wrap_content" >
 
-    <requestFocus />
+    
 </EditText>
 
 <TextView
@@ -56,8 +59,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:text="CheckBox" />
-
+    android:text="CheckBox" 
+    />
+
 <LinearLayout
     android:id="@+id/LinearLayout02"
     android:layout_width="300dp"
@@ -72,8 +76,8 @@
         android:layout_marginLeft="10sp"
         android:layout_marginTop="20sp"
         android:layout_weight="3.56"
-        android:text="Adauga" />
-
+        android:text="Adauga" /> 
+        
     <Button
         android:id="@+id/Button01home"
         android:layout_width="wrap_content"

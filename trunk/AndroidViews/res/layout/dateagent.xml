@@ -37,7 +37,7 @@
 
 
     <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView2"
+        android:id="@+id/autoCompleteTextView2iDagentNou"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -50,7 +50,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView3"
+        android:id="@+id/autoCompleteTextView3agpass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -69,7 +69,7 @@
 
 
         <Button
-            android:id="@+id/Button01add"
+            android:id="@+id/Button01reinitializeaza"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20sp"
