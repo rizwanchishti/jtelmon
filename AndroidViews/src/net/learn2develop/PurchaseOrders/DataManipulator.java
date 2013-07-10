@@ -146,6 +146,15 @@ public class DataManipulator {
             }
         }
 
+        public void deleteAllSetup() {
+            try{
+            	 db.delete(TABLE_SETUP, null, null);
+            }catch(Exception e){
+                	// Toast.makeText(this, "Error encountered while deleting.", Toast.LENGTH_LONG);
+            		System.out.println(e.getMessage());
+            }
+        }
+
         
         public void deleteAll() {
                 db.delete(TABLE_ORDERS, null, null);
