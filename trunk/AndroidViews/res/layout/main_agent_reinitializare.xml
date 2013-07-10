@@ -16,5 +16,11 @@
     android:text="@string/hello"
     android:id="@+id/agpass"
     />
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="REZULTAT"
+    android:id="@+id/result"
+    />
 
 </LinearLayout>
