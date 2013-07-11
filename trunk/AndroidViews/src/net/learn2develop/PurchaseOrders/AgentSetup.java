@@ -132,7 +132,7 @@ public class AgentSetup extends Activity {
                 if( tmpb1 && tmpb2){
                 	dm = new DataManipulator(getApplicationContext());
                 	dm.deleteAllSetup();
-                	dm.insertIntoSetup(restStringID,restStringPassword);
+                	dm.insertIntoSetup(restStringID,restStringUserName,restStringPassword);
                 	dm.close();
                 	theResult = "OK! "+restStringUserName;
                 }else{

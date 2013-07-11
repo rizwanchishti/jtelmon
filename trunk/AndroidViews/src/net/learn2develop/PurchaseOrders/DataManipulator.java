@@ -34,7 +34,7 @@ public class DataManipulator {
         private static final String INSERT_ORDERS = "insert into " + TABLE_ORDERS + " (clientName,productName,piecesNumber,discountNumber) values (?,?,?,?)";
     	private static final String INSERT_PRODUCTS = "insert into " + TABLE_PRODUCTS + " (ID, Name, Price, Symbol) values (?,?,?,?)";
     	private static final String INSERT_CLIENTS = "insert into " + TABLE_CLIENTS + " (Agent, Client, Route, Zone) values (?,?,?,?)";
-    	private static final String INSERT_SETUP = "insert into " + TABLE_SETUP + " (UtilizatorID, Parola) values (?,?)";
+    	private static final String INSERT_SETUP = "insert into " + TABLE_SETUP + " (UtilizatorID, UserName, Parola) values (?,?,?)";
         
    		public DataManipulator(Context context ) {
                 DataManipulator.context = context;
@@ -72,9 +72,10 @@ public class DataManipulator {
         		return this.insertClientTemplate.executeInsert();
         }
 
-        public long insertIntoSetup(String strID,String strPassword) {
+        public long insertIntoSetup(String strID, String strUserName, String strPassword) {
     		this.insertSetupTemplate.bindString(1, strID);
-    		this.insertSetupTemplate.bindString(2, strPassword);
+    		this.insertSetupTemplate.bindString(2, strUserName);
+    		this.insertSetupTemplate.bindString(3, strPassword);
     		// this.insertClientTemplate.bindString(3, Route);
     		// this.insertClientTemplate.bindString(4, Zone);
     		return this.insertSetupTemplate.executeInsert();
@@ -245,7 +246,7 @@ public class DataManipulator {
                         db.execSQL("CREATE TABLE " + TABLE_ORDERS +   " (lineOrderId INTEGER PRIMARY KEY, clientName TEXT, productName TEXT, piecesNumber TEXT, discountNumber TEXT)");
                         db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (_id integer primary key autoincrement, ID TEXT, Name TEXT, Price TEXT, Symbol TEXT)");
                         db.execSQL("CREATE TABLE " + TABLE_CLIENTS + " (_id integer primary key autoincrement, Agent TEXT, Client TEXT, Route TEXT, Zone TEXT)");
-                        db.execSQL("CREATE TABLE " + TABLE_SETUP + " (_id integer primary key autoincrement, UtilizatorID TEXT, Parola TEXT, SefID TEXT, ZonaID TEXT)");
+                        db.execSQL("CREATE TABLE " + TABLE_SETUP + " (_id integer primary key autoincrement, UtilizatorID TEXT, Parola TEXT, UserName TEXT, SefID TEXT, ZonaID TEXT)");
                 }
 
                 @Override

@@ -32,7 +32,7 @@ public class DateAgent extends Activity implements OnClickListener {
 			txtview_agPass=(TextView)findViewById(R.id.autoCompleteTextView3agpass);
 			
 			Bundle bundledAgent = new Bundle();
-			bundledAgent.putString("agent", txtview_iDagNou.getText().toString());
+			bundledAgent.putString("agent" , txtview_iDagNou.getText().toString());
 			bundledAgent.putString("parola", txtview_agPass.getText().toString());
 			Intent intent1 = new Intent(this,AgentSetup.class);
 			intent1.putExtras(bundledAgent);
