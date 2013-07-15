@@ -33,10 +33,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		TextView t1;
 		t1 = (TextView)findViewById(R.id.textView2agentName);
 		if(t1 != null) {
+			
+			// http://android-er.blogspot.hk/2013/07/add-shadow-for-textview-using-java-code.html
+			t1.setShadowLayer(30, 10, 10, 0xFF303030);
+			
             t1.setText(setupInfo[2]);
+            
         }
 		
-		View v = findViewById(R.id.Button01);
+		View v = findViewById(R.id.Button01SelectieRuta);
         v.setOnClickListener(this);
         View s = findViewById(R.id.Button02);
         s.setOnClickListener(this);
