@@ -27,7 +27,7 @@
     
     <Button 
         android:layout_height="wrap_content" 
-        android:id="@+id/Button01" 
+        android:id="@+id/Button01SelectieRuta" 
         android:layout_width="230dp" 
         android:text="Selectie Ruta" 
         android:textStyle="bold"></Button>
