@@ -121,10 +121,10 @@ public class AgentSetup extends Activity {
                 restStringPassword = json.getString("password");
                 restStringUserName = json.getString("userName");
                 
-                Log.i("userpasscheck","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
-                Log.i("userID","<UtilizatorID"+">"      +json.getString("id")    +"</UtilizatorID"    +">\n");
-                Log.i("userPass","<Parola"+">"          +json.getString("password")          +"</Parola"          +">\n");
-                Log.i("userName","<userName"+">"        +json.getString("userName")          +"</userName"        +">\n");
+                Log.i("userpasscheck","<jsonobject>\n" + json.toString()            + "\n</jsonobject>");
+                Log.i("userID","<UtilizatorID"+">"     + json.getString("id")       + "</UtilizatorID"    +">\n");
+                Log.i("userPass","<Parola"+">"         + json.getString("password") + "</Parola"          +">\n");
+                Log.i("userName","<userName"+">"       + json.getString("userName") + "</userName"        +">\n");
                 
                 boolean tmpb1 , tmpb2;
                 tmpb1=restStringID.equals(idAgent);
