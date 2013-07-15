@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -19,8 +20,23 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mainpurchase);
-        View v = findViewById(R.id.Button01);
+        
+         String[] setupInfo =  new String[]{};
+         dm = new DataManipulator(getApplicationContext());
+		 setupInfo = dm.selectFirstRecordFromSetupTable();
+		 if (dm != null) {
+			 dm.close();
+		 }
+		 
+		setContentView(R.layout.mainpurchase);
+
+		TextView t1;
+		t1 = (TextView)findViewById(R.id.textView2agentName);
+		if(t1 != null) {
+            t1.setText(setupInfo[2]);
+        }
+		
+		View v = findViewById(R.id.Button01);
         v.setOnClickListener(this);
         View s = findViewById(R.id.Button02);
         s.setOnClickListener(this);

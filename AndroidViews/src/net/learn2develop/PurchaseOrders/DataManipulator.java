@@ -164,7 +164,7 @@ public class DataManipulator {
         public List<String[]> selectAllOrders()
         {
                 List<String[]> list = new ArrayList<String[]>();
-                Cursor cursor = db.query(TABLE_ORDERS, new String[] { "lineOrderId","clientName","productName","piecesNumber","discountNumber" },       null, null, null, null, "clientName asc"); 
+                Cursor cursor = db.query(TABLE_ORDERS, new String[] { "lineOrderId","clientName","productName","piecesNumber","discountNumber" }, null, null, null, null, "clientName asc"); 
                 int x=0;
                 if (cursor.moveToFirst()) {
                         do {
@@ -223,7 +223,21 @@ public class DataManipulator {
                 return list;
         }
         
-        
+
+        public String[] selectFirstRecordFromSetupTable()
+        {
+                String[] setupInfo = null ;
+                
+                Cursor cursor = db.query(TABLE_SETUP, new String[] { "UtilizatorID","Parola","UserName","SefID", "ZonaID" }, null, null, null, null, "UserName asc");
+                if (cursor.moveToFirst()) {
+                	setupInfo = new String[]{cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4)};
+                }
+                if (cursor != null && !cursor.isClosed()) {
+                        cursor.close();
+                } 
+                cursor.close();
+                return setupInfo;
+        }
 
         public void delete(int rowId) {
                 db.delete(TABLE_ORDERS, null, null);
