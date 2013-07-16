@@ -261,6 +261,8 @@ public class DataManipulator {
                         db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (_id integer primary key autoincrement, ID TEXT, Name TEXT, Price TEXT, Symbol TEXT)");
                         db.execSQL("CREATE TABLE " + TABLE_CLIENTS + " (_id integer primary key autoincrement, Agent TEXT, Client TEXT, Route TEXT, Zone TEXT)");
                         db.execSQL("CREATE TABLE " + TABLE_SETUP + " (_id integer primary key autoincrement, UtilizatorID TEXT, Parola TEXT, UserName TEXT, SefID TEXT, ZonaID TEXT)");
+                        // db.execSQL("INSERT INTO SETUP (UtilizatorID, UserName, Parola) values ('1','NOBODY','NOBODY')";
+                        
                 }
 
                 @Override

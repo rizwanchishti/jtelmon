@@ -21,7 +21,8 @@ public class MainActivity extends Activity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-         String[] setupInfo =  new String[]{};
+         String[] setupInfo =  null;
+         // setupInfo[2]= new String("NOBODY");
          dm = new DataManipulator(getApplicationContext());
 		 setupInfo = dm.selectFirstRecordFromSetupTable();
 		 if (dm != null) {
@@ -33,12 +34,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		TextView t1;
 		t1 = (TextView)findViewById(R.id.textView2agentName);
 		if(t1 != null) {
-			
 			// http://android-er.blogspot.hk/2013/07/add-shadow-for-textview-using-java-code.html
 			t1.setShadowLayer(30, 10, 10, 0xFF303030);
-			
-            t1.setText(setupInfo[2]);
-            
+			if(setupInfo != null) {t1.setText(setupInfo[2]);	}
         }
 		
 		View v = findViewById(R.id.Button01SelectieRuta);
