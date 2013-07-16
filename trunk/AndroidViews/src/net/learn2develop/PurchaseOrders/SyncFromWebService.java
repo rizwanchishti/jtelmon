@@ -13,13 +13,16 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Vector;
+
 import net.learn2develop.R;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -42,6 +45,10 @@ public class SyncFromWebService extends ListActivity {
         new Thread() {
         public void run() {
         	DataManipulator dm = null;    
+            String[] setupInfo =  new String[]{};
+            dm = new DataManipulator(getApplicationContext());
+   		    setupInfo = dm.selectFirstRecordFromSetupTable();
+
         HttpGet request = new HttpGet(SERVICE_URI + "/sales/allproducts"  );       
         request.setHeader("Accept", "application/json");
         request.setHeader("Content-type", "application/json");
@@ -50,7 +57,8 @@ public class SyncFromWebService extends ListActivity {
 
         String theString = new String("");
         
-        HttpGet request1 = new HttpGet(SERVICE_URI +   "/sales/3165/routes");       
+        // HttpGet request1 = new HttpGet(SERVICE_URI +   "/sales/3165/routes");       
+        HttpGet request1 = new HttpGet(SERVICE_URI +   "/sales/"+setupInfo[0]+"/routes");
         request.setHeader("Accept", "application/json");
         request.setHeader("Content-type", "application/json");
  
@@ -81,7 +89,7 @@ public class SyncFromWebService extends ListActivity {
         	JSONObject json=new JSONObject(theString);
         	Log.i("_GetPerson_","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
         	
-        	dm = new DataManipulator(getApplicationContext());
+        	// dm = new DataManipulator(getApplicationContext());
         	
         	JSONArray nameArray;
         	// nameArray=json.getJSONArray("getProductsResult");
