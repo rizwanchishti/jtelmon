@@ -60,10 +60,16 @@ public class tele4deps {
 	}
 
 	public static void sendTeleMail(String thePath, String teleFile){
-		String [] depozite = {"NULL", "NULL", "Timisoara","Deva",
-				"Severin","Arad","Bucuresti","Galati","NULL","Pitesti",
-				"Cluj","BaiaM","Oradea","Bistrita","TgMures","Bacau","Brasov",
-				"Constanta","Sibiu","Suceava","Craiova"};
+//		String [] depozite = {"NULL", "NULL", "Timisoara","Deva",
+//				"Severin","Arad","Bucuresti","Galati","NULL","Pitesti",
+//				"Cluj","BaiaM","Oradea","Bistrita","TgMures","Bacau","Brasov",
+//				"Constanta","Sibiu","Suceava","Craiova"};
+                
+      		String [] depozite = {"NULL", "NULL", "NULL","NULL",
+				"NULL","NULL","Bucuresti","NULL","NULL","NULL",
+				"Cluj","NULL","NULL","NULL","NULL","Bacau","NULL",
+				"NULL","NULL","NULL","NULL"};
+
 		int iDepNr = getDepNr(teleFile);
 		String sDepMail=depozite[iDepNr];
 		if(!sDepMail.equals("NULL")){
