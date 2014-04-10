@@ -1,5 +1,8 @@
 package org.coenraets.directory;
-// import javax.xml.bind.annotation.XmlRootElement;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Client {
 	    // private static final long serialVersionUID = 1L;
 	    // @Id
