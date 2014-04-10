@@ -49,6 +49,12 @@ public class SoftyResource {
 		return dao.findAllProducts();
 	}
 
+	@GET @Path("/allclients")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public List<Client> findAllClients() {
+		return dao.findAllClients();
+	}
+	
 	@GET @Path("/routes")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<ClientRoute> GetRoutesByAgent() {
