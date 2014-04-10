@@ -297,6 +297,48 @@ public class SoftyDAO {
     	
     	return list;
     }
+
+    public List<Client> findAllClients() {
+    	List<Client> list = new ArrayList<Client>();
+        Connection c = null;
+    	String sql = "SELECT tert_id, cui, plt, client, categorie, grupa, clasa, categorie_id, grupa_id, clasa_id FROM clienti_eurobit ";
+        try {
+            c = ConnectionHelperPg.getConnection();
+            Statement s = c.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            while (rs.next()) {
+            	list.add(processClientRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+            throw new RuntimeException(e);
+		} finally {
+			ConnectionHelperPg.close(c);
+		}
+    	return list;
+    }
+    
+
+    protected Client processClientRow(ResultSet rs) throws SQLException {
+    	
+    	Client cli = new Client();
+    		cli.setTertId(rs.getString("tert_id"));
+    		cli.setCui(rs.getString("cui"));
+    		cli.setPlt(rs.getString("plt"));
+    		cli.setClient(rs.getString("client"));
+    		cli.setCategorie(rs.getString("categorie"));
+    		cli.setGrupa(rs.getString("grupa"));
+    		cli.setClasa(rs.getString("clasa"));
+    		cli.setCategorieId(rs.getString("categorie_id"));
+    		cli.setGrupaId(rs.getString("grupa_id"));
+    		cli.setClasaId(rs.getString("clasa_id"));
+    	
+    	return cli;
+    }
+
+    
     
     protected Product processProductRow(ResultSet rs) throws SQLException {
     	
@@ -309,6 +351,9 @@ public class SoftyDAO {
     	
     	return pr;
     }
+
+
+    
     
     protected OrderData processOrderRow(ResultSet rs) throws SQLException {
     	OrderData oD = new OrderData();
