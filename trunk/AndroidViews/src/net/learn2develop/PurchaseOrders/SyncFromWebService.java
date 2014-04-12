@@ -44,6 +44,7 @@ public class SyncFromWebService extends ListActivity {
         final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Sincronizeaza date...");
         new Thread() {
         	public void run() {
+        		// SyncClients();
         		SyncRoutes();
         		SyncProducts();
         		progressDialog.dismiss();
@@ -51,6 +52,63 @@ public class SyncFromWebService extends ListActivity {
         }.start();
     }
     
+    public void SyncClients() {
+        // http://sfa.pangram.ro:8090/PostgresWebService/rest/sales/allclients
+    	DataManipulator dm = null;    
+        dm = new DataManipulator(getApplicationContext());
+    	HttpGet request = new HttpGet(SERVICE_URI + "/sales/allclients");
+    	DefaultHttpClient httpClient = new DefaultHttpClient();
+    	String theString = new String("");
+
+       	try {
+    		HttpResponse response1 = httpClient.execute(request);
+        	HttpEntity response1Entity = response1.getEntity();
+        	InputStream stream1 = response1Entity.getContent();
+        	BufferedReader reader1 = new BufferedReader(new InputStreamReader(stream1));
+        	Vector<String> vectorOfStrings = new Vector<String>();
+        	String tempStringCategorie  	= new String();
+        	String tempStringCategorieID  	= new String();
+        	String tempStringClasa  		= new String();
+        	String tempStringClasaID  		= new String();
+        	String tempStringClient 		= new String();
+        	String tempStringCUI 			= new String();
+        	String tempStringGrupa  		= new String();
+        	String tempStringPLT 			= new String();
+        	String tempStringTertID 		= new String(); 
+        	StringBuilder builder1 			= new StringBuilder();
+        	String line1;
+        	while ((line1 = reader1.readLine()) != null) {
+				builder1.append(line1);
+			}
+        	stream1.close();
+        	theString = builder1.toString();
+        	JSONObject json1=new JSONObject(theString);
+        	Log.i("_GetClient_","<jsonobject>\n"+json1.toString()+"\n</jsonobject>");
+        	dm = new DataManipulator(getApplicationContext());
+        	JSONArray nameArray1;
+        	nameArray1=json1.getJSONArray("client");
+        	// nameArray1=json1.getJSONArray("GetRoutesByAgentResult");
+        	 for(int i=0;i<nameArray1.length();i++)
+             {
+             	tempStringClasa   = nameArray1.getJSONObject(i).getString("clasa");
+             	tempStringClient  = nameArray1.getJSONObject(i).getString("client");
+             	tempStringGrupa   = nameArray1.getJSONObject(i).getString("grupa");
+             	tempStringPLT 	  = nameArray1.getJSONObject(i).getString("plt");
+     			// dm.insertIntoClients(tempStringClasa,tempStringClient,tempStringGrupa,tempStringPLT);
+                tempStringCategorie=nameArray1.getJSONObject(i).getString("client")+"\n"+
+                 		nameArray1.getJSONObject(i).getString("clasa")+"\n"+nameArray1.getJSONObject(i).getString("grupa");
+                vectorOfStrings.add(new String(tempStringCategorie));
+             }
+        	 int orderCount1 = vectorOfStrings.size();
+        	 String[] orderTimeStamps1 = new String[orderCount1];
+        	 vectorOfStrings.copyInto(orderTimeStamps1); 
+       	} catch (Exception a) {
+       		a.printStackTrace();
+       	}
+		if (dm != null) {
+			dm.close();
+		}
+    }
     
     public void SyncRoutes() {
     	DataManipulator dm = null;    
@@ -58,8 +116,7 @@ public class SyncFromWebService extends ListActivity {
         dm = new DataManipulator(getApplicationContext());
 		    setupInfo = dm.selectFirstRecordFromSetupTable();
 
-
-    final DefaultHttpClient httpClient = new DefaultHttpClient();
+    //final DefaultHttpClient httpClient = new DefaultHttpClient();
 
     String theString = new String("");
     
