@@ -44,7 +44,7 @@ public class SyncFromWebService extends ListActivity {
         final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Sincronizeaza date...");
         new Thread() {
         	public void run() {
-        		SyncClients();
+        		// SyncClients();
         		SyncRoutes();
         		SyncProducts();
         		progressDialog.dismiss();
@@ -79,6 +79,8 @@ public class SyncFromWebService extends ListActivity {
         	String line1;
         	
         	// BufferedReader.readLine() : Out of memory 
+        	// line1 = reader1.readLine();
+        	
         	while ((line1 = reader1.readLine()) != null) {
 				builder1.append(line1);
 			}
