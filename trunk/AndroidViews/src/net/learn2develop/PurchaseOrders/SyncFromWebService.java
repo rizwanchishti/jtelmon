@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Vector;
+import java.util.Iterator;
 
 import net.learn2develop.R;
 
@@ -22,11 +23,19 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.apache.http.util.EntityUtils;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+// import com.fasterxml.jackson.core.TreeNode;
+import com.fasterxml.jackson.databind.JsonNode;
+//import com.fasterxml.jackson.JsonNode;
 
 public class SyncFromWebService extends ListActivity {
 	
@@ -65,6 +74,27 @@ public class SyncFromWebService extends ListActivity {
         	HttpEntity response1Entity = response1.getEntity();
         	InputStream stream1 = response1Entity.getContent();
         	BufferedReader reader1 = new BufferedReader(new InputStreamReader(stream1));
+        	
+        	// Parsing Huge JSON Documents
+        	// http://www.skybert.net/java/http/parsing-huge-json-documents/
+        	ObjectMapper objMapper = new ObjectMapper();
+        	objMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+        	JsonFactory factory = objMapper.getJsonFactory();
+        	JsonParser jsonParser = factory.createJsonParser(reader1);
+        	JsonNode actualObj = objMapper.readTree(jsonParser);
+        	if (actualObj.isArray()) {
+        		// Iterator<JsonNode> elements = actualObj.getElements();
+        		Iterator<JsonNode> elements = actualObj.elements();
+        		while (elements.hasNext()) {
+        			JsonNode arrayElement = elements.next();
+        			// JSONObject jsonObject = JSONObject.fromObject(arrayElement.toString());
+        			
+        			// do something useful with jsonObject
+        			System.out.println(arrayElement.toString());
+        			
+        		}
+        	}
+        	
         	Vector<String> vectorOfStrings = new Vector<String>();
         	String tempStringCategorie  	= new String();
         	String tempStringCategorieID  	= new String();
@@ -78,16 +108,24 @@ public class SyncFromWebService extends ListActivity {
         	StringBuilder builder1 			= new StringBuilder();
         	String line1;
         	
+        	
+        	if(response1Entity!=null) {
+        		theString = EntityUtils.toString(response1Entity);
+        	}
+        	
         	// BufferedReader.readLine() : Out of memory 
         	// line1 = reader1.readLine();
         	
-        	while ((line1 = reader1.readLine()) != null) {
-				builder1.append(line1);
-			}
+        	      	
+        	//while ((line1 = reader1.readLine()) != null) {
+			//	builder1.append(line1);
+			//}
         	
-        	stream1.close();
-        	theString = builder1.toString();
+        	// stream1.close();
+        	// theString = builder1.toString();
         	JSONObject json1=new JSONObject(theString);
+        	// JSONObject : Out of memory
+        	
         	Log.i("_GetClient_","<jsonobject>\n"+json1.toString()+"\n</jsonobject>");
         	dm = new DataManipulator(getApplicationContext());
         	JSONArray nameArray1;
