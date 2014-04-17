@@ -6,6 +6,10 @@
  *    "DukesAgeResource" Tutorial : RESTful web service ~ GlassFish with NetBeans
  *    http://docs.oracle.com/javaee/6/firstcup/doc/gcrkm.html
  *    http://stackoverflow.com/questions/18230744/json-parser-read-an-entry-by-entry-from-large-json-file
+ *    http://javarevisited.blogspot.ro/2013/02/how-to-convert-json-string-to-java-object-jackson-example-tutorial.html
+ *    http://www.skybert.net/java/http/parsing-huge-json-documents/
+ *    http://stackoverflow.com/questions/2818697/sending-and-parsing-json-in-android
+ *    
  */
 
 package net.learn2develop.PurchaseOrders;
@@ -93,6 +97,7 @@ public class SyncFromWebService extends ListActivity {
         	// Map where to store your field-value pairs per object
         	HashMap<String, String> fields = new HashMap<String, String>();
         	// http://stackoverflow.com/questions/18230744/json-parser-read-an-entry-by-entry-from-large-json-file
+        	// http://javarevisited.blogspot.ro/2013/02/how-to-convert-json-string-to-java-object-jackson-example-tutorial.html
         	JsonToken token;
         	while ((token = parser.nextToken()) != JsonToken.END_ARRAY) {
         	    switch (token) {
