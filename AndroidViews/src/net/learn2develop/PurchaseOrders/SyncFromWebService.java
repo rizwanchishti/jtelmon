@@ -5,6 +5,7 @@
  *    
  *    "DukesAgeResource" Tutorial : RESTful web service ~ GlassFish with NetBeans
  *    http://docs.oracle.com/javaee/6/firstcup/doc/gcrkm.html
+ *    http://stackoverflow.com/questions/18230744/json-parser-read-an-entry-by-entry-from-large-json-file
  */
 
 package net.learn2develop.PurchaseOrders;
@@ -14,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Vector;
 import java.util.Iterator;
+import java.util.HashMap; 
 
 import net.learn2develop.R;
 
@@ -34,6 +36,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 // import com.fasterxml.jackson.core.TreeNode;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.JsonNode;
 //import com.fasterxml.jackson.JsonNode;
 
@@ -53,34 +56,97 @@ public class SyncFromWebService extends ListActivity {
         final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Sincronizeaza date...");
         new Thread() {
         	public void run() {
-        		// SyncClients();
-        		SyncRoutes();
-        		SyncProducts();
+        		// SyncClients1();
+        		SyncClients2();
+        		// SyncRoutes();
+        		// SyncProducts();
         		progressDialog.dismiss();
         	}
         }.start();
     }
     
-    public void SyncClients() {
+    
+    public void SyncClients2() {
         // http://sfa.pangram.ro:8090/PostgresWebService/rest/sales/allclients
     	DataManipulator dm = null;    
         dm = new DataManipulator(getApplicationContext());
-    	HttpGet request = new HttpGet(SERVICE_URI + "/sales/allclients");
+    	// HttpGet request = new HttpGet(SERVICE_URI + "/sales/allclients");
+        HttpGet request = new HttpGet(SERVICE_URI + "/sales/allproducts"  );
+    	request.setHeader("Accept", "application/json");
+    	request.setHeader("Content-type", "application/json");
     	DefaultHttpClient httpClient = new DefaultHttpClient();
     	String theString = new String("");
 
        	try {
-    		HttpResponse response1 = httpClient.execute(request);
-        	HttpEntity response1Entity = response1.getEntity();
-        	InputStream stream1 = response1Entity.getContent();
-        	BufferedReader reader1 = new BufferedReader(new InputStreamReader(stream1));
+    		HttpResponse response = httpClient.execute(request);
+        	HttpEntity responseEntity = response.getEntity();
+        	InputStream inputStream = responseEntity.getContent();
+        	BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         	
         	// Parsing Huge JSON Documents
         	// http://www.skybert.net/java/http/parsing-huge-json-documents/
         	ObjectMapper objMapper = new ObjectMapper();
-        	objMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+        	// objMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+        	JsonFactory jsonFactory = objMapper.getJsonFactory();
+        	JsonParser parser = jsonFactory.createJsonParser(reader);
+        	
+        	// Map where to store your field-value pairs per object
+        	HashMap<String, String> fields = new HashMap<String, String>();
+        	// http://stackoverflow.com/questions/18230744/json-parser-read-an-entry-by-entry-from-large-json-file
+        	JsonToken token;
+        	while ((token = parser.nextToken()) != JsonToken.END_ARRAY) {
+        	    switch (token) {
+
+        	        // Starts a new object, clear the map
+        	        case START_OBJECT:
+        	            fields.clear();
+        	            break;
+
+        	        // For each field-value pair, store it in the map 'fields'
+        	        case FIELD_NAME:
+        	            String field = parser.getCurrentName();
+        	            token = parser.nextToken();
+        	            String value = parser.getValueAsString();
+        	            fields.put(field, value);
+        	            break;
+
+        	        // Do something with the field-value pairs
+        	        case END_OBJECT:
+        	            // doSomethingWithTheObject(fields)
+        	            break;
+        	        }
+        	    }
+        	    parser.close();
+       	} catch (Exception a) {
+       		a.printStackTrace();
+       	}
+
+    }
+    
+    
+    public void SyncClients1() {
+        // http://sfa.pangram.ro:8090/PostgresWebService/rest/sales/allclients
+    	DataManipulator dm = null;    
+        dm = new DataManipulator(getApplicationContext());
+    	// HttpGet request = new HttpGet(SERVICE_URI + "/sales/allclients");
+        HttpGet request = new HttpGet(SERVICE_URI + "/sales/allproducts"  );
+    	request.setHeader("Accept", "application/json");
+    	request.setHeader("Content-type", "application/json");
+    	DefaultHttpClient httpClient = new DefaultHttpClient();
+    	String theString = new String("");
+
+       	try {
+    		HttpResponse response = httpClient.execute(request);
+        	HttpEntity responseEntity = response.getEntity();
+        	InputStream inputStream = responseEntity.getContent();
+        	BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        	
+        	// Parsing Huge JSON Documents
+        	// http://www.skybert.net/java/http/parsing-huge-json-documents/
+        	ObjectMapper objMapper = new ObjectMapper();
+        	// objMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
         	JsonFactory factory = objMapper.getJsonFactory();
-        	JsonParser jsonParser = factory.createJsonParser(reader1);
+        	JsonParser jsonParser = factory.createJsonParser(reader);
         	JsonNode actualObj = objMapper.readTree(jsonParser);
         	if (actualObj.isArray()) {
         		// Iterator<JsonNode> elements = actualObj.getElements();
@@ -94,7 +160,9 @@ public class SyncFromWebService extends ListActivity {
         			
         		}
         	}
-        	
+			// System.out.println(actualObj.asText());
+			theString=actualObj.asText();
+			
         	Vector<String> vectorOfStrings = new Vector<String>();
         	String tempStringCategorie  	= new String();
         	String tempStringCategorieID  	= new String();
@@ -109,8 +177,8 @@ public class SyncFromWebService extends ListActivity {
         	String line1;
         	
         	
-        	if(response1Entity!=null) {
-        		theString = EntityUtils.toString(response1Entity);
+        	if(responseEntity!=null) {
+        		theString = EntityUtils.toString(responseEntity);
         	}
         	
         	// BufferedReader.readLine() : Out of memory 
