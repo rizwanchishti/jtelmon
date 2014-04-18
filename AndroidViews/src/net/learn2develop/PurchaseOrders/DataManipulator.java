@@ -23,6 +23,7 @@ public class DataManipulator {
         static final String TABLE_ORDERS   = "orders2";
         static final String TABLE_PRODUCTS = "products2";
         static final String TABLE_CLIENTS = "clients2";
+        static final String TABLE_CLIENTS_EUROBIT = "clients_eurobit";
         static final String TABLE_SETUP = "setup";
         private static Context context;
         static SQLiteDatabase db;
@@ -30,10 +31,12 @@ public class DataManipulator {
         private SQLiteStatement insertOrderTemplate;
         private SQLiteStatement insertProductTemplate;
         private SQLiteStatement insertClientTemplate;
+        private SQLiteStatement insertClientEurobitTemplate;
         private SQLiteStatement insertSetupTemplate;
         private static final String INSERT_ORDERS = "insert into " + TABLE_ORDERS + " (clientName,productName,piecesNumber,discountNumber) values (?,?,?,?)";
     	private static final String INSERT_PRODUCTS = "insert into " + TABLE_PRODUCTS + " (ID, Name, Price, Symbol) values (?,?,?,?)";
     	private static final String INSERT_CLIENTS = "insert into " + TABLE_CLIENTS + " (Agent, Client, Route, Zone) values (?,?,?,?)";
+    	private static final String INSERT_CLIENTS_EUROBIT = "insert into " + TABLE_CLIENTS_EUROBIT + " (client, cui, plt, tert_id, categorie, categorie_id, clasa, clasa_id, grupa, grupa_id) values (?,?,?,?,?,?,?,?,?,?)";
     	private static final String INSERT_SETUP = "insert into " + TABLE_SETUP + " (UtilizatorID, UserName, Parola) values (?,?,?)";
         
    		public DataManipulator(Context context ) {
@@ -43,6 +46,7 @@ public class DataManipulator {
                 this.insertOrderTemplate = DataManipulator.db.compileStatement(INSERT_ORDERS);
                 this.insertProductTemplate = DataManipulator.db.compileStatement(INSERT_PRODUCTS);
                 this.insertClientTemplate = DataManipulator.db.compileStatement(INSERT_CLIENTS);
+                this.insertClientEurobitTemplate = DataManipulator.db.compileStatement(INSERT_CLIENTS_EUROBIT);
                 this.insertSetupTemplate = DataManipulator.db.compileStatement(INSERT_SETUP);
                 orderOfClient = new ArrayList<CommandLine>();
     	}
@@ -72,6 +76,22 @@ public class DataManipulator {
         		return this.insertClientTemplate.executeInsert();
         }
 
+        public long insertIntoEurobitClients(String Client, String Cui, String Plt, String Tert_id, String Categorie, String Categorie_id, String Clasa, String Clasa_id, String Grupa, String Grupa_id) {
+        	// (client, cui, plt, tert_id, categorie, categorie_id, clasa, clasa_id, grupa, grupa_id)
+    		this.insertClientEurobitTemplate.bindString(1, Client);
+    		this.insertClientEurobitTemplate.bindString(2, Cui);
+    		this.insertClientEurobitTemplate.bindString(3, Plt);
+    		this.insertClientEurobitTemplate.bindString(4, Tert_id);
+    		this.insertClientEurobitTemplate.bindString(5, Categorie);
+    		this.insertClientEurobitTemplate.bindString(6, Clasa);
+    		this.insertClientEurobitTemplate.bindString(7, Clasa_id);
+    		this.insertClientEurobitTemplate.bindString(8, Categorie_id);
+    		this.insertClientEurobitTemplate.bindString(9, Grupa);
+    		this.insertClientEurobitTemplate.bindString(10, Grupa_id);
+    		return this.insertClientEurobitTemplate.executeInsert();
+    }
+
+        
         public long insertIntoSetup(String strID, String strUserName, String strPassword) {
     		this.insertSetupTemplate.bindString(1, strID);
     		this.insertSetupTemplate.bindString(2, strUserName);
@@ -261,6 +281,7 @@ public class DataManipulator {
                         db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (_id integer primary key autoincrement, ID TEXT, Name TEXT, Price TEXT, Symbol TEXT)");
                         db.execSQL("CREATE TABLE " + TABLE_CLIENTS + " (_id integer primary key autoincrement, Agent TEXT, Client TEXT, Route TEXT, Zone TEXT)");
                         db.execSQL("CREATE TABLE " + TABLE_SETUP + " (_id integer primary key autoincrement, UtilizatorID TEXT, Parola TEXT, UserName TEXT, SefID TEXT, ZonaID TEXT)");
+                        db.execSQL("CREATE TABLE " + TABLE_CLIENTS_EUROBIT + " (_id integer primary key autoincrement,client TEXT, cui TEXT, plt TEXT, tert_id TEXT, categorie TEXT, categorie_id TEXT, clasa TEXT, clasa_id TEXT, grupa TEXT, grupa_id TEXT)");
                         // db.execSQL("INSERT INTO SETUP (UtilizatorID, UserName, Parola) values ('1','NOBODY','NOBODY')";
                         
                 }
@@ -270,6 +291,7 @@ public class DataManipulator {
                         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDERS);
                         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
                         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIENTS);
+                        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIENTS_EUROBIT);
                         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETUP);
                         onCreate(db);
                 }

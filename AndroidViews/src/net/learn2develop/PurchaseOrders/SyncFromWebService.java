@@ -9,6 +9,7 @@
  *    http://javarevisited.blogspot.ro/2013/02/how-to-convert-json-string-to-java-object-jackson-example-tutorial.html
  *    http://www.skybert.net/java/http/parsing-huge-json-documents/
  *    http://stackoverflow.com/questions/2818697/sending-and-parsing-json-in-android
+ *    http://www.androidhive.info/2012/01/android-json-parsing-tutorial/
  *    
  */
 
@@ -18,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Vector;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.HashMap; 
 
@@ -80,7 +82,9 @@ public class SyncFromWebService extends ListActivity {
     	request.setHeader("Content-type", "application/json");
     	DefaultHttpClient httpClient = new DefaultHttpClient();
     	String theString = new String("");
-
+    	// ArrayList<HashMap<String, String>> clientsList;
+    	// clientsList = new ArrayList<HashMap<String, String>>();
+    	
        	try {
     		HttpResponse response = httpClient.execute(request);
         	HttpEntity responseEntity = response.getEntity();
@@ -114,13 +118,18 @@ public class SyncFromWebService extends ListActivity {
         	            String value = parser.getValueAsString();
         	            fields.put(field, value);
         	            System.out.println(field+" - "+value);
+        	            
         	            break;
 
         	        // Do something with the field-value pairs
         	        case END_OBJECT:
         	            // doSomethingWithTheObject(fields)
         	        	System.out.println(fields.toString());
-        	        	
+        	        	// theString="client";
+        	        	// System.out.println("END_OBJECT: client" + fields.get(theString));
+        	        	// System.out.println("END_OBJECT: grupa" + fields.get("grupa"));
+        	        	// clientsList.add(fields);
+        	        	dm.insertIntoEurobitClients(fields.get("client"), fields.get("cui"), fields.get("plt"), fields.get("tertId"), fields.get("categorie"), fields.get("categorieId"), fields.get("clasa"), fields.get("clasaId"), fields.get("grupa"), fields.get("grupaId"));
         	            break;
         	        }
         	    }
