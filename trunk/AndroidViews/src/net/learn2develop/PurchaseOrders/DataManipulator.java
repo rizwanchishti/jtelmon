@@ -1,4 +1,6 @@
-/* 
+/*
+ * http://code.google.com/p/jtelmon/source/browse/trunk/AndroidViews/src/net/learn2develop/PurchaseOrders/DataManipulator.java
+ *  
  * http://www.edumobile.org/android/android-development/use-of-sqlite/
  * http://android-er.blogspot.com/2011/06/delete-row-in-sqlite-database.html
  * 

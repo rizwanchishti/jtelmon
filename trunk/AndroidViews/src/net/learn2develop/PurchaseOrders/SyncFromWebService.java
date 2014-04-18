@@ -1,5 +1,7 @@
 
 /*
+ * http://code.google.com/p/jtelmon/source/browse/trunk/AndroidViews/src/net/learn2develop/PurchaseOrders/SyncFromWebService.java
+ * 
  *    Transaction support ; Batch updates ; 
  *    http://zetcode.com/db/postgresqljavatutorial/ 
  *    
