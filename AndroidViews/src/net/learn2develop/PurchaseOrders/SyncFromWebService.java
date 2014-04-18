@@ -74,8 +74,8 @@ public class SyncFromWebService extends ListActivity {
         // http://sfa.pangram.ro:8090/PostgresWebService/rest/sales/allclients
     	DataManipulator dm = null;    
         dm = new DataManipulator(getApplicationContext());
-    	// HttpGet request = new HttpGet(SERVICE_URI + "/sales/allclients");
-        HttpGet request = new HttpGet(SERVICE_URI + "/sales/allproducts"  );
+    	HttpGet request = new HttpGet(SERVICE_URI + "/sales/allclients");
+        // HttpGet request = new HttpGet(SERVICE_URI + "/sales/allproducts"  );
     	request.setHeader("Accept", "application/json");
     	request.setHeader("Content-type", "application/json");
     	DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -113,11 +113,14 @@ public class SyncFromWebService extends ListActivity {
         	            token = parser.nextToken();
         	            String value = parser.getValueAsString();
         	            fields.put(field, value);
+        	            System.out.println(field+" - "+value);
         	            break;
 
         	        // Do something with the field-value pairs
         	        case END_OBJECT:
         	            // doSomethingWithTheObject(fields)
+        	        	System.out.println(fields.toString());
+        	        	
         	            break;
         	        }
         	    }
