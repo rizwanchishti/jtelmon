@@ -51,7 +51,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class SyncFromWebService extends ListActivity {
 	
-	private final static String SERVICE_URI = "http://sfa.pangram.ro:8090/PostgresWebService/rest";
+	private final static String SERVICE_URI      = "http://sfa.pangram.ro:8090/PostgresWebService/rest";
+	private final static String SERVICE_URI_TEMP = "http://192.168.61.207:8080/EmployeeDirectoryJAXRS20140420/rest";
 	// private final static String SERVICE_URI = "http://ftp.pangram.ro:9090/SalesService/SalesService.svc";
 	// private final static String SERVICE_URI = "http://192.168.61.3/SalesService/SalesService.svc";
 	// private final static String SERVICE_URI = "http://192.168.101.222/SalesService/SalesService.svc";		
@@ -65,15 +66,66 @@ public class SyncFromWebService extends ListActivity {
         final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Sincronizeaza date...");
         new Thread() {
         	public void run() {
-        		// SyncClients1();
-        		SyncClients2();
+        		// SyncClients2();
+        		SyncProduseEurobit();
         		// SyncRoutes();
         		// SyncProducts();
         		progressDialog.dismiss();
         	}
         }.start();
     }
-    
+
+    public void SyncProduseEurobit() {
+    	// http://192.168.61.207:8080/PostgresWebService/rest/sales/eurobit/allproducts
+    	// http://192.168.61.207:8080/EmployeeDirectoryJAXRS20140420/rest/sales/eurobit/allproducts
+    	DataManipulator dm = null;    
+        dm = new DataManipulator(getApplicationContext());
+    	HttpGet request = new HttpGet(SERVICE_URI_TEMP + "/sales/eurobit/allproducts");
+    	request.setHeader("Accept", "application/json");
+    	request.setHeader("Content-type", "application/json");
+    	DefaultHttpClient httpClient = new DefaultHttpClient();
+       	try {
+    		HttpResponse response = httpClient.execute(request);
+        	HttpEntity responseEntity = response.getEntity();
+        	InputStream inputStream = responseEntity.getContent();
+        	BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        	// Parsing Huge JSON Documents -> 
+        	// http://www.skybert.net/java/http/parsing-huge-json-documents/
+        	ObjectMapper objMapper = new ObjectMapper();
+        	JsonFactory jsonFactory = objMapper.getJsonFactory();
+        	JsonParser parser = jsonFactory.createJsonParser(reader);
+        	// Map where to store your field-value pairs per object
+        	HashMap<String, String> fields = new HashMap<String, String>();
+        	// http://stackoverflow.com/questions/18230744/json-parser-read-an-entry-by-entry-from-large-json-file
+        	// http://javarevisited.blogspot.ro/2013/02/how-to-convert-json-string-to-java-object-jackson-example-tutorial.html
+        	JsonToken token;
+        	while ((token = parser.nextToken()) != JsonToken.END_ARRAY) {
+        	    switch (token) {
+        	        // Starts a new object, clear the map
+        	        case START_OBJECT:
+        	            fields.clear();
+        	            break;
+        	        // For each field-value pair, store it in the map 'fields'
+        	        case FIELD_NAME:
+        	            String field = parser.getCurrentName();
+        	            token = parser.nextToken();
+        	            String value = parser.getValueAsString();
+        	            fields.put(field, value);
+        	            System.out.println(field+" - "+value);
+        	            break;
+        	        case END_OBJECT:
+        	            // doSomethingWithTheObject(fields)
+        	        	System.out.println("END_OBJECT: " + fields.toString());
+        	        	// System.out.println("END_OBJECT: grupa" + fields.get("grupa"));
+        	        	// dm.insertIntoEurobitClients(fields.get("client"), fields.get("cui"), fields.get("plt"), fields.get("tertId"), fields.get("categorie"), fields.get("categorieId"), fields.get("clasa"), fields.get("clasaId"), fields.get("grupa"), fields.get("grupaId"));
+        	            break;
+        	        }
+        	    }
+        	    parser.close();
+       	} catch (Exception a) {
+       		a.printStackTrace();
+       	}
+    }    
     
     public void SyncClients2() {
         // http://sfa.pangram.ro:8090/PostgresWebService/rest/sales/allclients
@@ -144,7 +196,7 @@ public class SyncFromWebService extends ListActivity {
     }
     
     
-    public void SyncClients1() {
+    public void SyncClientsKO() {
         // http://sfa.pangram.ro:8090/PostgresWebService/rest/sales/allclients
     	DataManipulator dm = null;    
         dm = new DataManipulator(getApplicationContext());
