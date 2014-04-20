@@ -27,7 +27,7 @@ public class SoftyResource {
 		return dao.findAllAgents();
 	}
 	
-	// http://192.168.61.207:8080/PostgresWebServiceJSONP15/rest/sales/allusers/jsonp
+	// http://192.168.61.207:8080/PostgresWebService/rest/sales/allusers/jsonp
 	@GET
 	@Path("/allusers/jsonp")
 	@Produces({"application/javascript"})
@@ -42,6 +42,15 @@ public class SoftyResource {
 	public List<OrderData> findAllOrders() {
 		return dao.findAllOrders();
 	}
+
+	// http://192.168.61.207:8080/PostgresWebService/rest/sales/eurobit/allproducts
+	// http://192.168.61.207:8080/EmployeeDirectoryJAXRS20140420/rest/sales/eurobit/allproducts
+	@GET @Path("/eurobit/allproducts")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public List<ProdusEurobit> findAllEurobitProducts() {
+		return dao.findAllEurobitProducts();
+	}
+
 	
 	@GET @Path("/allproducts")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
