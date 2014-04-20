@@ -53,6 +53,8 @@ public class SyncFromWebService extends ListActivity {
 	
 	private final static String SERVICE_URI      = "http://sfa.pangram.ro:8090/PostgresWebService/rest";
 	private final static String SERVICE_URI_TEMP = "http://192.168.61.207:8080/EmployeeDirectoryJAXRS20140420/rest";
+	// private final static String SERVICE_URI_TEMP = "http://sfa.pangram.ro:8080/EmployeeDirectoryJAXRS20140420/rest";
+
 	// private final static String SERVICE_URI = "http://ftp.pangram.ro:9090/SalesService/SalesService.svc";
 	// private final static String SERVICE_URI = "http://192.168.61.3/SalesService/SalesService.svc";
 	// private final static String SERVICE_URI = "http://192.168.101.222/SalesService/SalesService.svc";		
