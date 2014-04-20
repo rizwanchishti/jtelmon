@@ -268,6 +268,37 @@ public class SoftyDAO {
     	return cr;
     }
 
+    public List<ProdusEurobit> findAllEurobitProducts() {
+    	List<ProdusEurobit> list = new ArrayList<ProdusEurobit>();
+        Connection c = null;
+    	String sql = "SELECT pr.stoc_id, pr.simbol, pr.denumire, pr.categorie_id , pr.grupa_id , pr.clasa_id , pr.clasa, pr.grupa, pr.categorie FROM produse_eurobit as pr ";
+        try {
+            c = ConnectionHelperPg.getConnection();
+            Statement s = c.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            while (rs.next()) {
+            	ProdusEurobit pr = new ProdusEurobit();
+            	pr.setStocId(rs.getString           ("stoc_id"));
+            	pr.setSimbol(rs.getString            ("simbol"));
+            	pr.setDenumire(rs.getString        ("denumire"));
+            	pr.setCategorieId(rs.getString ("categorie_id"));
+            	pr.setGrupaId(rs.getString         ("grupa_id"));
+            	pr.setClasaId(rs.getString         ("clasa_id"));
+            	pr.setClasa(rs.getString              ("clasa"));
+            	pr.setGrupa(rs.getString              ("grupa"));
+            	pr.setCategorie(rs.getString      ("categorie"));
+            	list.add(pr);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger lgr = Logger.getLogger(SoftyDAO.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+            throw new RuntimeException(e);
+		} finally {
+			ConnectionHelperPg.close(c);
+		}
+    	return list;
+    }
     
     public List<Product> findAllProducts() {
     	List<Product> list = new ArrayList<Product>();
@@ -308,6 +339,7 @@ public class SoftyDAO {
             ResultSet rs = s.executeQuery(sql);
             while (rs.next()) {
             	list.add(processClientRow(rs));
+            	
             }
         } catch (SQLException e) {
             e.printStackTrace();
