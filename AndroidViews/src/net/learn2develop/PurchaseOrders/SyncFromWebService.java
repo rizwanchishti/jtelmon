@@ -53,7 +53,8 @@ public class SyncFromWebService extends ListActivity {
 	
 	private final static String SERVICE_URI         = "http://sfa.pangram.ro:8090/PostgresWebService/rest";
 	// private final static String SERVICE_URI_TEMP = "http://192.168.61.207:8080/EmployeeDirectoryJAXRS20140420/rest";
-	private final static String SERVICE_URI_TEMP    = "http://sfa.pangram.ro:8090/EmployeeDirectoryJAXRS20140420/rest";
+	// private final static String SERVICE_URI_TEMP    = "http://sfa.pangram.ro:8090/EmployeeDirectoryJAXRS20140420/rest";
+	private final static String SERVICE_URI_TEMP    = "http://sfa.pangram.ro:8090/EmployeeDirectoryJAXRS20140422/rest";
 
 	// private final static String SERVICE_URI = "http://ftp.pangram.ro:9090/SalesService/SalesService.svc";
 	// private final static String SERVICE_URI = "http://192.168.61.3/SalesService/SalesService.svc";
@@ -109,7 +110,6 @@ public class SyncFromWebService extends ListActivity {
         	        case START_OBJECT:
         	            fields.clear();
         	            break;
-        	        // For each field-value pair, store it in the map 'fields'
         	        case FIELD_NAME:
         	            String field = parser.getCurrentName();
         	            token = parser.nextToken();
@@ -118,10 +118,8 @@ public class SyncFromWebService extends ListActivity {
         	            System.out.println(field+" - "+value);
         	            break;
         	        case END_OBJECT:
-        	            // doSomethingWithTheObject(fields)
         	        	System.out.println("END_OBJECT: " + fields.toString());
-        	        	// System.out.println("END_OBJECT: grupa" + fields.get("grupa"));
-        	        	// dm.insertIntoEurobitClients(fields.get("client"), fields.get("cui"), fields.get("plt"), fields.get("tertId"), fields.get("categorie"), fields.get("categorieId"), fields.get("clasa"), fields.get("clasaId"), fields.get("grupa"), fields.get("grupaId"));
+        	        	dm.insertIntoEurobitProducts(fields.get("stocId"), fields.get("simbol"), fields.get("denumire"), fields.get("categorieId"), fields.get("grupaId"), fields.get("clasaId"), fields.get("clasa"), fields.get("grupa"), fields.get("categorie"));
         	            break;
         	        }
         	    }
