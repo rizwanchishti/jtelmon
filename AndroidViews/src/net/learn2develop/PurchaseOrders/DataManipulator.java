@@ -83,7 +83,6 @@ public class DataManipulator {
         }
 
         public long insertIntoEurobitClients(String Client, String Cui, String Plt, String Tert_id, String Categorie, String Categorie_id, String Clasa, String Clasa_id, String Grupa, String Grupa_id) {
-        	// (client, cui, plt, tert_id, categorie, categorie_id, clasa, clasa_id, grupa, grupa_id)
     		this.insertClientEurobitTemplate.bindString(1, Client);
     		this.insertClientEurobitTemplate.bindString(2, Cui);
     		this.insertClientEurobitTemplate.bindString(3, Plt);
@@ -98,15 +97,15 @@ public class DataManipulator {
     }
 
         public long insertIntoEurobitProducts(String Stoc_id, String Simbol, String Denumire, String Categorie_id, String Grupa_id, String Clasa_id, String Clasa, String Grupa, String Categorie) {
-    		this.insertClientEurobitTemplate.bindString(1, Stoc_id);
-    		this.insertClientEurobitTemplate.bindString(2, Simbol);
-    		this.insertClientEurobitTemplate.bindString(3, Denumire);
-    		this.insertClientEurobitTemplate.bindString(4, Categorie_id);
-    		this.insertClientEurobitTemplate.bindString(5, Grupa_id);
-    		this.insertClientEurobitTemplate.bindString(6, Clasa_id);
-    		this.insertClientEurobitTemplate.bindString(7, Clasa);
-    		this.insertClientEurobitTemplate.bindString(8, Grupa);
-    		this.insertClientEurobitTemplate.bindString(9, Categorie);
+    		this.insertProductEurobitTemplate.bindString(1, Stoc_id);
+    		this.insertProductEurobitTemplate.bindString(2, Simbol);
+    		this.insertProductEurobitTemplate.bindString(3, Denumire);
+    		this.insertProductEurobitTemplate.bindString(4, Categorie_id);
+    		this.insertProductEurobitTemplate.bindString(5, Grupa_id);
+    		this.insertProductEurobitTemplate.bindString(6, Clasa_id);
+    		this.insertProductEurobitTemplate.bindString(7, Clasa);
+    		this.insertProductEurobitTemplate.bindString(8, Grupa);
+    		this.insertProductEurobitTemplate.bindString(9, Categorie);
         	return this.insertProductEurobitTemplate.executeInsert();
         }
         
@@ -301,8 +300,6 @@ public class DataManipulator {
                         db.execSQL("CREATE TABLE " + TABLE_SETUP + " (_id integer primary key autoincrement, UtilizatorID TEXT, Parola TEXT, UserName TEXT, SefID TEXT, ZonaID TEXT)");
                         db.execSQL("CREATE TABLE " + TABLE_CLIENTS_EUROBIT + " (_id integer primary key autoincrement,client TEXT, cui TEXT, plt TEXT, tert_id TEXT, categorie TEXT, categorie_id TEXT, clasa TEXT, clasa_id TEXT, grupa TEXT, grupa_id TEXT)");
                         db.execSQL("CREATE TABLE " + TABLE_PRODUCTS_EUROBIT + " (_id integer primary key autoincrement,stoc_id TEXT, simbol TEXT, denumire TEXT, categorie_id TEXT, grupa_id TEXT, clasa_id TEXT, clasa TEXT, grupa TEXT, categorie TEXT)");
-                        // db.execSQL("INSERT INTO SETUP (UtilizatorID, UserName, Parola) values ('1','NOBODY','NOBODY')";
-                        
                 }
 
                 @Override
