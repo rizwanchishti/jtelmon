@@ -69,7 +69,7 @@ public class SyncFromWebService extends ListActivity {
         final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Sincronizeaza date...");
         new Thread() {
         	public void run() {
-        		// SyncClients2();
+        		SyncClientsEurobit();
         		SyncProduseEurobit();
         		// SyncRoutes();
         		// SyncProducts();
@@ -132,7 +132,7 @@ public class SyncFromWebService extends ListActivity {
 		}
     }    
     
-    public void SyncClients2() {
+    public void SyncClientsEurobit() {
         // http://sfa.pangram.ro:8090/PostgresWebService/rest/sales/allclients
     	DataManipulator dm = null;    
         dm = new DataManipulator(getApplicationContext());
