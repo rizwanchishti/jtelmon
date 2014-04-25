@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ 
+    <string name="app2_name">ListView CusrsorAdapter</string>
+ <string name="some_text2">
+     Some North American Countries!
+ </string>
+ <string name="some_hint2">
+  Type here to filter&#8230;
+ </string>
+  
+</resources>
