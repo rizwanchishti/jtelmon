@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Pangram 2011-11.08</string>
-    <string name="app_name">WCF2SQLite</string>
+    <string name="hello">Pangram20140425</string>
+    <string name="app_name">RestSQLite</string>
     <string name="weekday">M-F</string>
     <string name="weekend">S</string>
     <string name="northbound">Northbound</string>
@@ -27,4 +27,8 @@
     <string name="discountDefault">Discount</string>
     <string name="COUNTRY_LABEL">Country</string>
     <string name="CLIENT_LABEL">Client</string>
+    
+    <string name="some_text">Some North American Countries! </string>
+ 	<string name="some_hint"> Type here to filter&#8230; </string>
+    
 </resources>
