@@ -302,6 +302,9 @@ public class DataManipulator {
                         db.execSQL("CREATE TABLE " + TABLE_PRODUCTS_EUROBIT + " (_id integer primary key autoincrement,stoc_id TEXT, simbol TEXT, denumire TEXT, categorie_id TEXT, grupa_id TEXT, clasa_id TEXT, clasa TEXT, grupa TEXT, categorie TEXT)");
                 }
 
+                // http://www.vogella.com/tutorials/AndroidSQLite/article.html
+                // Method is called during an upgrade of the database,
+                // e.g. if you increase the database version
                 @Override
                 public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
                         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDERS);
