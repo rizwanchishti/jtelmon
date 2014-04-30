@@ -38,7 +38,7 @@
     	android:textStyle="bold" 
     	android:text="Selectie Client" 
     	android:layout_width="230dp" 
-    	android:id="@+id/Button02"></Button>
+    	android:id="@+id/Button02SelectieClient"></Button>
 	
 	<Button 
 	    android:layout_gravity="center_horizontal" 
@@ -46,13 +46,13 @@
 	    android:textStyle="bold" 
 	    android:text="Cauta Produs" 
 	    android:layout_width="230dp" 
-	    android:id="@+id/Button03"></Button>
+	    android:id="@+id/Button03CautaProdus"></Button>
 	
 	<Button 
 	    android:layout_height="wrap_content" 
 	    android:textStyle="bold" 
 	    android:layout_width="230dp" 
-	    android:id="@+id/Button04" 
+	    android:id="@+id/Button04ComenziNetrimise" 
 	    android:text="Comenzi Netrimise"></Button>
 	
 	<Button 
