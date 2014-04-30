@@ -41,11 +41,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		View v = findViewById(R.id.Button01SelectieRuta);
         v.setOnClickListener(this);
-        View s = findViewById(R.id.Button02);
+        View s = findViewById(R.id.Button02SelectieClient);
         s.setOnClickListener(this);
-        View l = findViewById(R.id.Button03);
+        View l = findViewById(R.id.Button03CautaProdus);
         l.setOnClickListener(this);
-        View e = findViewById(R.id.Button04);
+        View e = findViewById(R.id.Button04ComenziNetrimise);
         e.setOnClickListener(this);
         View x = findViewById(R.id.Button05);
         x.setOnClickListener(this);
@@ -53,15 +53,16 @@ public class MainActivity extends Activity implements OnClickListener {
    
     // @Override
         public void onClick(View arg0) {
-        	if(arg0.getId() == R.id.Button02){
-        		Intent intent = new Intent(this,SelectieClient.class);
+        	if(arg0.getId() == R.id.Button02SelectieClient){
+        		// Intent intent = new Intent(this,SelectieClient.class);
+        		Intent intent = new Intent(this,SelectieClientEurobit.class);
                 this.startActivity(intent);
         	}
-        	if(arg0.getId() == R.id.Button03){
+        	if(arg0.getId() == R.id.Button03CautaProdus){
         		Intent intent = new Intent(this,CautaProdus.class);
         		this.startActivity(intent);
         	}
-        	if(arg0.getId() == R.id.Button04){
+        	if(arg0.getId() == R.id.Button04ComenziNetrimise){
         		Intent intent = new Intent(this,UnsentOrders.class);
         		this.startActivity(intent);
         	}
