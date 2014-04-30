@@ -10,12 +10,15 @@ package net.learn2develop.PurchaseOrders;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import android.util.Log;
 
 public class DataManipulator {
@@ -259,7 +262,36 @@ public class DataManipulator {
                 cursor.close();
                 return list;
         }
+
         
+        public Cursor selectAllEurobitClients()
+        {
+        		// client , cui , plt , tert_id , categorie , categorie_id , clasa , clasa_id , grupa , grupa_id
+                // Cursor cursor = db.query(TABLE_CLIENTS_EUROBIT, new String[] { "client","cui","plt","tert_it","categorie","categorie_id","clasa","clasa_id","grupa","grupa_id"}, null, null, null, null, "client asc"); 
+        	    Cursor cursor = db.query(TABLE_CLIENTS_EUROBIT, new String[] { "client","cui","plt","tert_it"}, null, null, null, null, "client asc");
+                if (cursor != null) {
+                	   cursor.moveToFirst();
+                }
+                return cursor;
+        }
+
+        public Cursor fetchEurobitClientsByName(String inputText) throws SQLException {
+        	  // Log.w(TAG, inputText);
+        	  Cursor mCursor = null;
+        	  if (inputText == null  ||  inputText.length () == 0)  {
+        	   // mCursor = db.query(SQLITE_TABLE, new String[] {KEY_ROWID, KEY_CODE, KEY_NAME, KEY_CONTINENT, KEY_REGION}, null, null, null, null, null);
+        		  mCursor = selectAllEurobitClients();
+        	  }
+        	  else {
+        		  // mCursor = mDb.query(true, TABLE_CLIENTS_EUROBIT, new String[] {KEY_ROWID, KEY_CODE, KEY_NAME, KEY_CONTINENT, KEY_REGION}, KEY_NAME + " like '%" + inputText + "%'", null, null, null, null, null);
+        		  mCursor = selectAllEurobitClients();
+        	  }
+        	  if (mCursor != null) {
+        		  mCursor.moveToFirst();
+        	  }
+        	  return mCursor;
+        	 }
+
 
         public String[] selectFirstRecordFromSetupTable()
         {
