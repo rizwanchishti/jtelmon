@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -20,14 +21,11 @@ import android.widget.AdapterView.OnItemClickListener;
  
 public class SelectieClientEurobit extends Activity {
  
-	
- public static final String KEY_ROWID = "_id";
- public static final String KEY_CODE = "code";
- public static final String KEY_NAME = "name";
- public static final String KEY_CONTINENT = "continent";
- public static final String KEY_REGION = "region";
+ public static final String KEY_CLIENT = "client";
+ public static final String KEY_CUI = "cui";
+ public static final String KEY_PLT = "plt";
+ public static final String KEY_TERT_ID = "tert_id";
 
- // private CountriesDbAdapter dbHelper;
  private DataManipulator dbHelper;
  private SimpleCursorAdapter dataAdapter;
  
@@ -37,40 +35,37 @@ public class SelectieClientEurobit extends Activity {
      setContentView(R.layout.country_main);
  
   dbHelper = new DataManipulator(this);
-  // dbHelper.open();
- 
-  //Clean all data
-  // dbHelper.deleteAllCountries();
-  //Add some data
-  // dbHelper.insertSomeCountries();
- 
+
   //Generate ListView from SQLite Database
   displayListView();
  
  }
  
  private void displayListView() {
+  
   Cursor cursor = dbHelper.selectAllEurobitClients();
+  Log.i("LOG_SelectieClientEurobit.displayListView : ", "Cursor(0)" + cursor.getColumnName(0));
+  
   // The desired columns to be bound
   String[] columns = new String[] {
-    SelectieClientEurobit.KEY_CODE,
-    SelectieClientEurobit.KEY_NAME,
-    SelectieClientEurobit.KEY_CONTINENT,
-    SelectieClientEurobit.KEY_REGION
+    SelectieClientEurobit.KEY_CLIENT,
+    SelectieClientEurobit.KEY_CUI,
+    SelectieClientEurobit.KEY_PLT,
+    SelectieClientEurobit.KEY_TERT_ID
   };
  
   // the XML defined views which the data will be bound to
   int[] to = new int[] { 
-    R.id.code,
-    R.id.name,
-    R.id.continent,
-    R.id.region,
+    R.id.client,
+    R.id.cui,
+    R.id.plt,
+    R.id.tert_id,
   };
  
   // create the adapter using the cursor pointing to the desired data 
   //as well as the layout information
   dataAdapter = new SimpleCursorAdapter(
-    this, R.layout.countryinfo, 
+    this, R.layout.eurobit_client_info, 
     cursor, 
     columns, 
     to);
@@ -89,7 +84,7 @@ public class SelectieClientEurobit extends Activity {
  
    // Get the state's capital from this row in the database.
    String countryCode = 
-    cursor.getString(cursor.getColumnIndexOrThrow("code"));
+    cursor.getString(cursor.getColumnIndexOrThrow("client"));
    Toast.makeText(getApplicationContext(),
      countryCode, Toast.LENGTH_SHORT).show();
  
@@ -108,7 +103,7 @@ public class SelectieClientEurobit extends Activity {
  
    public void onTextChanged(CharSequence s, int start, 
      int before, int count) {
-    dataAdapter.getFilter().filter(s.toString());
+	   dataAdapter.getFilter().filter(s.toString());
    }
   });
    

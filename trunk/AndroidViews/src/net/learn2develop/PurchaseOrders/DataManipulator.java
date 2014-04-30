@@ -267,8 +267,8 @@ public class DataManipulator {
         public Cursor selectAllEurobitClients()
         {
         		// client , cui , plt , tert_id , categorie , categorie_id , clasa , clasa_id , grupa , grupa_id
-                // Cursor cursor = db.query(TABLE_CLIENTS_EUROBIT, new String[] { "client","cui","plt","tert_it","categorie","categorie_id","clasa","clasa_id","grupa","grupa_id"}, null, null, null, null, "client asc"); 
-        	    Cursor cursor = db.query(TABLE_CLIENTS_EUROBIT, new String[] { "client","cui","plt","tert_it"}, null, null, null, null, "client asc");
+                Cursor cursor = db.query(TABLE_CLIENTS_EUROBIT, new String[] { "_id","client","cui","plt","tert_id","categorie","categorie_id","clasa","clasa_id","grupa","grupa_id"}, null, null, null, null, "client asc"); 
+        	    // Cursor cursor = db.query(TABLE_CLIENTS_EUROBIT, new String[] { "client","cui","plt","tert_id"}, null, null, null, null, "client asc");
                 if (cursor != null) {
                 	   cursor.moveToFirst();
                 }
@@ -284,7 +284,8 @@ public class DataManipulator {
         	  }
         	  else {
         		  // mCursor = mDb.query(true, TABLE_CLIENTS_EUROBIT, new String[] {KEY_ROWID, KEY_CODE, KEY_NAME, KEY_CONTINENT, KEY_REGION}, KEY_NAME + " like '%" + inputText + "%'", null, null, null, null, null);
-        		  mCursor = selectAllEurobitClients();
+        		   mCursor = db.query(TABLE_CLIENTS_EUROBIT, new String[] { "_id","client","cui","plt","tert_id","categorie","categorie_id","clasa","clasa_id","grupa","grupa_id"}, "client" + " like '%"+ inputText + "%'" , null, null, null, "client asc");
+        		  // mCursor = selectAllEurobitClients();
         	  }
         	  if (mCursor != null) {
         		  mCursor.moveToFirst();
