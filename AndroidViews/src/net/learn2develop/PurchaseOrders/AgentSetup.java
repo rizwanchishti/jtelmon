@@ -71,8 +71,8 @@ public class AgentSetup extends Activity {
                 
                 BundledAgent = getIntent().getExtras();
                 if(BundledAgent != null) {
-                   idAgent = BundledAgent.getString("agent");
-                   thePass = BundledAgent.getString("parola");
+                   idAgent = BundledAgent.getString("agent").trim();
+                   thePass = BundledAgent.getString("parola").trim();
                    Log.i("BundledAgent " ,idAgent+" \n");
                    t1 = (TextView)findViewById(R.id.agentid);
                    t2 = (TextView)findViewById(R.id.agpass);
@@ -117,9 +117,9 @@ public class AgentSetup extends Activity {
                 theString = builder.toString();
                 
                 JSONObject json=new JSONObject(theString);
-                restStringID = json.getString("id");
-                restStringPassword = json.getString("password");
-                restStringUserName = json.getString("userName");
+                restStringID = json.getString("id").trim();
+                restStringPassword = json.getString("password").trim();
+                restStringUserName = json.getString("userName").trim();
                 
                 Log.i("userpasscheck","<jsonobject>\n" + json.toString()            + "\n</jsonobject>");
                 Log.i("userID","<UtilizatorID"+">"     + json.getString("id")       + "</UtilizatorID"    +">\n");
