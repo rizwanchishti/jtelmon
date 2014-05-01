@@ -64,11 +64,7 @@ public class AgentSetup extends Activity {
         @Override
             public void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
-
                 setContentView(R.layout.main_agent_reinitializare);
-               
-                // String isNot =new String("");
-                
                 BundledAgent = getIntent().getExtras();
                 if(BundledAgent != null) {
                    idAgent = BundledAgent.getString("agent").trim();
@@ -84,7 +80,6 @@ public class AgentSetup extends Activity {
                        t2.setText(thePass);
                    }
                 }
-                
                 // HttpGet request = new HttpGet(SERVICE_URI + "/json/userpasscheck ");       
                 // HttpGet request = new HttpGet(SERVICE_URI + "/sales/search/1");
                 HttpGet request = new HttpGet(SERVICE_URI + "/sales/search/"+idAgent);
@@ -99,33 +94,26 @@ public class AgentSetup extends Activity {
                 InputStream stream = responseEntity.getContent();
                 BufferedReader reader = new BufferedReader(
                                         new InputStreamReader(stream));
-              
-
                 // Vector<String> vectorOfStrings = new Vector<String>();
                 // String tempString = new String();
                 String restStringID         = new String();
                 String restStringPassword   = new String();
                 String restStringUserName   = new String();
-                
-                
                 StringBuilder builder = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
                                 builder.append(line);
-                        }
+                }
                 stream.close();
                 theString = builder.toString();
-                
                 JSONObject json=new JSONObject(theString);
                 restStringID = json.getString("id").trim();
                 restStringPassword = json.getString("password").trim();
                 restStringUserName = json.getString("userName").trim();
-                
                 Log.i("userpasscheck","<jsonobject>\n" + json.toString()            + "\n</jsonobject>");
                 Log.i("userID","<UtilizatorID"+">"     + json.getString("id")       + "</UtilizatorID"    +">\n");
                 Log.i("userPass","<Parola"+">"         + json.getString("password") + "</Parola"          +">\n");
                 Log.i("userName","<userName"+">"       + json.getString("userName") + "</userName"        +">\n");
-                
                 boolean tmpb1 , tmpb2;
                 tmpb1=restStringID.equals(idAgent);
                 tmpb2=restStringPassword.equals(thePass);
@@ -139,24 +127,9 @@ public class AgentSetup extends Activity {
                 	theResult = "KO! ID sau parola gresita";
                 }
                 t3.setText(theResult);
-                //JSONArray nameArray=json.getJSONArray("userPass");
-                //for(int i=0;i<nameArray.length();i++)
-                //{
-                	//tempStringID       = nameArray.getJSONObject(i).getString("id")         ;
-                	//tempStringPassword = nameArray.getJSONObject(i).getString("password")   ; 
-                	//Log.i("userPass","<UtilizatorID"+i+">"      +nameArray.getJSONObject(i).getString("id")    +"</UtilizatorID"    +i+">\n");
-                	//Log.i("userPass","<Parola"+i+">"            +nameArray.getJSONObject(i).getString("password")          +"</Parola"          +i+">\n");
-                	// 	Log.i("userpasscheck","<Price"+i+">"   +nameArray.getJSONObject(i).getString("Price")   +"</Price"   +i+">\n");
-                	//  Log.i("userpasscheck","<Symbol"+i+">"  +nameArray.getJSONObject(i).getString("Symbol")+"</Symbol"+i+">\n");
-                	// tempString=nameArray.getJSONObject(i).getString("Name")+"\n"+
-                    //            nameArray.getJSONObject(i).getString("Price")+"\n"+nameArray.getJSONObject(i).getString("Symbol");
-                	// vectorOfStrings.add(new String(tempString));
-                //}
-            	// int orderCount = vectorOfStrings.size();
-            	// String[] orderTimeStamps = new String[orderCount];
-            	// vectorOfStrings.copyInto(orderTimeStamps); 
-            	// setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , orderTimeStamps));
             } catch (Exception e) {
+            			theResult = "KO, Exceptie !";
+            			t3.setText(theResult + e.getMessage());
                         e.printStackTrace();
                         Logger lgr = Logger.getLogger(AgentSetup.class.getName());
                         lgr.log(Level.SEVERE, e.getMessage(), e);

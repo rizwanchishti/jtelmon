@@ -197,7 +197,9 @@ public class SyncFromWebService extends ListActivity {
        	} catch (Exception a) {
        		a.printStackTrace();
        	}
-
+		if (dm != null) {
+			dm.close();
+		}
     }
     
     
