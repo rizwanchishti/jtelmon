@@ -56,7 +56,7 @@ public class AgentSetup extends Activity {
 	    Bundle BundledAgent;
 	    String idAgent;
 	    String thePass;
-	    String theResult = new String("OK");
+	    String theResult = new String("OK ");
 	    TextView t1;
 	    TextView t2;
 	    TextView t3;
@@ -87,7 +87,12 @@ public class AgentSetup extends Activity {
                 request.setHeader("Content-type", "application/json"); 
                 DefaultHttpClient httpClient = new DefaultHttpClient();
                 String theString = new String("");
-            
+
+                String restStringID         = new String();
+                String restStringPassword   = new String();
+                String restStringUserName   = new String();
+                boolean tmpb1 , tmpb2;
+                
             try {
                 HttpResponse response = httpClient.execute(request);
                 HttpEntity responseEntity = response.getEntity();
@@ -96,9 +101,6 @@ public class AgentSetup extends Activity {
                                         new InputStreamReader(stream));
                 // Vector<String> vectorOfStrings = new Vector<String>();
                 // String tempString = new String();
-                String restStringID         = new String();
-                String restStringPassword   = new String();
-                String restStringUserName   = new String();
                 StringBuilder builder = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -110,11 +112,20 @@ public class AgentSetup extends Activity {
                 restStringID = json.getString("id").trim();
                 restStringPassword = json.getString("password").trim();
                 restStringUserName = json.getString("userName").trim();
+    			t1.setText(restStringID);
+    			t2.setText(restStringPassword);
                 Log.i("userpasscheck","<jsonobject>\n" + json.toString()            + "\n</jsonobject>");
                 Log.i("userID","<UtilizatorID"+">"     + json.getString("id")       + "</UtilizatorID"    +">\n");
                 Log.i("userPass","<Parola"+">"         + json.getString("password") + "</Parola"          +">\n");
                 Log.i("userName","<userName"+">"       + json.getString("userName") + "</userName"        +">\n");
-                boolean tmpb1 , tmpb2;
+            } catch (Exception e) {
+    			theResult = "KO, exceptie stream ! ";
+    			t3.setText(theResult + e.toString());
+                e.printStackTrace();
+                Logger lgr = Logger.getLogger(AgentSetup.class.getName());
+                lgr.log(Level.SEVERE, e.getMessage(), e);
+            }    
+            try {
                 tmpb1=restStringID.equals(idAgent);
                 tmpb2=restStringPassword.equals(thePass);
                 if( tmpb1 && tmpb2){
@@ -128,8 +139,8 @@ public class AgentSetup extends Activity {
                 }
                 t3.setText(theResult);
             } catch (Exception e) {
-            			theResult = "KO, Exceptie !";
-            			t3.setText(theResult + e.getMessage());
+            			theResult = "KO, exceptie SQLite ! ";
+            			t3.setText(theResult + e.toString());
                         e.printStackTrace();
                         Logger lgr = Logger.getLogger(AgentSetup.class.getName());
                         lgr.log(Level.SEVERE, e.getMessage(), e);
