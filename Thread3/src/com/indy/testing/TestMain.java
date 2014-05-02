@@ -1,5 +1,7 @@
 
 // http://indyvision.net/2010/02/android-threads-tutorial-part-3/
+// http://indyvision.net/2010/02/android-threads-tutorial-part-2/
+// http://indyvision.net/2010/01/android-threads-tutorial/
 
 package com.indy.testing;
 
