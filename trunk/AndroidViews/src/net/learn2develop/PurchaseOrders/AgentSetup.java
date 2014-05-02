@@ -7,6 +7,7 @@ package net.learn2develop.PurchaseOrders;
 // AgentSetup  este clasa care va seta noul agent in Postgres
 
 import net.learn2develop.R;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,7 +17,6 @@ import java.util.Vector;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
-
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,6 +34,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -81,19 +82,21 @@ public class AgentSetup extends Activity {
                        t2.setText(thePass);
                    }
                 }
-                // HttpGet request = new HttpGet(SERVICE_URI + "/json/userpasscheck ");       
-                // HttpGet request = new HttpGet(SERVICE_URI + "/sales/search/1");
-                HttpGet request = new HttpGet(SERVICE_URI + "/sales/search/"+idAgent);
-                request.setHeader("Accept", "application/json");
-                request.setHeader("Content-type", "application/json"); 
-                DefaultHttpClient httpClient = new DefaultHttpClient();
-                String theString = new String("");
-
-                String restStringID         = new String();
-                String restStringPassword   = new String();
-                String restStringUserName   = new String();
-                
-                
+        // fara acest new Thread() - apare eroarea : android.os.NetworkOnMainThreadException 
+        // functiile de retea trebuiesc executate in new THREAD ...     
+        // aceasta eroare apare doar in tableta , nu si in emulator !          
+        new Thread() {
+          public void run() {
+              // HttpGet request = new HttpGet(SERVICE_URI + "/json/userpasscheck ");       
+              // HttpGet request = new HttpGet(SERVICE_URI + "/sales/search/1");
+              HttpGet request = new HttpGet(SERVICE_URI + "/sales/search/"+idAgent);
+              request.setHeader("Accept", "application/json");
+              request.setHeader("Content-type", "application/json"); 
+              DefaultHttpClient httpClient = new DefaultHttpClient();
+              String theString = new String("");
+              String restStringID         = new String();
+              String restStringPassword   = new String();
+              String restStringUserName   = new String();
             try {
                 HttpResponse response = httpClient.execute(request);
                 HttpEntity responseEntity = response.getEntity();
@@ -113,15 +116,15 @@ public class AgentSetup extends Activity {
                 restStringID = json.getString("id").trim();
                 restStringPassword = json.getString("password").trim();
                 restStringUserName = json.getString("userName").trim();
-    			t1.setText("'"+idAgent+"' '"+restStringID+"'");
-    			t2.setText("'"+thePass+"' '"+restStringPassword+"'");
+    			// t1.setText("'"+idAgent+"' '"+restStringID+"'");
+    			// t2.setText("'"+thePass+"' '"+restStringPassword+"'");
                 Log.i("userpasscheck","<jsonobject>\n" + json.toString()            + "\n</jsonobject>");
                 Log.i("userID","<UtilizatorID"+">"     + json.getString("id")       + "</UtilizatorID"    +">\n");
                 Log.i("userPass","<Parola"+">"         + json.getString("password") + "</Parola"          +">\n");
                 Log.i("userName","<userName"+">"       + json.getString("userName") + "</userName"        +">\n");
             } catch (Exception e) {
     			theResult = "KO, exceptie stream ! ";
-    			t3.setText(theResult + e.toString());
+    			// t1.setText(theResult + e.toString());
                 e.printStackTrace();
                 Logger lgr = Logger.getLogger(AgentSetup.class.getName());
                 lgr.log(Level.SEVERE, e.getMessage(), e);
@@ -138,10 +141,10 @@ public class AgentSetup extends Activity {
                 }else{
                 	theResult = "KO! ID sau parola gresita";
                 }
-                t3.setText(theResult);
+                // t3.setText(theResult);
             } catch (Exception e) {
             			theResult = "KO, exceptie SQLite ! ";
-            			t3.setText(theResult + e.toString());
+            			// t3.setText(theResult + e.toString());
                         e.printStackTrace();
                         Logger lgr = Logger.getLogger(AgentSetup.class.getName());
                         lgr.log(Level.SEVERE, e.getMessage(), e);
@@ -150,4 +153,8 @@ public class AgentSetup extends Activity {
                 		}
             }        
         }
+      }.start();
+      // t1.setText("'"+idAgent+"'");
+	  // t2.setText("'"+thePass+"'");
 }
+}        
