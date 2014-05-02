@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">DatePickerExample</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="cur_date">Current Date (M-D-YYYY): </string>
+ 	<string name="ch_label">Change Date</string>
+    
+</resources>
