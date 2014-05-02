@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">RestSQLite 20140502</string>
+	<string name="app_name">RestSQLite 1405</string>
 
 	<string name="hello">Pangram20140425</string>
     <string name="weekday">M-F</string>
