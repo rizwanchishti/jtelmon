@@ -6,13 +6,18 @@ package net.learn2develop.PurchaseOrders;
 // AdaugaAgent ramane clasa care seteaza noul agent in SQLS
 // AgentSetup  este clasa care va seta noul agent in Postgres
 
+// http://www.vogella.com/tutorials/AndroidBackgroundProcessing/article.html
+// http://saigeethamn.blogspot.ro/2010/04/threads-and-handlers-android-developer.html
+// http://indyvision.net/2010/02/android-threads-tutorial-part-3/
+
+
 import net.learn2develop.R;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
-import java.util.Vector;
+// import java.util.List;
+// import java.util.Vector;
 
 import android.app.Activity;
 import android.os.Bundle;
