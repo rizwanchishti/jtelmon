@@ -1,3 +1,6 @@
+
+// http://indyvision.net/2010/02/android-threads-tutorial-part-3/
+
 package com.indy.testing;
 
 import android.app.Activity;
