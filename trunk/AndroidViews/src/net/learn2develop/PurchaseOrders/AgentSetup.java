@@ -60,6 +60,7 @@ public class AgentSetup extends Activity {
 	    TextView t1;
 	    TextView t2;
 	    TextView t3;
+	    boolean tmpboo1 , tmpboo2;
 
         @Override
             public void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,7 @@ public class AgentSetup extends Activity {
                 String restStringID         = new String();
                 String restStringPassword   = new String();
                 String restStringUserName   = new String();
-                boolean tmpb1 , tmpb2;
+                
                 
             try {
                 HttpResponse response = httpClient.execute(request);
@@ -112,8 +113,8 @@ public class AgentSetup extends Activity {
                 restStringID = json.getString("id").trim();
                 restStringPassword = json.getString("password").trim();
                 restStringUserName = json.getString("userName").trim();
-    			t1.setText(restStringID);
-    			t2.setText(restStringPassword);
+    			t1.setText("'"+idAgent+"' '"+restStringID+"'");
+    			t2.setText("'"+thePass+"' '"+restStringPassword+"'");
                 Log.i("userpasscheck","<jsonobject>\n" + json.toString()            + "\n</jsonobject>");
                 Log.i("userID","<UtilizatorID"+">"     + json.getString("id")       + "</UtilizatorID"    +">\n");
                 Log.i("userPass","<Parola"+">"         + json.getString("password") + "</Parola"          +">\n");
@@ -126,9 +127,9 @@ public class AgentSetup extends Activity {
                 lgr.log(Level.SEVERE, e.getMessage(), e);
             }    
             try {
-                tmpb1=restStringID.equals(idAgent);
-                tmpb2=restStringPassword.equals(thePass);
-                if( tmpb1 && tmpb2){
+                tmpboo1=restStringID.equals(idAgent);
+                tmpboo2=restStringPassword.equals(thePass);
+                if( tmpboo1 && tmpboo2){
                 	dm = new DataManipulator(getApplicationContext());
                 	dm.deleteAllSetup();
                 	dm.insertIntoSetup(restStringID,restStringUserName,restStringPassword);
