@@ -9,6 +9,7 @@ package net.learn2develop.PurchaseOrders;
 // http://www.vogella.com/tutorials/AndroidBackgroundProcessing/article.html
 // http://saigeethamn.blogspot.ro/2010/04/threads-and-handlers-android-developer.html
 // http://indyvision.net/2010/02/android-threads-tutorial-part-3/
+// http://www.biemmeitalia.net/blog/bundle-android/
 
 
 import net.learn2develop.R;
@@ -19,8 +20,12 @@ import java.io.InputStreamReader;
 // import java.util.List;
 // import java.util.Vector;
 
+
+
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -43,7 +48,7 @@ import android.util.Log;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AgentSetup extends Activity {
+public class AgentSetup extends Activity implements Runnable {
 
 	// REINITIALIZEAZA_DATE_AGENT
 	
@@ -59,6 +64,8 @@ public class AgentSetup extends Activity {
         // private final static String SERVICE_URI = "http://192.168.61.3/SalesService/SalesService.svc";
 
 	    DataManipulator dm = null;
+	    private Thread newThread;
+
 	    Bundle BundledAgent;
 	    String idAgent;
 	    String thePass;
@@ -68,7 +75,21 @@ public class AgentSetup extends Activity {
 	    TextView t3;
 	    boolean tmpboo1 , tmpboo2;
 
-        @Override
+        // Receives Thread's messages, interprets them and acts on the
+        // current Activity as needed
+        private Handler threadHandler = new Handler() {
+            public void handleMessage(android.os.Message msg) {
+                // whenever the Thread notifies this handler we have
+                // only this behavior
+                // t3.setText("my text changed by the thread");
+            	 if (msg.what == 0) {
+                     // updates the TextView with the received text
+                     t3.setText(msg.getData().getString("result"));
+                 }
+            }
+        };
+	    
+            @Override
             public void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.main_agent_reinitializare);
@@ -87,79 +108,85 @@ public class AgentSetup extends Activity {
                        t2.setText(thePass);
                    }
                 }
-        // fara acest new Thread() - apare eroarea : android.os.NetworkOnMainThreadException 
-        // functiile de retea trebuiesc executate in new THREAD ...     
-        // aceasta eroare apare doar in tableta , nu si in emulator !          
-        new Thread() {
-          public void run() {
-              // HttpGet request = new HttpGet(SERVICE_URI + "/json/userpasscheck ");       
-              // HttpGet request = new HttpGet(SERVICE_URI + "/sales/search/1");
-              HttpGet request = new HttpGet(SERVICE_URI + "/sales/search/"+idAgent);
-              request.setHeader("Accept", "application/json");
-              request.setHeader("Content-type", "application/json"); 
-              DefaultHttpClient httpClient = new DefaultHttpClient();
-              String theString = new String("");
-              String restStringID         = new String();
-              String restStringPassword   = new String();
-              String restStringUserName   = new String();
-            try {
-                HttpResponse response = httpClient.execute(request);
-                HttpEntity responseEntity = response.getEntity();
-                InputStream stream = responseEntity.getContent();
-                BufferedReader reader = new BufferedReader(
-                                        new InputStreamReader(stream));
-                // Vector<String> vectorOfStrings = new Vector<String>();
-                // String tempString = new String();
-                StringBuilder builder = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                                builder.append(line);
-                }
-                stream.close();
-                theString = builder.toString();
-                JSONObject json=new JSONObject(theString);
-                restStringID = json.getString("id").trim();
-                restStringPassword = json.getString("password").trim();
-                restStringUserName = json.getString("userName").trim();
-    			// t1.setText("'"+idAgent+"' '"+restStringID+"'");
-    			// t2.setText("'"+thePass+"' '"+restStringPassword+"'");
-                Log.i("userpasscheck","<jsonobject>\n" + json.toString()            + "\n</jsonobject>");
-                Log.i("userID","<UtilizatorID"+">"     + json.getString("id")       + "</UtilizatorID"    +">\n");
-                Log.i("userPass","<Parola"+">"         + json.getString("password") + "</Parola"          +">\n");
-                Log.i("userName","<userName"+">"       + json.getString("userName") + "</userName"        +">\n");
-            } catch (Exception e) {
-    			theResult = "KO, exceptie stream ! ";
-    			// t1.setText(theResult + e.toString());
-                e.printStackTrace();
-                Logger lgr = Logger.getLogger(AgentSetup.class.getName());
-                lgr.log(Level.SEVERE, e.getMessage(), e);
-            }    
-            try {
-                tmpboo1=restStringID.equals(idAgent);
-                tmpboo2=restStringPassword.equals(thePass);
-                if( tmpboo1 && tmpboo2){
-                	dm = new DataManipulator(getApplicationContext());
-                	dm.deleteAllSetup();
-                	dm.insertIntoSetup(restStringID,restStringUserName,restStringPassword);
-                	dm.close();
-                	theResult = "OK! "+restStringUserName;
-                }else{
-                	theResult = "KO! ID sau parola gresita";
-                }
-                // t3.setText(theResult);
-            } catch (Exception e) {
-            			theResult = "KO, exceptie SQLite ! ";
-            			// t3.setText(theResult + e.toString());
-                        e.printStackTrace();
-                        Logger lgr = Logger.getLogger(AgentSetup.class.getName());
-                        lgr.log(Level.SEVERE, e.getMessage(), e);
-                        if (dm != null) {
-                			dm.close();
-                		}
-            }        
-        }
-      }.start();
-      // t1.setText("'"+idAgent+"'");
-	  // t2.setText("'"+thePass+"'");
-}
+                // fara acest new Thread() - apare eroarea : android.os.NetworkOnMainThreadException 
+                // functiile de retea trebuiesc executate in new THREAD ...     
+                // aceasta eroare apare doar in tableta , nu si in emulator !         
+                newThread = new Thread(this);
+                newThread.start();
+        	}
+
+        public void run() {
+            // HttpGet request = new HttpGet(SERVICE_URI + "/json/userpasscheck ");       
+            // HttpGet request = new HttpGet(SERVICE_URI + "/sales/search/1");
+            HttpGet request = new HttpGet(SERVICE_URI + "/sales/search/"+idAgent);
+            request.setHeader("Accept", "application/json");
+            request.setHeader("Content-type", "application/json"); 
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            String theString = new String("");
+            String restStringID         = new String();
+            String restStringPassword   = new String();
+            String restStringUserName   = new String();
+          try {
+              HttpResponse response = httpClient.execute(request);
+              HttpEntity responseEntity = response.getEntity();
+              InputStream stream = responseEntity.getContent();
+              BufferedReader reader = new BufferedReader(
+                                      new InputStreamReader(stream));
+              // Vector<String> vectorOfStrings = new Vector<String>();
+              // String tempString = new String();
+              StringBuilder builder = new StringBuilder();
+              String line;
+              while ((line = reader.readLine()) != null) {
+                              builder.append(line);
+              }
+              stream.close();
+              theString = builder.toString();
+              JSONObject json=new JSONObject(theString);
+              restStringID = json.getString("id").trim();
+              restStringPassword = json.getString("password").trim();
+              restStringUserName = json.getString("userName").trim();
+  			// t1.setText("'"+idAgent+"' '"+restStringID+"'");
+  			// t2.setText("'"+thePass+"' '"+restStringPassword+"'");
+              Log.i("userpasscheck","<jsonobject>\n" + json.toString()            + "\n</jsonobject>");
+              Log.i("userID","<UtilizatorID"+">"     + json.getString("id")       + "</UtilizatorID"    +">\n");
+              Log.i("userPass","<Parola"+">"         + json.getString("password") + "</Parola"          +">\n");
+              Log.i("userName","<userName"+">"       + json.getString("userName") + "</userName"        +">\n");
+          } catch (Exception e) {
+  			theResult = "KO, exceptie stream ! ";
+  			// t1.setText(theResult + e.toString());
+              e.printStackTrace();
+              Logger lgr = Logger.getLogger(AgentSetup.class.getName());
+              lgr.log(Level.SEVERE, e.getMessage(), e);
+          }    
+          try {
+              tmpboo1=restStringID.equals(idAgent);
+              tmpboo2=restStringPassword.equals(thePass);
+              if( tmpboo1 && tmpboo2){
+              	dm = new DataManipulator(getApplicationContext());
+              	dm.deleteAllSetup();
+              	dm.insertIntoSetup(restStringID,restStringUserName,restStringPassword);
+              	dm.close();
+              	theResult = "OK! "+restStringUserName;
+              }else{
+              	theResult = "KO! ID sau parola gresita";
+              }
+            	// threadHandler.sendEmptyMessage(0);
+              Message messageToThread = threadHandler.obtainMessage();
+              Bundle messageData = new Bundle();
+              messageToThread.what = 0;
+              messageData.putString("result", theResult);
+              messageToThread.setData(messageData);
+              threadHandler.sendMessage(messageToThread);
+              // t3.setText(theResult);
+          } catch (Exception e) {
+          			theResult = "KO, exceptie SQLite ! ";
+          			// t3.setText(theResult + e.toString());
+                      e.printStackTrace();
+                      Logger lgr = Logger.getLogger(AgentSetup.class.getName());
+                      lgr.log(Level.SEVERE, e.getMessage(), e);
+                      if (dm != null) {
+              			dm.close();
+              		}
+          }        
+      }
 }        
