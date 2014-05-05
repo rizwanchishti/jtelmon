@@ -80,6 +80,7 @@ public class AgentSetup extends Activity implements Runnable {
             	 if (msg.what == 0) {
                      t3.setText(msg.getData().getString("result"));
                  }
+            	 super.handleMessage(msg);
             }
         };
 	    
