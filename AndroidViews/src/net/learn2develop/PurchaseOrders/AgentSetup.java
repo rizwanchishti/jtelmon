@@ -108,7 +108,8 @@ public class AgentSetup extends Activity implements Runnable {
                 newThread = new Thread(this);
                 newThread.start();
         	}
-
+            
+        // run() method is invoked once the start() method on the newThread variable is called
         public void run() {
             // HttpGet request = new HttpGet(SERVICE_URI + "/json/userpasscheck ");       
             // HttpGet request = new HttpGet(SERVICE_URI + "/sales/search/1");
