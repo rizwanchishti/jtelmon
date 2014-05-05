@@ -3,13 +3,14 @@ package net.learn2develop.PurchaseOrders;
 // http://code.google.com/p/jtelmon/source/browse/trunk/AndroidViews/src/net/learn2develop/PurchaseOrders/AdaugaAgent.java
 // http://code.google.com/p/jtelmon/source/browse/trunk/AndroidViews/src/net/learn2develop/PurchaseOrders/AgentSetup.java
 // http://code.google.com/p/javajdbc/source/browse/trunk/AsecondActivity/src/eu/itcsolutions/android/tutorial/AdaugaAgent.java
-// AdaugaAgent ramane clasa care seteaza noul agent in SQLS
-// AgentSetup  este clasa care va seta noul agent in Postgres
-
 // http://www.vogella.com/tutorials/AndroidBackgroundProcessing/article.html
 // http://saigeethamn.blogspot.ro/2010/04/threads-and-handlers-android-developer.html
 // http://indyvision.net/2010/02/android-threads-tutorial-part-3/
+// http://indyvision.net/2010/02/android-threads-tutorial-part-2/
+// http://indyvision.net/2010/01/android-threads-tutorial/
 // http://www.biemmeitalia.net/blog/bundle-android/
+//AdaugaAgent ramane clasa care seteaza noul agent in SQLS
+//AgentSetup  este clasa care va seta noul agent in Postgres
 
 
 import net.learn2develop.R;
@@ -17,11 +18,6 @@ import net.learn2develop.R;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-// import java.util.List;
-// import java.util.Vector;
-
-
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,7 +27,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -59,6 +54,9 @@ public class AgentSetup extends Activity implements Runnable {
 		<userName> ARICIU DANIEL </userName>
 		<zone> RESITA </zone>
 	</userPass>
+
+/* http://sfa.pangram.ro:8090/PostgresWebService/rest/sales/search/2/222
+<userPass><id>2</id><password>222</password><userName>Zaberca Petru</userName><zone>RESITA</zone></userPass>	
 */
 	    private final static String SERVICE_URI = "http://sfa.pangram.ro:8090/PostgresWebService/rest";
         // private final static String SERVICE_URI = "http://192.168.61.3/SalesService/SalesService.svc";
@@ -69,7 +67,7 @@ public class AgentSetup extends Activity implements Runnable {
 	    Bundle BundledAgent;
 	    String idAgent;
 	    String thePass;
-	    String theResult = new String("OK ");
+	    String theResult = new String(" ");
 	    TextView t1;
 	    TextView t2;
 	    TextView t3;
@@ -79,11 +77,7 @@ public class AgentSetup extends Activity implements Runnable {
         // current Activity as needed
         private Handler threadHandler = new Handler() {
             public void handleMessage(android.os.Message msg) {
-                // whenever the Thread notifies this handler we have
-                // only this behavior
-                // t3.setText("my text changed by the thread");
             	 if (msg.what == 0) {
-                     // updates the TextView with the received text
                      t3.setText(msg.getData().getString("result"));
                  }
             }
@@ -126,14 +120,14 @@ public class AgentSetup extends Activity implements Runnable {
             String restStringID         = new String();
             String restStringPassword   = new String();
             String restStringUserName   = new String();
+            Message messageToThread = threadHandler.obtainMessage();
+            Bundle messageData = new Bundle();
           try {
               HttpResponse response = httpClient.execute(request);
               HttpEntity responseEntity = response.getEntity();
               InputStream stream = responseEntity.getContent();
               BufferedReader reader = new BufferedReader(
                                       new InputStreamReader(stream));
-              // Vector<String> vectorOfStrings = new Vector<String>();
-              // String tempString = new String();
               StringBuilder builder = new StringBuilder();
               String line;
               while ((line = reader.readLine()) != null) {
@@ -145,15 +139,12 @@ public class AgentSetup extends Activity implements Runnable {
               restStringID = json.getString("id").trim();
               restStringPassword = json.getString("password").trim();
               restStringUserName = json.getString("userName").trim();
-  			// t1.setText("'"+idAgent+"' '"+restStringID+"'");
-  			// t2.setText("'"+thePass+"' '"+restStringPassword+"'");
               Log.i("userpasscheck","<jsonobject>\n" + json.toString()            + "\n</jsonobject>");
               Log.i("userID","<UtilizatorID"+">"     + json.getString("id")       + "</UtilizatorID"    +">\n");
               Log.i("userPass","<Parola"+">"         + json.getString("password") + "</Parola"          +">\n");
               Log.i("userName","<userName"+">"       + json.getString("userName") + "</userName"        +">\n");
           } catch (Exception e) {
-  			theResult = "KO, exceptie stream ! ";
-  			// t1.setText(theResult + e.toString());
+  			  theResult = theResult + "KO, exceptie stream ! ";
               e.printStackTrace();
               Logger lgr = Logger.getLogger(AgentSetup.class.getName());
               lgr.log(Level.SEVERE, e.getMessage(), e);
@@ -166,27 +157,22 @@ public class AgentSetup extends Activity implements Runnable {
               	dm.deleteAllSetup();
               	dm.insertIntoSetup(restStringID,restStringUserName,restStringPassword);
               	dm.close();
-              	theResult = "OK! "+restStringUserName;
+              	theResult =  theResult + "OK! "+restStringUserName;
               }else{
-              	theResult = "KO! ID sau parola gresita";
+              	theResult =  theResult + "KO! ID sau parola gresita";
               }
-            	// threadHandler.sendEmptyMessage(0);
-              Message messageToThread = threadHandler.obtainMessage();
-              Bundle messageData = new Bundle();
-              messageToThread.what = 0;
-              messageData.putString("result", theResult);
-              messageToThread.setData(messageData);
-              threadHandler.sendMessage(messageToThread);
-              // t3.setText(theResult);
           } catch (Exception e) {
           			theResult = "KO, exceptie SQLite ! ";
-          			// t3.setText(theResult + e.toString());
                       e.printStackTrace();
                       Logger lgr = Logger.getLogger(AgentSetup.class.getName());
                       lgr.log(Level.SEVERE, e.getMessage(), e);
                       if (dm != null) {
               			dm.close();
-              		}
-          }        
-      }
-}        
+              		  }
+          }
+          messageToThread.what = 0;
+          messageData.putString("result", theResult);
+          messageToThread.setData(messageData);
+          threadHandler.sendMessage(messageToThread);
+      }   // end Thread.run()
+} // end class AgentSetup        
