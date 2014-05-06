@@ -19,7 +19,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
  
-public class SelectieClientEurobit extends Activity {
+public class SelectEuroClient extends Activity {
  
  public static final String KEY_CLIENT = "client";
  public static final String KEY_CUI = "cui";
@@ -48,10 +48,10 @@ public class SelectieClientEurobit extends Activity {
   
   // The desired columns to be bound
   String[] columns = new String[] {
-    SelectieClientEurobit.KEY_CLIENT,
-    SelectieClientEurobit.KEY_CUI,
-    SelectieClientEurobit.KEY_PLT,
-    SelectieClientEurobit.KEY_TERT_ID
+    SelectEuroClient.KEY_CLIENT,
+    SelectEuroClient.KEY_CUI,
+    SelectEuroClient.KEY_PLT,
+    SelectEuroClient.KEY_TERT_ID
   };
  
   // the XML defined views which the data will be bound to

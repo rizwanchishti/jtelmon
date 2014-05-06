@@ -55,7 +55,7 @@ public class MainActivity extends Activity implements OnClickListener {
         public void onClick(View arg0) {
         	if(arg0.getId() == R.id.Button02SelectieClient){
         		// Intent intent = new Intent(this,SelectieClient.class);
-        		Intent intent = new Intent(this,SelectieClientEurobit.class);
+        		Intent intent = new Intent(this,SelectEuroClient.class);
                 this.startActivity(intent);
         	}
         	if(arg0.getId() == R.id.Button03CautaProdus){
