@@ -59,7 +59,8 @@ public class MainActivity extends Activity implements OnClickListener {
                 this.startActivity(intent);
         	}
         	if(arg0.getId() == R.id.Button03CautaProdus){
-        		Intent intent = new Intent(this,CautaProdus.class);
+        		// Intent intent = new Intent(this,CautaProdus.class);
+        		Intent intent = new Intent(this,SelectEuroProduct.class);
         		this.startActivity(intent);
         	}
         	if(arg0.getId() == R.id.Button04ComenziNetrimise){
