@@ -61,7 +61,7 @@
             </intent-filter>
         </activity>        
 
-        <activity android:name=".PurchaseOrders.SelectieClientEurobit" 
+        <activity android:name=".PurchaseOrders.SelectEuroClient" 
                   android:label="@string/app_name">
         </activity>        
 
