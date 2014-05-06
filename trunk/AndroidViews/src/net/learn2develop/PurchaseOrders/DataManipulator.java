@@ -28,8 +28,8 @@ public class DataManipulator {
         static final String TABLE_ORDERS   = "orders2";
         static final String TABLE_PRODUCTS = "products2";
         static final String TABLE_CLIENTS = "clients2";
-        static final String TABLE_CLIENTS_EUROBIT  = "clients_eurobit";
-        static final String TABLE_PRODUCTS_EUROBIT = "products_eurobit";
+        static final String TABLE_EURO_CLIENTS  = "clients_eurobit";
+        static final String TABLE_EURO_PRODUCTS = "products_eurobit";
         static final String TABLE_SETUP = "setup";
         private static Context context;
         static SQLiteDatabase db;
@@ -43,8 +43,8 @@ public class DataManipulator {
         private static final String INSERT_ORDERS = "insert into " + TABLE_ORDERS + " (clientName,productName,piecesNumber,discountNumber) values (?,?,?,?)";
     	private static final String INSERT_PRODUCTS = "insert into " + TABLE_PRODUCTS + " (ID, Name, Price, Symbol) values (?,?,?,?)";
     	private static final String INSERT_CLIENTS = "insert into " + TABLE_CLIENTS + " (Agent, Client, Route, Zone) values (?,?,?,?)";
-    	private static final String INSERT_CLIENTS_EUROBIT  = "insert into " + TABLE_CLIENTS_EUROBIT + " (client, cui, plt, tert_id, categorie, categorie_id, clasa, clasa_id, grupa, grupa_id) values (?,?,?,?,?,?,?,?,?,?)";
-    	private static final String INSERT_PRODUCTS_EUROBIT = "insert into " + TABLE_PRODUCTS_EUROBIT+ " (stoc_id, simbol, denumire, categorie_id, grupa_id, clasa_id, clasa, grupa, categorie) values (?,?,?,?,?,?,?,?,?)";
+    	private static final String INSERT_CLIENTS_EUROBIT  = "insert into " + TABLE_EURO_CLIENTS + " (client, cui, plt, tert_id, categorie, categorie_id, clasa, clasa_id, grupa, grupa_id) values (?,?,?,?,?,?,?,?,?,?)";
+    	private static final String INSERT_PRODUCTS_EUROBIT = "insert into " + TABLE_EURO_PRODUCTS+ " (stoc_id, simbol, denumire, categorie_id, grupa_id, clasa_id, clasa, grupa, categorie) values (?,?,?,?,?,?,?,?,?)";
     	private static final String INSERT_SETUP = "insert into " + TABLE_SETUP + " (UtilizatorID, UserName, Parola) values (?,?,?)";
         
    		public DataManipulator(Context context ) {
@@ -245,7 +245,6 @@ public class DataManipulator {
         
         public List<String[]> selectAllClients()
         {
-
                 List<String[]> list = new ArrayList<String[]>();
                 Cursor cursor = db.query(TABLE_CLIENTS, new String[] { "Agent","Client","Route","Zone" }, null, null, null, null, "Client asc"); 
                 int x=0;
@@ -263,11 +262,33 @@ public class DataManipulator {
                 return list;
         }
 
+        public Cursor selectAllEuroProducts()
+        {
+                Cursor cursor = db.query(TABLE_EURO_PRODUCTS, new String[] { "_id","stoc_id","simbol","denumire","categorie_id","grupa_id","clasa_id","clasa","grupa","categorie"}, null, null, null, null, "denumire asc"); 
+                if (cursor != null) {
+                	   cursor.moveToFirst();
+                }
+                return cursor;
+        }
+
+        public Cursor fetchEuroProductsByName(String inputText) throws SQLException {
+      	  Cursor mCursor = null;
+      	  if (inputText == null  ||  inputText.length () == 0)  {
+      		  mCursor = selectAllEuroProducts();
+      	  }
+      	  else {
+      		   mCursor = db.query(TABLE_EURO_PRODUCTS, new String[] { "_id","stoc_id","simbol","denumire","categorie_id","grupa_id","clasa_id","clasa","grupa","categorie"}, "denumire" + " like '%"+ inputText + "%'" , null, null, null, "denumire asc");
+      	  }
+      	  if (mCursor != null) {
+      		  mCursor.moveToFirst();
+      	  }
+      	  return mCursor;
+      	 }
         
-        public Cursor selectAllEurobitClients()
+        public Cursor selectAllEuroClients()
         {
         		// client , cui , plt , tert_id , categorie , categorie_id , clasa , clasa_id , grupa , grupa_id
-                Cursor cursor = db.query(TABLE_CLIENTS_EUROBIT, new String[] { "_id","client","cui","plt","tert_id","categorie","categorie_id","clasa","clasa_id","grupa","grupa_id"}, null, null, null, null, "client asc"); 
+                Cursor cursor = db.query(TABLE_EURO_CLIENTS, new String[] { "_id","client","cui","plt","tert_id","categorie","categorie_id","clasa","clasa_id","grupa","grupa_id"}, null, null, null, null, "client asc"); 
         	    // Cursor cursor = db.query(TABLE_CLIENTS_EUROBIT, new String[] { "client","cui","plt","tert_id"}, null, null, null, null, "client asc");
                 if (cursor != null) {
                 	   cursor.moveToFirst();
@@ -280,11 +301,11 @@ public class DataManipulator {
         	  Cursor mCursor = null;
         	  if (inputText == null  ||  inputText.length () == 0)  {
         	   // mCursor = db.query(SQLITE_TABLE, new String[] {KEY_ROWID, KEY_CODE, KEY_NAME, KEY_CONTINENT, KEY_REGION}, null, null, null, null, null);
-        		  mCursor = selectAllEurobitClients();
+        		  mCursor = selectAllEuroClients();
         	  }
         	  else {
         		  // mCursor = mDb.query(true, TABLE_CLIENTS_EUROBIT, new String[] {KEY_ROWID, KEY_CODE, KEY_NAME, KEY_CONTINENT, KEY_REGION}, KEY_NAME + " like '%" + inputText + "%'", null, null, null, null, null);
-        		   mCursor = db.query(TABLE_CLIENTS_EUROBIT, new String[] { "_id","client","cui","plt","tert_id","categorie","categorie_id","clasa","clasa_id","grupa","grupa_id"}, "client" + " like '%"+ inputText + "%'" , null, null, null, "client asc");
+        		   mCursor = db.query(TABLE_EURO_CLIENTS, new String[] { "_id","client","cui","plt","tert_id","categorie","categorie_id","clasa","clasa_id","grupa","grupa_id"}, "client" + " like '%"+ inputText + "%'" , null, null, null, "client asc");
         		  // mCursor = selectAllEurobitClients();
         	  }
         	  if (mCursor != null) {
@@ -331,8 +352,8 @@ public class DataManipulator {
                         db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (_id integer primary key autoincrement, ID TEXT, Name TEXT, Price TEXT, Symbol TEXT)");
                         db.execSQL("CREATE TABLE " + TABLE_CLIENTS + " (_id integer primary key autoincrement, Agent TEXT, Client TEXT, Route TEXT, Zone TEXT)");
                         db.execSQL("CREATE TABLE " + TABLE_SETUP + " (_id integer primary key autoincrement, UtilizatorID TEXT, Parola TEXT, UserName TEXT, SefID TEXT, ZonaID TEXT)");
-                        db.execSQL("CREATE TABLE " + TABLE_CLIENTS_EUROBIT + " (_id integer primary key autoincrement,client TEXT, cui TEXT, plt TEXT, tert_id TEXT, categorie TEXT, categorie_id TEXT, clasa TEXT, clasa_id TEXT, grupa TEXT, grupa_id TEXT)");
-                        db.execSQL("CREATE TABLE " + TABLE_PRODUCTS_EUROBIT + " (_id integer primary key autoincrement,stoc_id TEXT, simbol TEXT, denumire TEXT, categorie_id TEXT, grupa_id TEXT, clasa_id TEXT, clasa TEXT, grupa TEXT, categorie TEXT)");
+                        db.execSQL("CREATE TABLE " + TABLE_EURO_CLIENTS + " (_id integer primary key autoincrement,client TEXT, cui TEXT, plt TEXT, tert_id TEXT, categorie TEXT, categorie_id TEXT, clasa TEXT, clasa_id TEXT, grupa TEXT, grupa_id TEXT)");
+                        db.execSQL("CREATE TABLE " + TABLE_EURO_PRODUCTS + " (_id integer primary key autoincrement,stoc_id TEXT, simbol TEXT, denumire TEXT, categorie_id TEXT, grupa_id TEXT, clasa_id TEXT, clasa TEXT, grupa TEXT, categorie TEXT)");
                 }
 
                 // http://www.vogella.com/tutorials/AndroidSQLite/article.html
@@ -343,8 +364,8 @@ public class DataManipulator {
                         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDERS);
                         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
                         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIENTS);
-                        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIENTS_EUROBIT);
-                        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS_EUROBIT);
+                        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EURO_CLIENTS);
+                        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EURO_PRODUCTS);
                         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETUP);
                         onCreate(db);
                 }

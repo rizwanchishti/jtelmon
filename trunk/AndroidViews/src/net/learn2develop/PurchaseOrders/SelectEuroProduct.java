@@ -19,12 +19,12 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
  
-public class SelectEuroClient extends Activity {
+public class SelectEuroProduct extends Activity {
  
- public static final String KEY_CLIENT = "client";
- public static final String KEY_CUI = "cui";
- public static final String KEY_PLT = "plt";
- public static final String KEY_TERT_ID = "tert_id";
+ public static final String KEY_DENUMIRE = "denumire";
+ public static final String KEY_CLASA = "clasa";
+ public static final String KEY_GRUPA = "grupa";
+ public static final String KEY_CATEGORIE = "categorie";
 
  private DataManipulator dbHelper;
  private SimpleCursorAdapter dataAdapter;
@@ -43,29 +43,29 @@ public class SelectEuroClient extends Activity {
  
  private void displayListView() {
   
-  Cursor cursor = dbHelper.selectAllEuroClients();
+  Cursor cursor = dbHelper.selectAllEuroProducts();
   Log.i("LOG_SelectieClientEurobit.displayListView : ", "Cursor(0)" + cursor.getColumnName(0));
   
   // The desired columns to be bound
   String[] columns = new String[] {
-    SelectEuroClient.KEY_CLIENT,
-    SelectEuroClient.KEY_CUI,
-    SelectEuroClient.KEY_PLT,
-    SelectEuroClient.KEY_TERT_ID
+    SelectEuroProduct.KEY_DENUMIRE,
+    SelectEuroProduct.KEY_CLASA,
+    SelectEuroProduct.KEY_GRUPA,
+    SelectEuroProduct.KEY_CATEGORIE
   };
  
   // the XML defined views which the data will be bound to
   int[] to = new int[] { 
-    R.id.client,
-    R.id.cui,
-    R.id.plt,
-    R.id.tert_id,
+    R.id.denumire,
+    R.id.clasa,
+    R.id.grupa,
+    R.id.categorie,
   };
  
   // create the adapter using the cursor pointing to the desired data 
   //as well as the layout information
   dataAdapter = new SimpleCursorAdapter(
-    this, R.layout.eurobit_client_info, 
+    this, R.layout.euro_product_info, 
     cursor, 
     columns, 
     to);
@@ -84,7 +84,7 @@ public class SelectEuroClient extends Activity {
  
    // Get the state's capital from this row in the database.
    String countryCode = 
-    cursor.getString(cursor.getColumnIndexOrThrow("client"));
+    cursor.getString(cursor.getColumnIndexOrThrow("denumire"));
    Toast.makeText(getApplicationContext(),
      countryCode, Toast.LENGTH_SHORT).show();
  
@@ -109,7 +109,7 @@ public class SelectEuroClient extends Activity {
    
   dataAdapter.setFilterQueryProvider(new FilterQueryProvider() {
          public Cursor runQuery(CharSequence constraint) {
-             return dbHelper.fetchEurobitClientsByName(constraint.toString());
+             return dbHelper.fetchEuroProductsByName(constraint.toString());
          }
      });
  
