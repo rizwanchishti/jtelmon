@@ -32,8 +32,8 @@ public class SelectEuroProduct extends Activity {
  @Override
  public void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
-     setContentView(R.layout.country_main);
- 
+     setContentView(R.layout.euro_product_main);
+
   dbHelper = new DataManipulator(this);
 
   //Generate ListView from SQLite Database
@@ -44,7 +44,7 @@ public class SelectEuroProduct extends Activity {
  private void displayListView() {
   
   Cursor cursor = dbHelper.selectAllEuroProducts();
-  Log.i("LOG_SelectieClientEurobit.displayListView : ", "Cursor(0)" + cursor.getColumnName(0));
+  // Log.i("LOG_SelectieClientEurobit.displayListView : ", "Cursor(0)" + cursor.getColumnName(0));
   
   // The desired columns to be bound
   String[] columns = new String[] {
