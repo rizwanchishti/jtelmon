@@ -68,7 +68,7 @@
         <activity android:name=".PurchaseOrders.SelectieClient" 
                   android:label="@string/app_name">
         </activity>        
-        <activity android:name=".PurchaseOrders.CautaProdus" 
+        <activity android:name=".PurchaseOrders.SelectEuroProduct" 
                   android:label="@string/app_name">
         </activity>        
         <activity android:name=".PurchaseOrders.Sincronizare" 
