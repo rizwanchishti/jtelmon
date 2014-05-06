@@ -30,6 +30,7 @@
     <string name="CLIENT_LABEL">Client</string>
     <string name="some_text">Some North American Countries! </string>
     <string name="some_clients">Clienti PANGRAM </string>
+    <string name="some_products">Produse PANGRAM </string>
  	<string name="some_hint"> Type here to filter&#8230; </string>
     
 </resources>
