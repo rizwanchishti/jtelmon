@@ -44,7 +44,7 @@ public class DataManipulator {
     	private static final String INSERT_PRODUCTS = "insert into " + TABLE_PRODUCTS + " (ID, Name, Price, Symbol) values (?,?,?,?)";
     	private static final String INSERT_CLIENTS = "insert into " + TABLE_CLIENTS + " (Agent, Client, Route, Zone) values (?,?,?,?)";
     	private static final String INSERT_CLIENTS_EUROBIT  = "insert into " + TABLE_EURO_CLIENTS + " (client, cui, plt, tert_id, categorie, categorie_id, clasa, clasa_id, grupa, grupa_id) values (?,?,?,?,?,?,?,?,?,?)";
-    	private static final String INSERT_PRODUCTS_EUROBIT = "insert into " + TABLE_EURO_PRODUCTS+ " (stoc_id, simbol, denumire, categorie_id, grupa_id, clasa_id, clasa, grupa, categorie) values (?,?,?,?,?,?,?,?,?)";
+    	private static final String INSERT_PRODUCTS_EUROBIT = "insert into " + TABLE_EURO_PRODUCTS+ " (stoc_id, simbol, denumire, categorie_id, grupa_id, clasa_id, clasa, grupa, categorie, pret_gross) values (?,?,?,?,?,?,?,?,?,?)";
     	private static final String INSERT_SETUP = "insert into " + TABLE_SETUP + " (UtilizatorID, UserName, Parola) values (?,?,?)";
         
    		public DataManipulator(Context context ) {
@@ -99,7 +99,7 @@ public class DataManipulator {
     		return this.insertClientEurobitTemplate.executeInsert();
     }
 
-        public long insertIntoEurobitProducts(String Stoc_id, String Simbol, String Denumire, String Categorie_id, String Grupa_id, String Clasa_id, String Clasa, String Grupa, String Categorie) {
+        public long insertIntoEurobitProducts(String Stoc_id, String Simbol, String Denumire, String Categorie_id, String Grupa_id, String Clasa_id, String Clasa, String Grupa, String Categorie, String PretGross) {
     		this.insertProductEurobitTemplate.bindString(1, Stoc_id);
     		this.insertProductEurobitTemplate.bindString(2, Simbol);
     		this.insertProductEurobitTemplate.bindString(3, Denumire);
@@ -109,6 +109,7 @@ public class DataManipulator {
     		this.insertProductEurobitTemplate.bindString(7, Clasa);
     		this.insertProductEurobitTemplate.bindString(8, Grupa);
     		this.insertProductEurobitTemplate.bindString(9, Categorie);
+    		this.insertProductEurobitTemplate.bindString(10, PretGross);
         	return this.insertProductEurobitTemplate.executeInsert();
         }
         
@@ -353,7 +354,7 @@ public class DataManipulator {
                         db.execSQL("CREATE TABLE " + TABLE_CLIENTS + " (_id integer primary key autoincrement, Agent TEXT, Client TEXT, Route TEXT, Zone TEXT)");
                         db.execSQL("CREATE TABLE " + TABLE_SETUP + " (_id integer primary key autoincrement, UtilizatorID TEXT, Parola TEXT, UserName TEXT, SefID TEXT, ZonaID TEXT)");
                         db.execSQL("CREATE TABLE " + TABLE_EURO_CLIENTS + " (_id integer primary key autoincrement,client TEXT, cui TEXT, plt TEXT, tert_id TEXT, categorie TEXT, categorie_id TEXT, clasa TEXT, clasa_id TEXT, grupa TEXT, grupa_id TEXT)");
-                        db.execSQL("CREATE TABLE " + TABLE_EURO_PRODUCTS + " (_id integer primary key autoincrement,stoc_id TEXT, simbol TEXT, denumire TEXT, categorie_id TEXT, grupa_id TEXT, clasa_id TEXT, clasa TEXT, grupa TEXT, categorie TEXT)");
+                        db.execSQL("CREATE TABLE " + TABLE_EURO_PRODUCTS + " (_id integer primary key autoincrement,stoc_id TEXT, simbol TEXT, denumire TEXT, categorie_id TEXT, grupa_id TEXT, clasa_id TEXT, clasa TEXT, grupa TEXT, categorie TEXT, pret_gross TEXT)");
                 }
 
                 // http://www.vogella.com/tutorials/AndroidSQLite/article.html
