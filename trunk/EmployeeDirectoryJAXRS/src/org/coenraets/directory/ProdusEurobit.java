@@ -12,6 +12,7 @@ public class ProdusEurobit  {
     private String clasa;
     private String grupa;
     private String categorie;
+    private String pret_gross;
 
     public ProdusEurobit() {
     }
@@ -92,6 +93,15 @@ public class ProdusEurobit  {
         this.categorie = categorie;
     }
 
+    public String getPretGross() {
+        return pret_gross;
+    }
+
+    public void setPretGross(String pret_gross) {
+        this.pret_gross = pret_gross;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
