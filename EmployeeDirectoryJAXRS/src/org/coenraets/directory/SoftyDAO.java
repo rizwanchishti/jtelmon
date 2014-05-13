@@ -271,7 +271,7 @@ public class SoftyDAO {
     public List<ProdusEurobit> findAllEurobitProducts() {
     	List<ProdusEurobit> list = new ArrayList<ProdusEurobit>();
         Connection c = null;
-    	String sql = "SELECT pr.stoc_id, pr.simbol, pr.denumire, pr.categorie_id , pr.grupa_id , pr.clasa_id , pr.clasa, pr.grupa, pr.categorie FROM produse_eurobit as pr ";
+    	String sql = "SELECT pr.stoc_id, pr.simbol, pr.denumire, pr.categorie_id , pr.grupa_id , pr.clasa_id , pr.clasa, pr.grupa, pr.categorie, pr.pret_gross FROM produse_eurobit as pr ";
         try {
             c = ConnectionHelperPg.getConnection();
             Statement s = c.createStatement();
@@ -287,6 +287,7 @@ public class SoftyDAO {
             	pr.setClasa(rs.getString              ("clasa"));
             	pr.setGrupa(rs.getString              ("grupa"));
             	pr.setCategorie(rs.getString      ("categorie"));
+            	pr.setPretGross(rs.getString      ("pret_gross"));
             	list.add(pr);
             }
         } catch (SQLException e) {
