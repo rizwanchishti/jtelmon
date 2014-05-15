@@ -247,10 +247,8 @@ public class DataManipulator {
         public List<String> selectClassesOfProducts()
         {
                 List<String> list = new ArrayList<String>();
-                // Cursor cursor = db.query(TABLE_EURO_PRODUCTS, new String[] { "_id","stoc_id","simbol","denumire","categorie_id","grupa_id","clasa_id","clasa","grupa","categorie"}, null, null, null, null, "denumire asc");
-                // Cursor cursor = db.query(TABLE_PRODUCTS, new String[] { "ID","Name","Price","Symbol" }, null, null, null, null, "Name asc");
+                // http://my.safaribooksonline.com/book/programming/android/9781849518123/3dot-sqlite-queries/ch03s04_html
                 Cursor cursor = db.query(true, TABLE_EURO_PRODUCTS, new String[] { "clasa" }, null, null, null, null, null, null);
-                // c = sqdb.query(true, StudentTable.TABLE_NAME, new String[] { StudentTable.STATE }, null, null, null, null, null, null);
                 int x=0;
                 if (cursor.moveToFirst()) {
                         do {
