@@ -5,16 +5,13 @@
 
 package net.learn2develop.PurchaseOrders;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import net.learn2develop.R;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -80,22 +77,12 @@ public class SelectEuroGroup extends Activity implements OnItemSelectedListener 
  
   ListView listView = (ListView) findViewById(R.id.listView1);
   Spinner spinner = (Spinner) findViewById(R.id.spinnerClass);
-  // Assign adapter to ListView
+  // Assign adapter to ListView -> 
   listView.setAdapter(dataAdapter);
-  // Spinner click listener
+  // Spinner click listener -> 
   spinner.setOnItemSelectedListener(this);
-
-  // List<String> categories = new ArrayList<String>();
-  //categories.add("Automobile");
-  //categories.add("Business Services");
-  //categories.add("Computers");
-  //categories.add("Education");
-  //categories.add("Personal");
-  //categories.add("Travel");
   List<String> categories = dbHelper.selectClassesOfProducts();
-  
-  
-  // Creating adapter for spinner
+  // Creating adapter for spinner -> 
   ArrayAdapter<String> spDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
   // Drop down layout style - list view with radio button
   spDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

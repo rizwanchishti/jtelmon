@@ -248,6 +248,7 @@ public class DataManipulator {
         {
                 List<String> list = new ArrayList<String>();
                 // http://my.safaribooksonline.com/book/programming/android/9781849518123/3dot-sqlite-queries/ch03s04_html
+                // http://www.mysamplecode.com/2011/10/android-sqlite-query-example-selection.html
                 Cursor cursor = db.query(true, TABLE_EURO_PRODUCTS, new String[] { "clasa" }, null, null, null, null, null, null);
                 int x=0;
                 if (cursor.moveToFirst()) {
