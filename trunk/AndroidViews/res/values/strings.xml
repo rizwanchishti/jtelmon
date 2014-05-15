@@ -33,4 +33,6 @@
     <string name="some_products">Produse PANGRAM </string>
  	<string name="some_hint"> Type here to filter&#8230; </string>
     
+ 	<string name="spinner_title">Select Category</string>
+ 	    
 </resources>
