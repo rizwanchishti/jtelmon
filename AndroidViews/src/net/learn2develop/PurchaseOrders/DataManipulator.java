@@ -243,6 +243,28 @@ public class DataManipulator {
                 return list;
         }
         
+
+        public List<String> selectClassesOfProducts()
+        {
+                List<String> list = new ArrayList<String>();
+                // Cursor cursor = db.query(TABLE_EURO_PRODUCTS, new String[] { "_id","stoc_id","simbol","denumire","categorie_id","grupa_id","clasa_id","clasa","grupa","categorie"}, null, null, null, null, "denumire asc");
+                // Cursor cursor = db.query(TABLE_PRODUCTS, new String[] { "ID","Name","Price","Symbol" }, null, null, null, null, "Name asc");
+                Cursor cursor = db.query(true, TABLE_EURO_PRODUCTS, new String[] { "clasa" }, null, null, null, null, null, null);
+                // c = sqdb.query(true, StudentTable.TABLE_NAME, new String[] { StudentTable.STATE }, null, null, null, null, null, null);
+                int x=0;
+                if (cursor.moveToFirst()) {
+                        do {
+                                String b1=new String(cursor.getString(0));
+                                list.add(b1);
+                                x=x+1;
+                        } while (cursor.moveToNext());
+                }
+                if (cursor != null && !cursor.isClosed()) {
+                        cursor.close();
+                } 
+                cursor.close();
+                return list;
+        }
         
         public List<String[]> selectAllClients()
         {
