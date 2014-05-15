@@ -85,14 +85,16 @@ public class SelectEuroGroup extends Activity implements OnItemSelectedListener 
   // Spinner click listener
   spinner.setOnItemSelectedListener(this);
 
-  List<String> categories = new ArrayList<String>();
-  categories.add("Automobile");
-  categories.add("Business Services");
-  categories.add("Computers");
-  categories.add("Education");
-  categories.add("Personal");
-  categories.add("Travel");
-
+  // List<String> categories = new ArrayList<String>();
+  //categories.add("Automobile");
+  //categories.add("Business Services");
+  //categories.add("Computers");
+  //categories.add("Education");
+  //categories.add("Personal");
+  //categories.add("Travel");
+  List<String> categories = dbHelper.selectClassesOfProducts();
+  
+  
   // Creating adapter for spinner
   ArrayAdapter<String> spDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
   // Drop down layout style - list view with radio button
