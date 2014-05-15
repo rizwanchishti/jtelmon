@@ -47,7 +47,7 @@ public class MainActivity extends Activity implements OnClickListener {
         l.setOnClickListener(this);
         View e = findViewById(R.id.Button04ComenziNetrimise);
         e.setOnClickListener(this);
-        View x = findViewById(R.id.Button05);
+        View x = findViewById(R.id.Button05VizualizareClasificari);
         x.setOnClickListener(this);
     }
    
@@ -65,6 +65,10 @@ public class MainActivity extends Activity implements OnClickListener {
         	}
         	if(arg0.getId() == R.id.Button04ComenziNetrimise){
         		Intent intent = new Intent(this,UnsentOrders.class);
+        		this.startActivity(intent);
+        	}
+        	if(arg0.getId() == R.id.Button05VizualizareClasificari){
+        		Intent intent = new Intent(this,SelectEuroGroup.class);
         		this.startActivity(intent);
         	}
         }
