@@ -293,6 +293,20 @@ public class DataManipulator {
                 return cursor;
         }
 
+        public Cursor fetchProductsFromClass(String inputText) throws SQLException {
+        	Cursor mCursor = null;
+        	  if (inputText == null  ||  inputText.length () == 0)  {
+          		  mCursor = selectAllEuroProducts();
+          	  }
+          	  else {
+          		   mCursor = db.query(TABLE_EURO_PRODUCTS, new String[] { "_id","stoc_id","simbol","denumire","categorie_id","grupa_id","clasa_id","clasa","grupa","categorie"}, "clasa" + " like '%"+ inputText + "%'" , null, null, null, "clasa asc");
+          	  }
+          	  if (mCursor != null) {
+          		  mCursor.moveToFirst();
+          	  }
+        	return mCursor;
+        }
+        
         public Cursor fetchEuroProductsByName(String inputText) throws SQLException {
       	  Cursor mCursor = null;
       	  if (inputText == null  ||  inputText.length () == 0)  {
