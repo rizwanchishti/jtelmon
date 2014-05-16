@@ -1,4 +1,6 @@
 // http://examples.javacodegeeks.com/android/core/ui/expandablelistview/android-expandablelistview-example/
+// http://www.vogella.com/tutorials/AndroidListView/article.html
+
 package com.javacodegeeks.android.androidexpandablelisteview;
 
 import java.util.ArrayList;
