@@ -33,6 +33,7 @@ public class SelectEuroGroup extends Activity implements OnItemSelectedListener 
 
  private DataManipulator dbHelper;
  private SimpleCursorAdapter dataAdapter;
+ private EditText myFilter;
  
  @Override
  public void onCreate(Bundle savedInstanceState) {
@@ -103,7 +104,8 @@ public class SelectEuroGroup extends Activity implements OnItemSelectedListener 
    }
   });
  
-  EditText myFilter = (EditText) findViewById(R.id.myFilter);
+  // EditText 
+  myFilter = (EditText) findViewById(R.id.myFilter);
   myFilter.addTextChangedListener(new TextWatcher() {
  
    public void afterTextChanged(Editable s) {
@@ -115,15 +117,15 @@ public class SelectEuroGroup extends Activity implements OnItemSelectedListener 
  
    public void onTextChanged(CharSequence s, int start, 
      int before, int count) {
-	   dataAdapter.getFilter().filter(s.toString());
+	   dataAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+	         public Cursor runQuery(CharSequence constraint) {
+	             return dbHelper.fetchEuroProductsByName(constraint.toString());
+	         }
+	     });
+	   dataAdapter.getFilter().filter(s.toString().trim());
    }
   });
    
-  dataAdapter.setFilterQueryProvider(new FilterQueryProvider() {
-         public Cursor runQuery(CharSequence constraint) {
-             return dbHelper.fetchEuroProductsByName(constraint.toString());
-         }
-     });
  
  }
 
@@ -132,6 +134,15 @@ public void onItemSelected(AdapterView<?> parent, View arg1, int position, long 
 	String item = parent.getItemAtPosition(position).toString();
 	// Showing selected spinner item
 	Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+	
+	// http://stackoverflow.com/questions/18951963/sort-listview-items-from-sqlite-android
+	dataAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+        public Cursor runQuery(CharSequence constraint) {
+            return dbHelper.fetchProductsFromClass(constraint.toString());
+        }
+    });
+	dataAdapter.getFilter().filter(item);
+	// myFilter.setText("");
 }
 
 public void onNothingSelected(AdapterView<?> arg0) {
