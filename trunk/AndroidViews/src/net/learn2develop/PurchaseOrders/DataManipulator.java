@@ -264,6 +264,45 @@ public class DataManipulator {
                 cursor.close();
                 return list;
         }
+
+        public List<String> selectGroupsOfProducts()
+        {
+                List<String> list = new ArrayList<String>();
+                Cursor cursor = db.query(true, TABLE_EURO_PRODUCTS, new String[] { "grupa" }, null, null, null, null, null, null);
+                int x=0;
+                if (cursor.moveToFirst()) {
+                        do {
+                                String b1=new String(cursor.getString(0));
+                                list.add(b1);
+                                x=x+1;
+                        } while (cursor.moveToNext());
+                }
+                if (cursor != null && !cursor.isClosed()) {
+                        cursor.close();
+                } 
+                cursor.close();
+                return list;
+        }
+
+        public List<String> selectCategoriesOfProducts()
+        {
+                List<String> list = new ArrayList<String>();
+                Cursor cursor = db.query(true, TABLE_EURO_PRODUCTS, new String[] { "categorie" }, null, null, null, null, null, null);
+                int x=0;
+                if (cursor.moveToFirst()) {
+                        do {
+                                String b1=new String(cursor.getString(0));
+                                list.add(b1);
+                                x=x+1;
+                        } while (cursor.moveToNext());
+                }
+                if (cursor != null && !cursor.isClosed()) {
+                        cursor.close();
+                } 
+                cursor.close();
+                return list;
+        }
+
         
         public List<String[]> selectAllClients()
         {
@@ -300,6 +339,34 @@ public class DataManipulator {
           	  }
           	  else {
           		   mCursor = db.query(TABLE_EURO_PRODUCTS, new String[] { "_id","stoc_id","simbol","denumire","categorie_id","grupa_id","clasa_id","clasa","grupa","categorie"}, "clasa" + " like '%"+ inputText + "%'" , null, null, null, "clasa asc");
+          	  }
+          	  if (mCursor != null) {
+          		  mCursor.moveToFirst();
+          	  }
+        	return mCursor;
+        }
+
+        public Cursor fetchProductsFromGroup(String inputText) throws SQLException {
+        	Cursor mCursor = null;
+        	  if (inputText == null  ||  inputText.length () == 0)  {
+          		  mCursor = selectAllEuroProducts();
+          	  }
+          	  else {
+          		   mCursor = db.query(TABLE_EURO_PRODUCTS, new String[] { "_id","stoc_id","simbol","denumire","categorie_id","grupa_id","clasa_id","clasa","grupa","categorie"}, "grupa" + " like '%"+ inputText + "%'" , null, null, null, "grupa asc");
+          	  }
+          	  if (mCursor != null) {
+          		  mCursor.moveToFirst();
+          	  }
+        	return mCursor;
+        }
+
+        public Cursor fetchProductsFromCategory(String inputText) throws SQLException {
+        	Cursor mCursor = null;
+        	  if (inputText == null  ||  inputText.length () == 0)  {
+          		  mCursor = selectAllEuroProducts();
+          	  }
+          	  else {
+          		   mCursor = db.query(TABLE_EURO_PRODUCTS, new String[] { "_id","stoc_id","simbol","denumire","categorie_id","grupa_id","clasa_id","clasa","grupa","categorie"}, "categorie" + " like '%"+ inputText + "%'" , null, null, null, "categorie asc");
           	  }
           	  if (mCursor != null) {
           		  mCursor.moveToFirst();
