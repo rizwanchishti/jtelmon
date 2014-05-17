@@ -33,6 +33,9 @@
     <string name="some_products">Produse PANGRAM </string>
  	<string name="some_hint"> Type here to filter&#8230; </string>
     
- 	<string name="spinner_title">Select Category</string>
+ 	<string name="spinnerClass_title">Selectare Clasa</string>
+ 	<string name="spinnerGroup_title">Selectare Grupa</string>
+ 	<string name="spinnerCategory_title">Selectare Categorie</string>
+ 	
  	    
 </resources>
