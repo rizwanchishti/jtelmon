@@ -3,23 +3,30 @@
  android:layout_width="fill_parent" android:layout_height="fill_parent"
  android:orientation="vertical">
  
- <TextView android:layout_width="fill_parent"
-  android:layout_height="wrap_content" android:padding="10dp"
-  android:text="@string/some_products" android:textSize="20sp" />
- 
  <EditText android:id="@+id/myFilter" android:layout_width="match_parent"
   android:layout_height="wrap_content" android:ems="10"
   android:hint="@string/some_hint">
   <requestFocus />
  </EditText>
 
- <Spinner 
-        android:id="@+id/spinnerClass"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:prompt="@string/spinner_title"
- /> 
+ <Spinner
+     android:id="@+id/spinnerClass"
+     android:layout_width="fill_parent"
+     android:layout_height="50dp"
+     android:prompt="@string/spinnerClass_title" />
  
+ <Spinner
+     android:id="@+id/spinnerGroup"
+     android:layout_width="match_parent"
+     android:layout_height="50dp" 
+     android:prompt="@string/spinnerGroup_title" />
+
+ <Spinner
+     android:id="@+id/spinnerCategory"
+     android:layout_width="match_parent"
+     android:layout_height="51dp"
+     android:prompt="@string/spinnerCategory_title" />
+
  <ListView android:id="@+id/listView1" android:layout_width="fill_parent"
   android:layout_height="fill_parent" />
  
