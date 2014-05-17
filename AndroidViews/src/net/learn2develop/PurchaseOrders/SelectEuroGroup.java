@@ -77,20 +77,34 @@ public class SelectEuroGroup extends Activity implements OnItemSelectedListener 
     to);
  
   ListView listView = (ListView) findViewById(R.id.listView1);
-  Spinner spinner = (Spinner) findViewById(R.id.spinnerClass);
+  Spinner spinnerClass = (Spinner) findViewById(R.id.spinnerClass);
+  Spinner spinnerGroup = (Spinner) findViewById(R.id.spinnerGroup);
+  Spinner spinnerCategory = (Spinner) findViewById(R.id.spinnerCategory);
+  
   // Assign adapter to ListView -> 
   listView.setAdapter(dataAdapter);
   // Spinner click listener -> 
-  spinner.setOnItemSelectedListener(this);
-  List<String> categories = dbHelper.selectClassesOfProducts();
+  spinnerClass.setOnItemSelectedListener(this);
+  spinnerGroup.setOnItemSelectedListener(this);
+  spinnerCategory.setOnItemSelectedListener(this);
+  
+  List<String> classesList = dbHelper.selectClassesOfProducts();
+  List<String> groupsList = dbHelper.selectGroupsOfProducts();
+  List<String> categoriesList = dbHelper.selectCategoriesOfProducts();
+  
   // Creating adapter for spinner -> 
-  ArrayAdapter<String> spDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+  ArrayAdapter<String> spDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, classesList);
+  ArrayAdapter<String> spinnerGroupDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, groupsList);
+  ArrayAdapter<String> spinnerCategoryDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoriesList);
   // Drop down layout style - list view with radio button
   spDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+  spinnerGroupDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+  spinnerCategoryDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
   // attaching data adapter to spinner
-  spinner.setAdapter(spDataAdapter);
-
- 
+  spinnerClass.setAdapter(spDataAdapter);
+  spinnerGroup.setAdapter(spinnerGroupDataAdapter);
+  spinnerCategory.setAdapter(spinnerCategoryDataAdapter);
+  
   listView.setOnItemClickListener(new OnItemClickListener() {
    // @Override
    public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
@@ -130,19 +144,47 @@ public class SelectEuroGroup extends Activity implements OnItemSelectedListener 
  }
 
 public void onItemSelected(AdapterView<?> parent, View arg1, int position, long arg3) {
+	// http://stackoverflow.com/questions/18951963/sort-listview-items-from-sqlite-android
+	
 	// On selecting a spinner item
 	String item = parent.getItemAtPosition(position).toString();
 	// Showing selected spinner item
 	Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
 	
-	// http://stackoverflow.com/questions/18951963/sort-listview-items-from-sqlite-android
-	dataAdapter.setFilterQueryProvider(new FilterQueryProvider() {
-        public Cursor runQuery(CharSequence constraint) {
-            return dbHelper.fetchProductsFromClass(constraint.toString());
-        }
-    });
-	dataAdapter.getFilter().filter(item);
-	// myFilter.setText("");
+	switch(parent.getId()){
+    case R.id.spinnerClass :
+    	dataAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+            public Cursor runQuery(CharSequence constraint) {
+                return dbHelper.fetchProductsFromClass(constraint.toString());
+            }
+        });
+    	dataAdapter.getFilter().filter(item);
+    	// myFilter.setText("");
+
+          break;
+
+    case R.id.spinnerGroup :
+    	dataAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+            public Cursor runQuery(CharSequence constraint) {
+                return dbHelper.fetchProductsFromGroup(constraint.toString());
+            }
+        });
+    	dataAdapter.getFilter().filter(item);
+
+    break;
+    
+    case R.id.spinnerCategory :
+    	dataAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+            public Cursor runQuery(CharSequence constraint) {
+                return dbHelper.fetchProductsFromCategory(constraint.toString());
+            }
+        });
+    	dataAdapter.getFilter().filter(item);
+
+    break;
+
+    
+   }
 }
 
 public void onNothingSelected(AdapterView<?> arg0) {
