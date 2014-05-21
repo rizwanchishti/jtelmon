@@ -80,7 +80,7 @@
         <activity android:name=".PurchaseOrders.ClientMenu" 
                   android:label="@string/app_name">
         </activity>        
-        <activity android:name=".PurchaseOrders.ComandaNoua" 
+        <activity android:name=".PurchaseOrders.NewOrder" 
                   android:label="@string/app_name">
         </activity>        
         <activity android:name=".PurchaseOrders.UnsentOrders" 
@@ -108,7 +108,7 @@
         </activity>        
         
         
-        <activity android:name=".PurchaseOrders.Prefs" 
+        <activity android:name=".PurchaseOrders.AddProduct" 
                   android:label="@string/app_name">
         </activity>        
             
