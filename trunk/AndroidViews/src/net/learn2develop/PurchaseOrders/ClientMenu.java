@@ -36,7 +36,7 @@ public class ClientMenu extends Activity implements OnClickListener{
   
 public void onClick(View arg0) {
       if(arg0.getId() == R.id.button1){
-             Intent intentComandaNoua = new Intent(this,ComandaNoua.class);
+             Intent intentComandaNoua = new Intent(this,NewOrder.class);
             intentComandaNoua.putExtras(BundledClient);
 		   //  startActivity(Intent);
              //start the SelectieRutaActivity

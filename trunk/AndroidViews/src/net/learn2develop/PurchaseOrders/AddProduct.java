@@ -28,16 +28,16 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
  
-public class Prefs extends Activity  {
+public class AddProduct extends Activity  {
 	//private Data dh ;
-	private EditText autocompleteClient;
+	private EditText autocompleteProduct;
 	private EditText numarbucati;
 	private EditText discount;
-	private Button Adauga02;
+	private Button buttonAddProduct;
 	private String mIntentString;
 	static final int DIALOG_ID = 0;
     DataManipulator dataMan;
-    List<String[]> listOfRoutes =null ;
+    List<String[]> listOfProducts =null ;
 	String[] stringOfProducts;
 	String theClient;
 	
@@ -45,26 +45,21 @@ public class Prefs extends Activity  {
   
     @Override
     public void onCreate(Bundle savedInstanceState)
-
-
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.autocompleteclient2);
-       autocompleteClient = (EditText)findViewById(R.id.autocompleteClient);
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.add_product_autocomplete);
+       autocompleteProduct = (EditText)findViewById(R.id.autocompleteProduct);
        numarbucati = (EditText)findViewById(R.id.numarbucati);
        discount = (EditText)findViewById(R.id.discount);
-       Adauga02 = (Button)findViewById(R.id.Adauga02);
-    
+       buttonAddProduct = (Button)findViewById(R.id.ButtonAddProduct);
       
-       Adauga02.setOnClickListener(new View.OnClickListener(){
+       buttonAddProduct.setOnClickListener(new View.OnClickListener(){
     	   	  public void onClick(View view){
-    	   	 
-    	   		  
     	   		Bundle bundledPrefs = new Bundle();
-    	   		bundledPrefs.putString("produs", autocompleteClient.getText().toString());
+    	   		bundledPrefs.putString("produs", autocompleteProduct.getText().toString());
     	   		bundledPrefs.putString("bucati", numarbucati.getText().toString());
     	   		bundledPrefs.putString("cost", discount.getText().toString());
-    	   		Intent ourIntent =new Intent(Prefs.this, ComandaNoua.class);
+    	   		Intent ourIntent =new Intent(AddProduct.this, NewOrder.class);
    			    ourIntent.putExtras(bundledPrefs);
     	   	   setResult(RESULT_OK,ourIntent);
     	   	   finish();
@@ -74,16 +69,16 @@ public class Prefs extends Activity  {
     	  	
 
  
-        final AutoCompleteTextView acTextView = (AutoCompleteTextView) findViewById(R.id.autocompleteClient);
+        final AutoCompleteTextView acTextView = (AutoCompleteTextView) findViewById(R.id.autocompleteProduct);
  
         dataMan = new DataManipulator(this);
-        listOfRoutes = dataMan.selectAllProducts();
-		stringOfProducts=new String[listOfRoutes.size()]; 
+        listOfProducts = dataMan.selectAllProducts();
+		stringOfProducts=new String[listOfProducts.size()]; 
 		
 		int x=0;
 		String stringTemporar;
 
-		for (String[] name : listOfRoutes) {
+		for (String[] name : listOfProducts) {
 			
 			stringTemporar = name[1];
 			stringOfProducts[x]=stringTemporar;
