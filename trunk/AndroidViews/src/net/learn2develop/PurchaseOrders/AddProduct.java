@@ -48,7 +48,7 @@ public class AddProduct extends Activity  {
     {
        super.onCreate(savedInstanceState);
        setContentView(R.layout.add_product_autocomplete);
-       autocompleteProduct = (EditText)findViewById(R.id.autocompleteProduct);
+       // autocompleteProduct = (EditText)findViewById(R.id.autocompleteProduct);
        numarbucati = (EditText)findViewById(R.id.numarbucati);
        discount = (EditText)findViewById(R.id.discount);
        buttonAddProduct = (Button)findViewById(R.id.ButtonAddProduct);
