@@ -16,7 +16,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         />
    
-    <AutoCompleteTextView android:id="@+id/autocompleteClient"
+    <AutoCompleteTextView android:id="@+id/autocompleteProduct"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp" />
@@ -70,7 +70,7 @@
     android:paddingLeft="20sp" >
 
     <Button
-        android:id="@+id/Adauga02"
+        android:id="@+id/ButtonAddProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10sp"
