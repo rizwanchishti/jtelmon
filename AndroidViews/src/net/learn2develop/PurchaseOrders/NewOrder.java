@@ -18,7 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
  
-public class ComandaNoua extends ListActivity  {   
+public class NewOrder extends ListActivity  {   
 	Bundle BundledClient;
 	Bundle BundleOrder;
 	String strClientName;
@@ -67,7 +67,7 @@ public class ComandaNoua extends ListActivity  {
     		// TODO Auto-generated method stub
     		switch(item.getItemId()){
     		case R.id.AdaugaProdus:
-    			Intent i = new Intent(this,Prefs.class);
+    			Intent i = new Intent(this,AddProduct.class);
     			//startActivity(i);
     			startActivityForResult(i,0 );
     		
@@ -143,7 +143,7 @@ protected final Dialog OnCreateDialog(final int id) {
 		.setCancelable(false)
 		.setPositiveButton("Renunta", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
-				ComandaNoua.this.finish();
+				NewOrder.this.finish();
 			}
 		})
 		.setNegativeButton("Adauga", new DialogInterface.OnClickListener() {

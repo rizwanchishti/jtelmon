@@ -5,6 +5,7 @@ package net.learn2develop.PurchaseOrders;
 
 import net.learn2develop.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
@@ -82,12 +83,18 @@ public class SelectEuroClient extends Activity {
    // Get the cursor, positioned to the corresponding row in the result set
    Cursor cursor = (Cursor) listView.getItemAtPosition(position);
  
+   Bundle bundledClient = new Bundle();
+   
+   
    // Get the state's capital from this row in the database.
-   String countryCode = 
-    cursor.getString(cursor.getColumnIndexOrThrow("client"));
+   String countryCode = cursor.getString(cursor.getColumnIndexOrThrow("client"));
+   bundledClient.putString("client", countryCode);
    Toast.makeText(getApplicationContext(),
      countryCode, Toast.LENGTH_SHORT).show();
- 
+	Intent ourIntent =new Intent(SelectEuroClient.this, ClientMenu.class);
+	ourIntent.putExtras(bundledClient);
+    startActivity(ourIntent);
+
    }
   });
  
