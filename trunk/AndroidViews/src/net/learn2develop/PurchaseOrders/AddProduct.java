@@ -1,4 +1,7 @@
-
+/*
+ * http://www.mysamplecode.com/2011/10/android-autocompletetextview.html
+ * http://www.mysamplecode.com/2011/10/android-autocompletetextview_19.html
+ */
 
 package net.learn2develop.PurchaseOrders;
 
