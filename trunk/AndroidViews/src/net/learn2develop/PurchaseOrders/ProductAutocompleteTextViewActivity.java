@@ -10,6 +10,7 @@ import net.learn2develop.R;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +25,7 @@ import android.widget.TextView;
  
 public class ProductAutocompleteTextViewActivity extends Activity {
  
-    private AutoCompleteTextView itemDescriptionView;
+    private AutoCompleteTextView autocompleteDenumireView;
     private DataManipulator dbHelper;
     private EditText itemView;
     private TextView descView;
@@ -40,16 +41,19 @@ public class ProductAutocompleteTextViewActivity extends Activity {
  
         itemView = (EditText) findViewById(R.id.item);
         descView = (TextView) findViewById(R.id.itemDesc);
-        itemDescriptionView = (AutoCompleteTextView) findViewById(R.id.autocomplete_desc);
+        autocompleteDenumireView = (AutoCompleteTextView) findViewById(R.id.autocomplete_desc);
         // itemDescriptionView.setDropDownBackgroundResource(R.color.autocompletet_background_color);
-        itemDescriptionView.setDropDownBackgroundResource(R.color.background_color);
+        autocompleteDenumireView.setDropDownBackgroundResource(R.color.background_color);
+        // autocompleteDenumireView.setTextColor(R.color.text_color);
+        // autocompleteDenumireView.setTextColor(Color.parseColor("#00FFFF"));
+        
         // http://stackoverflow.com/questions/18662938/change-color-of-certain-element-in-autocompletetextview
  
         // Create an ItemAutoTextAdapter for the Item description field,
         // and set it as the OnItemClickListener for that field.
         ProductAutoTextAdapter adapter = this.new ProductAutoTextAdapter(dbHelper);
-        itemDescriptionView.setAdapter(adapter);
-        itemDescriptionView.setOnItemClickListener(adapter);
+        autocompleteDenumireView.setAdapter(adapter);
+        autocompleteDenumireView.setOnItemClickListener(adapter);
         
         
     }
@@ -201,9 +205,9 @@ public class ProductAutocompleteTextViewActivity extends Activity {
  
             // Update the parent class's TextView
             itemView.setText(itemNumber);
-            descView.setText(itemDescriptionView.getText());
+            descView.setText(autocompleteDenumireView.getText());
             Log.w("Quantity:", String.valueOf(descView.getText().length()));
-            itemDescriptionView.setText("");
+            autocompleteDenumireView.setText("");
         }
     }
  
