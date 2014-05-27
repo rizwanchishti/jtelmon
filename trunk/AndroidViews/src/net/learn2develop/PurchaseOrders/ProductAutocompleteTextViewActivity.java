@@ -44,10 +44,8 @@ public class ProductAutocompleteTextViewActivity extends Activity {
         autocompleteDenumireView = (AutoCompleteTextView) findViewById(R.id.autocomplete_desc);
         // itemDescriptionView.setDropDownBackgroundResource(R.color.autocompletet_background_color);
         autocompleteDenumireView.setDropDownBackgroundResource(R.color.background_color);
-        // autocompleteDenumireView.setTextColor(R.color.text_color);
-        // autocompleteDenumireView.setTextColor(Color.parseColor("#00FFFF"));
-        
         // http://stackoverflow.com/questions/18662938/change-color-of-certain-element-in-autocompletetextview
+        // autocompleteDenumireView.setTextColor(Color.parseColor("#00FFFF"));
  
         // Create an ItemAutoTextAdapter for the Item description field,
         // and set it as the OnItemClickListener for that field.
