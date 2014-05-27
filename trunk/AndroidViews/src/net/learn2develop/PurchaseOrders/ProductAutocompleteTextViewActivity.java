@@ -16,7 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+// import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
@@ -120,7 +120,7 @@ public class ProductAutocompleteTextViewActivity extends Activity {
          */
         @Override
         public String convertToString(Cursor cursor) {
-            final int columnIndex = cursor.getColumnIndexOrThrow("description");
+            final int columnIndex = cursor.getColumnIndexOrThrow("denumire");
             final String str = cursor.getString(columnIndex);
             return str;
         }
@@ -142,8 +142,11 @@ public class ProductAutocompleteTextViewActivity extends Activity {
         public void bindView(View view, Context context, Cursor cursor) {
             //final String text = convertToString(cursor);
             //((TextView) view).setText(text);
-            final int itemColumnIndex = cursor.getColumnIndexOrThrow("itemNumber");
-            final int descColumnIndex = cursor.getColumnIndexOrThrow("description");
+        	
+        	// final int itemColumnIndex = cursor.getColumnIndexOrThrow("itemNumber");
+        	final int itemColumnIndex = cursor.getColumnIndexOrThrow("stoc_id");
+            // final int descColumnIndex = cursor.getColumnIndexOrThrow("description");
+            final int descColumnIndex = cursor.getColumnIndexOrThrow("denumire");
             TextView text1 = (TextView) view.findViewById(R.id.text1);
             text1.setText(cursor.getString(itemColumnIndex));
             TextView text2 = (TextView) view.findViewById(R.id.text2);
@@ -192,7 +195,7 @@ public class ProductAutocompleteTextViewActivity extends Activity {
             Cursor cursor = (Cursor) listView.getItemAtPosition(position);
  
             // Get the Item Number from this row in the database.
-            String itemNumber = cursor.getString(cursor.getColumnIndexOrThrow("itemNumber"));
+            String itemNumber = cursor.getString(cursor.getColumnIndexOrThrow("stoc_id"));
  
             // Update the parent class's TextView
             itemView.setText(itemNumber);
