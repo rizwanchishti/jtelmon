@@ -41,7 +41,9 @@ public class ProductAutocompleteTextViewActivity extends Activity {
         itemView = (EditText) findViewById(R.id.item);
         descView = (TextView) findViewById(R.id.itemDesc);
         itemDescriptionView = (AutoCompleteTextView) findViewById(R.id.autocomplete_desc);
- 
+        // itemDescriptionView.setDropDownBackgroundResource(R.color.autocompletet_background_color);
+        itemDescriptionView.setDropDownBackgroundResource(R.color.background_color);
+        // http://stackoverflow.com/questions/18662938/change-color-of-certain-element-in-autocompletetextview
  
         // Create an ItemAutoTextAdapter for the Item description field,
         // and set it as the OnItemClickListener for that field.
