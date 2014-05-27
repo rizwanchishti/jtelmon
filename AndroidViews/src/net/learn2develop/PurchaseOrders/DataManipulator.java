@@ -432,6 +432,17 @@ public class DataManipulator {
                 cursor.close();
                 return setupInfo;
         }
+        
+        public Cursor fetchItemsByDesc(String inputText) throws SQLException {
+            Cursor mCursor = db.query(true, TABLE_EURO_PRODUCTS, new String[] {"_id",
+            		"stoc_id", "denumire"}, "denumire" + " like '%" + inputText + "%'", null,
+                    null, null, null, null);
+            if (mCursor != null) {
+                mCursor.moveToFirst();
+            }
+            return mCursor;
+        }
+
 
         public void delete(int rowId) {
                 db.delete(TABLE_ORDERS, null, null);
