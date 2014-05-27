@@ -27,7 +27,8 @@ public class AndroidAutocompleteTextViewActivity extends Activity {
     private ItemsDbAdapter dbHelper;
     private EditText itemView;
     private TextView descView;
-    
+
+    /*
     static final String[] COUNTRIES = new String[] {
           "Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra",
           "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina",
@@ -72,10 +73,12 @@ public class AndroidAutocompleteTextViewActivity extends Activity {
           "Yemen", "Yugoslavia", "Zambia", "Zimbabwe"
         };
  
+ */
+ 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.autocomplete_cursor_main);
  
         dbHelper = new ItemsDbAdapter(this);
         dbHelper.open();
@@ -92,9 +95,9 @@ public class AndroidAutocompleteTextViewActivity extends Activity {
         itemDescriptionView.setOnItemClickListener(adapter);
         
         // Create an ItemAutoTextAdapter for Country name
-        AutoCompleteTextView countryView = (AutoCompleteTextView) findViewById(R.id.autocomplete_country);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.country_list, COUNTRIES);
-        countryView.setAdapter(arrayAdapter);
+        // AutoCompleteTextView countryView = (AutoCompleteTextView) findViewById(R.id.autocomplete_country);
+        // ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.country_list, COUNTRIES);
+        // countryView.setAdapter(arrayAdapter);
  
         //Clean all Items
         dbHelper.deleteAllItems();
@@ -230,7 +233,7 @@ public class AndroidAutocompleteTextViewActivity extends Activity {
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
             final LayoutInflater inflater = LayoutInflater.from(context);
-            final View view = inflater.inflate(R.layout.item_list,parent, false);
+            final View view = inflater.inflate(R.layout.autocomplete_item_list,parent, false);
             return view;
         }
  
