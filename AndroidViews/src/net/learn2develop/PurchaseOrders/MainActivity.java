@@ -53,6 +53,10 @@ public class MainActivity extends Activity implements OnClickListener {
    
     // @Override
         public void onClick(View arg0) {
+        	if(arg0.getId() == R.id.Button01SelectieRuta){
+        		Intent intent = new Intent(this,ProductAutocompleteTextViewActivity.class);
+                this.startActivity(intent);
+        	}
         	if(arg0.getId() == R.id.Button02SelectieClient){
         		// Intent intent = new Intent(this,SelectieClient.class);
         		Intent intent = new Intent(this,SelectEuroClient.class);
