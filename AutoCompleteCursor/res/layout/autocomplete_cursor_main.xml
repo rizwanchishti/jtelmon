@@ -16,11 +16,6 @@
             android:orientation="horizontal"
             android:paddingBottom="20dp"
             android:paddingTop="50dp" >
-
-            <TextView android:text="Simple AutoCompleteTextView using String Array"
-                android:textStyle="bold" android:layout_height="wrap_content"
-                android:id="@+id/textView6" android:textSize="25sp"
-                android:layout_width="wrap_content" />
         </LinearLayout>
         <LinearLayout android:id="@+id/itemLayout2"
             android:layout_width="match_parent" android:orientation="vertical"
@@ -29,11 +24,6 @@
                 android:id="@+id/tableLayout1" android:layout_height="match_parent">
                 <TableRow android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/tableRow4">
-                    <AutoCompleteTextView android:layout_height="wrap_content"
-                        android:layout_width="wrap_content" android:hint="Search for Country in AutoCompleteTextView"
-                        android:id="@+id/autocomplete_country">
-                        <requestFocus />
-                    </AutoCompleteTextView>
                 </TableRow>
             </TableLayout>
         </LinearLayout>
