@@ -37,10 +37,6 @@ public class NewOrder extends ListActivity  {
         dm = new DataManipulator(this);
         setContentView(R.layout.clickclient);
         BundledClient = getIntent().getExtras();
-        
-       
-      
-        
         if(BundledClient != null) {
             strClientName = BundledClient.getString("client");
             if(strClientName != null) {
@@ -48,12 +44,11 @@ public class NewOrder extends ListActivity  {
                 if(t != null) {
                     t.setText(strClientName);
                 }
-                
             }
         }
     }
  
-        public boolean onCreateOptionsMenu(android.view.Menu menu) {
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
         	super.onCreateOptionsMenu(menu);
         	 super.onCreateOptionsMenu(menu);
         	MenuInflater blowUp = getMenuInflater();
@@ -63,7 +58,7 @@ public class NewOrder extends ListActivity  {
  
         
         @Override
-    	public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
     		// TODO Auto-generated method stub
     		switch(item.getItemId()){
     		case R.id.AdaugaProdus:
@@ -103,7 +98,7 @@ public class NewOrder extends ListActivity  {
     	}
   
             
-    	protected void onActivityResult (int requestCode, int resultCode, Intent intent){
+    protected void onActivityResult (int requestCode, int resultCode, Intent intent){
 	        super.onActivityResult(requestCode, resultCode, intent);
 	        Bundle extras = intent.getExtras();
 	       
@@ -114,15 +109,10 @@ public class NewOrder extends ListActivity  {
 	        String s4 = new String(" ");
 	        
 	        dm.adaugaLiniePeComanda(s1, s2, s3, s4);
-	   String s5 = s1+" - "+s2+ " bucati - "+s3+" % discount ";
-	                 vectorOfStrings.add(s5);
-	        
-	       showDialog(DIALOG_ID);
-	      
-	        
-	      
-	        
-	        
+	        String s5 = s1+" - "+s2+ " bucati - "+s3+" % discount ";
+	        vectorOfStrings.add(s5);
+	        showDialog(DIALOG_ID);
+
 	        int orderCount = vectorOfStrings.size();
 	        String[] arrayOfStrings = new String[orderCount];
 	        vectorOfStrings.copyInto(arrayOfStrings); 
@@ -161,12 +151,3 @@ protected final Dialog OnCreateDialog(final int id) {
 	
 }
 }
-
-            
-
- 
- 
- 
-
- 
-
