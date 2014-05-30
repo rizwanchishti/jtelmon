@@ -68,38 +68,28 @@ public class NewOrder extends ListActivity  {
     			Intent i = new Intent(this,AddProduct.class);
     			//startActivity(i);
     			startActivityForResult(i,0 );
-    		
-    			
     			break;
     			
     		case R.id.ValidareComanda:
-    			
     			//Intent o = new Intent("eu.itcsolutions.android.tutorial");
-    			
     			dm.insereazaLiniileComenzii(strClientName);
     			//startActivity(i);
     			//startActivityForResult(o,0 );
-    		
-    			
     			break;
   		
           case R.id.Termenplatadiscount:
-        	  Intent j = new Intent("");
-        	  startActivity(j);
-        	  
-    			
+        	  	Intent j = new Intent("");
+        	  	startActivity(j);
     			break;
     			
     		case R.id.StergeProdus:
     			Intent p = new Intent("eu.itcsolutions.android.tutorial.PREFS");
     			startActivity(p);
-    			
     			break;
     		
     		}
     		return false;
     	}
-  
             
     protected void onActivityResult (int requestCode, int resultCode, Intent intent){
 	        super.onActivityResult(requestCode, resultCode, intent);
