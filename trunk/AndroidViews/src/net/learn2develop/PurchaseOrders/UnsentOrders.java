@@ -54,7 +54,7 @@ public class UnsentOrders extends ListActivity {
 	    			finish();
 	    		break;
 	    		case R.id.TransferToServer:
-	    			Intent p = new Intent(this,TransferToWebService.class);
+	    			Intent p = new Intent(this,WebServiceTransferTo.class);
 	    			startActivity(p);
 	    		break;
 	    	}

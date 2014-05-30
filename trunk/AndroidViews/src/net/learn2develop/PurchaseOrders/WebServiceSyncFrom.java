@@ -22,7 +22,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Vector;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.HashMap; 
 
@@ -49,7 +49,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.JsonNode;
 //import com.fasterxml.jackson.JsonNode;
 
-public class SyncFromWebService extends ListActivity {
+public class WebServiceSyncFrom extends ListActivity {
 	
 	private final static String SERVICE_URI         = "http://sfa.pangram.ro:8090/PostgresWebService/rest";
 	// private final static String SERVICE_URI_TEMP = "http://192.168.61.207:8080/EmployeeDirectoryJAXRS20140420/rest";

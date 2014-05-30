@@ -85,7 +85,6 @@ public class MainActivity extends Activity implements OnClickListener {
 }
     @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
 		switch(item.getItemId()){
 		case R.id.Monetar:
 				Intent i = new Intent("");
@@ -102,14 +101,12 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 			
 		case R.id.Sincronizeazadate:
-			
 			 // progressDialog = ProgressDialog.show(this, "", "Sincronizeaza date...");
 			 new Thread() {
 				 public void run() {
 					 try{
 						 // sleep(5000);
-						 
-						 Intent r = new Intent(getApplicationContext(),SyncFromWebService.class);
+						 Intent r = new Intent(getApplicationContext(),WebServiceSyncFrom.class);
 						 // Intent r = new Intent(getApplicationContext(),Sincronizare.class);
 						 startActivity(r);
 					 } catch (Exception e) {
@@ -120,14 +117,11 @@ public class MainActivity extends Activity implements OnClickListener {
 			 }.start();
 			// Intent r = new Intent(this,Sincronizare.class);
 			// startActivity(r);
-			
 			break;
-			
 			
 		case R.id.Actualizeazasolduri:
 			Intent s = new Intent("");
 			startActivity(s);
-			
 			break;
 			
 		case R.id.Reinitializeazabazadedate:
@@ -162,9 +156,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.Reinitializeazadateagent:
 			Intent y = new Intent(this,DateAgent.class);
 			startActivity(y);
-			
 			break;
-		
 		}
 		return false;
 	}
