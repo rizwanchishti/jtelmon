@@ -1,9 +1,12 @@
 package net.learn2develop.PurchaseOrders;
  
 import net.learn2develop.R;
+
 import java.util.List;
 import java.util.Vector;
+
 import android.app.Activity;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -100,19 +103,23 @@ public class NewOrder extends ListActivity  {
             
     protected void onActivityResult (int requestCode, int resultCode, Intent intent){
 	        super.onActivityResult(requestCode, resultCode, intent);
-	        Bundle extras = intent.getExtras();
-	       
-	     
-	        String s1 =extras.getString("produs") ;
-	        String s2 =extras.getString("bucati");
-	        String s3 =extras.getString("cost");
-	        String s4 = new String(" ");
-	        
-	        dm.adaugaLiniePeComanda(s1, s2, s3, s4);
-	        String s5 = s1+" - "+s2+ " bucati - "+s3+" % discount ";
-	        vectorOfStrings.add(s5);
+	        Bundle extras = null;
+	        try{
+	        	extras = intent.getExtras();
+	        }
+	        catch (Exception e) {
+	        	Log.d("NewOrder.onActivityResult", " No Extra Bundle ! " );
+        	}  
+	        if ( extras != null){
+	        	String s1 =extras.getString("produs") ;
+	        	String s2 =extras.getString("bucati");
+	        	String s3 =extras.getString("cost");
+	        	String s4 = new String(" ");
+	        	dm.adaugaLiniePeComanda(s1, s2, s3, s4);
+	        	String s5 = s1+" - "+s2+ " bucati - "+s3+" % discount ";
+	        	vectorOfStrings.add(s5);
+	        }	
 	        showDialog(DIALOG_ID);
-
 	        int orderCount = vectorOfStrings.size();
 	        String[] arrayOfStrings = new String[orderCount];
 	        vectorOfStrings.copyInto(arrayOfStrings); 
