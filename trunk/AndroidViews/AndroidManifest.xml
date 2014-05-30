@@ -97,15 +97,15 @@
                   android:label="@string/app_name">
         </activity>        
 
-        <activity android:name=".PurchaseOrders.TransferToWebService" 
+        <activity android:name=".PurchaseOrders.WebServiceTransferTo" 
                   android:label="@string/app_name">
         </activity>       
          
-        <activity android:name=".PurchaseOrders.SyncFromWebService" 
+        <activity android:name=".PurchaseOrders.WebServiceSyncFrom" 
                   android:label="@string/app_name">
         </activity>        
         
-        <activity android:name=".PurchaseOrders.DateAgent" 
+        <activity android:name=".PurchaseOrders.AgentData" 
                   android:label="@string/app_name">
         </activity>        
 
