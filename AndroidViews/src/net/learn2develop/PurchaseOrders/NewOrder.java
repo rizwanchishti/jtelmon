@@ -26,10 +26,10 @@ public class NewOrder extends ListActivity  {
 	Bundle BundleOrder;
 	String strClientName;
 
-	private final int SECONDARY_ACTIVITY_REQUEST_CODE=0;
-	private EditText autocompleteClient;
-	private EditText numarbucati;
-	private EditText discount;
+	// private final int SECONDARY_ACTIVITY_REQUEST_CODE=0;
+	// private EditText autocompleteClient;
+	// private EditText numarbucati;
+	// private EditText discount;
 	List<String[]> names2 =null ;
 	Vector<String> vectorOfStrings = new Vector<String>();
 	DataManipulator dm;
