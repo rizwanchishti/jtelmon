@@ -31,6 +31,7 @@ public class DataManipulator {
         static final String TABLE_EURO_CLIENTS  = "clients_eurobit";
         static final String TABLE_EURO_PRODUCTS = "products_eurobit";
         static final String TABLE_SETUP = "setup";
+        static final String TABLE_COMANDA   = "ordersa3";
         private static Context context;
         static SQLiteDatabase db;
         List < CommandLine > orderOfClient ;
@@ -40,17 +41,20 @@ public class DataManipulator {
         private SQLiteStatement insertClientEurobitTemplate;
         private SQLiteStatement insertProductEurobitTemplate;
         private SQLiteStatement insertSetupTemplate;
+        private SQLiteStatement insertOrdersaTemplate;
         private static final String INSERT_ORDERS = "insert into " + TABLE_ORDERS + " (clientName,productName,piecesNumber,discountNumber) values (?,?,?,?)";
     	private static final String INSERT_PRODUCTS = "insert into " + TABLE_PRODUCTS + " (ID, Name, Price, Symbol) values (?,?,?,?)";
     	private static final String INSERT_CLIENTS = "insert into " + TABLE_CLIENTS + " (Agent, Client, Route, Zone) values (?,?,?,?)";
     	private static final String INSERT_CLIENTS_EUROBIT  = "insert into " + TABLE_EURO_CLIENTS + " (client, cui, plt, tert_id, categorie, categorie_id, clasa, clasa_id, grupa, grupa_id) values (?,?,?,?,?,?,?,?,?,?)";
     	private static final String INSERT_PRODUCTS_EUROBIT = "insert into " + TABLE_EURO_PRODUCTS+ " (stoc_id, simbol, denumire, categorie_id, grupa_id, clasa_id, clasa, grupa, categorie, pret_gross) values (?,?,?,?,?,?,?,?,?,?)";
     	private static final String INSERT_SETUP = "insert into " + TABLE_SETUP + " (UtilizatorID, UserName, Parola) values (?,?,?)";
-        
+    	private static final String INSERT_COMANDA = "insert into " + TABLE_COMANDA + " (nrdoc,data_c,gestiune_id,tert_id,valoare,nrlc_id,data_l,user_id,nivacc,operare,verstor,tiparit,facturat,zscadenta,pr_disc_expl,val_disc_expl,NrFact,data_f) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    	
    		public DataManipulator(Context context ) {
                 DataManipulator.context = context;
                 OpenHelper openHelper = new OpenHelper(DataManipulator.context);
                 DataManipulator.db = openHelper.getWritableDatabase();
+                this.insertOrdersaTemplate = DataManipulator.db.compileStatement(INSERT_COMANDA);
                 this.insertOrderTemplate = DataManipulator.db.compileStatement(INSERT_ORDERS);
                 this.insertProductTemplate = DataManipulator.db.compileStatement(INSERT_PRODUCTS);
                 this.insertClientTemplate = DataManipulator.db.compileStatement(INSERT_CLIENTS);
@@ -60,7 +64,33 @@ public class DataManipulator {
                 orderOfClient = new ArrayList<CommandLine>();
     	}
           
-        public long insertIntoOrders(String clientName,String productName,String piecesNumber,String discountNumber) {
+
+   		public long insertIntoComanda(String nrdoc,String data_c,String gestiune_id,String nrlc_id,String tert_id, String valoare,String data_l,String facturat,String user_id,String operare,
+        		String verstor,String tiparit,String nivacc,String zscadenta,String pr_disc_expl,String val_disc_expl,String NrFact,String data_f
+        		) {
+           this.insertOrdersaTemplate.bindString(1, nrdoc);
+           this.insertOrdersaTemplate.bindString(2, data_c);
+           this.insertOrdersaTemplate.bindString(3, gestiune_id);
+           this.insertOrdersaTemplate.bindString(4, tert_id);
+           this.insertOrdersaTemplate.bindString(5, valoare);
+           this.insertOrdersaTemplate.bindString(6, nrlc_id);
+           this.insertOrdersaTemplate.bindString(7, data_l);
+           this.insertOrdersaTemplate.bindString(8, user_id);
+           this.insertOrdersaTemplate.bindString(9, nivacc);
+           this.insertOrdersaTemplate.bindString(10, operare);
+           this.insertOrdersaTemplate.bindString(11, verstor);
+           this.insertOrdersaTemplate.bindString(12, tiparit);
+           this.insertOrdersaTemplate.bindString(13, facturat);
+           this.insertOrdersaTemplate.bindString(14, zscadenta);
+           this.insertOrdersaTemplate.bindString(15, pr_disc_expl);
+           this.insertOrdersaTemplate.bindString(16, val_disc_expl);
+           this.insertOrdersaTemplate.bindString(17, NrFact);
+           this.insertOrdersaTemplate.bindString(18, data_f);
+           
+           return this.insertOrdersaTemplate.executeInsert();
+  }
+   		
+   		public long insertIntoOrders(String clientName,String productName,String piecesNumber,String discountNumber) {
                 this.insertOrderTemplate.bindString(1, clientName);
                 this.insertOrderTemplate.bindString(2, productName);
                 this.insertOrderTemplate.bindString(3, piecesNumber);
@@ -462,26 +492,28 @@ public class DataManipulator {
 
                 @Override
                 public void onCreate(SQLiteDatabase db) {
-                        db.execSQL("CREATE TABLE " + TABLE_ORDERS +   " (lineOrderId INTEGER PRIMARY KEY, clientName TEXT, productName TEXT, piecesNumber TEXT, discountNumber TEXT)");
-                        db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (_id integer primary key autoincrement, ID TEXT, Name TEXT, Price TEXT, Symbol TEXT)");
-                        db.execSQL("CREATE TABLE " + TABLE_CLIENTS + " (_id integer primary key autoincrement, Agent TEXT, Client TEXT, Route TEXT, Zone TEXT)");
-                        db.execSQL("CREATE TABLE " + TABLE_SETUP + " (_id integer primary key autoincrement, UtilizatorID TEXT, Parola TEXT, UserName TEXT, SefID TEXT, ZonaID TEXT)");
-                        db.execSQL("CREATE TABLE " + TABLE_EURO_CLIENTS + " (_id integer primary key autoincrement,client TEXT, cui TEXT, plt TEXT, tert_id TEXT, categorie TEXT, categorie_id TEXT, clasa TEXT, clasa_id TEXT, grupa TEXT, grupa_id TEXT)");
-                        db.execSQL("CREATE TABLE " + TABLE_EURO_PRODUCTS + " (_id integer primary key autoincrement,stoc_id TEXT, simbol TEXT, denumire TEXT, categorie_id TEXT, grupa_id TEXT, clasa_id TEXT, clasa TEXT, grupa TEXT, categorie TEXT, pret_gross TEXT)");
-                }
-
+                	db.execSQL("CREATE TABLE " + TABLE_COMANDA + " (com_id integer primary key autoincrement, nrdoc character, data_c date, gestiune_id character, tert_id character, valoare numeric,nrlc_id character, data_l date, user_id character, nivacc integer, operare timestamp, verstor numeric, tiparit character, facturat character, zscadenta integer, pr_disc_expl numeric, val_disc_expl numeric, NrFact character, data_f date  )");    
+                	db.execSQL("CREATE TABLE " + TABLE_ORDERS +   " (lineOrderId INTEGER PRIMARY KEY, clientName TEXT, productName TEXT, piecesNumber TEXT, discountNumber TEXT)");
+                    db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (_id integer primary key autoincrement, ID TEXT, Name TEXT, Price TEXT, Symbol TEXT)");
+                    db.execSQL("CREATE TABLE " + TABLE_CLIENTS + " (_id integer primary key autoincrement, Agent TEXT, Client TEXT, Route TEXT, Zone TEXT)");
+                    db.execSQL("CREATE TABLE " + TABLE_SETUP + " (_id integer primary key autoincrement, UtilizatorID TEXT, Parola TEXT, UserName TEXT, SefID TEXT, ZonaID TEXT)");
+                    db.execSQL("CREATE TABLE " + TABLE_EURO_CLIENTS + " (_id integer primary key autoincrement,client TEXT, cui TEXT, plt TEXT, tert_id TEXT, categorie TEXT, categorie_id TEXT, clasa TEXT, clasa_id TEXT, grupa TEXT, grupa_id TEXT)");
+                    db.execSQL("CREATE TABLE " + TABLE_EURO_PRODUCTS + " (_id integer primary key autoincrement,stoc_id TEXT, simbol TEXT, denumire TEXT, categorie_id TEXT, grupa_id TEXT, clasa_id TEXT, clasa TEXT, grupa TEXT, categorie TEXT, pret_gross TEXT)");
+                }   
+                    
                 // http://www.vogella.com/tutorials/AndroidSQLite/article.html
                 // Method is called during an upgrade of the database,
                 // e.g. if you increase the database version
                 @Override
                 public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-                        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDERS);
-                        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
-                        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIENTS);
-                        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EURO_CLIENTS);
-                        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EURO_PRODUCTS);
-                        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETUP);
-                        onCreate(db);
+                	db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMANDA);
+                    db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDERS);
+                    db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
+                    db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIENTS);
+                    db.execSQL("DROP TABLE IF EXISTS " + TABLE_EURO_CLIENTS);
+                    db.execSQL("DROP TABLE IF EXISTS " + TABLE_EURO_PRODUCTS);
+                    db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETUP);
+                    onCreate(db);
                 }
         }
 }
