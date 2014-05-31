@@ -463,9 +463,9 @@ public class DataManipulator {
                 return setupInfo;
         }
         
-        public Cursor fetchItemsByDesc(String inputText) throws SQLException {
+        public Cursor fetchProductsByLetters(String inputText) throws SQLException {
             Cursor mCursor = db.query(true, TABLE_EURO_PRODUCTS, new String[] {"_id",
-            		"stoc_id", "denumire"}, "denumire" + " like '%" + inputText + "%'", null,
+            		"stoc_id", "denumire", "pret_gross"}, "denumire" + " like '%" + inputText + "%'", null,
                     null, null, null, null);
             if (mCursor != null) {
                 mCursor.moveToFirst();
