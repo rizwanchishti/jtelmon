@@ -49,8 +49,9 @@ public class AddProduct extends Activity  {
 	String theClient;
   
 	private AutoCompleteTextView autocompleteDenumireView;
-    private EditText itemView;
+    private TextView itemView;
     private TextView descView;
+    private TextView priceView;
 	
     
     @Override
@@ -84,8 +85,9 @@ public class AddProduct extends Activity  {
  
         dbHelper = new DataManipulator(this);
         
-        itemView = (EditText) findViewById(R.id.idProduct);
-        descView = (TextView) findViewById(R.id.textViewDenumireProdus);
+        itemView  = (TextView) findViewById(R.id.idProduct);
+        descView  = (TextView) findViewById(R.id.textViewDenumireProdus);
+        priceView = (TextView) findViewById(R.id.textViewProductPrice);  
 
         // Create an ItemAutoTextAdapter for the Item description field,
         // and set it as the OnItemClickListener for that field.
@@ -144,7 +146,7 @@ public class AddProduct extends Activity  {
                 return getFilterQueryProvider().runQuery(constraint);
             }
  
-            Cursor cursor = mDbHelper.fetchItemsByDesc(
+            Cursor cursor = mDbHelper.fetchProductsByLetters(
                     (constraint != null ? constraint.toString() : "@@@@"));
  
             return cursor;
@@ -237,11 +239,17 @@ public class AddProduct extends Activity  {
             Cursor cursor = (Cursor) listView.getItemAtPosition(position);
  
             // Get the Item Number from this row in the database.
-            String itemNumber = cursor.getString(cursor.getColumnIndexOrThrow("stoc_id"));
+            String stocID = cursor.getString(cursor.getColumnIndexOrThrow("stoc_id"));
+            String pretGross = cursor.getString(cursor.getColumnIndexOrThrow("pret_gross"));
  
             // Update the parent class's TextView
-            itemView.setText(itemNumber);
+            itemView.setText(stocID);
+            priceView.setText(pretGross);
             descView.setText(autocompleteDenumireView.getText());
+            
+            // numarbucati.setFocusableInTouchMode(true);
+            numarbucati.requestFocus();
+            
             Log.w("Quantity:", String.valueOf(descView.getText().length()));
             // autocompleteDenumireView.setText("");
         }

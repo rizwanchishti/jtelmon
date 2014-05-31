@@ -106,7 +106,7 @@ public class ProductAutocompleteTextViewActivity extends Activity {
                 return getFilterQueryProvider().runQuery(constraint);
             }
  
-            Cursor cursor = mDbHelper.fetchItemsByDesc(
+            Cursor cursor = mDbHelper.fetchProductsByLetters(
                     (constraint != null ? constraint.toString() : "@@@@"));
  
             return cursor;
