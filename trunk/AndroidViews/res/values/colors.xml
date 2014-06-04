@@ -1,11 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <color name="background_color">#888888</color>
-   <color name="text_color">#00FFFF</color>
+
+    <color name="background_color">#888888</color>
+     <color name="text_color">#00FFFF</color>
     
    <color name="opaque_red">#f00</color>
    <color name="translucent_red">#80ff0000</color>
     
    <color name="autocompletet_background_color">#EFEFEF</color> 
+
+    <color name="greenStart">#ff33dd44</color>
+    <color name="greenMid">#ff0a8815</color>
+    <color name="greenEnd">#ff1da130</color>
+    <color name="redStart">#ffff0000</color>
+    <color name="redMid">#ffff0000</color>
+    <color name="redEnd">#ffff0000</color>
+    <color name="cyan">#ff57feff</color>
+    <color name="white">#ffffffff</color>
+    <color name="orange">#fff88017</color>
+    <color name="green">#ff00ff00</color>
+    <color name="green_light">#ff50d050</color>
+    <color name="red">#ffff0000</color>
+    <color name="red1">#ffff6666</color>
+    <color name="yellow">#ffffff00</color>
+    <color name="grey">#ffc0c0c0</color>
+    <color name="grey1">#ff646060</color>
+    <color name="blue">#ff0000ff</color>
+    <color name="blue1">#ff00ccff</color>
+    <color name="green1">#ff00ff66</color>
+    <color name="black">#ff000000</color>
+    <color name="grey_black">#ff777b88</color>
+    <color name="corel">#fff76541</color>
+    <color name="red_light">#ffff8282</color>
+    <color name="blue_dark">#ff151b54</color>
+    <color name="green_selected_media">#ff81cf5c</color>
+    <color name="red_dark">#ffb22222</color>
    
 </resources>
+
+
