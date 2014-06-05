@@ -87,12 +87,12 @@ public class SelectEuroClient extends Activity {
    
    
    // Get the state's capital from this row in the database.
-   String countryCode = cursor.getString(cursor.getColumnIndexOrThrow("client"));
-   String tert_id = cursor.getString(cursor.getColumnIndexOrThrow("tert_id"));
-   bundledClient.putString("client", countryCode);
-   bundledClient.putString("tert_id", tert_id);
+   String clientName = cursor.getString(cursor.getColumnIndexOrThrow("client"));
+   String client_id = cursor.getString(cursor.getColumnIndexOrThrow("tert_id"));
+   bundledClient.putString("client", clientName);
+   bundledClient.putString("tert_id", client_id);
    Toast.makeText(getApplicationContext(),
-     countryCode, Toast.LENGTH_SHORT).show();
+     clientName, Toast.LENGTH_SHORT).show();
 	Intent ourIntent =new Intent(SelectEuroClient.this, ClientMenu.class);
 	ourIntent.putExtras(bundledClient);
     startActivity(ourIntent);
