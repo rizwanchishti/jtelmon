@@ -48,13 +48,13 @@ public class DataManipulator {
     	private static final String INSERT_CLIENTS_EUROBIT  = "insert into " + TABLE_EURO_CLIENTS + " (client, cui, plt, tert_id, categorie, categorie_id, clasa, clasa_id, grupa, grupa_id) values (?,?,?,?,?,?,?,?,?,?)";
     	private static final String INSERT_PRODUCTS_EUROBIT = "insert into " + TABLE_EURO_PRODUCTS+ " (stoc_id, simbol, denumire, categorie_id, grupa_id, clasa_id, clasa, grupa, categorie, pret_gross) values (?,?,?,?,?,?,?,?,?,?)";
     	private static final String INSERT_SETUP = "insert into " + TABLE_SETUP + " (UtilizatorID, UserName, Parola) values (?,?,?)";
-    	private static final String INSERT_COMANDA = "insert into " + TABLE_COMANDA + " (nrdoc,data_c,gestiune_id,tert_id,valoare,nrlc_id,data_l,user_id,nivacc,operare,verstor,tiparit,facturat,zscadenta,pr_disc_expl,val_disc_expl,NrFact,data_f) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    	private static final String INSERT_HEADER_COMANDA = "insert into " + TABLE_COMANDA + " (nrdoc,data_c,gestiune_id,tert_id,valoare,nrlc_id,data_l,user_id,nivacc,operare,verstor,tiparit,facturat,zscadenta,pr_disc_expl,val_disc_expl,NrFact,data_f) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     	
    		public DataManipulator(Context context ) {
                 DataManipulator.context = context;
                 OpenHelper openHelper = new OpenHelper(DataManipulator.context);
                 DataManipulator.db = openHelper.getWritableDatabase();
-                this.insertOrdersaTemplate = DataManipulator.db.compileStatement(INSERT_COMANDA);
+                this.insertOrdersaTemplate = DataManipulator.db.compileStatement(INSERT_HEADER_COMANDA);
                 this.insertOrderTemplate = DataManipulator.db.compileStatement(INSERT_ORDERS);
                 this.insertProductTemplate = DataManipulator.db.compileStatement(INSERT_PRODUCTS);
                 this.insertClientTemplate = DataManipulator.db.compileStatement(INSERT_CLIENTS);
