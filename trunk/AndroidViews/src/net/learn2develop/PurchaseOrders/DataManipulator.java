@@ -31,7 +31,7 @@ public class DataManipulator {
         static final String TABLE_EURO_CLIENTS  = "clients_eurobit";
         static final String TABLE_EURO_PRODUCTS = "products_eurobit";
         static final String TABLE_SETUP = "setup";
-        static final String TABLE_COMANDA   = "ordersa3";
+        static final String TABLE_HEADER_COMANDA   = "ordersa3";
         private static Context context;
         static SQLiteDatabase db;
         List < CommandLine > orderOfClient ;
@@ -48,7 +48,7 @@ public class DataManipulator {
     	private static final String INSERT_CLIENTS_EUROBIT  = "insert into " + TABLE_EURO_CLIENTS + " (client, cui, plt, tert_id, categorie, categorie_id, clasa, clasa_id, grupa, grupa_id) values (?,?,?,?,?,?,?,?,?,?)";
     	private static final String INSERT_PRODUCTS_EUROBIT = "insert into " + TABLE_EURO_PRODUCTS+ " (stoc_id, simbol, denumire, categorie_id, grupa_id, clasa_id, clasa, grupa, categorie, pret_gross) values (?,?,?,?,?,?,?,?,?,?)";
     	private static final String INSERT_SETUP = "insert into " + TABLE_SETUP + " (UtilizatorID, UserName, Parola) values (?,?,?)";
-    	private static final String INSERT_HEADER_COMANDA = "insert into " + TABLE_COMANDA + " (nrdoc,data_c,gestiune_id,tert_id,valoare,nrlc_id,data_l,user_id,nivacc,operare,verstor,tiparit,facturat,zscadenta,pr_disc_expl,val_disc_expl,NrFact,data_f) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    	private static final String INSERT_HEADER_COMANDA = "insert into " + TABLE_HEADER_COMANDA + " (nrdoc,data_c,gestiune_id,tert_id,valoare,nrlc_id,data_l,user_id,nivacc,operare,verstor,tiparit,facturat,zscadenta,pr_disc_expl,val_disc_expl,NrFact,data_f) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     	
    		public DataManipulator(Context context ) {
                 DataManipulator.context = context;
@@ -492,7 +492,7 @@ public class DataManipulator {
 
                 @Override
                 public void onCreate(SQLiteDatabase db) {
-                	db.execSQL("CREATE TABLE " + TABLE_COMANDA + " (com_id integer primary key autoincrement, nrdoc character, data_c date, gestiune_id character, tert_id character, valoare numeric,nrlc_id character, data_l date, user_id character, nivacc integer, operare timestamp, verstor numeric, tiparit character, facturat character, zscadenta integer, pr_disc_expl numeric, val_disc_expl numeric, NrFact character, data_f date  )");    
+                	db.execSQL("CREATE TABLE " + TABLE_HEADER_COMANDA + " (com_id integer primary key autoincrement, nrdoc character, data_c date, gestiune_id character, tert_id character, valoare numeric,nrlc_id character, data_l date, user_id character, nivacc integer, operare timestamp, verstor numeric, tiparit character, facturat character, zscadenta integer, pr_disc_expl numeric, val_disc_expl numeric, NrFact character, data_f date  )");    
                 	db.execSQL("CREATE TABLE " + TABLE_ORDERS +   " (lineOrderId INTEGER PRIMARY KEY, clientName TEXT, productName TEXT, piecesNumber TEXT, discountNumber TEXT)");
                     db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (_id integer primary key autoincrement, ID TEXT, Name TEXT, Price TEXT, Symbol TEXT)");
                     db.execSQL("CREATE TABLE " + TABLE_CLIENTS + " (_id integer primary key autoincrement, Agent TEXT, Client TEXT, Route TEXT, Zone TEXT)");
@@ -506,7 +506,7 @@ public class DataManipulator {
                 // e.g. if you increase the database version
                 @Override
                 public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-                	db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMANDA);
+                	db.execSQL("DROP TABLE IF EXISTS " + TABLE_HEADER_COMANDA);
                     db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDERS);
                     db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
                     db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIENTS);
