@@ -65,7 +65,7 @@ public class DataManipulator {
     	}
           
 
-   		public long insertIntoComanziVext(String nrdoc,String data_c,String gestiune_id,String nrlc_id,String tert_id, String valoare,String data_l,String facturat,String user_id,String operare,
+   		public long insertIntoComenziVext(String nrdoc,String data_c,String gestiune_id,String nrlc_id,String tert_id, String valoare,String data_l,String facturat,String user_id,String operare,
         		String verstor,String tiparit,String nivacc,String zscadenta,String pr_disc_expl,String val_disc_expl,String NrFact,String data_f
         		) {
            this.insertOrdersaTemplate.bindString(1, nrdoc);
