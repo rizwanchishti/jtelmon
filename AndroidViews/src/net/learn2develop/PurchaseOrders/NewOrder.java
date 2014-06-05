@@ -26,7 +26,10 @@ public class NewOrder extends ListActivity  {
 	Bundle BundleOrder;
 	String strClientName;
 
-	// private final int SECONDARY_ACTIVITY_REQUEST_CODE=0;
+	String strTert_id;
+	HeaderComenziVext headerComanda ;
+	String[] setupInfo;
+
 	// private EditText autocompleteClient;
 	// private EditText numarbucati;
 	// private EditText discount;
@@ -38,10 +41,17 @@ public class NewOrder extends ListActivity  {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         dm = new DataManipulator(this);
+        headerComanda = new HeaderComenziVext() ;
+        setupInfo = dm.selectFirstRecordFromSetupTable();
+        headerComanda.setNrlcId(setupInfo[0]);
         setContentView(R.layout.clickclient);
         BundledClient = getIntent().getExtras();
         if(BundledClient != null) {
             strClientName = BundledClient.getString("client");
+            strTert_id    = BundledClient.getString("tert_id");
+            headerComanda.setTertId(strTert_id);
+            // headerComanda.setValoare(0);
+            
             if(strClientName != null) {
                 TextView t = (TextView)findViewById(R.id.textView1);
                 if(t != null) {
