@@ -27,7 +27,7 @@ public class NewOrder extends ListActivity  {
 	String strClientName;
 
 	String strTert_id;
-	HeaderComenziVext headerComanda ;
+	ComenziVextHeader headerComanda ;
 	String[] setupInfo;
 
 	// private EditText autocompleteClient;
@@ -41,7 +41,7 @@ public class NewOrder extends ListActivity  {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         dm = new DataManipulator(this);
-        headerComanda = new HeaderComenziVext() ;
+        headerComanda = new ComenziVextHeader() ;
         setupInfo = dm.selectFirstRecordFromSetupTable();
         headerComanda.setNrlcId(setupInfo[0]);
         setContentView(R.layout.clickclient);

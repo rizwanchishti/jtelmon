@@ -3,7 +3,7 @@ package net.learn2develop.PurchaseOrders;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class HeaderComenziVext {
+public class ComenziVextHeader {
     private String comId;
     private String nrdoc;
     private Date dataC;
