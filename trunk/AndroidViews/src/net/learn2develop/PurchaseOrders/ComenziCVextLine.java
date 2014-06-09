@@ -2,7 +2,7 @@ package net.learn2develop.PurchaseOrders;
 
 import java.math.BigDecimal;
 
-public class LineComenziCVext  {
+public class ComenziCVextLine  {
 
     private String comId;
     private String nrlinie;
@@ -17,7 +17,7 @@ public class LineComenziCVext  {
     private BigDecimal discCom;
     private BigDecimal pretGross;
 
-    public LineComenziCVext() {
+    public ComenziCVextLine() {
     }
 
     public String getComId() {
