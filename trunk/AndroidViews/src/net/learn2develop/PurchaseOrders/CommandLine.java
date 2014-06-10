@@ -1,33 +1,61 @@
 
 package net.learn2develop.PurchaseOrders;
 
-
 public class CommandLine {
-
-  
-    private String denProd;
+    private String sDenumireProdus;
     private String nrBuc;
-    private String disc;
-    private String prez;
-   
+    private String sDiscount;
+    private String sPrezenta;
+    private String stocId;
+    private String pretGross;
+    private String nrlinie;
 
+   
     public CommandLine( String produs, String bucati, String cost, String prezenta) {
-      
-        this.denProd = produs;
+        this.sDenumireProdus = produs;
         this.nrBuc = bucati;
-        this.disc = cost;
-        this.prez = prezenta;
+        this.sDiscount = cost;
+        this.sPrezenta = prezenta;
     }
 
-   
+    public CommandLine( String produs, String bucati, String discount, String stocId, String pretGross ) {
+        this.sDenumireProdus = produs;
+        this.nrBuc = bucati;
+        this.sDiscount = discount;
+        this.stocId=stocId;
+        this.pretGross=pretGross;
+    }
 
+    public String getNrlinie() {
+        return nrlinie;
+    }
+
+    public void setNrlinie(String nrlinie) {
+        this.nrlinie = nrlinie;
+    }
+
+    public String getStocId() {
+        return stocId;
+    }
+
+    public void setStocId(String stocId) {
+        this.stocId = stocId;
+    }
+    
+    public String getPretGross() {
+        return pretGross;
+    }
+
+    public void setPretGross(String pretGross) {
+        this.pretGross = pretGross;
+    }
 
     public String getprodus() {
-        return denProd;
+        return sDenumireProdus;
     }
 
     public void setprodus(String produs) {
-        this.denProd = produs;
+        this.sDenumireProdus = produs;
     }
 
     public String getbucati() {
@@ -39,19 +67,19 @@ public class CommandLine {
     }
 
     public String getcost() {
-        return disc;
+        return sDiscount;
     }
 
     public void setcost(String usercost) {
-        this.disc = usercost;
+        this.sDiscount = usercost;
     }
     
     public String getprezenta() {
-        return prez;
+        return sPrezenta;
     }
 
     public void setprezenta(String prezenta) {
-        this.prez = prezenta;
+        this.sPrezenta = prezenta;
     }
 
    

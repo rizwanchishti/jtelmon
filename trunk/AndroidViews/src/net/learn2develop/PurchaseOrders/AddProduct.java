@@ -47,9 +47,11 @@ public class AddProduct extends Activity  {
     List<String[]> listOfProducts =null ;
 	String[] stringOfProducts;
 	String theClient;
+	String stocID;
+	String pretGross;
   
 	private AutoCompleteTextView autocompleteDenumireView;
-    private TextView itemView;
+    private TextView idProductView;
     private TextView descView;
     private TextView priceView;
 	
@@ -70,7 +72,11 @@ public class AddProduct extends Activity  {
     	   		// bundledPrefs.putString("produs", autocompleteProduct.getText().toString());
     	   		bundledPrefs.putString("produs", autocompleteDenumireView.getText().toString());
     	   		bundledPrefs.putString("bucati", numarbucati.getText().toString());
-    	   		bundledPrefs.putString("cost", discount.getText().toString());
+    	   		bundledPrefs.putString("discount", discount.getText().toString());
+    	   		
+    	   		bundledPrefs.putString("stoc_id", stocID);
+    	   		bundledPrefs.putString("pret_gross", pretGross);
+    	   		
     	   		Intent ourIntent =new Intent(AddProduct.this, NewOrder.class);
    			    ourIntent.putExtras(bundledPrefs);
     	   	   setResult(RESULT_OK,ourIntent);
@@ -85,7 +91,7 @@ public class AddProduct extends Activity  {
  
         dbHelper = new DataManipulator(this);
         
-        itemView  = (TextView) findViewById(R.id.idProduct);
+        idProductView  = (TextView) findViewById(R.id.idProduct);
         descView  = (TextView) findViewById(R.id.textViewDenumireProdus);
         priceView = (TextView) findViewById(R.id.textViewProductPrice);  
 
@@ -239,11 +245,11 @@ public class AddProduct extends Activity  {
             Cursor cursor = (Cursor) listView.getItemAtPosition(position);
  
             // Get the Item Number from this row in the database.
-            String stocID = cursor.getString(cursor.getColumnIndexOrThrow("stoc_id"));
-            String pretGross = cursor.getString(cursor.getColumnIndexOrThrow("pret_gross"));
+            stocID = cursor.getString(cursor.getColumnIndexOrThrow("stoc_id"));
+            pretGross = cursor.getString(cursor.getColumnIndexOrThrow("pret_gross"));
  
             // Update the parent class's TextView
-            itemView.setText(stocID);
+            idProductView.setText(stocID);
             priceView.setText(pretGross);
             descView.setText(autocompleteDenumireView.getText());
             

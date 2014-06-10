@@ -1,5 +1,14 @@
 package net.learn2develop.PurchaseOrders;
  
+
+// in constructorul comenzii ( NewOrder.java) trebuie sa apara implicit si un ...  
+// ...  ID de comanda calculat cu ALGORITM ! 
+// ID comanda sa fie o combinatie intre ID agent + iD client + dataAnLunaZi+oraMinutSecunda  
+
+// orice comanda , cand ajunge in server sa primeasca si un server_id alocat de catre server 
+// in care sa apara dataOraServerului ... 
+
+
 import net.learn2develop.R;
 
 import java.util.List;
@@ -27,13 +36,17 @@ public class NewOrder extends ListActivity  {
 	String strClientName;
 
 	String strTert_id;
-	ComenziVextHeader headerComanda ;
+	ComenziVextHeader orderHeader = null;
+	ComenziCVextLine  orderLine = null;
 	String[] setupInfo;
 
 	// private EditText autocompleteClient;
 	// private EditText numarbucati;
 	// private EditText discount;
 	List<String[]> names2 =null ;
+	
+	List < CommandLine > listOfCommandLines ;
+	
 	Vector<String> vectorOfStrings = new Vector<String>();
 	DataManipulator dm;
 	static final int DIALOG_ID = 0;
@@ -41,15 +54,16 @@ public class NewOrder extends ListActivity  {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         dm = new DataManipulator(this);
-        headerComanda = new ComenziVextHeader() ;
+        orderHeader = new ComenziVextHeader();
         setupInfo = dm.selectFirstRecordFromSetupTable();
-        headerComanda.setNrlcId(setupInfo[0]);
+        orderHeader.setNrlcId(setupInfo[0]);
         setContentView(R.layout.clickclient);
         BundledClient = getIntent().getExtras();
         if(BundledClient != null) {
             strClientName = BundledClient.getString("client");
             strTert_id    = BundledClient.getString("tert_id");
-            headerComanda.setTertId(strTert_id);
+            orderHeader.setTertId(strTert_id);
+
             // headerComanda.setValoare(0);
             
             if(strClientName != null) {
@@ -68,9 +82,8 @@ public class NewOrder extends ListActivity  {
         	blowUp.inflate(R.menu.cool_menu, menu);
         	return true;
     }
- 
         
-        @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     		// TODO Auto-generated method stub
     		switch(item.getItemId()){
@@ -82,7 +95,13 @@ public class NewOrder extends ListActivity  {
     			
     		case R.id.ValidareComanda:
     			//Intent o = new Intent("eu.itcsolutions.android.tutorial");
-    			dm.insereazaLiniileComenzii(strClientName);
+    			
+    			// ToDo : dm.insereaza_HEADER_comanda(str_id_comanda);
+    			// dm.insereazaLiniileComenzii(strClientName);
+
+    			// ToDo : dm.insertLinesInto_ComenziCVext(str_id_comanda, listOfCommandLines);
+    			dm.insereazaLiniileComenzii2(listOfCommandLines);
+    			
     			//startActivity(i);
     			//startActivityForResult(o,0 );
     			break;
@@ -111,12 +130,28 @@ public class NewOrder extends ListActivity  {
 	        	Log.d("NewOrder.onActivityResult", " No Extra Bundle ! " );
         	}  
 	        if ( extras != null){
-	        	String s1 =extras.getString("produs") ;
-	        	String s2 =extras.getString("bucati");
-	        	String s3 =extras.getString("cost");
+	        	orderLine = new ComenziCVextLine();
+	        	String sDenumireProdus =extras.getString("produs");
+	        	String sCantitate =extras.getString("bucati");
+	        	String sDiscount =extras.getString("discount");
 	        	String s4 = new String(" ");
-	        	dm.adaugaLiniePeComanda(s1, s2, s3, s4);
-	        	String s5 = s1+" - "+s2+ " bucati - "+s3+" % discount ";
+
+	        	String sidStoc =extras.getString("stoc_id");
+	        	String sPretGross =extras.getString("pret_gross");
+	        	// orderLine = new ComenziCVextLine();
+	        	// orderLine.setCantitate(sCantitate);
+	        	// orderLine.setStocId(sidStoc);
+	        	// orderLine.setPretGross(sPretGross);
+	        	
+	        	// dm.adaugaLiniePeComanda(sDenumireProdus, sCantitate, sDiscount, s4);
+	        	// dm.adaugaLiniePeComanda2(sDenumireProdus, sCantitate, sDiscount, sidStoc, sPretGross);
+	        	
+	        	CommandLine newLine = new CommandLine(sDenumireProdus, sCantitate, sDiscount, sidStoc, sPretGross);
+	        	listOfCommandLines.add(newLine ) ;
+	        	
+	        	// ToDo : dm.adaugaLiniileComenzii(listOfCommandLines);
+
+	        	String s5 = sDenumireProdus+" - "+sCantitate+ " bucati - "+sDiscount+" % discount ";
 	        	vectorOfStrings.add(s5);
 	        }	
 	        showDialog(DIALOG_ID);
