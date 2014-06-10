@@ -34,7 +34,10 @@ public class DataManipulator {
         static final String TABLE_HEADER_COMANDA   = "ordersa3";
         private static Context context;
         static SQLiteDatabase db;
+
+        // va trebui sters ! 
         List < CommandLine > orderOfClient ;
+        
         private SQLiteStatement insertOrderTemplate;
         private SQLiteStatement insertProductTemplate;
         private SQLiteStatement insertClientTemplate;
@@ -98,6 +101,19 @@ public class DataManipulator {
                 return this.insertOrderTemplate.executeInsert();
         }
 
+   		public long insertLineInto_ComenziCVext(CommandLine commandLine) {
+   			
+    		// discount =   commandLine.getcost();
+   			
+            this.insertOrderTemplate.bindString(1, commandLine.getStocId());
+            this.insertOrderTemplate.bindString(2, commandLine.getprodus());
+            this.insertOrderTemplate.bindString(3, commandLine.getbucati());
+            this.insertOrderTemplate.bindString(4, commandLine.getcost());
+            this.insertOrderTemplate.bindString(5, commandLine.getPretGross());
+            return this.insertOrderTemplate.executeInsert();
+    }
+
+   		
         public long insertIntoProducts(String ID,String Name,String Price,String Symbol) {
                 this.insertProductTemplate.bindString(1, ID);
                 this.insertProductTemplate.bindString(2, Name);
@@ -152,27 +168,22 @@ public class DataManipulator {
     		return this.insertSetupTemplate.executeInsert();
     }
 
-        
-        public void adaugaLiniePeComanda(String denumire,String bucati,String discount,String prezenta){
-        	CommandLine newLine = new CommandLine(denumire, bucati, discount, prezenta);
+        // va trebui stearsa        
+        public void adaugaLiniePeComanda(String denumireProdus,String bucati,String discount,String prezenta){
+        	CommandLine newLine = new CommandLine(denumireProdus, bucati, discount, prezenta);
         	orderOfClient.add(newLine ) ;
         }
-
-        public void listeazaLiniileComenzii(){
-        	Iterator i  = orderOfClient.iterator();
-        	while (i.hasNext())
-        	{
-        		CommandLine value= (CommandLine) i.next();
-        		System.out.println(value.getprodus()+ "-" +value.getbucati()+ "-" +value.getcost());
-        	}
+        // va trebui stearsa
+        public void adaugaLiniePeComanda2(String denumireProdus,String bucati,String discount,String sidStoc, String sPretGross){
+        	CommandLine newLine = new CommandLine(denumireProdus, bucati, discount, sidStoc, sPretGross);
+        	orderOfClient.add(newLine ) ;
         }
-        
+        // va trebui stearsa
         public void insereazaLiniileComenzii(String clientName){
         	String denProd;
             String nrBuc;
             String disc;
             String prez;
-        	
         	Iterator i  = orderOfClient.iterator();
         	while (i.hasNext())
         	{
@@ -186,6 +197,33 @@ public class DataManipulator {
           		// System.out.println(value.getprodus()+ "-" +value.getbucati()+ "-" +value.getcost());
         	}
         }
+
+        public void insereazaLiniileComenzii2(List<CommandLine> listOfCommandLines){
+        	// String denProd;
+            // String nrBuc;
+            // String discount;
+            // String prez;
+            // String sidStoc;
+            // String sPretGross;
+        	Iterator i  = listOfCommandLines.iterator();
+        	while (i.hasNext())
+        	{
+        		CommandLine  commandLine= (CommandLine) i.next();
+        		this.insertLineInto_ComenziCVext(commandLine);
+          		// System.out.println(value.getprodus()+ "-" +value.getbucati()+ "-" +value.getcost());
+        	}
+        }
+
+        
+        public void listeazaLiniileComenzii(){
+        	Iterator i  = orderOfClient.iterator();
+        	while (i.hasNext())
+        	{
+        		CommandLine value= (CommandLine) i.next();
+        		System.out.println(value.getprodus()+ "-" +value.getbucati()+ "-" +value.getcost());
+        	}
+        }
+        
         
         public void sincroDB(){
                 // ToDo ... Next 

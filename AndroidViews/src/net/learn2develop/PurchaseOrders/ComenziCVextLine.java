@@ -8,15 +8,17 @@ public class ComenziCVextLine  {
     private String nrlinie;
     private String stocId;
     private String contGest;
-    private BigDecimal cantitate;
+    // private BigDecimal cantitate;
+    private String cantitate;
     private BigDecimal cantitater;
     private BigDecimal livrat;
     private BigDecimal pretVanzare;
     private BigDecimal prDiscIncl;
     private BigDecimal discContr;
     private BigDecimal discCom;
-    private BigDecimal pretGross;
-
+    // private BigDecimal pretGross;
+    private String pretGross;
+    
     public ComenziCVextLine() {
     }
 
@@ -52,11 +54,11 @@ public class ComenziCVextLine  {
         this.contGest = contGest;
     }
 
-    public BigDecimal getCantitate() {
+    public String getCantitate() {
         return cantitate;
     }
 
-    public void setCantitate(BigDecimal cantitate) {
+    public void setCantitate(String cantitate) {
         this.cantitate = cantitate;
     }
 
@@ -108,11 +110,11 @@ public class ComenziCVextLine  {
         this.discCom = discCom;
     }
 
-    public BigDecimal getPretGross() {
+    public String getPretGross() {
         return pretGross;
     }
 
-    public void setPretGross(BigDecimal pretGross) {
+    public void setPretGross(String pretGross) {
         this.pretGross = pretGross;
     }
 }
