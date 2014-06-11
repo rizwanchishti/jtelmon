@@ -57,20 +57,19 @@ public class DataManipulator {
     	private static final String INSERT_LINII_COMANDA    = "insert into " + TABLE_LINII_COMANDA  + " (com_id,nrlinie,stoc_id,cont_gest,cantitate,cantitater,livrat,pret_vanzare,pr_disc_incl,disc_contr,disc_com,pret_gross) values (?,?,?,?,?,?,?,?,?,?,?,?)";
     	
    		public DataManipulator(Context context ) {
-                DataManipulator.context = context;
-                OpenHelper openHelper = new OpenHelper(DataManipulator.context);
-                DataManipulator.db = openHelper.getWritableDatabase();
-                this.insertOrdersaTemplate = DataManipulator.db.compileStatement(INSERT_HEADER_COMANDA);
-                this.insertOrderTemplate = DataManipulator.db.compileStatement(INSERT_ORDERS);
-                this.insertOrderLineTemplate = DataManipulator.db.compileStatement(INSERT_LINII_COMANDA);
-                this.insertProductTemplate = DataManipulator.db.compileStatement(INSERT_PRODUCTS);
-                this.insertClientTemplate = DataManipulator.db.compileStatement(INSERT_CLIENTS);
-                this.insertClientEurobitTemplate = DataManipulator.db.compileStatement(INSERT_CLIENTS_EUROBIT);
+                DataManipulator.context           = context;
+                OpenHelper openHelper             = new OpenHelper(DataManipulator.context);
+                DataManipulator.db                = openHelper.getWritableDatabase();
+                this.insertOrdersaTemplate        = DataManipulator.db.compileStatement(INSERT_HEADER_COMANDA);
+                this.insertOrderTemplate          = DataManipulator.db.compileStatement(INSERT_ORDERS);
+                this.insertOrderLineTemplate      = DataManipulator.db.compileStatement(INSERT_LINII_COMANDA);
+                this.insertProductTemplate        = DataManipulator.db.compileStatement(INSERT_PRODUCTS);
+                this.insertClientTemplate         = DataManipulator.db.compileStatement(INSERT_CLIENTS);
+                this.insertClientEurobitTemplate  = DataManipulator.db.compileStatement(INSERT_CLIENTS_EUROBIT);
                 this.insertProductEurobitTemplate = DataManipulator.db.compileStatement(INSERT_PRODUCTS_EUROBIT);
-                this.insertSetupTemplate = DataManipulator.db.compileStatement(INSERT_SETUP);
-                orderOfClient = new ArrayList<CommandLine>();
+                this.insertSetupTemplate          = DataManipulator.db.compileStatement(INSERT_SETUP);
+                orderOfClient                     = new ArrayList<CommandLine>();
     	}
-          
 
    		public long insertIntoComenziVext(String nrdoc,String data_c,String gestiune_id,String nrlc_id,String tert_id, String valoare,String data_l,String facturat,String user_id,String operare,
         		String verstor,String tiparit,String nivacc,String zscadenta,String pr_disc_expl,String val_disc_expl,String NrFact,String data_f
