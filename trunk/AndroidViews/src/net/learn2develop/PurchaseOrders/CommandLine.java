@@ -2,14 +2,16 @@
 package net.learn2develop.PurchaseOrders;
 
 public class CommandLine {
-    private String sDenumireProdus;
+	private String comId;
+	private String nrlinie;
+	private String sDenumireProdus;
     private String nrBuc;
     private String sDiscount;
     private String sPrezenta;
     private String stocId;
     private String pretGross;
-    private String nrlinie;
-
+    
+    
    
     public CommandLine( String produs, String bucati, String cost, String prezenta) {
         this.sDenumireProdus = produs;
@@ -26,6 +28,14 @@ public class CommandLine {
         this.pretGross=pretGross;
     }
 
+    public String getComId() {
+        return comId;
+    }
+
+    public void setComId(String comId) {
+        this.comId = comId;
+    }
+    
     public String getNrlinie() {
         return nrlinie;
     }
@@ -50,27 +60,27 @@ public class CommandLine {
         this.pretGross = pretGross;
     }
 
-    public String getprodus() {
+    public String getDenumireProdus() {
         return sDenumireProdus;
     }
 
-    public void setprodus(String produs) {
+    public void setDenumireProdus(String produs) {
         this.sDenumireProdus = produs;
     }
 
-    public String getbucati() {
+    public String getBucati() {
         return nrBuc;
     }
 
-    public void setbucati(String bucati) {
+    public void setBucati(String bucati) {
         this.nrBuc = bucati;
     }
 
-    public String getcost() {
+    public String getDiscount() {
         return sDiscount;
     }
 
-    public void setcost(String usercost) {
+    public void setDiscount(String usercost) {
         this.sDiscount = usercost;
     }
     
