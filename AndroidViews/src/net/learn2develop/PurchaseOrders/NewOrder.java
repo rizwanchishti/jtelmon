@@ -29,7 +29,9 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
- 
+
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class NewOrder extends ListActivity  {   
 	Bundle BundledClient;
 	Bundle BundleOrder;
@@ -50,6 +52,8 @@ public class NewOrder extends ListActivity  {
 	Vector<String> vectorOfStrings = new Vector<String>();
 	DataManipulator dm;
 	static final int DIALOG_ID = 0;
+	
+	private AtomicInteger counter= new AtomicInteger();
  
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -63,7 +67,7 @@ public class NewOrder extends ListActivity  {
             strClientName = BundledClient.getString("client");
             strTert_id    = BundledClient.getString("tert_id");
             orderHeader.setTertId(strTert_id);
-
+            orderHeader.setComId(this.getNextId());
             // headerComanda.setValoare(0);
             
             if(strClientName != null) {
@@ -75,6 +79,11 @@ public class NewOrder extends ListActivity  {
         }
     }
  
+    public String getNextId() {
+        counter.getAndIncrement();
+    	return counter.toString();
+    }
+    
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         	super.onCreateOptionsMenu(menu);
         	 super.onCreateOptionsMenu(menu);
@@ -149,8 +158,6 @@ public class NewOrder extends ListActivity  {
 	        	CommandLine newLine = new CommandLine(sDenumireProdus, sCantitate, sDiscount, sidStoc, sPretGross);
 	        	listOfCommandLines.add(newLine ) ;
 	        	
-	        	// ToDo : dm.adaugaLiniileComenzii(listOfCommandLines);
-
 	        	String s5 = sDenumireProdus+" - "+sCantitate+ " bucati - "+sDiscount+" % discount ";
 	        	vectorOfStrings.add(s5);
 	        }	

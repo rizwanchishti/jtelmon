@@ -23,15 +23,16 @@ import android.util.Log;
 
 public class DataManipulator {
 	
-        private static final  String DATABASE_NAME = "easysales2.db";
+        private static final String DATABASE_NAME = "easysales.db";
         private static final int DATABASE_VERSION = 1;
-        static final String TABLE_ORDERS   = "orders2";
-        static final String TABLE_PRODUCTS = "products2";
-        static final String TABLE_CLIENTS = "clients2";
-        static final String TABLE_EURO_CLIENTS  = "clients_eurobit";
-        static final String TABLE_EURO_PRODUCTS = "products_eurobit";
-        static final String TABLE_SETUP = "setup";
-        static final String TABLE_HEADER_COMANDA   = "ordersa3";
+        static final String  TABLE_ORDERS         = "orders";
+        static final String  TABLE_PRODUCTS       = "products";
+        static final String  TABLE_CLIENTS        = "clients";
+        static final String  TABLE_EURO_CLIENTS   = "clients_eurobit";
+        static final String  TABLE_EURO_PRODUCTS  = "products_eurobit";
+        static final String  TABLE_SETUP          = "setup";
+        static final String  TABLE_HEADER_COMANDA = "comenzi_v_ext_header";
+        static final String  TABLE_LINII_COMANDA  = "comenzi_cv_ext_linii";
         private static Context context;
         static SQLiteDatabase db;
 
@@ -45,13 +46,15 @@ public class DataManipulator {
         private SQLiteStatement insertProductEurobitTemplate;
         private SQLiteStatement insertSetupTemplate;
         private SQLiteStatement insertOrdersaTemplate;
-        private static final String INSERT_ORDERS = "insert into " + TABLE_ORDERS + " (clientName,productName,piecesNumber,discountNumber) values (?,?,?,?)";
-    	private static final String INSERT_PRODUCTS = "insert into " + TABLE_PRODUCTS + " (ID, Name, Price, Symbol) values (?,?,?,?)";
-    	private static final String INSERT_CLIENTS = "insert into " + TABLE_CLIENTS + " (Agent, Client, Route, Zone) values (?,?,?,?)";
-    	private static final String INSERT_CLIENTS_EUROBIT  = "insert into " + TABLE_EURO_CLIENTS + " (client, cui, plt, tert_id, categorie, categorie_id, clasa, clasa_id, grupa, grupa_id) values (?,?,?,?,?,?,?,?,?,?)";
-    	private static final String INSERT_PRODUCTS_EUROBIT = "insert into " + TABLE_EURO_PRODUCTS+ " (stoc_id, simbol, denumire, categorie_id, grupa_id, clasa_id, clasa, grupa, categorie, pret_gross) values (?,?,?,?,?,?,?,?,?,?)";
-    	private static final String INSERT_SETUP = "insert into " + TABLE_SETUP + " (UtilizatorID, UserName, Parola) values (?,?,?)";
-    	private static final String INSERT_HEADER_COMANDA = "insert into " + TABLE_HEADER_COMANDA + " (nrdoc,data_c,gestiune_id,tert_id,valoare,nrlc_id,data_l,user_id,nivacc,operare,verstor,tiparit,facturat,zscadenta,pr_disc_expl,val_disc_expl,NrFact,data_f) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        private SQLiteStatement insertOrderLineTemplate;
+        private static final String INSERT_ORDERS           = "insert into " + TABLE_ORDERS         + " (clientName,productName,piecesNumber,discountNumber) values (?,?,?,?)";
+    	private static final String INSERT_PRODUCTS         = "insert into " + TABLE_PRODUCTS       + " (ID, Name, Price, Symbol) values (?,?,?,?)";
+    	private static final String INSERT_CLIENTS          = "insert into " + TABLE_CLIENTS        + " (Agent, Client, Route, Zone) values (?,?,?,?)";
+    	private static final String INSERT_CLIENTS_EUROBIT  = "insert into " + TABLE_EURO_CLIENTS   + " (client, cui, plt, tert_id, categorie, categorie_id, clasa, clasa_id, grupa, grupa_id) values (?,?,?,?,?,?,?,?,?,?)";
+    	private static final String INSERT_PRODUCTS_EUROBIT = "insert into " + TABLE_EURO_PRODUCTS  + " (stoc_id, simbol, denumire, categorie_id, grupa_id, clasa_id, clasa, grupa, categorie, pret_gross) values (?,?,?,?,?,?,?,?,?,?)";
+    	private static final String INSERT_SETUP            = "insert into " + TABLE_SETUP          + " (UtilizatorID, UserName, Parola) values (?,?,?)";
+    	private static final String INSERT_HEADER_COMANDA   = "insert into " + TABLE_HEADER_COMANDA + " (nrdoc,data_c,gestiune_id,tert_id,valoare,nrlc_id,data_l,user_id,nivacc,operare,verstor,tiparit,facturat,zscadenta,pr_disc_expl,val_disc_expl,NrFact,data_f) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    	private static final String INSERT_LINII_COMANDA    = "insert into " + TABLE_LINII_COMANDA  + " (com_id,nrlinie,stoc_id,cont_gest,cantitate,cantitater,livrat,pret_vanzare,pr_disc_incl,disc_contr,disc_com,pret_gross) values (?,?,?,?,?,?,?,?,?,?,?,?)";
     	
    		public DataManipulator(Context context ) {
                 DataManipulator.context = context;
@@ -59,6 +62,7 @@ public class DataManipulator {
                 DataManipulator.db = openHelper.getWritableDatabase();
                 this.insertOrdersaTemplate = DataManipulator.db.compileStatement(INSERT_HEADER_COMANDA);
                 this.insertOrderTemplate = DataManipulator.db.compileStatement(INSERT_ORDERS);
+                this.insertOrderLineTemplate = DataManipulator.db.compileStatement(INSERT_LINII_COMANDA);
                 this.insertProductTemplate = DataManipulator.db.compileStatement(INSERT_PRODUCTS);
                 this.insertClientTemplate = DataManipulator.db.compileStatement(INSERT_CLIENTS);
                 this.insertClientEurobitTemplate = DataManipulator.db.compileStatement(INSERT_CLIENTS_EUROBIT);
@@ -102,14 +106,14 @@ public class DataManipulator {
         }
 
    		public long insertLineInto_ComenziCVext(CommandLine commandLine) {
-   			
+   			// (com_id,nrlinie,stoc_id,cont_gest,cantitate,cantitater,livrat,pret_vanzare,pr_disc_incl,disc_contr,disc_com,pret_gross)
     		// discount =   commandLine.getcost();
    			
-            this.insertOrderTemplate.bindString(1, commandLine.getStocId());
-            this.insertOrderTemplate.bindString(2, commandLine.getprodus());
-            this.insertOrderTemplate.bindString(3, commandLine.getbucati());
-            this.insertOrderTemplate.bindString(4, commandLine.getcost());
-            this.insertOrderTemplate.bindString(5, commandLine.getPretGross());
+            this.insertOrderLineTemplate.bindString(1, commandLine.getStocId());
+            this.insertOrderLineTemplate.bindString(2, commandLine.getDenumireProdus());
+            this.insertOrderLineTemplate.bindString(3, commandLine.getBucati());
+            this.insertOrderLineTemplate.bindString(4, commandLine.getDiscount());
+            this.insertOrderLineTemplate.bindString(5, commandLine.getPretGross());
             return this.insertOrderTemplate.executeInsert();
     }
 
@@ -188,9 +192,9 @@ public class DataManipulator {
         	while (i.hasNext())
         	{
         		CommandLine value= (CommandLine) i.next();
-        		denProd =value.getprodus();
-        		nrBuc =value.getbucati();
-        		disc =value.getcost();
+        		denProd =value.getDenumireProdus();
+        		nrBuc =value.getBucati();
+        		disc =value.getDiscount();
         		prez =value.getprezenta();
         		// this.db.insertIntoOrders(denProd ,nrBuc ,disc ,prez );
         		this.insertIntoOrders(clientName, denProd , nrBuc, disc);
@@ -220,7 +224,7 @@ public class DataManipulator {
         	while (i.hasNext())
         	{
         		CommandLine value= (CommandLine) i.next();
-        		System.out.println(value.getprodus()+ "-" +value.getbucati()+ "-" +value.getcost());
+        		System.out.println(value.getDenumireProdus()+ "-" +value.getBucati()+ "-" +value.getDiscount());
         	}
         }
         
@@ -530,11 +534,12 @@ public class DataManipulator {
 
                 @Override
                 public void onCreate(SQLiteDatabase db) {
-                	db.execSQL("CREATE TABLE " + TABLE_HEADER_COMANDA + " (com_id integer primary key autoincrement, nrdoc character, data_c date, gestiune_id character, tert_id character, valoare numeric,nrlc_id character, data_l date, user_id character, nivacc integer, operare timestamp, verstor numeric, tiparit character, facturat character, zscadenta integer, pr_disc_expl numeric, val_disc_expl numeric, NrFact character, data_f date  )");    
+                	db.execSQL("CREATE TABLE " + TABLE_HEADER_COMANDA + " (com_id integer primary key , nrdoc TEXT, data_c TEXT, gestiune_id TEXT, tert_id TEXT, valoare TEXT,nrlc_id TEXT, data_l TEXT, user_id TEXT, nivacc TEXT, operare TEXT, verstor TEXT, tiparit TEXT, facturat TEXT, zscadenta TEXT, pr_disc_expl TEXT, val_disc_expl TEXT, NrFact TEXT, data_f TEXT )");
+                	db.execSQL("CREATE TABLE " + TABLE_LINII_COMANDA + " (_id integer primary key autoincrement, com_id TEXT , nrlinie TEXT, stoc_id TEXT, cont_gest TEXT, cantitate TEXT, cantitater TEXT,livrat TEXT, pret_vanzare TEXT, pr_disc_incl TEXT, disc_contr TEXT, disc_com TEXT, pret_gross TEXT )");
                 	db.execSQL("CREATE TABLE " + TABLE_ORDERS +   " (lineOrderId INTEGER PRIMARY KEY, clientName TEXT, productName TEXT, piecesNumber TEXT, discountNumber TEXT)");
                     db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (_id integer primary key autoincrement, ID TEXT, Name TEXT, Price TEXT, Symbol TEXT)");
                     db.execSQL("CREATE TABLE " + TABLE_CLIENTS + " (_id integer primary key autoincrement, Agent TEXT, Client TEXT, Route TEXT, Zone TEXT)");
-                    db.execSQL("CREATE TABLE " + TABLE_SETUP + " (_id integer primary key autoincrement, UtilizatorID TEXT, Parola TEXT, UserName TEXT, SefID TEXT, ZonaID TEXT)");
+                    db.execSQL("CREATE TABLE " + TABLE_SETUP + " (_id integer primary key autoincrement, UtilizatorID TEXT, Parola TEXT, UserName TEXT, SefID TEXT, ZonaID TEXT, counterComanda TEXT)");
                     db.execSQL("CREATE TABLE " + TABLE_EURO_CLIENTS + " (_id integer primary key autoincrement,client TEXT, cui TEXT, plt TEXT, tert_id TEXT, categorie TEXT, categorie_id TEXT, clasa TEXT, clasa_id TEXT, grupa TEXT, grupa_id TEXT)");
                     db.execSQL("CREATE TABLE " + TABLE_EURO_PRODUCTS + " (_id integer primary key autoincrement,stoc_id TEXT, simbol TEXT, denumire TEXT, categorie_id TEXT, grupa_id TEXT, clasa_id TEXT, clasa TEXT, grupa TEXT, categorie TEXT, pret_gross TEXT)");
                 }   
@@ -545,6 +550,7 @@ public class DataManipulator {
                 @Override
                 public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
                 	db.execSQL("DROP TABLE IF EXISTS " + TABLE_HEADER_COMANDA);
+                	db.execSQL("DROP TABLE IF EXISTS " + TABLE_LINII_COMANDA);
                     db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDERS);
                     db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
                     db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIENTS);
