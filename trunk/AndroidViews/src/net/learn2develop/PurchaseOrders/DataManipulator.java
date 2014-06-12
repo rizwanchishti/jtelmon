@@ -105,18 +105,23 @@ public class DataManipulator {
         }
 
    		public long insertLineInto_ComenziCVext(CommandLine commandLine) {
-   			// (com_id,nrlinie,stoc_id,cont_gest,cantitate,cantitater,livrat,pret_vanzare,pr_disc_incl,disc_contr,disc_com,pret_gross)
-    		// discount =   commandLine.getcost();
-   			
-            this.insertOrderLineTemplate.bindString(1, commandLine.getStocId());
-            this.insertOrderLineTemplate.bindString(2, commandLine.getDenumireProdus());
-            this.insertOrderLineTemplate.bindString(3, commandLine.getBucati());
-            this.insertOrderLineTemplate.bindString(4, commandLine.getDiscount());
-            this.insertOrderLineTemplate.bindString(5, commandLine.getPretGross());
-            return this.insertOrderTemplate.executeInsert();
+   			String sSpace = " ";
+   			// (com_id, nrlinie, stoc_id, cont_gest, cantitate, cantitater, livrat, pret_vanzare, pr_disc_incl, disc_contr, disc_com, pret_gross)
+            this.insertOrderLineTemplate.bindString(1,  commandLine.getComId());
+            this.insertOrderLineTemplate.bindString(2,  commandLine.getNrLinie());
+            this.insertOrderLineTemplate.bindString(3,  commandLine.getStocId());
+            this.insertOrderLineTemplate.bindString(4,  sSpace);
+            this.insertOrderLineTemplate.bindString(5,  commandLine.getBucati());
+            this.insertOrderLineTemplate.bindString(6,  sSpace);
+            this.insertOrderLineTemplate.bindString(7,  sSpace);
+            this.insertOrderLineTemplate.bindString(8,  commandLine.getPretGross());
+            this.insertOrderLineTemplate.bindString(9,  commandLine.getDiscount());
+            this.insertOrderLineTemplate.bindString(10, commandLine.getDiscount());
+            this.insertOrderLineTemplate.bindString(11, commandLine.getDiscount());
+            this.insertOrderLineTemplate.bindString(12, commandLine.getPretGross());
+            return this.insertOrderLineTemplate.executeInsert();
     }
 
-   		
         public long insertIntoProducts(String ID,String Name,String Price,String Symbol) {
                 this.insertProductTemplate.bindString(1, ID);
                 this.insertProductTemplate.bindString(2, Name);
@@ -124,7 +129,6 @@ public class DataManipulator {
                 this.insertProductTemplate.bindString(4, Symbol);
                 return this.insertProductTemplate.executeInsert();
         }
-        
         
         public long insertIntoClients(String Agent,String Client,String Route,String Zone) {
         		this.insertClientTemplate.bindString(1, Agent);
@@ -172,17 +176,12 @@ public class DataManipulator {
     }
 
         // va trebui stearsa        
-        public void adaugaLiniePeComanda(String denumireProdus,String bucati,String discount,String prezenta){
+        public void adaugaLiniePeComanda_OLD_KO(String denumireProdus,String bucati,String discount,String prezenta){
         	CommandLine newLine = new CommandLine(denumireProdus, bucati, discount, prezenta);
         	orderOfClient.add(newLine ) ;
         }
         // va trebui stearsa
-        public void adaugaLiniePeComanda2(String denumireProdus,String bucati,String discount,String sidStoc, String sPretGross){
-        	CommandLine newLine = new CommandLine(denumireProdus, bucati, discount, sidStoc, sPretGross);
-        	orderOfClient.add(newLine ) ;
-        }
-        // va trebui stearsa
-        public void insereazaLiniileComenzii(String clientName){
+        public void insereazaLiniileComenzii_OLD_KO(String clientName){
         	String denProd;
             String nrBuc;
             String disc;
@@ -202,12 +201,6 @@ public class DataManipulator {
         }
 
         public void insereazaLiniileComenzii2(List<CommandLine> listOfCommandLines){
-        	// String denProd;
-            // String nrBuc;
-            // String discount;
-            // String prez;
-            // String sidStoc;
-            // String sPretGross;
         	Iterator i  = listOfCommandLines.iterator();
         	while (i.hasNext())
         	{
@@ -217,7 +210,6 @@ public class DataManipulator {
         	}
         }
 
-        
         public void listeazaLiniileComenzii(){
         	Iterator i  = orderOfClient.iterator();
         	while (i.hasNext())

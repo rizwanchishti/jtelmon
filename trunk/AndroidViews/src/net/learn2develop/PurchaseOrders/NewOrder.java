@@ -11,6 +11,7 @@ package net.learn2develop.PurchaseOrders;
 
 import net.learn2develop.R;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -47,13 +48,15 @@ public class NewOrder extends ListActivity  {
 	// private EditText discount;
 	List<String[]> names2 =null ;
 	
-	List < CommandLine > listOfCommandLines ;
+	List<CommandLine> listOfCommandLines = new ArrayList<CommandLine>();
 	
 	Vector<String> vectorOfStrings = new Vector<String>();
 	DataManipulator dm;
 	static final int DIALOG_ID = 0;
 	
 	private AtomicInteger counter= new AtomicInteger();
+	String sOrder_id ;
+	Integer nrLine=0;
  
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -67,7 +70,8 @@ public class NewOrder extends ListActivity  {
             strClientName = BundledClient.getString("client");
             strTert_id    = BundledClient.getString("tert_id");
             orderHeader.setTertId(strTert_id);
-            orderHeader.setComId(this.getNextId());
+            sOrder_id = this.getNextId();
+            orderHeader.setComId(sOrder_id);
             // headerComanda.setValoare(0);
             
             if(strClientName != null) {
@@ -80,6 +84,7 @@ public class NewOrder extends ListActivity  {
     }
  
     public String getNextId() {
+		// ToDo : dm.selectFromSetup_IDcomanda_PLUS_1();
         counter.getAndIncrement();
     	return counter.toString();
     }
@@ -97,6 +102,7 @@ public class NewOrder extends ListActivity  {
     		// TODO Auto-generated method stub
     		switch(item.getItemId()){
     		case R.id.AdaugaProdus:
+    			nrLine = nrLine + 1;
     			Intent i = new Intent(this,AddProduct.class);
     			//startActivity(i);
     			startActivityForResult(i,0 );
@@ -110,6 +116,7 @@ public class NewOrder extends ListActivity  {
 
     			// ToDo : dm.insertLinesInto_ComenziCVext(str_id_comanda, listOfCommandLines);
     			dm.insereazaLiniileComenzii2(listOfCommandLines);
+    			// ToDo : dm.insertIntoSetup_IDcomanda_PLUS_1();
     			
     			//startActivity(i);
     			//startActivityForResult(o,0 );
@@ -139,25 +146,23 @@ public class NewOrder extends ListActivity  {
 	        	Log.d("NewOrder.onActivityResult", " No Extra Bundle ! " );
         	}  
 	        if ( extras != null){
+	        	
 	        	orderLine = new ComenziCVextLine();
-	        	String sDenumireProdus =extras.getString("produs");
-	        	String sCantitate =extras.getString("bucati");
-	        	String sDiscount =extras.getString("discount");
-	        	String s4 = new String(" ");
+	        	String sDenumireProdus = extras.getString("produs");
+	        	String sCantitate      = extras.getString("bucati");
+	        	String sDiscount       = extras.getString("discount");
+	        	String sidStoc         = extras.getString("stoc_id");
+	        	String sPretGross      = extras.getString("pret_gross");
 
-	        	String sidStoc =extras.getString("stoc_id");
-	        	String sPretGross =extras.getString("pret_gross");
+	        	String s4 = new String(" ");
 	        	// orderLine = new ComenziCVextLine();
 	        	// orderLine.setCantitate(sCantitate);
 	        	// orderLine.setStocId(sidStoc);
 	        	// orderLine.setPretGross(sPretGross);
-	        	
 	        	// dm.adaugaLiniePeComanda(sDenumireProdus, sCantitate, sDiscount, s4);
 	        	// dm.adaugaLiniePeComanda2(sDenumireProdus, sCantitate, sDiscount, sidStoc, sPretGross);
-	        	
-	        	CommandLine newLine = new CommandLine(sDenumireProdus, sCantitate, sDiscount, sidStoc, sPretGross);
+	        	CommandLine newLine = new CommandLine(sOrder_id, nrLine , sDenumireProdus, sCantitate, sDiscount, sidStoc, sPretGross);
 	        	listOfCommandLines.add(newLine ) ;
-	        	
 	        	String s5 = sDenumireProdus+" - "+sCantitate+ " bucati - "+sDiscount+" % discount ";
 	        	vectorOfStrings.add(s5);
 	        }	
