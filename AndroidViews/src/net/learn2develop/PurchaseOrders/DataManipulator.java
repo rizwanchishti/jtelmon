@@ -35,10 +35,6 @@ public class DataManipulator {
         static final String  TABLE_LINII_COMANDA  = "comenzi_cv_ext_linii";
         private static Context context;
         static SQLiteDatabase db;
-
-        // va trebui sters ! 
-        List < CommandLine > orderOfClient ;
-        
         private SQLiteStatement insertOrderTemplate;
         private SQLiteStatement insertProductTemplate;
         private SQLiteStatement insertClientTemplate;
@@ -68,7 +64,6 @@ public class DataManipulator {
                 this.insertClientEurobitTemplate  = DataManipulator.db.compileStatement(INSERT_CLIENTS_EUROBIT);
                 this.insertProductEurobitTemplate = DataManipulator.db.compileStatement(INSERT_PRODUCTS_EUROBIT);
                 this.insertSetupTemplate          = DataManipulator.db.compileStatement(INSERT_SETUP);
-                orderOfClient                     = new ArrayList<CommandLine>();
     	}
 
    		public long insertIntoComenziVext(String nrdoc,String data_c,String gestiune_id,String nrlc_id,String tert_id, String valoare,String data_l,String facturat,String user_id,String operare,
@@ -92,7 +87,6 @@ public class DataManipulator {
            this.insertOrdersaTemplate.bindString(16, val_disc_expl);
            this.insertOrdersaTemplate.bindString(17, NrFact);
            this.insertOrdersaTemplate.bindString(18, data_f);
-           
            return this.insertOrdersaTemplate.executeInsert();
   }
    		
@@ -120,7 +114,7 @@ public class DataManipulator {
             this.insertOrderLineTemplate.bindString(11, commandLine.getDiscount());
             this.insertOrderLineTemplate.bindString(12, commandLine.getPretGross());
             return this.insertOrderLineTemplate.executeInsert();
-    }
+        }
 
         public long insertIntoProducts(String ID,String Name,String Price,String Symbol) {
                 this.insertProductTemplate.bindString(1, ID);
@@ -175,32 +169,7 @@ public class DataManipulator {
     		return this.insertSetupTemplate.executeInsert();
     }
 
-        // va trebui stearsa        
-        public void adaugaLiniePeComanda_OLD_KO(String denumireProdus,String bucati,String discount,String prezenta){
-        	CommandLine newLine = new CommandLine(denumireProdus, bucati, discount, prezenta);
-        	orderOfClient.add(newLine ) ;
-        }
-        // va trebui stearsa
-        public void insereazaLiniileComenzii_OLD_KO(String clientName){
-        	String denProd;
-            String nrBuc;
-            String disc;
-            String prez;
-        	Iterator i  = orderOfClient.iterator();
-        	while (i.hasNext())
-        	{
-        		CommandLine value= (CommandLine) i.next();
-        		denProd =value.getDenumireProdus();
-        		nrBuc =value.getBucati();
-        		disc =value.getDiscount();
-        		prez =value.getprezenta();
-        		// this.db.insertIntoOrders(denProd ,nrBuc ,disc ,prez );
-        		this.insertIntoOrders(clientName, denProd , nrBuc, disc);
-          		// System.out.println(value.getprodus()+ "-" +value.getbucati()+ "-" +value.getcost());
-        	}
-        }
-
-        public void insereazaLiniileComenzii2(List<CommandLine> listOfCommandLines){
+        public void insereazaLiniileComenzii(List<CommandLine> listOfCommandLines){
         	Iterator i  = listOfCommandLines.iterator();
         	while (i.hasNext())
         	{
@@ -209,16 +178,7 @@ public class DataManipulator {
           		// System.out.println(value.getprodus()+ "-" +value.getbucati()+ "-" +value.getcost());
         	}
         }
-
-        public void listeazaLiniileComenzii(){
-        	Iterator i  = orderOfClient.iterator();
-        	while (i.hasNext())
-        	{
-        		CommandLine value= (CommandLine) i.next();
-        		System.out.println(value.getDenumireProdus()+ "-" +value.getBucati()+ "-" +value.getDiscount());
-        	}
-        }
-        
+       
         
         public void sincroDB(){
                 // ToDo ... Next 

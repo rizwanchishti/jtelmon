@@ -40,7 +40,7 @@ public class NewOrder extends ListActivity  {
 
 	String strTert_id;
 	ComenziVextHeader orderHeader = null;
-	ComenziCVextLine  orderLine = null;
+	// ComenziCVextLine  orderLine = null;
 	String[] setupInfo;
 
 	// private EditText autocompleteClient;
@@ -109,17 +109,9 @@ public class NewOrder extends ListActivity  {
     			break;
     			
     		case R.id.ValidareComanda:
-    			//Intent o = new Intent("eu.itcsolutions.android.tutorial");
-    			
     			// ToDo : dm.insereaza_HEADER_comanda(str_id_comanda);
-    			// dm.insereazaLiniileComenzii(strClientName);
-
-    			// ToDo : dm.insertLinesInto_ComenziCVext(str_id_comanda, listOfCommandLines);
-    			dm.insereazaLiniileComenzii2(listOfCommandLines);
+    			dm.insereazaLiniileComenzii(listOfCommandLines);
     			// ToDo : dm.insertIntoSetup_IDcomanda_PLUS_1();
-    			
-    			//startActivity(i);
-    			//startActivityForResult(o,0 );
     			break;
   		
           case R.id.Termenplatadiscount:
@@ -147,7 +139,7 @@ public class NewOrder extends ListActivity  {
         	}  
 	        if ( extras != null){
 	        	
-	        	orderLine = new ComenziCVextLine();
+	        	// orderLine = new ComenziCVextLine();
 	        	String sDenumireProdus = extras.getString("produs");
 	        	String sCantitate      = extras.getString("bucati");
 	        	String sDiscount       = extras.getString("discount");
