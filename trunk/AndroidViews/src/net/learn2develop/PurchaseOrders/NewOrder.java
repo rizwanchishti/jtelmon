@@ -72,8 +72,7 @@ public class NewOrder extends ListActivity  {
             orderHeader.setTertId(strTert_id);
             sOrder_id = this.getNextId();
             orderHeader.setComId(sOrder_id);
-            // headerComanda.setValoare(0);
-            
+            orderHeader.setValoare("0");
             if(strClientName != null) {
                 TextView t = (TextView)findViewById(R.id.textView1);
                 if(t != null) {
@@ -109,8 +108,8 @@ public class NewOrder extends ListActivity  {
     			break;
     			
     		case R.id.ValidareComanda:
-    			// ToDo : dm.insereaza_HEADER_comanda(str_id_comanda);
     			dm.insereazaLiniileComenzii(listOfCommandLines);
+    			dm.insertHeaderIntoComenziVext(orderHeader);
     			// ToDo : dm.insertIntoSetup_IDcomanda_PLUS_1();
     			break;
   		

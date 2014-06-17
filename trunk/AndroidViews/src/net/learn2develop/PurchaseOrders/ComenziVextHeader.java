@@ -20,7 +20,8 @@ public class ComenziVextHeader {
     private Integer zscadenta;
     private String nrfact;
     private Date dataF;
-    private BigDecimal valoare;
+    // private BigDecimal valoare;
+    private String valoare;
     private BigDecimal valDiscExpl;
     private BigDecimal prDiscExpl;
     private Date creare;
@@ -164,11 +165,11 @@ public class ComenziVextHeader {
         this.dataF = dataF;
     }
 
-    public BigDecimal getValoare() {
+    public String getValoare() {
         return valoare;
     }
 
-    public void setValoare(BigDecimal valoare) {
+    public void setValoare(String valoare) {
         this.valoare = valoare;
     }
 

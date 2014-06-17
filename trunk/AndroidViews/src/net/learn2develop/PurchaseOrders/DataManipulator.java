@@ -89,6 +89,48 @@ public class DataManipulator {
            this.insertOrdersaTemplate.bindString(18, data_f);
            return this.insertOrdersaTemplate.executeInsert();
   }
+
+   		
+   		public long insertHeaderIntoComenziVext(ComenziVextHeader orderHeader ) {
+   		   String gestiune_id    = " " ;
+   		   String data_c         = " " ;
+   		   String data_l         = " " ;
+   		   String nrdoc          = " " ;
+   		   String user_id        = " " ;
+   		   String nivacc         = " " ;
+   		   String operare        = " " ;
+   		   String verstor        = " " ;
+   		   String tiparit        = " " ;
+   		   String facturat       = " " ;
+   		   String zscadenta      = "0" ;
+   		   String pr_disc_expl   = " " ;
+   		   String val_disc_expl  = " " ;
+   		   String NrFact         = " " ;
+   		   String data_f         = " " ;
+   		
+           this.insertOrdersaTemplate.bindString(1, nrdoc);
+           this.insertOrdersaTemplate.bindString(2, data_c);
+           this.insertOrdersaTemplate.bindString(3, gestiune_id);
+           this.insertOrdersaTemplate.bindString(4, orderHeader.getTertId());
+           this.insertOrdersaTemplate.bindString(5, orderHeader.getValoare());
+           this.insertOrdersaTemplate.bindString(6, orderHeader.getNrlcId());
+           this.insertOrdersaTemplate.bindString(7,  data_l);
+           this.insertOrdersaTemplate.bindString(8,  user_id);
+           this.insertOrdersaTemplate.bindString(9,  nivacc);
+           this.insertOrdersaTemplate.bindString(10, operare);
+           this.insertOrdersaTemplate.bindString(11, verstor);
+           this.insertOrdersaTemplate.bindString(12, tiparit);
+           this.insertOrdersaTemplate.bindString(13, facturat);
+           this.insertOrdersaTemplate.bindString(14, zscadenta);
+           this.insertOrdersaTemplate.bindString(15, pr_disc_expl);
+           this.insertOrdersaTemplate.bindString(16, val_disc_expl);
+           this.insertOrdersaTemplate.bindString(17, NrFact);
+           this.insertOrdersaTemplate.bindString(18, data_f);
+           
+           return this.insertOrdersaTemplate.executeInsert();
+  }
+
+   		
    		
    		public long insertIntoOrders(String clientName,String productName,String piecesNumber,String discountNumber) {
                 this.insertOrderTemplate.bindString(1, clientName);
