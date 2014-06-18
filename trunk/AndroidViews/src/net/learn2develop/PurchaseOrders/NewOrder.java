@@ -114,9 +114,9 @@ public class NewOrder extends ListActivity  {
     			break;
   		
           case R.id.Termenplatadiscount:
-        	  	Intent j = new Intent("");
-        	  	startActivity(j);
-    			break;
+        	    Intent j = new Intent(this,ValidateOrder.class);
+                startActivity(j);
+                break;
     			
     		case R.id.StergeProdus:
     			Intent p = new Intent("eu.itcsolutions.android.tutorial.PREFS");

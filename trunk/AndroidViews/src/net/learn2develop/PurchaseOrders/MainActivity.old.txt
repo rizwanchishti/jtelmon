@@ -47,13 +47,15 @@ public class MainActivity extends Activity implements OnClickListener {
         l.setOnClickListener(this);
         View e = findViewById(R.id.Button04ComenziNetrimise);
         e.setOnClickListener(this);
-        View x = findViewById(R.id.Button05VizualizareClasificari);
+        View x = findViewById(R.id.Button05);
         x.setOnClickListener(this);
     }
    
     // @Override
         public void onClick(View arg0) {
+        	
         	if(arg0.getId() == R.id.Button01SelectieRuta){
+        		// Intent intent = new Intent(this,SelectieClient.class);
         		Intent intent = new Intent(this,ProductAutocompleteTextViewActivity.class);
                 this.startActivity(intent);
         	}
@@ -63,15 +65,15 @@ public class MainActivity extends Activity implements OnClickListener {
                 this.startActivity(intent);
         	}
         	if(arg0.getId() == R.id.Button03CautaProdus){
-        		// Intent intent = new Intent(this,CautaProdus.class);
-        		Intent intent = new Intent(this,SelectEuroProduct.class);
+        		Intent intent = new Intent(this,AdaugaProdus.class);
         		this.startActivity(intent);
         	}
         	if(arg0.getId() == R.id.Button04ComenziNetrimise){
         		Intent intent = new Intent(this,UnsentOrders.class);
         		this.startActivity(intent);
         	}
-        	if(arg0.getId() == R.id.Button05VizualizareClasificari){
+        	
+        	if(arg0.getId() == R.id.Button05){
         		Intent intent = new Intent(this,SelectEuroGroup.class);
         		this.startActivity(intent);
         	}
@@ -85,6 +87,7 @@ public class MainActivity extends Activity implements OnClickListener {
 }
     @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
 		switch(item.getItemId()){
 		case R.id.Monetar:
 				Intent i = new Intent("");
@@ -101,12 +104,14 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 			
 		case R.id.Sincronizeazadate:
+			
 			 // progressDialog = ProgressDialog.show(this, "", "Sincronizeaza date...");
 			 new Thread() {
 				 public void run() {
 					 try{
 						 // sleep(5000);
-						 Intent r = new Intent(getApplicationContext(),WebServiceSyncFrom.class);
+						 
+						 Intent r = new Intent(getApplicationContext(),SyncFromWebService.class);
 						 // Intent r = new Intent(getApplicationContext(),Sincronizare.class);
 						 startActivity(r);
 					 } catch (Exception e) {
@@ -117,11 +122,14 @@ public class MainActivity extends Activity implements OnClickListener {
 			 }.start();
 			// Intent r = new Intent(this,Sincronizare.class);
 			// startActivity(r);
+			
 			break;
+			
 			
 		case R.id.Actualizeazasolduri:
 			Intent s = new Intent("");
 			startActivity(s);
+			
 			break;
 			
 		case R.id.Reinitializeazabazadedate:
@@ -154,13 +162,17 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 			
 		case R.id.Reinitializeazadateagent:
-			Intent y = new Intent(this,AgentData.class);
+			Intent y = new Intent(this,DateAgent.class);
 			startActivity(y);
+			
 			break;
+			
 		case R.id.Setari:
 			Intent z = new Intent(this,Setari.class);
 			startActivity(z);
+			
 			break;
+		
 		}
 		return false;
 	}
