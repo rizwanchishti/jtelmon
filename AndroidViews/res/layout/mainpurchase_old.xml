@@ -31,7 +31,6 @@
         android:id="@+id/Button01SelectieRuta" 
         android:layout_width="230dp" 
         android:text="Selectie Ruta" 
-        android:background="@drawable/custom_button_gray" 
         android:textStyle="bold"></Button>
 
 	<Button
@@ -39,7 +38,6 @@
     	android:textStyle="bold" 
     	android:text="Selectie Client" 
     	android:layout_width="230dp" 
-    	android:background="@drawable/custom_button_gray" 
     	android:id="@+id/Button02SelectieClient"></Button>
 	
 	<Button 
@@ -48,24 +46,21 @@
 	    android:textStyle="bold" 
 	    android:text="Cauta Produs" 
 	    android:layout_width="230dp" 
-	    android:background="@drawable/custom_button_gray" 
 	    android:id="@+id/Button03CautaProdus"></Button>
 	
 	<Button 
 	    android:layout_height="wrap_content" 
 	    android:textStyle="bold" 
 	    android:layout_width="230dp" 
-	    android:id="@+id/Button04ComenziNetrimise"
-	    android:background="@drawable/custom_button_gray"  
+	    android:id="@+id/Button04ComenziNetrimise" 
 	    android:text="Comenzi Netrimise"></Button>
 	
 	<Button 
 	    android:layout_height="wrap_content" 
-	    android:text="Vizualizare Sarcini" 
+	    android:text="Vizualizare Clasificari" 
 	    android:textStyle="bold" 
 	    android:layout_width="230dp" 
-	    android:background="@drawable/custom_button_gray" 
-	    android:id="@+id/Button05"></Button>
+	    android:id="@+id/Button05VizualizareClasificari"></Button>
 
 </LinearLayout>
 
