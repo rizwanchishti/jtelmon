@@ -61,11 +61,11 @@
 	
 	<Button 
 	    android:layout_height="wrap_content" 
-	    android:text="Vizualizare Sarcini" 
+	    android:text="Vizualizare Clasificari" 
 	    android:textStyle="bold" 
 	    android:layout_width="230dp" 
 	    android:background="@drawable/custom_button_gray" 
-	    android:id="@+id/Button05"></Button>
+	    android:id="@+id/Button05VizualizareClasificari"></Button>
 
 </LinearLayout>
 
