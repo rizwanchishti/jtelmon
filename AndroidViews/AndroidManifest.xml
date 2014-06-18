@@ -32,6 +32,19 @@
             </intent-filter>
         </activity>        
 
+        <activity android:name=".PurchaseOrders.ValidateOrder" 
+                  android:label="@string/app_name">
+        </activity>        
+
+        <activity android:name=".PurchaseOrders.Setari" 
+                  android:label="@string/app_name">
+        </activity>        
+        
+        <activity android:name=".PurchaseOrders.Setari_ip" 
+                  android:label="@string/app_name">
+        </activity>        
+        
+        
         <activity android:name=".PurchaseOrders.ProductAutocompleteTextViewActivity" 
                   android:label="@string/app_name">
         </activity>        
