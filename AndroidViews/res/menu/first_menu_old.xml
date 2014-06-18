@@ -23,8 +23,7 @@
         android:id ="@+id/Reinitializeazabazadedate"/>
      <item 
         android:title="Reinitializeaza date agent"
-        android:id ="@+id/Reinitializeazadateagent"/>
-     <item android:id="@+id/Setari" android:title="Setari"></item>    
+        android:id ="@+id/Reinitializeazadateagent"/>    
      
 </menu>
 

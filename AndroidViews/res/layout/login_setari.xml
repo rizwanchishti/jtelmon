@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:paddingTop="50.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/dummyLayout" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <ImageView android:id="@id/crm_img" android:paddingRight="5.0dip" android:layout_width="150.0dip" android:layout_height="150.0dip" android:src="@drawable/lacat_verde_ico" android:scaleType="fitXY" android:layout_alignParentRight="true" />
+    <TextView android:textSize="18.0dip" android:textStyle="bold" android:textColor="@color/cyan" android:id="@id/MessageTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="20.0dip" android:layout_span="2" android:text="@string/user_login_required" />
+    <EditText android:textSize="15.0sp" android:textColor="#ff000000" android:gravity="center_vertical" android:id="@id/login_password" android:layout_width="200.0dip" android:layout_height="wrap_content" android:hint="@string/password" android:password="true" android:selectAllOnFocus="true" android:numeric="integer" android:imeOptions="actionDone" />
+    <Button android:textStyle="bold" android:id="@id/login_signin" android:layout_width="200.0dip" android:layout_height="wrap_content" android:layout_marginTop="20.0dip" android:text="@string/enter" android:onClick="signIn" />
+    <Button android:textStyle="bold" android:id="@id/login_cancel" android:layout_width="200.0dip" android:layout_height="wrap_content" android:text="@string/cancel" android:onClick="cancel" />
+</LinearLayout>
