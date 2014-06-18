@@ -10,13 +10,15 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.10"
         android:text="Medium Text"
+        android:background="@drawable/custom_button_blue"
+        android:textColor="@color/white"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button android:id="@+id/button1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Comanda Noua"></Button>
-    <Button android:id="@+id/button2" android:layout_height="wrap_content" android:layout_width="match_parent" android:text="Verificare Sold"></Button>
-    <Button android:id="@+id/button3" android:layout_height="wrap_content" android:layout_width="match_parent" android:text="Incasare"></Button>
-    <Button android:id="@+id/button4" android:layout_height="wrap_content" android:layout_width="match_parent" android:text="Raport KA"></Button>
+    <Button android:id="@+id/button1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Comanda Noua" android:background="@drawable/custom_button_gray" android:textStyle="bold" ></Button>
+    <Button android:id="@+id/button2" android:layout_height="wrap_content" android:layout_width="match_parent" android:text="Verificare Sold" android:background="@drawable/custom_button_gray" android:textStyle="bold" ></Button>
+    <Button android:id="@+id/button3" android:layout_height="wrap_content" android:layout_width="match_parent" android:text="Incasare" android:background="@drawable/custom_button_gray" android:textStyle="bold" ></Button>
+    <Button android:id="@+id/button4" android:layout_height="wrap_content" android:layout_width="match_parent" android:text="Raport KA" android:background="@drawable/custom_button_gray" android:textStyle="bold" ></Button>
 </LinearLayout>
 
