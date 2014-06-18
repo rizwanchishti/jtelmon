@@ -32,7 +32,17 @@
     <string name="some_clients">Clienti PANGRAM </string>
     <string name="some_products">Produse PANGRAM </string>
  	<string name="some_hint"> Type here to filter&#8230; </string>
+
+    <string name="user_login">User Login</string>
+    <string name="password_is_a_required_field_">Password is a mandatory field...</string>
+    <string name="user_login_required">User Login</string>
+    <string name="password">Password</string>
+    <string name="enter">Enter</string>
+    <string name="cancel">Cancel</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
     
+
  	<string name="spinnerClass_title">Selectare Clasa</string>
  	<string name="spinnerGroup_title">Selectare Grupa</string>
  	<string name="spinnerCategory_title">Selectare Categorie</string>
