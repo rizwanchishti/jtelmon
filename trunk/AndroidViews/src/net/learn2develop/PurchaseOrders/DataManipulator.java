@@ -265,7 +265,7 @@ public class DataManipulator {
                 db.delete(TABLE_ORDERS, null, null);
         }
 
-        public List<String[]> selectAllOrders()
+        public List<String[]> selectAllOrdersOLD()
         {
                 List<String[]> list = new ArrayList<String[]>();
                 Cursor cursor = db.query(TABLE_ORDERS, new String[] { "lineOrderId","clientName","productName","piecesNumber","discountNumber" }, null, null, null, null, "clientName asc"); 
@@ -284,6 +284,34 @@ public class DataManipulator {
                 return list;
         }
 
+        public List<String[]> selectAllOrders()
+        {
+                List<String[]> list = new ArrayList<String[]>();
+                String selectQuery = "SELECT thc.com_id, tec.client, tep.denumire, tlc.cantitate, tlc.pret_gross FROM " 
+                        + TABLE_HEADER_COMANDA + " thc, "
+                        + TABLE_LINII_COMANDA + " tlc, "
+                        + TABLE_EURO_CLIENTS  + " tec, " 
+                        + TABLE_EURO_PRODUCTS + " tep "
+                        + " WHERE thc.com_id  = tlc.com_id "
+                        + " AND thc.tert_id = tec.tert_id "
+                        + " AND tlc.stoc_id=tep.stoc_id ";
+                Cursor cursor = db.rawQuery(selectQuery, null);
+                int x=0;
+                if (cursor.moveToFirst()) {
+                        do {
+                                String[] b1=new String[]{cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4)};
+                                list.add(b1);
+                                x=x+1;
+                        } while (cursor.moveToNext());
+                }
+                if (cursor != null && !cursor.isClosed()) {
+                        cursor.close();
+                } 
+                cursor.close();
+                return list;
+        }
+
+        
 
         public List<String[]> selectAllProducts()
         {
@@ -525,7 +553,7 @@ public class DataManipulator {
 
                 @Override
                 public void onCreate(SQLiteDatabase db) {
-                	db.execSQL("CREATE TABLE " + TABLE_HEADER_COMANDA + " (com_id integer primary key , nrdoc TEXT, data_c TEXT, gestiune_id TEXT, tert_id TEXT, valoare TEXT,nrlc_id TEXT, data_l TEXT, user_id TEXT, nivacc TEXT, operare TEXT, verstor TEXT, tiparit TEXT, facturat TEXT, zscadenta TEXT, pr_disc_expl TEXT, val_disc_expl TEXT, NrFact TEXT, data_f TEXT )");
+                	db.execSQL("CREATE TABLE " + TABLE_HEADER_COMANDA + " (_id integer primary key autoincrement, com_id integer primary key , nrdoc TEXT, data_c TEXT, gestiune_id TEXT, tert_id TEXT, valoare TEXT,nrlc_id TEXT, data_l TEXT, user_id TEXT, nivacc TEXT, operare TEXT, verstor TEXT, tiparit TEXT, facturat TEXT, zscadenta TEXT, pr_disc_expl TEXT, val_disc_expl TEXT, NrFact TEXT, data_f TEXT )");
                 	db.execSQL("CREATE TABLE " + TABLE_LINII_COMANDA + " (_id integer primary key autoincrement, com_id TEXT , nrlinie TEXT, stoc_id TEXT, cont_gest TEXT, cantitate TEXT, cantitater TEXT,livrat TEXT, pret_vanzare TEXT, pr_disc_incl TEXT, disc_contr TEXT, disc_com TEXT, pret_gross TEXT )");
                 	db.execSQL("CREATE TABLE " + TABLE_ORDERS +   " (lineOrderId INTEGER PRIMARY KEY, clientName TEXT, productName TEXT, piecesNumber TEXT, discountNumber TEXT)");
                     db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (_id integer primary key autoincrement, ID TEXT, Name TEXT, Price TEXT, Symbol TEXT)");

@@ -26,7 +26,8 @@ public class UnsentOrders extends ListActivity {
 	        int x=0;
 	        String stg;
 	        for (String[] orderName : allOrders) {
-	            stg = orderName[0]+" - "+orderName[1]+ " - "+orderName[2]+ " - "+orderName[3];
+	            // stg = orderName[0]+" - "+orderName[1]+ " - "+orderName[2]+ " - "+orderName[3]+ " - "+orderName[4];
+	        	stg = orderName[1]+ " - "+orderName[2]+ " - "+orderName[3]+ " buc x "+orderName[4]+" ron/buc ";
 	            StringOfOrders[x]=stg;
 	            x++;
 	        }
