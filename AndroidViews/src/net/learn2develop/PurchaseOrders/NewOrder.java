@@ -56,6 +56,7 @@ public class NewOrder extends ListActivity  {
 	
 	private AtomicInteger counter= new AtomicInteger();
 	String sOrder_id ;
+	long com_id;
 	Integer nrLine=0;
  
     protected void onCreate(Bundle savedInstanceState){
@@ -108,8 +109,9 @@ public class NewOrder extends ListActivity  {
     			break;
     			
     		case R.id.ValidareComanda:
-    			dm.insereazaLiniileComenzii(listOfCommandLines);
-    			dm.insertHeaderIntoComenziVext(orderHeader);
+    			com_id=dm.insertHeaderIntoComenziVext(orderHeader);
+    			dm.insereazaLiniileComenzii(com_id,listOfCommandLines);
+    			
     			// ToDo : dm.insertIntoSetup_IDcomanda_PLUS_1();
     			break;
   		
