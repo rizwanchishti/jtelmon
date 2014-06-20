@@ -16,6 +16,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -166,7 +167,11 @@ public class AddProduct extends Activity  {
     {
         super.onDestroy();
         if (dbHelper  != null) {
-            dbHelper.close();
+            // dbHelper.close();
+        	// http://docs.oracle.com/javase/tutorial/java/javaOO/classvars.html
+        	// Daca se apeleaza aici close() la dbHelper care este o instanta a clasei DataManipulator , 
+        	// se inchide obiectul SQLiteDatabase (db) care este static , 
+        	// adica unic pentru toate instantele clasei DataManipulator !   
         }
     }
     

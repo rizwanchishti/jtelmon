@@ -41,7 +41,7 @@ public class DataManipulator {
         private SQLiteStatement insertClientEurobitTemplate;
         private SQLiteStatement insertProductEurobitTemplate;
         private SQLiteStatement insertSetupTemplate;
-        private SQLiteStatement insertOrdersaTemplate;
+        private SQLiteStatement insertOrderHeaderTemplate;
         private SQLiteStatement insertOrderLineTemplate;
         private static final String INSERT_ORDERS           = "insert into " + TABLE_ORDERS         + " (clientName,productName,piecesNumber,discountNumber) values (?,?,?,?)";
     	private static final String INSERT_PRODUCTS         = "insert into " + TABLE_PRODUCTS       + " (ID, Name, Price, Symbol) values (?,?,?,?)";
@@ -56,7 +56,7 @@ public class DataManipulator {
                 DataManipulator.context           = context;
                 OpenHelper openHelper             = new OpenHelper(DataManipulator.context);
                 DataManipulator.db                = openHelper.getWritableDatabase();
-                this.insertOrdersaTemplate        = DataManipulator.db.compileStatement(INSERT_HEADER_COMANDA);
+                this.insertOrderHeaderTemplate    = DataManipulator.db.compileStatement(INSERT_HEADER_COMANDA);
                 this.insertOrderTemplate          = DataManipulator.db.compileStatement(INSERT_ORDERS);
                 this.insertOrderLineTemplate      = DataManipulator.db.compileStatement(INSERT_LINII_COMANDA);
                 this.insertProductTemplate        = DataManipulator.db.compileStatement(INSERT_PRODUCTS);
@@ -69,25 +69,25 @@ public class DataManipulator {
    		public long insertIntoComenziVext(String nrdoc,String data_c,String gestiune_id,String nrlc_id,String tert_id, String valoare,String data_l,String facturat,String user_id,String operare,
         		String verstor,String tiparit,String nivacc,String zscadenta,String pr_disc_expl,String val_disc_expl,String NrFact,String data_f
         		) {
-           this.insertOrdersaTemplate.bindString(1, nrdoc);
-           this.insertOrdersaTemplate.bindString(2, data_c);
-           this.insertOrdersaTemplate.bindString(3, gestiune_id);
-           this.insertOrdersaTemplate.bindString(4, tert_id);
-           this.insertOrdersaTemplate.bindString(5, valoare);
-           this.insertOrdersaTemplate.bindString(6, nrlc_id);
-           this.insertOrdersaTemplate.bindString(7, data_l);
-           this.insertOrdersaTemplate.bindString(8, user_id);
-           this.insertOrdersaTemplate.bindString(9, nivacc);
-           this.insertOrdersaTemplate.bindString(10, operare);
-           this.insertOrdersaTemplate.bindString(11, verstor);
-           this.insertOrdersaTemplate.bindString(12, tiparit);
-           this.insertOrdersaTemplate.bindString(13, facturat);
-           this.insertOrdersaTemplate.bindString(14, zscadenta);
-           this.insertOrdersaTemplate.bindString(15, pr_disc_expl);
-           this.insertOrdersaTemplate.bindString(16, val_disc_expl);
-           this.insertOrdersaTemplate.bindString(17, NrFact);
-           this.insertOrdersaTemplate.bindString(18, data_f);
-           return this.insertOrdersaTemplate.executeInsert();
+           this.insertOrderHeaderTemplate.bindString(1, nrdoc);
+           this.insertOrderHeaderTemplate.bindString(2, data_c);
+           this.insertOrderHeaderTemplate.bindString(3, gestiune_id);
+           this.insertOrderHeaderTemplate.bindString(4, tert_id);
+           this.insertOrderHeaderTemplate.bindString(5, valoare);
+           this.insertOrderHeaderTemplate.bindString(6, nrlc_id);
+           this.insertOrderHeaderTemplate.bindString(7, data_l);
+           this.insertOrderHeaderTemplate.bindString(8, user_id);
+           this.insertOrderHeaderTemplate.bindString(9, nivacc);
+           this.insertOrderHeaderTemplate.bindString(10, operare);
+           this.insertOrderHeaderTemplate.bindString(11, verstor);
+           this.insertOrderHeaderTemplate.bindString(12, tiparit);
+           this.insertOrderHeaderTemplate.bindString(13, facturat);
+           this.insertOrderHeaderTemplate.bindString(14, zscadenta);
+           this.insertOrderHeaderTemplate.bindString(15, pr_disc_expl);
+           this.insertOrderHeaderTemplate.bindString(16, val_disc_expl);
+           this.insertOrderHeaderTemplate.bindString(17, NrFact);
+           this.insertOrderHeaderTemplate.bindString(18, data_f);
+           return this.insertOrderHeaderTemplate.executeInsert();
   }
 
    		
@@ -107,25 +107,26 @@ public class DataManipulator {
    		   String val_disc_expl  = " " ;
    		   String NrFact         = " " ;
    		   String data_f         = " " ;
-           this.insertOrdersaTemplate.bindString(1,  nrdoc);
-           this.insertOrdersaTemplate.bindString(2,  data_c);
-           this.insertOrdersaTemplate.bindString(3,  gestiune_id);
-           this.insertOrdersaTemplate.bindString(4,  orderHeader.getTertId());
-           this.insertOrdersaTemplate.bindString(5,  orderHeader.getValoare());
-           this.insertOrdersaTemplate.bindString(6,  orderHeader.getNrlcId());
-           this.insertOrdersaTemplate.bindString(7,  data_l);
-           this.insertOrdersaTemplate.bindString(8,  user_id);
-           this.insertOrdersaTemplate.bindString(9,  nivacc);
-           this.insertOrdersaTemplate.bindString(10, operare);
-           this.insertOrdersaTemplate.bindString(11, verstor);
-           this.insertOrdersaTemplate.bindString(12, tiparit);
-           this.insertOrdersaTemplate.bindString(13, facturat);
-           this.insertOrdersaTemplate.bindString(14, zscadenta);
-           this.insertOrdersaTemplate.bindString(15, pr_disc_expl);
-           this.insertOrdersaTemplate.bindString(16, val_disc_expl);
-           this.insertOrdersaTemplate.bindString(17, NrFact);
-           this.insertOrdersaTemplate.bindString(18, data_f);
-           return this.insertOrdersaTemplate.executeInsert();
+           this.insertOrderHeaderTemplate.bindString(1,  nrdoc);
+           this.insertOrderHeaderTemplate.bindString(2,  data_c);
+           this.insertOrderHeaderTemplate.bindString(3,  gestiune_id);
+           this.insertOrderHeaderTemplate.bindString(4,  orderHeader.getTertId());
+           this.insertOrderHeaderTemplate.bindString(5,  orderHeader.getValoare());
+           this.insertOrderHeaderTemplate.bindString(6,  orderHeader.getNrlcId());
+           this.insertOrderHeaderTemplate.bindString(7,  data_l);
+           this.insertOrderHeaderTemplate.bindString(8,  user_id);
+           this.insertOrderHeaderTemplate.bindString(9,  nivacc);
+           this.insertOrderHeaderTemplate.bindString(10, operare);
+           this.insertOrderHeaderTemplate.bindString(11, verstor);
+           this.insertOrderHeaderTemplate.bindString(12, tiparit);
+           this.insertOrderHeaderTemplate.bindString(13, facturat);
+           this.insertOrderHeaderTemplate.bindString(14, zscadenta);
+           this.insertOrderHeaderTemplate.bindString(15, pr_disc_expl);
+           this.insertOrderHeaderTemplate.bindString(16, val_disc_expl);
+           this.insertOrderHeaderTemplate.bindString(17, NrFact);
+           this.insertOrderHeaderTemplate.bindString(18, data_f);
+           
+           return this.insertOrderHeaderTemplate.executeInsert();
   }
 
    		
@@ -209,16 +210,52 @@ public class DataManipulator {
     		return this.insertSetupTemplate.executeInsert();
     }
 
-        public void insereazaLiniileComenzii(List<CommandLine> listOfCommandLines){
+        public void insereazaLiniileComenzii(long com_id, List<CommandLine> listOfCommandLines){
         	Iterator i  = listOfCommandLines.iterator();
+        	int id = select_MaxID_from_ComenziVheader();
         	while (i.hasNext())
         	{
         		CommandLine  commandLine= (CommandLine) i.next();
+        		commandLine.setComId(Long.toString(id));
         		this.insertLineInto_ComenziCVext(commandLine);
           		// System.out.println(value.getprodus()+ "-" +value.getbucati()+ "-" +value.getcost());
         	}
         }
-       
+
+        public int select_MaxID_from_ComenziVheader_old()
+        {
+                int id = 0;
+                // final String MY_QUERY = "SELECT MAX(_id) FROM " + TABLE_HEADER_COMANDA;
+                final String MY_QUERY = "SELECT * FROM " + TABLE_HEADER_COMANDA;
+                Cursor cursor = DataManipulator.db.rawQuery(MY_QUERY, null);  
+                try {
+                    if (cursor.getCount() > 0) {
+                      cursor.moveToFirst();
+                      id = cursor.getInt(cursor.getColumnIndex("_id"));
+                      cursor.close();
+                    }
+                  } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                  }
+                return id;
+        }
+
+        public int select_MaxID_from_ComenziVheader()
+        {
+                int id = 0;
+
+                Cursor cursor = db.rawQuery("SELECT seq FROM sqlite_sequence WHERE name=?", 
+                        new String[] { TABLE_HEADER_COMANDA });
+
+                try {
+                    id = (cursor.moveToFirst() ? cursor.getInt(0) : 0);
+                    cursor.close();
+                  } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                  }
+                return id;
+        }
+
         
         public void sincroDB(){
                 // ToDo ... Next 
@@ -523,7 +560,8 @@ public class DataManipulator {
                 cursor.close();
                 return setupInfo;
         }
-        
+
+      
         public Cursor fetchProductsByLetters(String inputText) throws SQLException {
             Cursor mCursor = db.query(true, TABLE_EURO_PRODUCTS, new String[] {"_id",
             		"stoc_id", "denumire", "pret_gross"}, "denumire" + " like '%" + inputText + "%'", null,
@@ -553,7 +591,7 @@ public class DataManipulator {
 
                 @Override
                 public void onCreate(SQLiteDatabase db) {
-                	db.execSQL("CREATE TABLE " + TABLE_HEADER_COMANDA + " (_id integer primary key autoincrement, com_id integer primary key , nrdoc TEXT, data_c TEXT, gestiune_id TEXT, tert_id TEXT, valoare TEXT,nrlc_id TEXT, data_l TEXT, user_id TEXT, nivacc TEXT, operare TEXT, verstor TEXT, tiparit TEXT, facturat TEXT, zscadenta TEXT, pr_disc_expl TEXT, val_disc_expl TEXT, NrFact TEXT, data_f TEXT )");
+                	db.execSQL("CREATE TABLE " + TABLE_HEADER_COMANDA + " (_id integer primary key autoincrement, com_id TEXT , nrdoc TEXT, data_c TEXT, gestiune_id TEXT, tert_id TEXT, valoare TEXT,nrlc_id TEXT, data_l TEXT, user_id TEXT, nivacc TEXT, operare TEXT, verstor TEXT, tiparit TEXT, facturat TEXT, zscadenta TEXT, pr_disc_expl TEXT, val_disc_expl TEXT, NrFact TEXT, data_f TEXT )");
                 	db.execSQL("CREATE TABLE " + TABLE_LINII_COMANDA + " (_id integer primary key autoincrement, com_id TEXT , nrlinie TEXT, stoc_id TEXT, cont_gest TEXT, cantitate TEXT, cantitater TEXT,livrat TEXT, pret_vanzare TEXT, pr_disc_incl TEXT, disc_contr TEXT, disc_com TEXT, pret_gross TEXT )");
                 	db.execSQL("CREATE TABLE " + TABLE_ORDERS +   " (lineOrderId INTEGER PRIMARY KEY, clientName TEXT, productName TEXT, piecesNumber TEXT, discountNumber TEXT)");
                     db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (_id integer primary key autoincrement, ID TEXT, Name TEXT, Price TEXT, Symbol TEXT)");
