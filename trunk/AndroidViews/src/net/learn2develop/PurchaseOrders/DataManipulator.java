@@ -32,6 +32,7 @@ public class DataManipulator {
         static final String  TABLE_EURO_PRODUCTS  = "products_eurobit";
         static final String  TABLE_SETUP          = "setup";
         static final String  TABLE_HEADER_COMANDA = "comenzi_v_ext_header";
+        static final String  TRIGGER_HEADER_COMANDA = "comenzi_v_ext_header_trigger";
         static final String  TABLE_LINII_COMANDA  = "comenzi_cv_ext_linii";
         private static Context context;
         static SQLiteDatabase db;
@@ -599,6 +600,9 @@ public class DataManipulator {
                     db.execSQL("CREATE TABLE " + TABLE_SETUP + " (_id integer primary key autoincrement, UtilizatorID TEXT, Parola TEXT, UserName TEXT, SefID TEXT, ZonaID TEXT, counterComanda TEXT)");
                     db.execSQL("CREATE TABLE " + TABLE_EURO_CLIENTS + " (_id integer primary key autoincrement,client TEXT, cui TEXT, plt TEXT, tert_id TEXT, categorie TEXT, categorie_id TEXT, clasa TEXT, clasa_id TEXT, grupa TEXT, grupa_id TEXT)");
                     db.execSQL("CREATE TABLE " + TABLE_EURO_PRODUCTS + " (_id integer primary key autoincrement,stoc_id TEXT, simbol TEXT, denumire TEXT, categorie_id TEXT, grupa_id TEXT, clasa_id TEXT, clasa TEXT, grupa TEXT, categorie TEXT, pret_gross TEXT)");
+                    db.execSQL("CREATE TRIGGER " + TRIGGER_HEADER_COMANDA + " AFTER INSERT ON " + TABLE_HEADER_COMANDA+ " BEGIN UPDATE " + TABLE_HEADER_COMANDA+ " SET com_id=cast(_id as text) WHERE rowid = new.rowid; END");
+                    // http://stackoverflow.com/questions/12419693/convert-integer-to-text-in-sqlites-select-query
+                    // http://sqlite.awardspace.info/syntax/sqlitepg11.htm
                 }   
                     
                 // http://www.vogella.com/tutorials/AndroidSQLite/article.html
