@@ -278,13 +278,8 @@ public class DataManipulator {
         public void deleteAllRecordsFromTable(String theTable) {
             try{
             	 db.delete(theTable, null, null);
-            	 // db = openOrCreateDatabase(DBNAME, Context.MODE_PRIVATE,null);
-            	 //db.execSQL("DELETE FROM " + TABLE_CLIENTS );
-                 //Log.i("_DataManipulator_","<DELETE FROM>" + TABLE_CLIENTS + ">\n");
-            	 // db.close();
             }catch(Exception e){
-                	// Toast.makeText(this, "Error encountered while deleting.", Toast.LENGTH_LONG);
-            		System.out.println(e.getMessage());
+            	 System.out.println(e.getMessage());
             }
         }
         
