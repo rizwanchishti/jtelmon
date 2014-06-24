@@ -132,8 +132,13 @@ public class MainActivity extends Activity implements OnClickListener {
 						 // sleep(5000);
 						 DataManipulator dm;
 						 dm = new DataManipulator(getApplicationContext());
-						 dm.deleteAllProducts();
-						 dm.deleteAllClients();
+						 //dm.deleteAllProducts();
+						 //dm.deleteAllClients();
+						 dm.deleteAllRecordsFromTable(dm.TABLE_HEADER_COMANDA);
+						 dm.deleteAllRecordsFromTable(dm.TABLE_LINII_COMANDA);
+						 dm.deleteAllRecordsFromTable(dm.TABLE_EURO_CLIENTS);
+						 dm.deleteAllRecordsFromTable(dm.TABLE_EURO_PRODUCTS);
+						 
 						 if (dm != null) {
 							 dm.close();
 				    	 }
