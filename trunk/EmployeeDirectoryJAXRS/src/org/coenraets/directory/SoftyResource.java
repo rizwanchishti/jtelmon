@@ -45,6 +45,7 @@ public class SoftyResource {
 
 	// http://192.168.61.207:8080/PostgresWebService/rest/sales/eurobit/allproducts
 	// http://192.168.61.207:8080/EmployeeDirectoryJAXRS20140420/rest/sales/eurobit/allproducts
+	// http://localhost:8080/EmployeeDirectory20140628/rest/sales/eurobit/allproducts
 	@GET @Path("/eurobit/allproducts")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<ProdusEurobit> findAllEurobitProducts() {
