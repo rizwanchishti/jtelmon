@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.custom.i18n.resources" value="myapp" />
+	
+	<package name="user" extends="struts-default" namespace="/">
+        <result-types>
+        	<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+       </result-types>
+        <action name="user" class="user" method="execute">
+            <result name="user" type="tiles">mainTemplate</result>
+        </action>
+        <action name="*menu" class="user" method="{1}">
+            <result name="user" type="tiles">mainTemplate</result>
+            <result name="madhuri" type="tiles">madhuri</result>
+            <result name="alia" type="tiles">alia</result>
+            <result name="addUser" type="tiles">mainTemplate</result>
+        </action>
+    </package>
+ </struts>

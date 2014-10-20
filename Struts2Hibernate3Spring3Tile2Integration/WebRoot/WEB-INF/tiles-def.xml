@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+   "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+   "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+   <definition name="mainTemplate" template="/mainTemplate.jsp">
+      <put-attribute name="title"  value="User Registration Form"/>
+      <put-attribute name="header" value="/header.jsp"/>
+      <put-attribute name="menu"   value="/menu.jsp"/>
+      <put-attribute name="body"   value="/body.jsp"/>
+      <put-attribute name="footer"   value="/footer.jsp"/>
+   </definition>
+
+   <definition name="alia" extends="mainTemplate">
+      <put-attribute name="title"  value="Alia Bhatt"/>
+      <put-attribute name="body"   value="/alia.jsp"/>      
+   </definition>
+
+   <definition name="madhuri" extends="mainTemplate">
+      <put-attribute name="title"  value="Madhuri Dixit"/>
+      <put-attribute name="body"   value="/madhuri.jsp"/>      
+   </definition>
+   
+   <definition name="success" extends="mainTemplate">
+      <put-attribute name="title"  value="User Added Successfully"/>
+      <put-attribute name="body"   value="/success.jsp"/>      
+   </definition>
+  
+</tiles-definitions>
