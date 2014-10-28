@@ -179,7 +179,8 @@
             android:id="@+id/discount"
             android:layout_width="127dp"
             android:layout_height="wrap_content"
-            android:ems="10" />
+            android:ems="10"
+            android:inputType="numberDecimal" />
 
     </TableRow>
 
