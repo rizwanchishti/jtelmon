@@ -1,3 +1,8 @@
+/*
+ * http://howtodoinjava.com/2013/12/08/spring-3-2-5-release-and-hibernate-4-integration-example-tutorial/
+ * 
+ */
+
 package com.howtodoinjava.dao;
 
 import java.util.List;
