@@ -1,3 +1,9 @@
+/*
+ * http://www.dzone.com/tutorials/java/spring/spring-mvc-tutorial-1.html 
+ * http://www.dzone.com/sites/all/files/SpringExample5.zip
+ * 
+ */
+
 package com.vaannila;
 
 import javax.servlet.http.HttpServletRequest;
