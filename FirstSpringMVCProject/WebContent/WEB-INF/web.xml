@@ -3,17 +3,21 @@
 	
 	<display-name>FirstSpringMVCProject</display-name>
  
+	
 	<welcome-file-list>
   		<welcome-file>/WEB-INF/HelloPage.jsp</welcome-file>
   	</welcome-file-list>
  
+<!-- this is a comment -->
+<!-- /WEB-INF/spring-dispatcher-servlet.xml -->	
    <servlet>
   	<servlet-name>spring-dispatcher</servlet-name>
         <servlet-class>
                   org.springframework.web.servlet.DispatcherServlet
         </servlet-class>
   </servlet>
- 
+<!-- DispatcherServlet is also called "Front Controller" -->
+   
   <servlet-mapping>
  	<servlet-name>spring-dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
