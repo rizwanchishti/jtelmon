@@ -3,6 +3,9 @@
 	
 	<display-name>FirstSpringMVCProject</display-name>
  
+	<welcome-file-list>
+        <welcome-file>redirect.jsp</welcome-file>
+    </welcome-file-list>
  
    <servlet>
   	<servlet-name>spring-dispatcher</servlet-name>
