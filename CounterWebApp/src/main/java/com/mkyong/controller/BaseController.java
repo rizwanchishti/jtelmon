@@ -1,7 +1,7 @@
 /*
  * http://www.mkyong.com/maven/how-to-create-a-web-application-project-with-maven
  * mvn tomcat:run
- * servlet-api-2.4.jar
+ * servlet-api-2.4.jar ~ Apache Tomcat v7.0 
  * 
  */
 		
