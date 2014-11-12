@@ -3,6 +3,11 @@
  * mvn tomcat:run
  * servlet-api-2.4.jar ~ Apache Tomcat v7.0 
  * 
+ * To import MAven WEB project into Eclipse : 
+ * mvn eclipse:eclipse -Dwtpversion=2.0
+ * The option -Dwtpversion=2.0 tells Maven to convert the project into an Eclipse web project (WAR), 
+ * not the default Java project (JAR)
+ * 
  */
 		
 		
