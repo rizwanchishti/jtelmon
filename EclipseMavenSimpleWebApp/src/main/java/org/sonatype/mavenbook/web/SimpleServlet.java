@@ -1,3 +1,10 @@
+/*
+ * 
+ * http://books.sonatype.com/mvnex-book/reference/web-sect-creating-project.html
+ * http://www.mkyong.com/maven/how-to-create-a-web-application-project-with-maven
+ * 
+ * 
+ */
 package org.sonatype.mavenbook.web;
 
 import java.io.*;
