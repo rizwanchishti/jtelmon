@@ -1,3 +1,9 @@
+/*
+ * http://programmaticponderings.wordpress.com/2013/10/21/spring-integration-with-eclipse-using-maven/
+ * http://www.tutorialspoint.com/spring/spring_bean_definition.htm
+ * 
+ */
+
 package com.blogpost.maven.maven_spring;
 
 import org.springframework.context.ApplicationContext;
