@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.captaindebug.store.controllers.mockmvc.OrderControllerTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.942 sec
