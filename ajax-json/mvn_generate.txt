@@ -5,10 +5,17 @@
 # mvn tomcat:run
 # http://localhost:8080/store/
 
+# mvn eclipse:eclipse -Dwtpversion=2.0
+
 
 http://www.javacodegeeks.com/2013/05/spring-mvc-ajax-and-json-part-1-setting-the-scene.html
 http://www.javacodegeeks.com/2013/05/spring-mvc-ajax-and-json-part-2-the-server-side-code.html
 http://www.javacodegeeks.com/2013/05/spring-mvc-ajax-and-json-part-3-the-client-side-code.html
+
+
+http://www.mkyong.com/maven/how-do-use-maven-to-create-a-dynamic-web-project-in-eclipse/
+ How To Convert Maven Based Web Application To Support Eclipse IDE :
+  mvn eclipse:eclipse -Dwtpversion=2.0
 
 
 ~~~~~~~~~~~~~~~~~~~~~~
