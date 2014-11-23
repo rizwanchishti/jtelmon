@@ -1,3 +1,9 @@
+/*
+ * http://www.javacodegeeks.com/2013/05/spring-mvc-ajax-and-json-part-1-setting-the-scene.html
+ * http://www.javacodegeeks.com/2013/05/spring-mvc-ajax-and-json-part-2-the-server-side-code.html
+ * http://www.javacodegeeks.com/2013/05/spring-mvc-ajax-and-json-part-3-the-client-side-code.html
+ */
+ 
 package com.captaindebug.store.beans;
 
 import java.util.Collections;
