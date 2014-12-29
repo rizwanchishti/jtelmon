@@ -1,3 +1,9 @@
+
+/*
+ *    http://www.mkyong.com/hibernate/quick-start-maven-hibernate-mysql-example/
+ *    
+ */
+
 package com.mkyong.common;
 
 import org.hibernate.Session;
