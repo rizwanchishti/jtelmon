@@ -9,42 +9,31 @@
   <url>http://maven.apache.org</url>
 
 	<properties>
-	 <!--   <hibernate.version>4.2.7.Final</hibernate.version>   -->
-	    <hibernate.version>3.6.3.Final</hibernate.version>
+	    <hibernate.version>3.2.3.ga</hibernate.version>
 	    <jdk.version>1.6</jdk.version>
 	</properties>
 
-
   <dependencies>
-    
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-    
+
     <!-- MySQL database driver -->
 	<dependency>
 		<groupId>mysql</groupId>
 		<artifactId>mysql-connector-java</artifactId>
 		<version>5.1.9</version>
 	</dependency>
-	
-
 
 		<!-- Hibernate framework -->
-		<!-- Hibernate Core -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>3.3.1.GA</version>
-		</dependency>
-		<!-- Hibernate Annotation -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
-			<version>3.4.0.GA</version>
+			<artifactId>hibernate</artifactId>
+			<version>3.2.3.ga</version>
 		</dependency>
 
 		<dependency>
@@ -53,26 +42,18 @@
 			<version>1.1</version>
 		</dependency>
 
-	<dependency>
-	  <groupId>jboss</groupId>
-	  <artifactId>jboss-common-client</artifactId>
-	  <version>3.2.3</version>
-	</dependency>
-	
-
-     <dependency>
-            <groupId>org.jboss.logging</groupId>
-            <artifactId>jboss-logging</artifactId>
-            <version>3.1.0.GA</version>
-        </dependency>
-
 <dependency>
-    <groupId>org.slf4j</groupId>
-    <artifactId>jcl-over-slf4j</artifactId>
-    <version>1.6.1</version>
+	<groupId>asm</groupId>
+	<artifactId>asm</artifactId>
+	<version>3.1</version>
 </dependency>
 
-	
+<dependency>
+	<groupId>xml-apis</groupId>
+	<artifactId>xml-apis</artifactId>
+	<version>1.0.b2</version>
+</dependency>
+
 	<!-- Hibernate library dependecy start -->
 	<dependency>
 		<groupId>dom4j</groupId>
@@ -113,22 +94,12 @@
 					<include>hibernate.cfg.xml</include>
 				</includes>
 			</resource>
-<!--
-			<resource>
-				<directory>src/main/resources/com/mkyong/common</directory>
-				<includes>
-					<include>Stock.hbm.xml</include>
-				</includes>
-			</resource>
--->
-
 			<resource>
 			      <directory>src/main/java</directory>
 				      <excludes>
 				         <exclude>**/*.java</exclude>
 				      </excludes>
 			</resource>
-
 		</resources>
 
 	  <plugins>
@@ -153,7 +124,7 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<includeGroupIds>commons-logging,commons-collections,cglib,dom4j,org.hibernate,org.hibernate.javax.persistence,mysql,jboss,org.jboss.logging,org.slf4j</includeGroupIds>
+							<includeGroupIds>commons-logging,commons-collections,cglib,dom4j,org.hibernate,mysql,javax.transaction,xml-apis,junit,asm</includeGroupIds>
 							<outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
 						</configuration>
 					</execution>
@@ -176,7 +147,4 @@
 	  </plugins>
 	</build>
 
-
 </project>
-
-
