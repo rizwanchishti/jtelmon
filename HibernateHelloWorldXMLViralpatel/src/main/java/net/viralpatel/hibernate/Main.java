@@ -44,7 +44,7 @@ public class Main {
 		empl2.setFirstname("James");
 		update(empl2);	// save the updated employee details
 		
-		empl2 = read(1l); // read again employee with id 1
+		empl2 = read(id); // read again employee with id 1
 		System.out.println("Name Aftere Update:" + empl2.getFirstname());
 		
 		
