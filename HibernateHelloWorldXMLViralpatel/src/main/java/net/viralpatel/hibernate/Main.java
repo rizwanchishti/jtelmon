@@ -27,15 +27,20 @@ public class Main {
 		System.out.println("******* WRITE *******");
 		Employee empl = new Employee("Jack", "Bauer", new Date(System.currentTimeMillis()), "911");
 		empl = save(empl);
-		empl = read(empl.getId());
+		Long id;
+		id=empl.getId();
+		empl = read(id);
 		System.out.printf("%d %s %s \n", empl.getId(), empl.getFirstname(), empl.getLastname());
 		
 		
 		
 		// Update
-		System.out.println("******* UPDATE *******");
-		Employee empl2 = read(1l); // read employee with id 1
+		// System.out.println("******* UPDATE *******");
+		// Employee empl2 = read(id); // read employee with id 1
+		Employee empl2 = read(empl.getId());
+		// empl2 = (Employee) (list()).get(1) ;
 		System.out.println("Name Before Update:" + empl2.getFirstname());
+		System.out.printf("%d %s %s \n", empl2.getId(), empl2.getFirstname(), empl2.getLastname());
 		empl2.setFirstname("James");
 		update(empl2);	// save the updated employee details
 		
@@ -113,3 +118,23 @@ public class Main {
 	}
 	
 }
+
+
+/*
+
+CREATE TABLE `employee` (
+    `id` BIGINT(10) NOT NULL AUTO_INCREMENT,
+    `firstname` VARCHAR(50) NULL DEFAULT NULL,
+    `lastname` VARCHAR(50) NULL DEFAULT NULL,
+    `birth_date` DATE NOT NULL,
+    `cell_phone` VARCHAR(15) NOT NULL,
+    PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+ROW_FORMAT=DEFAULT
+AUTO_INCREMENT=0
+
+Connection URL: jdbc:mysql://localhost:3306/tutorial
+
+*/
