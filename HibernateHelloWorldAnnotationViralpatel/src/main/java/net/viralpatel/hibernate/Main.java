@@ -1,3 +1,9 @@
+/*
+ *    http://viralpatel.net/blogs/hibernate-hello-world-example-annotation/
+ * 
+ */
+
+
 package net.viralpatel.hibernate;
 
 import java.sql.Date;
@@ -114,3 +120,23 @@ public class Main {
 	}
 	
 }
+
+
+/*
+
+CREATE TABLE `employee` (
+    `id` BIGINT(10) NOT NULL AUTO_INCREMENT,
+    `firstname` VARCHAR(50) NULL DEFAULT NULL,
+    `lastname` VARCHAR(50) NULL DEFAULT NULL,
+    `birth_date` DATE NOT NULL,
+    `cell_phone` VARCHAR(15) NOT NULL,
+    PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+ROW_FORMAT=DEFAULT
+AUTO_INCREMENT=0
+
+Connection URL: jdbc:mysql://localhost:3306/tutorial
+
+*/
