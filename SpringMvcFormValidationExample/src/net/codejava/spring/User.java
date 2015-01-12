@@ -1,6 +1,9 @@
 /*
  * http://www.codejava.net/frameworks/spring/spring-mvc-form-validation-example-with-bean-validation-api
  * http://localhost:8080/SpringMvcFormValidationExample/login
+ * 
+ * http://springjavatutorial.blogspot.ro/2013/03/spring-3-mvc-form-validation.html
+ * 
  */
 
 package net.codejava.spring;
