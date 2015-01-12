@@ -3,6 +3,7 @@
  * http://localhost:8080/SpringMvcFormValidationExample/login
  * 
  * http://springjavatutorial.blogspot.ro/2013/03/spring-3-mvc-form-validation.html
+ * http://www.codejava.net/books/recommended-books-for-spring-framework#ProSpring3
  *
  */
 
