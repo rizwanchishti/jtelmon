@@ -1,6 +1,13 @@
 /*
  * http://www.sivalabs.in/2011/04/springmvc3-hibernate-crud-sample.html
  * http://www.javacodegeeks.com/2011/04/spring-mvc3-hibernate-crud-sample.html
+ *
+ * http://dtr-trading.blogspot.ro/2014/02/spring-mvc-4-and-hibernate-4.html
+ *  https://github.com/dtr-trading/spring-ex02
+ * 
+ * http://fruzenshtein.com/spring-mvc-hibernate-maven-crud/
+ * https://github.com/Fruzenshtein/spr-mvc-hib
+ * http://www.javacodegeeks.com/2013/04/spring-mvc-hibernate-maven-crud-operations-example.html
  * 
  */
 
