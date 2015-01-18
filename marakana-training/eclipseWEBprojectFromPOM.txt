@@ -10,6 +10,7 @@
 # [Marakana TV] - Marakana TV - Spring and Hibernate [ENG] - (torrent)
 # marakana Spring Hibernate 2012-09.25 0941 
 # https://www.youtube.com/watch?v=tw5KG9_oiT0
+# https://www.youtube.com/my_videos?o=U
 # http://jtelmon.googlecode.com/svn/marakana-training/
 
 # git clone https://github.com/thenewcircle/spring-hibernate-20120924.git
