@@ -32,14 +32,21 @@
 # https://github.com/roghughe/captaindebug.git
 
 
+# Spring MVC Tutorials 22 - Form Validations 06 (More on custom Form Validation annotation...)
+# https://www.youtube.com/watch?v=Hd8Gejqshaw
+# http://www.gontu.org/
+# Ankush Gorav : author of Gontu Series
+
 ~ ~ ~ 
 
 # http://www.wowebook.com/search/?q=hibernate
 # http://blog.teamtreehouse.com/using-github-pages-to-host-your-website
 # http://www.petrikainulainen.net/spring-data-jpa-tutorial/
 # http://www.petrikainulainen.net/books/spring-data/
+#
 # http://www.dzone.com/tutorials/java/spring/spring-mvc-tutorial-1.html
-
+# http://www.dzone.com/sites/all/files/SpringExample5.zip
+#
 
 # http://www.mkyong.com/spring-mvc/spring-mvc-form-handling-annotation-example/
 # http://www.mkyong.com/tutorials/spring-mvc-tutorials/
