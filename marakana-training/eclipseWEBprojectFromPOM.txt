@@ -1,6 +1,14 @@
+# [Marakana TV] - Marakana TV - Spring and Hibernate [ENG] - (torrent)
+# marakana Spring Hibernate 2012-09.25 0941 
+# https://www.youtube.com/watch?v=tw5KG9_oiT0
+
+# git clone https://github.com/thenewcircle/spring-hibernate-20120924.git
+# mvn package
+# mvn clean install
+# mvn jetty:run
+
 # generate Eclipse WEB project from POM : ( wtp - Web Tools Project ) 
  mvn eclipse:eclipse -Dwtpversion=2.0
-
 
 # http://www.mkyong.com/maven/how-do-use-maven-to-create-a-dynamic-web-project-in-eclipse/
 #  How To Convert Maven Based Web Application To Support Eclipse IDE :
