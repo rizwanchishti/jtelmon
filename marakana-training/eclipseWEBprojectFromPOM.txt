@@ -44,9 +44,13 @@
 # http://www.petrikainulainen.net/spring-data-jpa-tutorial/
 # http://www.petrikainulainen.net/books/spring-data/
 #
+# http://springjavatutorial.blogspot.ro/2013/04/springmvc3-hibernate-crud.html
+# http://springjavatutorial.blogspot.ro/2013/03/spring-3-mvc-form-validation.html
+# https://haritkumarblog.opendrive.com/files?N18xMTA1NjcwNF8xSGRhNA
+#
 # http://www.dzone.com/tutorials/java/spring/spring-mvc-tutorial-1.html
 # http://www.dzone.com/sites/all/files/SpringExample5.zip
-#
+# 
 
 # http://www.mkyong.com/spring-mvc/spring-mvc-form-handling-annotation-example/
 # http://www.mkyong.com/tutorials/spring-mvc-tutorials/
