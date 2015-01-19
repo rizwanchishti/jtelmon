@@ -14,6 +14,7 @@
 # http://jtelmon.googlecode.com/svn/marakana-training/
 
 # git clone https://github.com/thenewcircle/spring-hibernate-20120924.git
+# git clone https://github.com/javalab-ru/marakana-spring-and-hibernate-training.git
 # mvn compile
 # mvn package
 # mvn clean install
