@@ -1,0 +1,8 @@
+127.0.0.1 - - [26/Jan/2015:22:21:05 +0200] "GET /index.html HTTP/1.1" 200 486 http-bio-8080-exec-1 1108
+127.0.0.1 - - [26/Jan/2015:22:21:06 +0200] "GET /shop/list.html HTTP/1.1" 500 16865 http-bio-8080-exec-3 67
+127.0.0.1 - - [26/Jan/2015:22:24:13 +0200] "GET /shop/list.html HTTP/1.1" 200 772 http-bio-8080-exec-1 1797
+127.0.0.1 - - [26/Jan/2015:22:24:15 +0200] "GET /shop/edit/6.html HTTP/1.1" 200 780 http-bio-8080-exec-3 299
+127.0.0.1 - - [26/Jan/2015:22:24:20 +0200] "POST /shop/edit/6.html HTTP/1.1" 200 1054 http-bio-8080-exec-4 42
+127.0.0.1 - - [26/Jan/2015:22:24:43 +0200] "POST /shop/edit/6.html HTTP/1.1" 302 - http-bio-8080-exec-5 271
+127.0.0.1 - - [26/Jan/2015:22:24:43 +0200] "GET /index.html HTTP/1.1" 200 516 http-bio-8080-exec-6 14
+127.0.0.1 - - [26/Jan/2015:22:24:45 +0200] "GET /shop/list.html HTTP/1.1" 200 771 http-bio-8080-exec-7 24
