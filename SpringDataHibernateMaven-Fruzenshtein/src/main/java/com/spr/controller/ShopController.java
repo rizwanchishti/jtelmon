@@ -2,12 +2,15 @@
  *  http://fruzenshtein.com/spring-jpa-data-hibernate-mysql/
  *  http://fruzenshtein.com/spring-mvc-hibernate-maven-crud/
  *  http://www.javacodegeeks.com/2013/04/spring-mvc-hibernate-maven-crud-operations-example.html
+
  *  http://dtr-trading.blogspot.ro/2014/02/spring-mvc-4-and-hibernate-4.html
+ *  https://github.com/dtr-trading/spring-ex02
+ *  
  *  http://www.mkyong.com/maven/how-to-deploy-maven-based-war-file-to-tomcat/
  *  http://viralpatel.net/blogs/hibernate-one-to-many-annotation-tutorial/
  *  
  *  mvn org.apache.tomcat.maven:tomcat7-maven-plugin:2.1:run
- * 
+ *
  * 
  */
 
