@@ -1,3 +1,15 @@
+/*
+ *  http://fruzenshtein.com/spring-jpa-data-hibernate-mysql/
+ *  http://fruzenshtein.com/spring-mvc-hibernate-maven-crud/
+ *  http://www.javacodegeeks.com/2013/04/spring-mvc-hibernate-maven-crud-operations-example.html
+ * 
+ * mvn org.apache.tomcat.maven:tomcat7-maven-plugin:2.1:run
+ * 
+ * http://www.mkyong.com/maven/how-to-deploy-maven-based-war-file-to-tomcat/
+ * 
+ */
+
+
 package com.spr.controller;
 
 import java.util.List;
