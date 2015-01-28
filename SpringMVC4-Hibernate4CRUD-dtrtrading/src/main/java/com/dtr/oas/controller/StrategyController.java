@@ -6,6 +6,8 @@
  * http://fruzenshtein.com/spring-jpa-data-hibernate-mysql/
  * http://dtr-trading.blogspot.ro/search/label/Spring%20MVC
  * 
+ * http://it-ebooks.info/tag/spring/
+ * 
  */
 
 package com.dtr.oas.controller;
