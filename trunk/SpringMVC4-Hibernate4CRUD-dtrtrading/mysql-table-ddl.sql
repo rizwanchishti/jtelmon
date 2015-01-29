@@ -1,3 +1,6 @@
+create database dtrtrading;
+
+
 CREATE TABLE `strategy` (
     `ID` INT(6) UNSIGNED NOT NULL AUTO_INCREMENT,
     `TYPE` VARCHAR(20) NOT NULL,
@@ -7,3 +10,4 @@ CREATE TABLE `strategy` (
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 AUTO_INCREMENT=8;
+
