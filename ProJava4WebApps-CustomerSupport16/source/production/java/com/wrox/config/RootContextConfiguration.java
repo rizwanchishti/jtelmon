@@ -189,3 +189,14 @@ public class RootContextConfiguration implements
         registrar.setTaskScheduler(scheduler);
     }
 }
+
+
+/*
+      /etc/tomcat/context.xml : 
+<Resource name="jdbc/CustomerSupport" type="javax.sql.DataSource"
+	maxActive="20" maxIdle="5" maxWait="10000"
+	username="root" password="toor"
+	driverClassName="com.mysql.jdbc.Driver"
+	defaultTransactionIsolation="READ_COMMITTED"
+	url="jdbc:mysql://localhost/CustomerSupport" />
+*/
