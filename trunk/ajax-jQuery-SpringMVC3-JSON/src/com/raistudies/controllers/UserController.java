@@ -1,3 +1,19 @@
+/*
+ * http://www.raistudies.com/spring/spring-mvc/ajax-form-validation-using-spring-mvc-and-jquery/
+ * http://www.raistudies.com/spring/spring-mvc/ajax-spring-mvc-3-annonations-jquery/
+ * 
+ * http://www.javacodegeeks.com/2013/05/spring-mvc-ajax-and-json-part-1-setting-the-scene.html
+ *  http://www.captaindebug.com/2013/04/spring-mvc-ajax-and-json-part-1-setting.html
+ * http://www.javacodegeeks.com/2013/05/spring-mvc-ajax-and-json-part-2-the-server-side-code.html
+ *  http://www.captaindebug.com/2013/05/spring-mvc-ajax-and-json-part-2-server.html
+ * http://www.javacodegeeks.com/2013/05/spring-mvc-ajax-and-json-part-3-the-client-side-code.html 
+ *  http://www.captaindebug.com/2013/05/spring-mvc-ajax-and-json-part-3-client.html
+ *  
+ * https://github.com/roghughe/captaindebug/tree/master/ajax-json
+ * 
+ *  http://www.javacodegeeks.com/tag/ajax/
+ *  
+ */
 package com.raistudies.controllers;
 
 import java.util.ArrayList;
