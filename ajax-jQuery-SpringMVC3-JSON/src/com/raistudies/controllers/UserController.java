@@ -2,6 +2,8 @@
  * http://www.raistudies.com/spring/spring-mvc/ajax-form-validation-using-spring-mvc-and-jquery/
  * http://www.raistudies.com/spring/spring-mvc/ajax-spring-mvc-3-annonations-jquery/
  * 
+ * http://www.javacodegeeks.com/2012/02/spring-mvc-and-jquery-for-ajax-form.html
+ * 
  * http://www.javacodegeeks.com/2013/05/spring-mvc-ajax-and-json-part-1-setting-the-scene.html
  *  http://www.captaindebug.com/2013/04/spring-mvc-ajax-and-json-part-1-setting.html
  * http://www.javacodegeeks.com/2013/05/spring-mvc-ajax-and-json-part-2-the-server-side-code.html
