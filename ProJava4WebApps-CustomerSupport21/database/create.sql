@@ -1,4 +1,4 @@
-
+-- rpm -q mariadb -> mariadb-5.1.55-0.5.1.x86_64
 
 CREATE DATABASE CustomerSupport21 DEFAULT CHARACTER SET 'utf8'
   DEFAULT COLLATE 'utf8_unicode_ci';
