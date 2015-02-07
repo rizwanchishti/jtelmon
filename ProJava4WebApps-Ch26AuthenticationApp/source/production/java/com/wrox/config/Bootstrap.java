@@ -5,8 +5,14 @@
  * http://www.javacodegeeks.com/2014/03/springmvc4-spring-data-jpa-springsecurity-configuration-using-javaconfig.html
  * https://github.com/sivaprasadreddy/sivalabs-blog-samples-code/tree/master/springmvc-datajpa-security-demo
  * 
+ * http://dtr-trading.blogspot.ro/2014/02/spring-mvc-4-security-part-1.html
+ * http://dtr-trading.blogspot.ro/2014/04/spring-security-32-authorization-part-1.html
+ * http://dtr-trading.blogspot.ro/search/label/Security
+ * 
+ * http://www.raistudies.com/spring-security-tutorial-acegi/
+ * http://www.raistudies.com/spring-security-tutorial/authentication-authorization-spring-security-mysql-database/
+ * 
  */
-
 
 package com.wrox.config;
 
