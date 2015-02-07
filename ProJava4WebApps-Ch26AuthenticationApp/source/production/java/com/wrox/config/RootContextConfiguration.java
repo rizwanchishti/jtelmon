@@ -1,3 +1,12 @@
+/*
+ * http://localhost:8080/authentication/login
+ * http://java.dzone.com/articles/springmvc4-spring-data-jpa
+ * http://www.sivalabs.in/2014/03/springmvc4-spring-data-jpa.html
+ * http://www.javacodegeeks.com/2014/03/springmvc4-spring-data-jpa-springsecurity-configuration-using-javaconfig.html
+ * https://github.com/sivaprasadreddy/sivalabs-blog-samples-code/tree/master/springmvc-datajpa-security-demo
+ * 
+ */
+
 package com.wrox.config;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
