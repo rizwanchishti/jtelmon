@@ -1,4 +1,8 @@
 -- rpm -q mariadb -> mariadb-5.1.55-0.5.1.x86_64
+-- http://stackoverflow.com/questions/963534/mysql-fulltext-indexes-issue
+-- MySQL FULLTEXT indexes issue
+-- ERROR 1214: The used table type doesn’t support FULLTEXT indexes.
+-- MyISAM (in MySQL 5.6+also InnoDB tables) are the types of tables that Mysql supports for Full-text indexes.
 
 CREATE DATABASE CustomerSupport21 DEFAULT CHARACTER SET 'utf8'
   DEFAULT COLLATE 'utf8_unicode_ci';
@@ -229,3 +233,6 @@ INSERT INTO WebServiceClient_Grant (WebServiceClientId, GrantName)
 INSERT INTO WebServiceClient_RedirectUri (WebServiceClientId, Uri)
   VALUES (1, 'http://localhost:8080/client/support');
 
+  
+  
+  
