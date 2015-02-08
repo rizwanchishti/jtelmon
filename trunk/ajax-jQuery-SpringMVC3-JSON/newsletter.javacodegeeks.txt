@@ -46,6 +46,23 @@ http://www.javacodegeeks.com/2013/03/spring-integration-application-from-scratch
 In this tutorial you will learn what is Spring Integration, how to use it and what kind of problems does it help to solve. We will build a sample application from the scratch and demonstrate some of the core components of Spring Integration. If you’re new to Spring check out another tutorial on Spring written by me – Shall we do some Spring together?
 
 
+https://jtelmon.googlecode.com/svn/marakana-training
+https://jtelmon.googlecode.com/svn/trunk/SpringMVC4-Hibernate4CRUD-dtrtrading
 https://jtelmon.googlecode.com/svn/trunk/ajax-jQuery-SpringMVC3-JSON
 https://jtelmon.googlecode.com/svn/trunk/ProJava4WebApps-CH21-SpringJPA
+https://jtelmon.googlecode.com/svn/trunk/ProJava4WebApps-Ch26AuthenticationApp
+https://jtelmon.googlecode.com/svn/trunk/ProJava4WebApps-CustomerSupport16
+https://jtelmon.googlecode.com/svn/trunk/ProJava4WebApps-CustomerSupport21
+
+https://jtelmon.googlecode.com/svn/ajax-json : CaptainDebug !  
+
+Getting Started with Spring Security 3.2
+https://www.youtube.com/watch?v=1zu8COg80q4
+https://github.com/rwinch/gs-spring-security-3.2
+http://spring.io/blog/2014/01/21/webinar-replay-spring-security-3-2
+https://github.com/rwinch
+https://www.packtpub.com/application-development/spring-security-31
+
+
+
 
