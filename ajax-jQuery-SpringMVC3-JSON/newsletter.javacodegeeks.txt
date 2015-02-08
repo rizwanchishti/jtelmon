@@ -44,3 +44,8 @@ Thread Pool/Executors Based Implementation: A better approach than the raw threa
 Spring Integration - Application from scratch
 http://www.javacodegeeks.com/2013/03/spring-integration-application-from-scratch-part-1.html
 In this tutorial you will learn what is Spring Integration, how to use it and what kind of problems does it help to solve. We will build a sample application from the scratch and demonstrate some of the core components of Spring Integration. If you’re new to Spring check out another tutorial on Spring written by me – Shall we do some Spring together?
+
+
+https://jtelmon.googlecode.com/svn/trunk/ajax-jQuery-SpringMVC3-JSON
+https://jtelmon.googlecode.com/svn/trunk/ProJava4WebApps-CH21-SpringJPA
+
