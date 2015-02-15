@@ -1,6 +1,7 @@
 
 2015-02.15 :
 http://localhost:8080/JavaEE7developmentWildFly-ch5postgres-ticketAgencyJPA/
+https://jtelmon.googlecode.com/svn/trunk/JavaEE7developmentWildFly-ch5postgres-ticketAgencyJPA
 
 BOOK : Java EE 7 Development with WildFly
        2014 Packt Publishing
