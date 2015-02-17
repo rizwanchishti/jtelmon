@@ -17,7 +17,7 @@ http://isbn.directory/book/978-1-78217-198-0
 # generate Eclipse WEB project from POM : ( wtp - Web Tools Project ) 
 # mvn eclipse:eclipse -Dwtpversion=2.0
 
-WildFly8, 
+WildFly8.1, 
 /localwildfly/standalone/configuration/standalone.xml :
             <datasources>
                 <datasource jta="false" jndi-name="java:jboss/datasources/wflydevelopment" pool-name="wflydevelopment" enabled="true">
@@ -33,6 +33,24 @@ WildFly8,
                     <driver name="postgresql" module="org.postgresql"/>
                 </drivers>
             </datasources>
+
+
+\localwildfly\modules\system\layers\base\org\postgersql\main\
+   - aici se pune "postgresql-9.3-1103.jdbc41.jar" ( https://jdbc.postgresql.org/download/postgresql-9.3-1103.jdbc41.jar ) 
+   - se creeaza "module.xml" cu urmatorul continut : 
+		<module	name="org.postgresql">	
+			<resources>
+					<resource-root	path="postgresql-9.3-1103.jdbc41.jar"/>
+			</resources>
+			<dependencies>
+				<module	name="javax.api"/>
+				<module	name="javax.transaction.api"/>
+			</dependencies>
+		</module>   
+
+Spring JDBC application on WildFly
+http://www.mastertheboss.com/jboss-frameworks/spring/spring-jdbc-application-on-wildfly
+http://www.mastertheboss.com/code/springexample.zip            
             
 2015-02.08 : 
 https://jtelmon.googlecode.com/svn/trunk/SpringSecurity32-dtrtrading
