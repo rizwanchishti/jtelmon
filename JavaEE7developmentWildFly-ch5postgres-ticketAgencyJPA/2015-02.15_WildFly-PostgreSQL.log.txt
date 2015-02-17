@@ -17,6 +17,9 @@ http://isbn.directory/book/978-1-78217-198-0
 # generate Eclipse WEB project from POM : ( wtp - Web Tools Project ) 
 # mvn eclipse:eclipse -Dwtpversion=2.0
 
+<persistence-unit name="primary">
+<persistence-unit name="wflydevelopment">
+
 WildFly8.1, 
 /localwildfly/standalone/configuration/standalone.xml :
             <datasources>
