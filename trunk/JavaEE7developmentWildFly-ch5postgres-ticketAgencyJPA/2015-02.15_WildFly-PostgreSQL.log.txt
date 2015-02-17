@@ -17,7 +17,23 @@ http://isbn.directory/book/978-1-78217-198-0
 # generate Eclipse WEB project from POM : ( wtp - Web Tools Project ) 
 # mvn eclipse:eclipse -Dwtpversion=2.0
 
-
+WildFly8, 
+/localwildfly/standalone/configuration/standalone.xml :
+            <datasources>
+                <datasource jta="false" jndi-name="java:jboss/datasources/wflydevelopment" pool-name="wflydevelopment" enabled="true">
+                    <connection-url>jdbc:postgresql://localhost:5432/ticketsystem</connection-url>
+                    <driver-class>org.postgresql.Driver</driver-class>
+                    <driver>postgresql</driver>
+                    <security>
+                        <user-name>postgres</user-name>
+                        <password>telinit</password>
+                    </security>
+                </datasource>
+                <drivers>                
+                    <driver name="postgresql" module="org.postgresql"/>
+                </drivers>
+            </datasources>
+            
 2015-02.08 : 
 https://jtelmon.googlecode.com/svn/trunk/SpringSecurity32-dtrtrading
 
@@ -50,12 +66,12 @@ Spring Framework tutorials Extravaganza
 
 JSF 2, PrimeFaces 3, Spring 3 & Hibernate 4 Integration Project
 http://www.javacodegeeks.com/2012/04/jsf-2-primefaces-3-spring-3-hibernate-4.html
-This article shows how to integrate JSF2, PrimeFaces3, Spring3 and Hibernate4 Technologies. It provides a general project template for Java developers. Also if Spring is not used for Business and Data Access layer, JSF – PrimeFaces & Hibernate Integration Project can be offered.
+This article shows how to integrate JSF2, PrimeFaces3, Spring3 and Hibernate4 Technologies. It provides a general project template for Java developers. Also if Spring is not used for Business and Data Access layer, JSF ï¿½ PrimeFaces & Hibernate Integration Project can be offered.
 
 
 JAX-WS with Spring and Maven Tutorial
 http://www.javacodegeeks.com/2010/11/jaxws-with-spring-and-maven-tutorial.html
-Spring framework provides remoting support for web services via JAX–WS, in fact, as stated in Spring reference documentation, there are three ways of exposing Spring POJO services as a JAX–WS web services : Exposing Servlet – based web services (suitable for Java EE 5 environments), Exporting standalone web services (suitable when utilizing Sun’s JDK 1.6 build–in JAX–WS provider), Exporting web services using the JAX–WS RI’s Spring support.
+Spring framework provides remoting support for web services via JAXï¿½WS, in fact, as stated in Spring reference documentation, there are three ways of exposing Spring POJO services as a JAXï¿½WS web services : Exposing Servlet ï¿½ based web services (suitable for Java EE 5 environments), Exporting standalone web services (suitable when utilizing Sunï¿½s JDK 1.6 buildï¿½in JAXï¿½WS provider), Exporting web services using the JAXï¿½WS RIï¿½s Spring support.
 
 Ajax with Spring MVC 3 using Annotations and JQuery
 http://www.javacodegeeks.com/2012/02/ajax-with-spring-mvc-3-using.html
@@ -67,7 +83,7 @@ Development of web-applications with the help of Spring MVC implies creation of 
 
 "Introduction to Spring" Tutorial Series
 http://www.javacodegeeks.com/2012/09/introduction-to-spring-tutorial-series.html
-I am glad to present you this “Introduction to Spring” tutorial series! It is a series of articles originally written by our JCG partner Michal Vrtiak at the vrtoonjava blog. A timesheet management application is gradually created in this series and each tutorial builds on top of the previous one. All main aspects of a web application are taken care of, including both server side and client side functionality.
+I am glad to present you this ï¿½Introduction to Springï¿½ tutorial series! It is a series of articles originally written by our JCG partner Michal Vrtiak at the vrtoonjava blog. A timesheet management application is gradually created in this series and each tutorial builds on top of the previous one. All main aspects of a web application are taken care of, including both server side and client side functionality.
 
 Spring and Quartz: Multi-Job Scheduling Service
 http://www.javacodegeeks.com/2012/02/spring-and-quartz-multi-job-scheduling.html
@@ -84,11 +100,11 @@ Spring Data JPA is a project which aims both to simplify the creation of JPA bas
 
 Concurrency - Executors and Spring Integration
 http://www.javacodegeeks.com/2012/06/concurrency-executors-and-spring.html
-Thread Pool/Executors Based Implementation: A better approach than the raw thread version, is a Thread pool based one, where an appropriate thread pool size is defined based on the system where the task is running – Number of CPU’s/(1-Blocking Coefficient of Task).
+Thread Pool/Executors Based Implementation: A better approach than the raw thread version, is a Thread pool based one, where an appropriate thread pool size is defined based on the system where the task is running ï¿½ Number of CPUï¿½s/(1-Blocking Coefficient of Task).
 
 Spring Integration - Application from scratch
 http://www.javacodegeeks.com/2013/03/spring-integration-application-from-scratch-part-1.html
-In this tutorial you will learn what is Spring Integration, how to use it and what kind of problems does it help to solve. We will build a sample application from the scratch and demonstrate some of the core components of Spring Integration. If you’re new to Spring check out another tutorial on Spring written by me – Shall we do some Spring together?
+In this tutorial you will learn what is Spring Integration, how to use it and what kind of problems does it help to solve. We will build a sample application from the scratch and demonstrate some of the core components of Spring Integration. If youï¿½re new to Spring check out another tutorial on Spring written by me ï¿½ Shall we do some Spring together?
 
 
 
