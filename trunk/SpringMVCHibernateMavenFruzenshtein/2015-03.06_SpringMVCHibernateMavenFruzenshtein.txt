@@ -4,6 +4,7 @@
  http://fruzenshtein.com/spring-mvc-hibernate-maven-crud/
  http://localhost:8080/team/list.html
  http://localhost:8080/index.html
+ mvn jetty:run
  
  << 
     Could not open Hibernate Session for transaction; 
