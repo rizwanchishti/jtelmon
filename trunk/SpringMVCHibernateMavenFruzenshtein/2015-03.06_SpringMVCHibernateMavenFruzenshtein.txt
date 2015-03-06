@@ -4,6 +4,24 @@
  http://localhost:8080/team/list.html
  http://localhost:8080/index.html
  
+ << 
+    Could not open Hibernate Session for transaction; 
+ nested exception is org.hibernate.exception.SQLGrammarException: 
+ Could not open connection
+ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: 
+ Unknown database 'hibernatedb'
+ >>
+ 
+ create database hibernatedb;
+ 
+ CREATE TABLE `teams` (
+  `id` int(6) NOT NULL AUTO_INCREMENT,
+  `name` varchar(40) NOT NULL,
+  `rating` int(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+
  
  
 2015-02.15 :
