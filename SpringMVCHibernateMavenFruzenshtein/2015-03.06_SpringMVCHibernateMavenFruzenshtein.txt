@@ -1,7 +1,8 @@
  
- 2015-03.06?recapitulare!
+ 2015-03.06?recapitulare!_-_SpringMVCHibernateMavenFruzenshtein
  Spring MVC + Hibernate + Maven: CRUD operations example
  http://fruzenshtein.com/spring-mvc-hibernate-maven-crud/
+ https://jtelmon.googlecode.com/svn/trunk/SpringMVCHibernateMavenFruzenshtein
  http://localhost:8080/team/list.html
  http://localhost:8080/index.html
  mvn jetty:run
