@@ -1,5 +1,7 @@
 "mvn wildfly:deploy"
 
+"Java EE 7 Development with WildFly.pdf" : 
+<< 
 Deploying the EJB application
 As it is, you should be able to package your EJB project by issuing the following Maven
 goal and starting a command-line prompt from your project root:
@@ -52,3 +54,4 @@ So, once you have configured the WildFly plugin, your application can be deploye
 automatically by entering from your project root. This can be done by typing the following
 command in the console:
 mvn wildfly:deploy 
+>>
