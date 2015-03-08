@@ -1,1 +1,54 @@
-"mvn wildfly:deploy" 
+"mvn wildfly:deploy"
+
+Deploying the EJB application
+As it is, you should be able to package your EJB project by issuing the following Maven
+goal and starting a command-line prompt from your project root:
+mvn package
+The preceding command will compile and package the application that needs to be copied
+into the deployments folder of your application server. This is fine; however, we can
+expect lots more from Maven by installing just a couple of plugins. In our case, we will
+configure our project to use Maven’s WildFly plugin by adding the following section:
+<build>
+<finalName>${project.artifactId}</finalName>
+<plugins>
+<!— WildFly plugin to deploy the application —>
+<plugin>
+<groupId>org.wildfly.plugins</groupId>
+<artifactId>wildfly-maven-plugin</artifactId>
+<version>1.0.2.Final</version>
+<configuration>
+<filename>${project.build.finalName}.jar</filename>
+</configuration>
+</plugin>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-compiler-plugin</artifactId>
+<version>3.1</version>
+<configuration>
+<!— enforce Java 8 —>
+<source>1.8</source>
+<target>1.8</target>
+</configuration>
+</plugin>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-ejb-plugin</artifactId>
+<version>2.3</version>
+<configuration>
+<ejbVersion>3.2</ejbVersion>
+<!— Generate ejb-client for client project —>
+<generateClient>true</generateClient>
+</configuration>
+</plugin>
+</plugins>
+</build>
+In the first part of the XML fragment, we specified the project’s finalName attribute,
+which will dictate the name of the packaged artifact (in our example, the project’s name
+corresponds to our project’s artifact ID, so it will be named ticket-agency-ejb.jar).
+The artifact ID named wildfly-maven-plugin will actually trigger the WildFly Maven
+plugin that will be used to deploy our project.
+
+So, once you have configured the WildFly plugin, your application can be deployed
+automatically by entering from your project root. This can be done by typing the following
+command in the console:
+mvn wildfly:deploy 
