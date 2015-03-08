@@ -9,11 +9,11 @@ mvn package
 The preceding command will compile and package the application that needs to be copied
 into the deployments folder of your application server. This is fine; however, we can
 expect lots more from Maven by installing just a couple of plugins. In our case, we will
-configure our project to use Maven’s WildFly plugin by adding the following section:
+configure our project to use Mavenâ€™s WildFly plugin by adding the following section:
 <build>
 <finalName>${project.artifactId}</finalName>
 <plugins>
-<!— WildFly plugin to deploy the application —>
+<!â€” WildFly plugin to deploy the application â€”>
 <plugin>
 <groupId>org.wildfly.plugins</groupId>
 <artifactId>wildfly-maven-plugin</artifactId>
@@ -27,7 +27,7 @@ configure our project to use Maven’s WildFly plugin by adding the following sect
 <artifactId>maven-compiler-plugin</artifactId>
 <version>3.1</version>
 <configuration>
-<!— enforce Java 8 —>
+<!â€” enforce Java 8 â€”>
 <source>1.8</source>
 <target>1.8</target>
 </configuration>
@@ -38,15 +38,15 @@ configure our project to use Maven’s WildFly plugin by adding the following sect
 <version>2.3</version>
 <configuration>
 <ejbVersion>3.2</ejbVersion>
-<!— Generate ejb-client for client project —>
+<!â€” Generate ejb-client for client project â€”>
 <generateClient>true</generateClient>
 </configuration>
 </plugin>
 </plugins>
 </build>
-In the first part of the XML fragment, we specified the project’s finalName attribute,
-which will dictate the name of the packaged artifact (in our example, the project’s name
-corresponds to our project’s artifact ID, so it will be named ticket-agency-ejb.jar).
+In the first part of the XML fragment, we specified the projectâ€™s finalName attribute,
+which will dictate the name of the packaged artifact (in our example, the projectâ€™s name
+corresponds to our projectâ€™s artifact ID, so it will be named ticket-agency-ejb.jar).
 The artifact ID named wildfly-maven-plugin will actually trigger the WildFly Maven
 plugin that will be used to deploy our project.
 
@@ -55,3 +55,57 @@ automatically by entering from your project root. This can be done by typing the
 command in the console:
 mvn wildfly:deploy 
 >>
+
+
+
+=> 
+
+
+Downloading: https://repo.maven.apache.org/maven2/org/jboss/jboss-dmr/1.2.0.Final/jboss-dmr-1.2.0.Final.jar                                                                          21:23
+Downloaded: https://repo.maven.apache.org/maven2/org/jboss/marshalling/jboss-marshalling-river/1.4.2.Final/jboss-marshalling-river-1.4.2.Final.jar (80 KB at 42.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/jboss/threads/jboss-threads/2.1.1.Final/jboss-threads-2.1.1.Final.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/wildfly/wildfly-build-config/8.1.0.Final/wildfly-build-config-8.1.0.Final.jar (4 KB at 2.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/wildfly/wildfly-protocol/8.1.0.Final/wildfly-protocol-8.1.0.Final.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/wildfly/wildfly-controller-client/8.1.0.Final/wildfly-controller-client-8.1.0.Final.jar (180 KB at 88.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/jboss/xnio/xnio-api/3.2.2.Final/xnio-api-3.2.2.Final.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/jboss/threads/jboss-threads/2.1.1.Final/jboss-threads-2.1.1.Final.jar (118 KB at 54.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/jboss/xnio/xnio-nio/3.2.2.Final/xnio-nio-3.2.2.Final.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/jboss/jboss-dmr/1.2.0.Final/jboss-dmr-1.2.0.Final.jar (95 KB at 42.9 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/org/jboss/jboss-vfs/3.2.5.Final/jboss-vfs-3.2.5.Final.jar (131 KB at 58.2 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/org/jboss/xnio/xnio-nio/3.2.2.Final/xnio-nio-3.2.2.Final.jar (95 KB at 39.9 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/org/jboss/xnio/xnio-api/3.2.2.Final/xnio-api-3.2.2.Final.jar (481 KB at 201.2 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/org/wildfly/wildfly-protocol/8.1.0.Final/wildfly-protocol-8.1.0.Final.jar (99 KB at 35.8 KB/sec)
+Mar 08, 2015 9:11:21 PM org.xnio.Xnio <clinit>
+INFO: XNIO version 3.2.2.Final
+Mar 08, 2015 9:11:22 PM org.xnio.nio.NioXnio <clinit>
+INFO: XNIO NIO Implementation Version 3.2.2.Final
+Mar 08, 2015 9:11:22 PM org.jboss.remoting3.EndpointImpl <clinit>
+INFO: JBoss Remoting version 4.0.3.Final
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 33.913 s
+[INFO] Finished at: 2015-03-08T21:11:27+02:00
+[INFO] Final Memory: 22M/75M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.wildfly.plugins:wildfly-maven-plugin:1.0.2.Final:deploy (default-cli) on project ticket-agency-jpa: Could not execute goal deploy on C:\Users\Java\work
+spaceLuna\JavaEE7developmentWildFly-ch5postgres-ticketAgencyJPA\target\ticket-agency-jpa.war. Reason: I/O Error could not execute operation '{
+[ERROR] "operation" => "read-attribute",
+[ERROR] "address" => [],
+[ERROR] "name" => "launch-type"
+[ERROR] }': java.net.ConnectException: JBAS012144: Could not connect to http-remoting://127.0.0.1:9990. The connection timed out
+[ERROR] -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+
+C:\Users\Java\workspaceLuna\JavaEE7developmentWildFly-ch5postgres-ticketAgencyJPA>echo "mvn wildfly:deploy"
+"mvn wildfly:deploy"
+
+C:\Users\Java\workspaceLuna\JavaEE7developmentWildFly-ch5postgres-ticketAgencyJPA>echo "mvn wildfly:deploy" >> ./mvnWildfly-deploy.txt
+
+
+C:\Users\Java\workspaceLuna\JavaEE7developmentWildFly-ch5postgres-ticketAgencyJPA>                                                                                                       â†‘
