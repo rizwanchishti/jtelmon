@@ -113,7 +113,7 @@ This article shows how to integrate JSF2, PrimeFaces3, Spring3 and Hibernate4 Te
 
 JAX-WS with Spring and Maven Tutorial
 http://www.javacodegeeks.com/2010/11/jaxws-with-spring-and-maven-tutorial.html
-Spring framework provides remoting support for web services via JAX�WS, in fact, as stated in Spring reference documentation, there are three ways of exposing Spring POJO services as a JAX�WS web services : Exposing Servlet � based web services (suitable for Java EE 5 environments), Exporting standalone web services (suitable when utilizing Sun�s JDK 1.6 build�in JAX�WS provider), Exporting web services using the JAX�WS RI�s Spring support.
+Spring framework provides remoting support for web services via JAX-WS, in fact, as stated in Spring reference documentation, there are three ways of exposing Spring POJO services as a JAX�WS web services : Exposing Servlet � based web services (suitable for Java EE 5 environments), Exporting standalone web services (suitable when utilizing Sun�s JDK 1.6 build�in JAX�WS provider), Exporting web services using the JAX�WS RI�s Spring support.
 
 Ajax with Spring MVC 3 using Annotations and JQuery
 http://www.javacodegeeks.com/2012/02/ajax-with-spring-mvc-3-using.html
@@ -125,7 +125,7 @@ Development of web-applications with the help of Spring MVC implies creation of 
 
 "Introduction to Spring" Tutorial Series
 http://www.javacodegeeks.com/2012/09/introduction-to-spring-tutorial-series.html
-I am glad to present you this �Introduction to Spring� tutorial series! It is a series of articles originally written by our JCG partner Michal Vrtiak at the vrtoonjava blog. A timesheet management application is gradually created in this series and each tutorial builds on top of the previous one. All main aspects of a web application are taken care of, including both server side and client side functionality.
+I am glad to present you this Introduction to Spring tutorial series! It is a series of articles originally written by our JCG partner Michal Vrtiak at the vrtoonjava blog. A timesheet management application is gradually created in this series and each tutorial builds on top of the previous one. All main aspects of a web application are taken care of, including both server side and client side functionality.
 
 Spring and Quartz: Multi-Job Scheduling Service
 http://www.javacodegeeks.com/2012/02/spring-and-quartz-multi-job-scheduling.html
