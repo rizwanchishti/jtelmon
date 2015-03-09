@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.packtpub.wflydevelopment.chapter5</groupId>
-    <artifactId>ticket-agency-jpa</artifactId>
+    <artifactId>JavaEE7developmentWildFly-ch5postgres-ticketAgencyJPA</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>ticket-agency-jpa</name>
+    <name>JavaEE7developmentWildFly-ch5postgres-ticketAgencyJPA</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
