@@ -1,3 +1,21 @@
+
+2015-03.09 :
+ 
+http://localhost:8080/ticket-agency-jpa/
+404 - Not Found
+ 
+ ticket-agency-jpa
+ JavaEE7developmentWildFly-ch5postgres-ticketAgencyJPA
+ 
+ <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.packtpub.wflydevelopment.chapter5</groupId>
+    <artifactId>JavaEE7developmentWildFly-ch5postgres-ticketAgencyJPA</artifactId>
+    <version>1.0</version>
+    <packaging>war</packaging>
+    <name>ticket-agency-jpa</name>
+ 
  
 2015-02.15 :
 http://localhost:8080/JavaEE7developmentWildFly-ch5postgres-ticketAgencyJPA/
