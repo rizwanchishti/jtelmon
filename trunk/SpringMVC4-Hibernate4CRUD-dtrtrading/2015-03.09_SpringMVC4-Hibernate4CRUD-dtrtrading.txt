@@ -1,5 +1,18 @@
+
+2015-03.09?recap!_SpringMVC4-Hibernate4CRUD-dtrtrading
+https://jtelmon.googlecode.com/svn/trunk/SpringMVC4-Hibernate4CRUD-dtrtrading
+
+Spring MVC 4 - Hibernate 4 CRUD
+  http://dtr-trading.blogspot.ro/2014/02/spring-mvc-4-and-hibernate-4.html
+  http://dtr-trading.blogspot.ro/2014/02/spring-mvc-4-java-config.html
+  https://github.com/dtr-trading/spring-ex02
+  http://fruzenshtein.com/spring-jpa-data-hibernate-mysql/
+  http://dtr-trading.blogspot.ro/search/label/Spring%20MVC
  
- 2015-03.06?recapitulare!_-_SpringMVCHibernateMavenFruzenshtein
+  http://it-ebooks.info/tag/spring/
+  
+  
+ 2015-03.06?recap!_-_SpringMVCHibernateMavenFruzenshtein
  Spring MVC + Hibernate + Maven: CRUD operations example
  http://fruzenshtein.com/spring-mvc-hibernate-maven-crud/
  https://jtelmon.googlecode.com/svn/trunk/SpringMVCHibernateMavenFruzenshtein
