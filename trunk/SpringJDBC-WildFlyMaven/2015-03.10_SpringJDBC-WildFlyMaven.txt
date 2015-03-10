@@ -2,6 +2,10 @@
 Spring JDBC application on WildFly
 http://www.mastertheboss.com/jboss-frameworks/spring/spring-jdbc-application-on-wildfly
 
+1. lansare WildFly in mod standalone : 
+   "/home/depit/localwildfly8/wildfly-8.1.0.Final/bin/standalone.sh" 
+
+2. mvn wildfly:deploy
 
 
 2015-03.09?recap!_SpringMVC4-Hibernate4CRUD-dtrtrading
