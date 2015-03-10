@@ -2,17 +2,21 @@
 Spring JDBC application on WildFly
 http://www.mastertheboss.com/jboss-frameworks/spring/spring-jdbc-application-on-wildfly
 
-depit@Klona:~> 
+
+1. lansare WildFly in mod standalone : 
+   "/home/depit/localwildfly8/wildfly-8.1.0.Final/bin/standalone.sh" 
+   
+2. mvn wildfly:deploy
+
+~ ~ ~ 
+
 depit@Klona:~> /home/depit/localwildfly8/wildfly-8.1.0.Final/bin/standalone.sh &
 [1] 7760
 depit@Klona:~> =========================================================================
 
   JBoss Bootstrap Environment
-
   JBOSS_HOME: /home/depit/localwildfly8/wildfly-8.1.0.Final
-
   JAVA: /usr/java/jdk1.8.0_25/bin/java
-
   JAVA_OPTS:  -server -Xms64m -Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true
 
 =========================================================================
