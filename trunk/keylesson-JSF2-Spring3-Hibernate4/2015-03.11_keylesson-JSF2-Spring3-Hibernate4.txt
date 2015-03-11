@@ -1,6 +1,8 @@
 2015-03.11 : JSF 2 Spring Hibernate Example
 http://keylesson.com/index.php/2015/03/05/jsf-2-spring-hibernate-example-1717/
    
+   http://localhost:8080/JSF2-Spring-Hibernate-Example/register.jsf
+   
    In this example, we will see how to integrate JSF 2, Spring IoC, Spring Security and Hibernate in a simple web application.
    The application will provide : registration page to add new users, login page to perform authentication and welcome page.
 
