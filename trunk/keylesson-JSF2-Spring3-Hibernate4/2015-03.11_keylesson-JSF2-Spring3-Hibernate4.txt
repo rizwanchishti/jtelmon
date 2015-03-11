@@ -2,6 +2,8 @@
 http://keylesson.com/index.php/2015/03/05/jsf-2-spring-hibernate-example-1717/
    
    http://localhost:8080/JSF2-Spring-Hibernate-Example/register.jsf 
+
+CREATE DATABASE dbusiness;
    
 CREATE TABLE USER (
   USER_ID int(10) NOT NULL AUTO_INCREMENT,
