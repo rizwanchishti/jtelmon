@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.keylesson.persistence.Role" table="ROLE">
+	<class name="com.keylesson.persistence.Role" table="role">
 		<id name="roleId" type="int">
 			<column name="ROLE_ID" />
 			<generator class="identity" />
