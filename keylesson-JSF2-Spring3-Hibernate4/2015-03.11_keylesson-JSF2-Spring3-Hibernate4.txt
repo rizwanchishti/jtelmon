@@ -3,24 +3,25 @@ http://keylesson.com/index.php/2015/03/05/jsf-2-spring-hibernate-example-1717/
    
    http://localhost:8080/JSF2-Spring-Hibernate-Example/register.jsf 
 
-CREATE DATABASE dbusiness;
-   
-CREATE TABLE USER (
-  USER_ID int(10) NOT NULL AUTO_INCREMENT,
-  LOGIN varchar(50) NOT NULL,
-  PWD varchar(100) NOT NULL,
-  ENABLED tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (USER_ID)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+create database dbusiness;
+
+create table user (
+  user_id int(10) not null auto_increment,
+  login varchar(50) not null,
+  pwd varchar(100) not null,
+  enabled tinyint(1) default null,
+  primary key (user_id)
+) engine=innodb  default charset=utf8;
  
-CREATE TABLE ROLE (
-  ROLE_ID int(10) NOT NULL AUTO_INCREMENT,
-  USER_ID int(10) DEFAULT NULL,
-  CODE varchar(60) NOT NULL,
-  LABEL varchar(100) NOT NULL,
-  PRIMARY KEY (ROLE_ID),
-  CONSTRAINT FK_USROLE FOREIGN KEY (USER_ID) REFERENCES USER (USER_ID)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+create table role (
+  role_id int(10) not null auto_increment,
+  user_id int(10) default null,
+  code varchar(60) not null,
+  label varchar(100) not null,
+  primary key (role_id),
+  constraint fk_usrole foreign key (user_id) references user (user_id)
+) engine=innodb  default charset=utf8;
+
    
    In this example, we will see how to integrate JSF 2, Spring IoC, Spring Security and Hibernate in a simple web application.
    The application will provide : registration page to add new users, login page to perform authentication and welcome page.
